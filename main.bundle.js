@@ -145,7 +145,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/conversion/conversion.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<form>\r\n  <h1>Bang chi phi</h1>\r\n  <p>Amount of BTC</p>\r\n  <input type=\"number\" name=\"amount\" id=\"\"  [(ngModel)]='amount'>\r\n  <p>Buy BTC fee: </p>\r\n  <input type=\"number\" name=\"buyFee\" id=\"\" [(ngModel)]='buyFee'>\r\n  <p>Convert to USD fee: </p>\r\n  <input type=\"number\" name=\"conversionFee\" id=\"\" [(ngModel)]='conversionFee'>\r\n  <p>Gui sang My fee: </p>\r\n  <input type=\"number\" name=\"wireToUsaFee\" id=\"\" [(ngModel)]='wireToUsaFee'>\r\n  <br>\r\n  <p>Remitano Price</p>\r\n  <input #f type=\"number\" name=\"remitano\" [(ngModel)]='remitanoPrice'>\r\n  <br>\r\n  <p>USD Price: $ {{usdPrice | number}}</p>\r\n  <p>VND Price:  {{vndPrice | number}} VND</p>\r\n  <button class=\"button\" (click)=\"Calculate()\">Calculate</button>\r\n  <!-- <button mat-raised-button color=\"warn\" (click)=\"Calculate()\">Calculate Profit</button> -->\r\n  <p>Profit: {{profit | percent}}</p>\r\n  <p>Profit: $ {{usdProfit | number}}</p>\r\n</form>"
+module.exports = "<div class=\"container\">\r\n  <h1>PROFITABILITY CALCULATOR</h1>\r\n  <br>\r\n  <br>\r\n  \r\n  <div class=\"row\">\r\n    <div class=\"col-md form-group\">\r\n      <p>Amount of BTC:\r\n        <b>${{pricePaid | number:'1.0-0'}}</b>\r\n      </p>\r\n      <input class='form-control input-sm' type=\"number\" name=\"amount\" id=\"\" [(ngModel)]='amount' step='0.1'>\r\n    </div>\r\n  </div>\r\n  <p>Conversion Rate (&#8363;/USD)</p>\r\n  <input class='form-control input-sm' type=\"number\" name=\"conversionRate\" id=\"\" [(ngModel)]='conversionRate' step='100'>\r\n  <br>\r\n  <div class=\"row\">\r\n    <div class=\"col-md form-group\">\r\n      <p>Exchange BTC fee: </p>\r\n      <input class='form-control input-sm' class='form-control input-sm' type=\"number\" name=\"buyFee\" id=\"\" [(ngModel)]='buyFee'>\r\n    </div>\r\n    <div class=\"col-md\">\r\n      <p>Convert to USD fee: </p>\r\n      <input class='form-control input-sm' type=\"number\" name=\"conversionFee\" id=\"\" [(ngModel)]='conversionFee' step='0.005'>\r\n    </div>\r\n    <div class=\"col-md\">\r\n      <p>Wire to US fee: </p>\r\n      <input class='form-control input-sm' type=\"number\" name=\"wireToUsaFee\" id=\"\" [(ngModel)]='wireToUsaFee' step='0.005'>\r\n    </div>\r\n  </div>\r\n  <br>\r\n  <p>Remitano Price (&#8363;)  <b>- Copy and Paste</b></p>\r\n  <input class='form-control input-sm' type=\"number\" name=\"remitano\" [(ngModel)]='remitanoPrice' step='1000000'>\r\n  <br>\r\n  <p>Exchange Price: $ {{usdPrice | number:'1.0-0'}}</p>\r\n  <p>Exchange Price: &#8363; {{vndPrice | number:'1.0-0'}} </p>\r\n  <div>\r\n    <button type=\"button\" class=\"btn btn-success btn-lg\" (click)=\"Calculate()\">Calculate</button>\r\n  </div>\r\n  <!-- <button mat-raised-button color=\"warn\" (click)=\"Calculate()\">Calculate Profit</button> -->\r\n  <br>\r\n  <b>Profit: {{profit | percent :'1.0-1'}}</b>\r\n  <br>\r\n  <b>Profit: $ {{usdProfit | number:'1.0-2'}}</b>\r\n  <br>\r\n  <b>Profit: &#8363; {{vndProfit | number:'1.0-0'}}</b>\r\n  \r\n</div>\r\n"
 
 /***/ }),
 
@@ -174,9 +174,12 @@ var ConversionComponent = (function () {
         this.buyFee = 0.0025;
         this.remitanoPrice = 300000000;
         this.profit = 0.5;
-        this.usdProfit = 0.5;
+        this.usdProfit = 0;
+        this.vndProfit = 0;
         this.conversionFee = 0.01;
         this.wireToUsaFee = 0.01;
+        this.pricePaid = 0;
+        this.conversionRate = 0;
         this.url = 'https://api.coindesk.com/v1/bpi/currentprice/vnd.json';
     }
     ConversionComponent.prototype.ngOnInit = function () {
@@ -185,6 +188,8 @@ var ConversionComponent = (function () {
             // Read the result field from the JSON response.
             _this.usdPrice = data['bpi'].USD.rate_float;
             _this.vndPrice = data['bpi'].VND.rate_float;
+            _this.pricePaid = _this.amount * _this.usdPrice;
+            _this.conversionRate = Math.trunc(_this.vndPrice / _this.usdPrice);
         });
     };
     ConversionComponent.prototype.Calculate = function () {
@@ -192,13 +197,14 @@ var ConversionComponent = (function () {
         this.http.get(this.url).subscribe(function (data) {
             // Read the result field from the JSON response.
             _this.usdPrice = data['bpi'].USD.rate_float;
-            _this.vndPrice = data['bpi'].VND.rate_float;
         });
-        this.usdProfit = (this.remitanoPrice - this.amount * this.vndPrice * (1 + this.conversionFee + this.wireToUsaFee))
-            / (this.vndPrice / this.usdPrice);
+        this.pricePaid = this.amount * this.usdPrice;
+        this.vndProfit = (this.remitanoPrice - this.amount * this.usdPrice * this.conversionRate
+            * (1 + this.conversionFee + this.wireToUsaFee + this.buyFee));
+        this.usdProfit = this.vndProfit / this.conversionRate;
         this.profit = (this.remitanoPrice - this.amount * this.vndPrice * (1 + this.conversionFee + this.wireToUsaFee))
             / (this.amount * this.vndPrice);
-        return this.profit;
+        this.vndPrice = this.conversionRate * this.usdPrice;
     };
     return ConversionComponent;
 }());
