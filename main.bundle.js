@@ -145,7 +145,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/conversion/conversion.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"container\">\r\n  <h1>PROFIT CALCULATOR</h1>\r\n  <br>\r\n  <br>\r\n  \r\n  <div class=\"row\">\r\n    <div class=\"col-md form-group\">\r\n      <p>Amount of BTC:\r\n        <b>${{pricePaid | number:'1.0-0'}}</b>\r\n      </p>\r\n      <input class='form-control input-sm' type=\"number\" name=\"amount\" id=\"\" [(ngModel)]='amount' step='0.1'>\r\n    </div>\r\n  </div>\r\n  <p>Conversion Rate (&#8363;/USD)</p>\r\n  <input class='form-control input-sm' type=\"number\" name=\"conversionRate\" id=\"\" [(ngModel)]='conversionRate' step='100'>\r\n  <br>\r\n  <div class=\"row\">\r\n    <div class=\"col-md form-group\">\r\n      <p>Exchange BTC fee: </p>\r\n      <input class='form-control input-sm' class='form-control input-sm' type=\"number\" name=\"buyFee\" id=\"\" [(ngModel)]='buyFee'>\r\n    </div>\r\n    <div class=\"col-md\">\r\n      <p>Convert to USD fee: </p>\r\n      <input class='form-control input-sm' type=\"number\" name=\"conversionFee\" id=\"\" [(ngModel)]='conversionFee' step='0.005'>\r\n    </div>\r\n    <div class=\"col-md\">\r\n      <p>Wire to US fee: </p>\r\n      <input class='form-control input-sm' type=\"number\" name=\"wireToUsaFee\" id=\"\" [(ngModel)]='wireToUsaFee' step='0.005'>\r\n    </div>\r\n  </div>\r\n  <br>\r\n  <p>Remitano Price (&#8363;)  <b>- Copy and Paste</b></p>\r\n  <input class='form-control input-sm' type=\"number\" name=\"remitano\" [(ngModel)]='remitanoPrice' step='1000000'>\r\n  <br>\r\n  <p>Exchange Price: $ {{usdPrice | number:'1.0-0'}}</p>\r\n  <p>Exchange Price: &#8363; {{vndPrice | number:'1.0-0'}} </p>\r\n  <div>\r\n    <button type=\"button\" class=\"btn btn-success btn-lg\" (click)=\"Calculate()\">Calculate</button>\r\n  </div>\r\n  <!-- <button mat-raised-button color=\"warn\" (click)=\"Calculate()\">Calculate Profit</button> -->\r\n  <br>\r\n  <b>Profit: {{profit | percent :'1.0-1'}}</b>\r\n  <br>\r\n  <b>Profit: $ {{usdProfit | number:'1.0-2'}}</b>\r\n  <br>\r\n  <b>Profit: &#8363; {{vndProfit | number:'1.0-0'}}</b>\r\n  \r\n</div>\r\n"
+module.exports = "<div class=\"container\">\r\n  <h1>PROFIT CALCULATOR</h1>\r\n  <br>\r\n  <br>\r\n  \r\n  <div class=\"row\">\r\n    <div class=\"col-md form-group\">\r\n      <p>Amount of BTC/ETH:\r\n        ≈<b>${{amount*usdPrice | number:'1.0-0'}}</b>\r\n      </p>\r\n      <input class='form-control input-sm' type=\"number\" name=\"amount\" id=\"\" [(ngModel)]='amount' step='0.1'>\r\n    </div>\r\n  </div>\r\n  <p>Conversion Rate (&#8363;/USD)</p>\r\n  <input class='form-control input-sm' type=\"number\" name=\"conversionRate\" id=\"\" [(ngModel)]='conversionRate' step='100'>\r\n  <br>\r\n  <div class=\"row\">\r\n    <div class=\"col-md form-group\">\r\n      <p>Exchange BTC fee: </p>\r\n      <input class='form-control input-sm' class='form-control input-sm' type=\"number\" name=\"buyFee\" id=\"\" [(ngModel)]='buyFee'>\r\n    </div>\r\n    <div class=\"col-md\">\r\n      <p>Convert to USD fee: </p>\r\n      <input class='form-control input-sm' type=\"number\" name=\"conversionFee\" id=\"\" [(ngModel)]='conversionFee' step='0.005'>\r\n    </div>\r\n    <div class=\"col-md\">\r\n      <p>Wire to US fee: </p>\r\n      <input class='form-control input-sm' type=\"number\" name=\"wireToUsaFee\" id=\"\" [(ngModel)]='wireToUsaFee' step='0.005'>\r\n    </div>\r\n  </div>\r\n  <br>\r\n  <p>Remitano Price (&#8363;)  <b>- Copy and Paste</b></p>\r\n  <input class='form-control input-sm' type=\"number\" name=\"remitano\" [(ngModel)]='remitanoPrice' step='1000000'>\r\n  <br>\r\n  <p>Exchange Price: $ {{usdPrice | number:'1.0-0'}}</p>\r\n  <p>Exchange Price: &#8363; {{vndPrice | number:'1.0-0'}} </p>\r\n  <div>\r\n    <button type=\"button\" class=\"btn btn-success btn-lg\" (click)=\"Calculate()\">Calculate BTC</button>\r\n  </div>\r\n  <br>\r\n  <div>\r\n    <button type=\"button\" class=\"btn btn-success btn-lg\" (click)=\"CalculateEth()\">Calculate ETH</button>\r\n  </div>\r\n  <br>\r\n  <b>Profit: {{profit | percent :'1.0-1'}}</b>\r\n  <br>\r\n  <b>Profit: $ {{usdProfit | number:'1.0-2'}}</b>\r\n  <br>\r\n  <b>Profit: &#8363; {{vndProfit | number:'1.0-0'}}</b>\r\n</div>\r\n"
 
 /***/ }),
 
@@ -156,6 +156,7 @@ module.exports = "<div class=\"container\">\r\n  <h1>PROFIT CALCULATOR</h1>\r\n 
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ConversionComponent; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/@angular/core.es5.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_common_http__ = __webpack_require__("../../../common/@angular/common/http.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__market_service__ = __webpack_require__("../../../../../src/app/market.service.ts");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -167,9 +168,11 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 
 
+
 var ConversionComponent = (function () {
-    function ConversionComponent(http) {
+    function ConversionComponent(http, marketService) {
         this.http = http;
+        this.marketService = marketService;
         this.amount = 1;
         this.buyFee = 0.0025;
         this.remitanoPrice = 300000000;
@@ -185,26 +188,44 @@ var ConversionComponent = (function () {
     ConversionComponent.prototype.ngOnInit = function () {
         var _this = this;
         this.http.get(this.url).subscribe(function (data) {
-            // Read the result field from the JSON response.
-            _this.usdPrice = data['bpi'].USD.rate_float;
-            _this.vndPrice = data['bpi'].VND.rate_float;
+            _this.conversionRate = Math.trunc(data['bpi'].VND.rate_float / data['bpi'].USD.rate_float);
+        });
+        this.marketService.GetBtcPrice().subscribe(function (res) {
+            _this.market = res;
+            console.log(res);
+            _this.usdPrice = res.data.amount / 1.01;
+            _this.vndPrice = _this.usdPrice * _this.conversionRate;
             _this.pricePaid = _this.amount * _this.usdPrice;
-            _this.conversionRate = Math.trunc(_this.vndPrice / _this.usdPrice);
         });
     };
     ConversionComponent.prototype.Calculate = function () {
         var _this = this;
-        this.http.get(this.url).subscribe(function (data) {
-            // Read the result field from the JSON response.
-            _this.usdPrice = data['bpi'].USD.rate_float;
+        this.marketService.GetBtcPrice().subscribe(function (data) {
+            _this.usdPrice = data.data.amount / 1.01;
+            _this.pricePaid = _this.amount * _this.usdPrice;
+            _this.vndProfit = (_this.remitanoPrice - _this.amount * _this.usdPrice * _this.conversionRate
+                * (1 + _this.conversionFee + _this.wireToUsaFee + _this.buyFee));
+            _this.usdProfit = _this.vndProfit / _this.conversionRate;
+            // this.profit = (this.remitanoPrice - this.amount * this.vndPrice * (1 + this.conversionFee + this.wireToUsaFee))
+            // / (this.amount * this.vndPrice);
+            _this.profit = _this.usdProfit / _this.pricePaid;
+            _this.vndPrice = _this.conversionRate * _this.usdPrice;
         });
-        this.pricePaid = this.amount * this.usdPrice;
-        this.vndProfit = (this.remitanoPrice - this.amount * this.usdPrice * this.conversionRate
-            * (1 + this.conversionFee + this.wireToUsaFee + this.buyFee));
-        this.usdProfit = this.vndProfit / this.conversionRate;
-        this.profit = (this.remitanoPrice - this.amount * this.vndPrice * (1 + this.conversionFee + this.wireToUsaFee))
-            / (this.amount * this.vndPrice);
-        this.vndPrice = this.conversionRate * this.usdPrice;
+    };
+    ConversionComponent.prototype.CalculateEth = function () {
+        var _this = this;
+        this.marketService.GetEthPrice().subscribe(function (data) {
+            // Read the result field from the JSON response.
+            _this.usdPrice = data.data.amount / 1.01;
+            _this.pricePaid = _this.amount * _this.usdPrice;
+            _this.vndProfit = (_this.remitanoPrice - _this.amount * _this.usdPrice * _this.conversionRate
+                * (1 + _this.conversionFee + _this.wireToUsaFee + _this.buyFee));
+            _this.usdProfit = _this.vndProfit / _this.conversionRate;
+            // this.profit = (this.remitanoPrice - this.amount * this.vndPrice * (1 + this.conversionFee + this.wireToUsaFee))
+            // / (this.amount * this.vndPrice);
+            _this.profit = _this.usdProfit / _this.pricePaid;
+            _this.vndPrice = _this.conversionRate * _this.usdPrice;
+        });
     };
     return ConversionComponent;
 }());
@@ -212,13 +233,57 @@ ConversionComponent = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
         selector: 'app-conversion',
         template: __webpack_require__("../../../../../src/app/conversion/conversion.component.html"),
-        styles: [__webpack_require__("../../../../../src/app/conversion/conversion.component.css")]
+        styles: [__webpack_require__("../../../../../src/app/conversion/conversion.component.css")],
+        providers: [__WEBPACK_IMPORTED_MODULE_2__market_service__["a" /* MarketService */]]
     }),
-    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__angular_common_http__["a" /* HttpClient */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_common_http__["a" /* HttpClient */]) === "function" && _a || Object])
+    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__angular_common_http__["a" /* HttpClient */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_common_http__["a" /* HttpClient */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_2__market_service__["a" /* MarketService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__market_service__["a" /* MarketService */]) === "function" && _b || Object])
 ], ConversionComponent);
 
-var _a;
+var _a, _b;
 //# sourceMappingURL=conversion.component.js.map
+
+/***/ }),
+
+/***/ "../../../../../src/app/market.service.ts":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return MarketService; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_common_http__ = __webpack_require__("../../../common/@angular/common/http.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_core__ = __webpack_require__("../../../core/@angular/core.es5.js");
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+var MarketService = (function () {
+    function MarketService(http) {
+        this.http = http;
+        this.url = 'https://api.coinmarketcap.com/v1/ticker/?limit=5';
+        this.gdaxBtc = 'https://api.coinbase.com/v2/prices/BTC-USD/buy';
+        this.gdaxEth = 'https://api.coinbase.com/v2/prices/ETH-USD/buy';
+    }
+    MarketService.prototype.GetBtcPrice = function () {
+        return this.http.get(this.gdaxBtc);
+    };
+    MarketService.prototype.GetEthPrice = function () {
+        return this.http.get(this.gdaxEth);
+    };
+    return MarketService;
+}());
+MarketService = __decorate([
+    Object(__WEBPACK_IMPORTED_MODULE_1__angular_core__["B" /* Injectable */])(),
+    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_0__angular_common_http__["a" /* HttpClient */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_0__angular_common_http__["a" /* HttpClient */]) === "function" && _a || Object])
+], MarketService);
+
+var _a;
+//# sourceMappingURL=market.service.js.map
 
 /***/ }),
 
