@@ -31,7 +31,7 @@ npm run build
 - `/showcases/lumen/` — AI research assistant concept: scripted agent trace (search, read, verify), streamed answers with inline citations, source panel and document previews over a fictional café workspace. No model or network calls.
 - `/showcases/reu/` — Rêu, a Hội An restaurant and café concept: filterable menu (categories and dietary tags) with prices in ₫, opening hours with a live “open now” status computed in Asia/Ho_Chi_Minh time, and a simulated pickup basket whose “place order” only confirms that nothing was sent.
 - `/showcases/halyard/` — Halyard, a SaaS landing page for a fictional changelog product: feature sections, monthly/yearly pricing toggle with computed savings across three tiers, a plan comparison table, FAQ accordion and a CTA that states it is a concept.
-- `/showcases/ember/` — Ember, a booking flow for a fictional Đà Lạt bathhouse: ritual → therapist → date and time (unavailable slots disabled) → details with inline validation → review, ending in a summary that states no booking was made.
+- `/showcases/ember/` — Ember, a booking flow for a fictional Đà Lạt bathhouse: ritual → therapist → date and time (unavailable slots disabled) → details with inline validation → review, ending in a summary that states no booking was made. Unsplash stand-in photography; sources in `showcases/ember/CREDITS.md`.
 
 The concept demos use fictional brands, business data, rates, and transactions. There are no real reservations, purchases, payments, or business integrations. Portfolio case studies do not claim client results or measured commercial outcomes.
 

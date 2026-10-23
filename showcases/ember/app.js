@@ -5,11 +5,11 @@ const vnd = n => String(n).replace(/\B(?=(\d{3})+(?!\d))/g, '.') + ' ₫';
 const escapeHtml = s => String(s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 
 const services = [
-  { id: 'soak', name: 'Hearth soak', mins: 60, price: 650000, desc: 'Mineral bath at 40°C, cold plunge, pine tea by the fire.' },
-  { id: 'stone', name: 'Stone & ember massage', mins: 90, price: 1100000, desc: 'Full-body massage with heated basalt and camellia oil.' },
-  { id: 'pine', name: 'Pine steam ritual', mins: 75, price: 850000, desc: 'Steam room, salt and coffee scrub, rinse, rest.' },
-  { id: 'facial', name: 'Quiet facial', mins: 50, price: 700000, desc: 'Rice-water cleanse, artichoke mask, scalp massage.' },
-  { id: 'cedar', name: 'Cedar room for two', mins: 120, price: 2200000, desc: 'Private soak and side-by-side massage for two guests.' }
+  { id: 'soak', name: 'Hearth soak', mins: 60, price: 650000, img: 'soak', desc: 'Mineral bath at 40°C, cold plunge, pine tea by the fire.' },
+  { id: 'stone', name: 'Stone & ember massage', mins: 90, price: 1100000, img: 'stones', tag: 'Most booked', desc: 'Full-body massage with heated basalt and camellia oil.' },
+  { id: 'pine', name: 'Pine steam ritual', mins: 75, price: 850000, img: 'oil', desc: 'Steam room, salt and coffee scrub, rinse, rest.' },
+  { id: 'facial', name: 'Quiet facial', mins: 50, price: 700000, img: 'clay-mask', desc: 'Rice-water cleanse, artichoke mask, scalp massage.' },
+  { id: 'cedar', name: 'Cedar room for two', mins: 120, price: 2200000, img: 'two-guests', tag: 'For two', desc: 'Private soak and side-by-side massage for two guests.' }
 ];
 const staff = [
   { id: 'any', name: 'No preference', role: 'First available therapist', initials: '✦', tone: '#3d352b', offers: null, off: null },
@@ -57,7 +57,7 @@ function slotsFor(d) {
 const dateLabel = iso => { const d = upcomingDates().find(x => x.iso === iso); return d ? `${dayShort[d.day]} ${d.date} ${monthShort[d.month]}` : iso; };
 
 function renderServices() {
-  $('#services').innerHTML = services.map(s => `<label class="card"><input type="radio" name="service" value="${s.id}"${state.service === s.id ? ' checked' : ''}><span class="card-body"><span class="card-title">${s.name}</span><span class="card-meta"><span>${s.mins} min</span><span>${vnd(s.price)}</span></span><span class="card-desc">${s.desc}</span></span></label>`).join('');
+  $('#services').innerHTML = services.map(s => `<label class="card"><input type="radio" name="service" value="${s.id}"${state.service === s.id ? ' checked' : ''}><span class="card-body"><span class="card-photo"><img src="assets/${s.img}.jpg" alt="" loading="lazy"></span>${s.tag ? `<span class="card-tag">${s.tag}</span>` : ''}<span class="card-text"><span class="card-title">${s.name}</span><span class="card-meta"><span>${s.mins} min</span><span>${vnd(s.price)}</span></span><span class="card-desc">${s.desc}</span></span></span></label>`).join('');
 }
 function renderStaff() {
   $('#staff').innerHTML = staff.map(m => {
@@ -100,8 +100,16 @@ function renderSummary() {
   const s = svc(), m = person();
   const row = (k, v) => `<div><dt>${k}</dt><dd${v ? '' : ' class="pending"'}>${v || 'Not chosen'}</dd></div>`;
   $('#summary').innerHTML = row('Ritual', s && s.name) + row('Therapist', m && m.name) + row('Date', state.date && dateLabel(state.date)) + row('Time', state.time !== null && s ? `${hhmm(state.time)}–${hhmm(state.time + s.mins)}` : null);
-  $('#sum-total').textContent = s ? vnd(s.price) : '—';
+  const total = s ? vnd(s.price) : '—';
+  if ($('#sum-total').textContent !== total) { $('#sum-total').textContent = total; bump($('#sum-total')); }
+  const photo = $('#sum-photo');
+  if ((photo.dataset.img || '') !== (s ? s.img : '')) {
+    photo.dataset.img = s ? s.img : '';
+    photo.innerHTML = s ? `<img src="assets/${s.img}.jpg" alt="">` : '';
+  }
+  photo.classList.toggle('has', Boolean(s));
 }
+function bump(el) { el.classList.remove('bump'); void el.offsetWidth; el.classList.add('bump'); }
 function reviewRows(withEdit) {
   const s = svc(), m = person();
   const name = $('#f-name').value.trim(), email = $('#f-email').value.trim(), phone = $('#f-phone').value.trim(), notes = $('#f-notes').value.trim();
@@ -202,5 +210,33 @@ $('#flow').addEventListener('change', event => {
 $('#f-consent').addEventListener('change', () => { if (state.attempted.has('consent')) validateField('consent'); });
 $('#f-notes').addEventListener('input', event => { $('#c-notes').textContent = `${event.target.value.length} / 300`; });
 
+/* Embers rising off the hero; paused off-screen and skipped for reduced motion. */
+function embers() {
+  const canvas = $('#embers');
+  if (!canvas || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  const ctx = canvas.getContext('2d');
+  let w, h, dpr, visible = true, frame;
+  const sparks = [];
+  const spawn = (anywhere) => ({ x: Math.random() * w, y: anywhere ? Math.random() * h : h + 10, r: 0.6 + Math.random() * 1.8, vy: 0.25 + Math.random() * 0.7, sway: Math.random() * Math.PI * 2, life: 0.4 + Math.random() * 0.6 });
+  const resize = () => { dpr = Math.min(devicePixelRatio || 1, 2); w = canvas.offsetWidth; h = canvas.offsetHeight; canvas.width = w * dpr; canvas.height = h * dpr; ctx.setTransform(dpr, 0, 0, dpr, 0, 0); };
+  resize();
+  for (let i = 0; i < Math.round(w / 22); i++) sparks.push(spawn(true));
+  const tick = t => {
+    ctx.clearRect(0, 0, w, h);
+    for (const p of sparks) {
+      p.y -= p.vy; p.x += Math.sin(t / 1400 + p.sway) * 0.35;
+      const fade = Math.min(1, p.y / h * 1.6) * p.life * (0.65 + 0.35 * Math.sin(t / 180 + p.sway * 5));
+      if (p.y < -10 || fade <= 0) { Object.assign(p, spawn(false)); continue; }
+      const g = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, p.r * 4);
+      g.addColorStop(0, `rgba(255,190,120,${fade})`); g.addColorStop(0.35, `rgba(236,116,56,${fade * 0.5})`); g.addColorStop(1, 'rgba(236,116,56,0)');
+      ctx.fillStyle = g; ctx.beginPath(); ctx.arc(p.x, p.y, p.r * 4, 0, Math.PI * 2); ctx.fill();
+    }
+    frame = visible ? requestAnimationFrame(tick) : null;
+  };
+  new IntersectionObserver(([entry]) => { visible = entry.isIntersecting; if (visible && !frame) frame = requestAnimationFrame(tick); }).observe(canvas);
+  addEventListener('resize', resize);
+}
+
 renderServices();
 goTo(0, { focus: false });
+embers();
