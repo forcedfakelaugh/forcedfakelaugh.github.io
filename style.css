@@ -34,9 +34,9 @@ img { display: block; max-width: 100%; }
 
 /* header: centred logo, nav spread underneath */
 .header { padding: 28px 16px 0; display: flex; flex-direction: column; align-items: center; gap: 18px; }
-.logo { display: flex; align-items: center; gap: 12px; font: 600 22px var(--nav); letter-spacing: -.3px; }
-.logo svg { width: 54px; height: 54px; transition: transform .4s; }
-.logo:hover svg { transform: translateY(-2px); }
+.logo { display: flex; align-items: center; gap: 12px; font: 500 15px 'JetBrains Mono', ui-monospace, monospace; letter-spacing: 2px; }
+.logo-mark { display: grid; place-items: center; width: 54px; height: 54px; border-radius: 50%; background: var(--sun); transition: transform .4s; }
+.logo:hover .logo-mark { transform: translateY(-2px); }
 .nav { display: flex; justify-content: space-around; width: min(760px, 100%); }
 .nav a { font: 500 19px var(--nav); color: var(--teal); padding-bottom: 6px; border-bottom: 2px solid transparent; transition: border-color .2s, color .2s; }
 .nav a:hover, .nav a.active { border-color: var(--sun); color: var(--ink); }
@@ -70,7 +70,6 @@ h1 { font: 500 clamp(40px, 6vw, 74px)/1.05 var(--serif); letter-spacing: -2px; m
 .coffee { fill: var(--coffee); }
 .milk { fill: #eadcbc; }
 .glass { fill: rgba(255, 255, 255, .45); stroke: var(--ink); stroke-width: 2.4; stroke-linecap: round; stroke-linejoin: round; }
-.stream { fill: none; stroke: var(--coffee); stroke-width: 1.4; stroke-dasharray: 2 10; opacity: .5; }
 .drip { fill: var(--coffee); animation: drip 1.8s ease-in infinite; }
 .drip:nth-of-type(2) { animation-delay: -.9s; }
 .steam { stroke: var(--muted); stroke-dasharray: 220; stroke-dashoffset: 220; animation: steam 3.2s ease-in-out infinite; }
@@ -151,7 +150,6 @@ h2 { font: 500 clamp(30px, 4vw, 44px)/1.15 var(--serif); letter-spacing: -1.2px;
 @media (max-width: 720px) {
   body { padding-bottom: 72px; }
   .header { padding-top: 22px; }
-  .logo svg { width: 44px; height: 44px; }
   .nav { position: fixed; z-index: 500; left: 0; right: 0; bottom: 0; width: 100%; background: var(--ink); border-radius: 0; padding: 12px 8px calc(12px + env(safe-area-inset-bottom)); box-shadow: 0 -6px 20px rgba(58, 46, 47, .1); }
   .nav a { color: var(--paper); font-size: 16px; }
   .nav a.active { color: var(--paper); border-color: var(--sun); }
