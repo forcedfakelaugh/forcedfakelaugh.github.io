@@ -102,8 +102,6 @@ h2 { font: 500 clamp(30px, 4vw, 44px)/1.15 var(--serif); letter-spacing: -1.2px;
 .face { display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 6px; padding: 20px; text-align: center; }
 .face span { font-size: 40px; line-height: 1; }
 .face small { font-size: 14px; opacity: .8; }
-.ember-face { background: #3d2a22; color: #f3d2a6; }
-.ember-face span { font: 300 italic 46px var(--serif); }
 .halyard-face { background: #e9efff; color: #1d2340; }
 .halyard-face span { font: 600 38px var(--nav); letter-spacing: -1px; }
 .orbit-face { background: #f2f3fa; color: #5f6fd6; }
