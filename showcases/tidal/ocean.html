@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Ocean — WebGPU</title>
+<title>Ocean - WebGPU</title>
 <style>
   html, body { margin: 0; height: 100%; background: #000; overflow: hidden; }
   #c { position: fixed; inset: 0; width: 100%; height: 100%; display: block; cursor: crosshair; }
@@ -197,7 +197,7 @@ fn pfbm(p: vec2f, period: i32, oct: i32) -> f32 {
 `;
 
 // ---- js/wgsl/sim.js ----
-// FFT ocean simulation (Tessendorf) — 4 cascades of 256^2.
+// FFT ocean simulation (Tessendorf) - 4 cascades of 256^2.
 
 const SIM_STRUCT = /* wgsl */ `
 const N: u32 = ${N}u;
@@ -1587,7 +1587,7 @@ fn ign(p: vec2f) -> f32 { return fract(52.9829189 * fract(dot(p, vec2f(0.0671105
 `;
 
 // ---- js/main.js ----
-// WebGPU ocean — custom renderer.
+// WebGPU ocean - custom renderer.
 // FFT ocean (5 cascades) + CDLOD surface mesh + physically based sky + HDR post.
 // All per-frame data lives in preallocated typed arrays / descriptors (no per-frame garbage
 // apart from the unavoidable swap-chain view and command buffer objects).

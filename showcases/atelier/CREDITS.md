@@ -1,4 +1,4 @@
-# ATELIER — source credits
+# ATELIER - source credits
 
 Fictional editorial fashion storefront by Lucas Nguyen. Product names, prices and brand are invented for a portfolio demonstration. No real orders, payments, stock or manufacturing claims. Photography is illustrative and not a claim to sell the photographed items.
 

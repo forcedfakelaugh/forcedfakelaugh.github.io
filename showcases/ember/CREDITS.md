@@ -1,4 +1,4 @@
-# EMBER — photography
+# EMBER - photography
 
 Downloaded from Unsplash; not AI-generated. Images remain subject to their original rights and the Unsplash license (https://unsplash.com/license). They are stand-in mood images for a fictional bathhouse, not photos of a real venue or staff.
 

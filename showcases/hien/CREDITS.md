@@ -1,4 +1,4 @@
-# HIÊN STUDIO — sources and notes
+# HIÊN STUDIO - sources and notes
 
 A fictional architecture practice and frontend showcase by Lucas Nguyen. It reproduces a portion of an architecture-studio website Lucas designed and built (splash, featured carousel, works grid by project scale, project slideshow, English/Vietnamese switch) with invented content. Project names, years, areas and locations are fictional; no photographed building is attributed to this studio.
 

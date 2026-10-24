@@ -33,7 +33,7 @@ function render(){
  $('#project-description').textContent=study.description;
  $('#project-inquiry').textContent=study.inquiry;
  $('#project-material').textContent=study.material;
- $('#sheet-number').textContent=`F—${study.id}`;
+ $('#sheet-number').textContent=`F-${study.id}`;
  $('#drawing').innerHTML=drawings[selected];
  $('#notes-title').textContent=study.title;
  $('#notes-copy').textContent=study.notes;

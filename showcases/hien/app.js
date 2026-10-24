@@ -1,4 +1,4 @@
-// HIÊN STUDIO — hash-routed views: home (#/), works (#/works), discipline (#/architecture), project (#/works/<slug>), about (#/about).
+// HIÊN STUDIO - hash-routed views: home (#/), works (#/works), discipline (#/architecture), project (#/works/<slug>), about (#/about).
 const UI = {
   en: {
     tagline: 'Architecture & Associates', works: 'Works', about: 'About', menu: 'Menu', close: 'Close',
@@ -7,7 +7,7 @@ const UI = {
     inPreparation: 'In preparation', portfolio: label => `${label} portfolio`, comingSoon: 'Coming soon',
     switchLabel: 'Tiếng Việt', aboutTitle: 'Practice',
     aboutText: [
-      'HIÊN is a fictional studio imagined for this concept. Its name is the Vietnamese word for the veranda — the shaded edge between a house and the street, where most of daily life actually happens.',
+      'HIÊN is a fictional studio imagined for this concept. Its name is the Vietnamese word for the veranda - the shaded edge between a house and the street, where most of daily life actually happens.',
       'The site is a portion of an architecture website I designed and built: a splash that fades into a featured carousel, a works index sorted into columns by project scale, and full-screen slideshows that end in a short project text. Everything works in English and Vietnamese.',
       'Photographs are Unsplash reference images, not buildings by this studio. Project names, years and sizes are invented.',
     ],
@@ -19,7 +19,7 @@ const UI = {
     inPreparation: 'Đang chuẩn bị', portfolio: label => `Dự án ${label.toLowerCase()}`, comingSoon: 'Sắp ra mắt',
     switchLabel: 'English', aboutTitle: 'Văn phòng',
     aboutText: [
-      'HIÊN là một văn phòng giả định cho concept này. Tên gọi lấy từ hiên nhà — khoảng đệm có bóng mát giữa ngôi nhà và con phố, nơi phần lớn sinh hoạt hằng ngày diễn ra.',
+      'HIÊN là một văn phòng giả định cho concept này. Tên gọi lấy từ hiên nhà - khoảng đệm có bóng mát giữa ngôi nhà và con phố, nơi phần lớn sinh hoạt hằng ngày diễn ra.',
       'Trang này là một phần của website kiến trúc tôi đã thiết kế và xây dựng: màn hình mở đầu chuyển sang carousel nổi bật, danh mục dự án chia cột theo quy mô, và slideshow toàn màn hình kết thúc bằng đoạn mô tả ngắn. Tất cả đều có tiếng Anh và tiếng Việt.',
       'Ảnh là ảnh tham khảo từ Unsplash, không phải công trình của văn phòng này. Tên dự án, năm và diện tích đều là giả định.',
     ],
@@ -63,7 +63,7 @@ const PROJECTS = [
 ];
 
 const FEATURES = [
-  { label: 'news', title: { en: 'Shortlisted: House of the Year — The Tree House', vi: 'Đề cử Nhà ở của năm — The Tree House' }, src: 'tree-house', href: '#/works/tree-house' },
+  { label: 'news', title: { en: 'Shortlisted: House of the Year - The Tree House', vi: 'Đề cử Nhà ở của năm - The Tree House' }, src: 'tree-house', href: '#/works/tree-house' },
   { label: 'project', title: { en: 'Palm Terrace Resort', vi: 'Palm Terrace Resort' }, src: 'palm-resort', href: '#/works/palm-terrace-resort' },
   { label: 'project', title: { en: 'Clay Pavilion', vi: 'Clay Pavilion' }, src: 'clay-pavilion', href: '#/works/clay-pavilion' },
 ];

@@ -53,17 +53,17 @@ const rows = [
 const cell = (value, highlight) => {
   const cls = highlight ? ' class="hl"' : '';
   if (value === true) return `<td${cls}><span class="yes" aria-hidden="true">✓</span><span class="sr-only">Included</span></td>`;
-  if (value === false) return `<td${cls}><span class="no" aria-hidden="true">—</span><span class="sr-only">Not included</span></td>`;
+  if (value === false) return `<td${cls}><span class="no" aria-hidden="true">-</span><span class="sr-only">Not included</span></td>`;
   return `<td${cls}>${value}</td>`;
 };
 $('#compare-body').innerHTML = rows.map(r => r.length === 1 ? `<tr class="group"><th scope="rowgroup" colspan="4">${r[0]}</th></tr>` : `<tr><th scope="row">${r[0]}</th>${cell(r[1])}${cell(r[2], true)}${cell(r[3])}</tr>`).join('');
 
 const faqs = [
   ['Is Halyard a real product?', 'No. Halyard is a fictional SaaS product designed by Lucas Nguyen to demonstrate a marketing site: layout, pricing logic, comparison and accordion patterns. There is no app, trial or billing behind it.'],
-  ['How does the yearly discount work?', `Each plan’s yearly price is set below twelve monthly payments. The page computes the saving per plan — between ${Math.min(...tiers.map(savingPct))}% and ${maxSaving}% here — and shows the largest one on the toggle.`],
+  ['How does the yearly discount work?', `Each plan’s yearly price is set below twelve monthly payments. The page computes the saving per plan - between ${Math.min(...tiers.map(savingPct))}% and ${maxSaving}% here - and shows the largest one on the toggle.`],
   ['Can I switch plans later?', 'In the imagined product, yes: upgrades apply immediately and downgrades at the end of the billing period, with unused time credited.'],
   ['Does it publish anything automatically?', 'Never. Drafts written from pull requests always wait for a person to review and press publish. Approval flows can require more than one reviewer.'],
-  ['What happens to my data?', 'On this page, nothing — no forms send data and no analytics run. Buttons only open a dialog explaining that this is a concept.']
+  ['What happens to my data?', 'On this page, nothing - no forms send data and no analytics run. Buttons only open a dialog explaining that this is a concept.']
 ];
 $('#accordion').innerHTML = faqs.map(([q, a], i) => `<div class="qa"><h3><button type="button" id="q-${i}" aria-expanded="false" aria-controls="a-${i}">${q}<span class="icon" aria-hidden="true"></span></button></h3><div class="answer" id="a-${i}" role="region" aria-labelledby="q-${i}" hidden><p>${a}</p></div></div>`).join('');
 $('#accordion').addEventListener('click', event => {

@@ -1,12 +1,12 @@
-# FORMA — sources and design notes
+# FORMA - sources and design notes
 
 A fictional architectural practice and original frontend showcase by Lucas Nguyen. The three studies are observations on reference photography, not completed projects attributed to FORMA. SVG drawings are original abstract compositions and do not represent plans of the photographed buildings.
 
 ## Online design references consulted, 22 October 2026
 
-- Herzog & de Meuron, Projects: https://www.herzogdemeuron.com/projects/ — archive-first organization.
-- PAN-PROJECTS, Projects: https://pan-projects.com/projects/ — discipline filters and numbered project listings.
-- TONIC.INC: https://tonic-inc.com/ — architectural process and drawings as part of presentation.
+- Herzog & de Meuron, Projects: https://www.herzogdemeuron.com/projects/ - archive-first organization.
+- PAN-PROJECTS, Projects: https://pan-projects.com/projects/ - discipline filters and numbered project listings.
+- TONIC.INC: https://tonic-inc.com/ - architectural process and drawings as part of presentation.
 
 These references informed the information structure, not copied source code or visual assets.
 

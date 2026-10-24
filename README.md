@@ -1,4 +1,4 @@
-# Lucas Nguyen — Freelance portfolio
+# Lucas Nguyen - Freelance portfolio
 
 A portfolio with eleven interactive concept showcases. No dependencies or backend services.
 
@@ -21,17 +21,17 @@ npm run build
 
 ## Pages
 
-- `/` — Main portfolio and selected work.
-- `/showcases/pulp-club/` — Original foodservice packaging concept inspired by Kanak Naturals' foodservice page. Browse and filter four forms, build a sample box, and preview a request without sending anything.
-- `/showcases/serein/` — Editorial luxury hospitality site, accommodation filters and simulated reservation preview.
-- `/showcases/atelier/` — Fashion storefront concept.
-- `/showcases/orbit/` — Business analytics dashboard concept.
-- `/showcases/forma/` — Architecture archive with minimal text-only project navigation, reference photography, original schematic drawings, and project notes.
-- `/showcases/hien/` — Hiên Studio, a fictional architecture practice reproducing part of an architecture-studio site Lucas built: splash, featured carousel, works grid in columns by project scale (tabs on mobile), discipline filters, project slideshows and an English/Vietnamese switch. Unsplash stand-in photography; sources in `showcases/hien/CREDITS.md`.
-- `/showcases/lumen/` — AI research assistant concept: scripted agent trace (search, read, verify), streamed answers with inline citations, source panel and document previews over a fictional café workspace. No model or network calls.
-- `/showcases/reu/` — Rêu, a Hội An restaurant and café concept: filterable menu (categories and dietary tags) with prices in ₫, opening hours with a live “open now” status computed in Asia/Ho_Chi_Minh time, and a simulated pickup basket whose “place order” only confirms that nothing was sent.
-- `/showcases/halyard/` — Halyard, a SaaS landing page for a fictional changelog product: feature sections, monthly/yearly pricing toggle with computed savings across three tiers, a plan comparison table, FAQ accordion and a CTA that states it is a concept.
-- `/showcases/ember/` — Ember, a booking flow for a fictional Đà Lạt bathhouse: ritual → therapist → date and time (unavailable slots disabled) → details with inline validation → review, ending in a summary that states no booking was made. Unsplash stand-in photography; sources in `showcases/ember/CREDITS.md`.
+- `/` - Main portfolio and selected work.
+- `/showcases/pulp-club/` - Original foodservice packaging concept inspired by Kanak Naturals' foodservice page. Browse and filter four forms, build a sample box, and preview a request without sending anything.
+- `/showcases/serein/` - Editorial luxury hospitality site, accommodation filters and simulated reservation preview.
+- `/showcases/atelier/` - Fashion storefront concept.
+- `/showcases/orbit/` - Business analytics dashboard concept.
+- `/showcases/forma/` - Architecture archive with minimal text-only project navigation, reference photography, original schematic drawings, and project notes.
+- `/showcases/hien/` - Hiên Studio, a fictional architecture practice reproducing part of an architecture-studio site Lucas built: splash, featured carousel, works grid in columns by project scale (tabs on mobile), discipline filters, project slideshows and an English/Vietnamese switch. Unsplash stand-in photography; sources in `showcases/hien/CREDITS.md`.
+- `/showcases/lumen/` - AI research assistant concept: scripted agent trace (search, read, verify), streamed answers with inline citations, source panel and document previews over a fictional café workspace. No model or network calls.
+- `/showcases/reu/` - Rêu, a Hội An restaurant and café concept: filterable menu (categories and dietary tags) with prices in ₫, opening hours with a live “open now” status computed in Asia/Ho_Chi_Minh time, and a simulated pickup basket whose “place order” only confirms that nothing was sent.
+- `/showcases/halyard/` - Halyard, a SaaS landing page for a fictional changelog product: feature sections, monthly/yearly pricing toggle with computed savings across three tiers, a plan comparison table, FAQ accordion and a CTA that states it is a concept.
+- `/showcases/ember/` - Ember, a booking flow for a fictional Đà Lạt bathhouse: ritual → therapist → date and time (unavailable slots disabled) → details with inline validation → review, ending in a summary that states no booking was made. Unsplash stand-in photography; sources in `showcases/ember/CREDITS.md`.
 
 The concept demos use fictional brands, business data, rates, and transactions. There are no real reservations, purchases, payments, or business integrations. Portfolio case studies do not claim client results or measured commercial outcomes.
 

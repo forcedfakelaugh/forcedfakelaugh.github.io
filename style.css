@@ -107,9 +107,9 @@ h2 { font: 500 clamp(30px, 4vw, 44px)/1.15 var(--serif); letter-spacing: -1.2px;
 .orbit-face { background: #f2f3fa; color: #5f6fd6; }
 .orbit-face span { font: 600 36px var(--nav); color: #1d2340; }
 .orbit-face svg { width: 80%; height: 60px; }
-.lumen-face { background: #14161d; color: #e9e4d8; }
+.lumen-face { background: radial-gradient(circle at 50% 120%, #9b8cff33, transparent 60%), #0b0c10; color: #ececf1; }
 .lumen-face span { font: 300 42px var(--serif); }
-.lumen-face span::before { content: ''; display: inline-block; width: 12px; height: 12px; border-radius: 50%; background: var(--sun); margin-right: 10px; vertical-align: middle; box-shadow: 0 0 18px var(--sun); }
+.lumen-face span::before { content: ''; display: inline-block; width: 14px; height: 14px; border-radius: 50%; background: conic-gradient(#9b8cff, #7cc4ff, #5fe0cf, #9b8cff); margin-right: 10px; vertical-align: middle; box-shadow: 0 0 18px #7cc4ff88; }
 
 .fine { margin-top: 28px; font-size: 14px; color: var(--muted); text-align: center; }
 

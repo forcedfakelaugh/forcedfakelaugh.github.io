@@ -100,7 +100,7 @@ function renderSummary() {
   const s = svc(), m = person();
   const row = (k, v) => `<div><dt>${k}</dt><dd${v ? '' : ' class="pending"'}>${v || 'Not chosen'}</dd></div>`;
   $('#summary').innerHTML = row('Ritual', s && s.name) + row('Therapist', m && m.name) + row('Date', state.date && dateLabel(state.date)) + row('Time', state.time !== null && s ? `${hhmm(state.time)}–${hhmm(state.time + s.mins)}` : null);
-  const total = s ? vnd(s.price) : '—';
+  const total = s ? vnd(s.price) : '-';
   if ($('#sum-total').textContent !== total) { $('#sum-total').textContent = total; bump($('#sum-total')); }
   const photo = $('#sum-photo');
   if ((photo.dataset.img || '') !== (s ? s.img : '')) {
@@ -121,7 +121,7 @@ function reviewRows(withEdit) {
 
 /* Validation */
 const fieldRules = {
-  name: v => v.trim().length < 2 ? 'Enter your name — at least two characters.' : '',
+  name: v => v.trim().length < 2 ? 'Enter your name - at least two characters.' : '',
   email: v => !v.trim() ? 'Enter an email address.' : !/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v.trim()) ? 'That email looks incomplete, e.g. name@example.com.' : '',
   phone: v => { const digits = v.replace(/[\s.-]/g, ''); return !digits ? '' : /^(\+84|0)[35789]\d{8}$/.test(digits) ? '' : 'Use a 10-digit Vietnamese mobile number, e.g. 090 123 4567.'; },
   consent: (_, el) => el.checked ? '' : 'Please confirm you understand this is a concept.'
@@ -155,7 +155,7 @@ function goTo(step, { focus = true } = {}) {
   if (step === 4) $('#review').innerHTML = reviewRows(true);
   $('#nav-row').hidden = step === 5;
   $('#back').hidden = step === 0;
-  $('#next').textContent = step === 4 ? 'Confirm (demo — nothing is sent)' : 'Continue →';
+  $('#next').textContent = step === 4 ? 'Confirm (demo - nothing is sent)' : 'Continue →';
   renderProgress();
   renderSummary();
   if (focus) { const heading = $(`#h${step}`); heading.focus({ preventScroll: true }); $('#booking').scrollIntoView({ block: 'start', behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' }); }
