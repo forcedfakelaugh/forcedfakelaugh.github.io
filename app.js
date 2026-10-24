@@ -59,10 +59,8 @@ function setLanguage(language) {
 }
 
 const themeToggle = document.querySelector('.theme-toggle');
-const systemTheme = matchMedia('(prefers-color-scheme: dark)');
 let savedTheme;
 try { savedTheme = localStorage.getItem('lucas-portfolio-theme'); } catch {}
-let hasThemePreference = savedTheme === 'light' || savedTheme === 'dark';
 function updateThemeControl() {
   const dark = document.documentElement.dataset.theme === 'dark';
   const vi = document.documentElement.lang === 'vi';
@@ -74,22 +72,17 @@ function setTheme(theme) {
   document.querySelector('meta[name="theme-color"]').content = theme === 'dark' ? '#1b201e' : '#f1efe9';
   updateThemeControl();
 }
-setTheme(hasThemePreference ? savedTheme : systemTheme.matches ? 'dark' : 'light');
+setTheme(savedTheme === 'dark' ? 'dark' : 'light');
 themeToggle.hidden = false;
 themeToggle.addEventListener('click', () => {
   const theme = document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark';
-  hasThemePreference = true;
   setTheme(theme);
   try { localStorage.setItem('lucas-portfolio-theme', theme); } catch {}
-});
-systemTheme.addEventListener('change', event => {
-  if (!hasThemePreference) setTheme(event.matches ? 'dark' : 'light');
 });
 
 let savedLanguage;
 try { savedLanguage = localStorage.getItem('lucas-portfolio-language'); } catch {}
-const browserLanguage = navigator.languages?.[0] ?? navigator.language ?? 'en';
-setLanguage(['en', 'vi'].includes(savedLanguage) ? savedLanguage : /^vi(?:-|$)/i.test(browserLanguage) ? 'vi' : 'en');
+setLanguage(savedLanguage === 'en' ? 'en' : 'vi');
 languageSwitch.hidden = false;
 languageSwitch.addEventListener('click', () => {
   const language = document.documentElement.lang === 'en' ? 'vi' : 'en';

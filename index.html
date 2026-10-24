@@ -8,7 +8,7 @@
 <meta name="theme-color" content="#f1efe9">
 <script>
 (() => {
-  let theme = matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+  let theme = 'light';
   try {
     const saved = localStorage.getItem('lucas-portfolio-theme');
     if (saved === 'light' || saved === 'dark') theme = saved;
