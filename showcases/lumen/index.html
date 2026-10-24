@@ -1,50 +1,44 @@
 <!doctype html>
-<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#0b0c10"><title>Lumen - Answers from your team’s documents</title><meta name="description" content="An AI research assistant concept by Lucas Nguyen. Ask a question, watch the agent reason, call tools, read and cite a sample workspace."><link rel="icon" href="favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="style.css"><link rel="stylesheet" href="../portfolio-nav.css"><script src="app.js" defer></script></head>
-<body><a class="skip" href="#composer-input">Skip to question box</a><div class="portfolio-nav" role="navigation" aria-label="Portfolio navigation"><a class="portfolio-return" href="../../#work">← Back to portfolio</a><span class="portfolio-context">LUMEN <span> / CONCEPT SHOWCASE</span></span></div>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#f9f6ef">
+<title>Pip — A little help with your business</title>
+<meta name="description" content="A simple business helper concept for a café and a holiday rental. Ask about customer reviews, bookings and everyday decisions using fictional sample notes.">
+<link rel="icon" href="favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="../portfolio-nav.css"><link rel="stylesheet" href="style.css"><script src="app.js" defer></script>
+</head>
+<body>
+<a class="skip" href="#composer-input">Skip to question box</a>
+<div class="portfolio-nav" role="navigation" aria-label="Portfolio navigation"><a class="portfolio-return" href="../../#work">← Back to portfolio</a><span class="portfolio-context">PIP <span> / CONCEPT SHOWCASE</span></span></div>
+<div class="workspace-app">
+<header class="masthead">
+  <a class="brand" href="./" aria-label="Pip home"><img class="brand-logo" src="logo.svg" alt="Pip" width="77" height="48"></a>
+  <div class="header-tools">
+  <button id="sources-toggle" class="sources-toggle" type="button" aria-controls="sources" aria-expanded="false">Your notes</button>
+  <button class="new-chat" id="new-chat" type="button" aria-label="New conversation" title="New conversation (⌘K)"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 3v10M3 8h10"/></svg></button></div>
+</header>
 <div class="shell">
-<aside class="rail" aria-label="Workspace">
-  <a class="brand" href="./"><span class="orb sm" aria-hidden="true"></span>Lumen</a>
-  <button class="new-chat" id="new-chat" type="button"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 3v10M3 8h10"/></svg>New chat<kbd>⌘K</kbd></button>
-  <p class="rail-label" id="ws-label">Workspaces</p>
-  <div class="workspaces" id="workspaces" role="group" aria-labelledby="ws-label"></div>
-  <p class="rail-label">Recent</p>
-  <nav class="history" id="history" aria-label="Sample questions"></nav>
-  <div class="rail-foot"><span class="dot" aria-hidden="true"></span>Scripted demo. No model is called and nothing you type leaves this page.</div>
-</aside>
 <main class="chat" id="main">
-  <header class="chat-head">
-    <div class="picker">
-      <button class="model-button" id="model-button" type="button" aria-haspopup="menu" aria-expanded="false" aria-controls="model-menu"><span id="model-name">Lumen 2 Flash</span><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M4 6l4 4 4-4"/></svg></button>
-      <div class="model-menu" id="model-menu" role="menu" hidden>
-        <button type="button" role="menuitemradio" aria-checked="true" data-model="flash"><strong>Lumen 2 Flash</strong><small>Fast answers, light checking</small></button>
-        <button type="button" role="menuitemradio" aria-checked="false" data-model="pro"><strong>Lumen 2 Pro <em>Reasoning</em></strong><small>Thinks longer, verifies its figures</small></button>
-      </div>
-    </div>
-    <label class="sr-only" for="ws-switch">Workspace</label><select class="ws-switch" id="ws-switch"></select>
-    <button class="sources-toggle" id="sources-toggle" type="button" aria-controls="sources" aria-expanded="false">Context <span id="source-count">0</span></button>
-  </header>
-  <div class="thread" id="thread"><section class="empty" id="empty"><div class="orb lg" aria-hidden="true"></div><h1>What should we look into?</h1><p class="empty-sub">Lumen searches <span id="ws-about">Mira Coffee Co.’s documents</span>, shows its reasoning, and cites every claim.</p></section></div>
+  <div class="thread" id="thread"><section class="empty" id="empty"><h1>What needs a hand today?</h1><p class="empty-sub" id="business-context">Your coffee shop and holiday rental, in one place.</p></section></div>
   <div class="dock">
-    <form class="composer" id="composer"><label class="sr-only" for="composer-input">Ask a question about the workspace</label><textarea id="composer-input" rows="1" placeholder="Ask Lumen anything about your workspace…" autocomplete="off"></textarea>
+    <div class="businesses" id="businesses" role="group" aria-label="Choose your business"></div>
+    <form class="composer" id="composer"><label class="sr-only" for="composer-input">Ask a question about your business</label><textarea id="composer-input" rows="1" placeholder="Ask about your café, your rental, or what to do next…" autocomplete="off"></textarea>
       <div class="composer-bar">
-        <span class="tool-chip" title="Lumen can search and read workspace documents"><svg viewBox="0 0 16 16" aria-hidden="true"><circle cx="7" cy="7" r="4.5"/><path d="M10.5 10.5L14 14"/></svg>Workspace search</span>
-        <button class="tool-chip toggle" id="think-toggle" type="button" aria-pressed="false"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 2l1.6 4.4L14 8l-4.4 1.6L8 14l-1.6-4.4L2 8l4.4-1.6z"/></svg>Think harder</button>
-        <button class="send" id="send" type="submit" aria-label="Send question"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 13V3M3.5 7.5L8 3l4.5 4.5"/></svg></button>
+        <button class="send" id="send" type="submit" aria-label="Send question"><span>Ask Pip</span><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg></button>
       </div>
     </form>
     <div class="suggestions" id="suggestions"></div>
-    <p class="disclaimer">Lumen is a scripted concept. Answers come from a fictional sample workspace.</p>
   </div>
 </main>
-<aside class="sources" id="sources" aria-labelledby="sources-title">
-  <div class="sources-head"><h2 id="sources-title">Context</h2><button class="sources-close" id="sources-close" type="button" aria-label="Close context panel">×</button></div>
-  <div class="run"><div><small>Tool calls</small><strong id="run-steps">0</strong></div><div><small>Docs read</small><strong id="run-read">0</strong></div><div><small>Latency</small><strong id="run-time">0.0s</strong></div></div>
-  <div class="context"><div class="context-label"><span>Context window</span><span id="context-value">0 / 128k tokens</span></div><div class="meter"><i id="context-bar"></i></div></div>
-  <p class="panel-label">Retrieved sources</p>
-  <ol class="source-list" id="source-list"><li class="source-empty">Documents appear here as Lumen retrieves them.</li></ol>
+<aside class="sources" hidden id="sources" aria-labelledby="sources-title">
+  <div class="sources-head"><h2 id="sources-title">Your notes <span id="library-count"></span></h2><button class="sources-close" id="sources-close" type="button" aria-label="Close notes panel">×</button></div>
+  <p class="sources-intro">Reviews, bookings and the little things you keep track of.</p>
+  <div class="source-tabs" role="group" aria-label="Notes view"><button type="button" id="library-tab" aria-pressed="true" aria-controls="library-panel">All notes</button><button type="button" id="cited-tab" aria-pressed="false" aria-controls="cited-panel">In this answer <span id="cited-count">0</span></button></div>
+  <div id="library-panel"><ol class="library-list" id="library-list"></ol></div>
+  <div id="cited-panel" hidden><ol class="source-list" id="source-list"><li class="source-empty">Ask a question and the notes behind your answer will appear here.</li></ol></div>
 </aside>
 </div>
+</div>
 <div class="cite-pop" id="cite-pop" role="tooltip" hidden></div>
-<dialog id="doc-dialog" aria-labelledby="doc-title"><form method="dialog"><button class="close-dialog" aria-label="Close document">×</button></form><p class="eyebrow" id="doc-kind"></p><h2 id="doc-title"></h2><p class="doc-meta" id="doc-meta"></p><div class="doc-body" id="doc-body"></div><p class="doc-note">Fictional document from a sample workspace. Highlighted lines were cited.</p></dialog>
+<dialog id="doc-dialog" aria-labelledby="doc-title"><form method="dialog"><button class="close-dialog" aria-label="Close document">×</button></form><p class="eyebrow" id="doc-kind"></p><h2 id="doc-title"></h2><p class="doc-meta" id="doc-meta"></p><div class="doc-body" id="doc-body"></div><p class="doc-note">A fictional note from this demo. Highlighted lines support the answer.</p></dialog>
 <div class="sr-only" role="status" id="status"></div>
 </body></html>
