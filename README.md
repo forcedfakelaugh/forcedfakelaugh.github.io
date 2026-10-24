@@ -1,6 +1,6 @@
 # Lucas Nguyen - Freelance portfolio
 
-A portfolio with eleven interactive concept showcases. No dependencies or backend services.
+A portfolio with twelve interactive concept showcases (ten listed on the homepage). No dependencies or backend services.
 
 ## Local development
 
@@ -22,6 +22,7 @@ npm run build
 ## Pages
 
 - `/` - Main portfolio and selected work.
+- `/showcases/mai-le/` - Mai Lê, a fictional Hội An painter: floating artwork entrance, asymmetric gallery of seven AI-generated paintings, including a seascape and a reference-based studio portrait, artwork detail dialogs with keyboard navigation, three wall colour previews, artist note and a simulated exhibition ticket. Inspired by the artist-portfolio film at https://vimeo.com/1226352297. Artwork provenance and generation prompts in `showcases/mai-le/CREDITS.md`.
 - `/showcases/pulp-club/` - Original foodservice packaging concept inspired by Kanak Naturals' foodservice page. Browse and filter four forms, build a sample box, and preview a request without sending anything.
 - `/showcases/serein/` - Editorial luxury hospitality site, accommodation filters and simulated reservation preview.
 - `/showcases/atelier/` - Fashion storefront concept.
