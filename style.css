@@ -45,7 +45,8 @@
 }
 
 * { box-sizing: border-box; }
-html { scroll-behavior: smooth; scroll-padding-top: 24px; }
+/* Prevent double-tap zoom while preserving scrolling and pinch-to-zoom. */
+html { scroll-behavior: smooth; scroll-padding-top: 24px; touch-action: manipulation; }
 body { margin: 0; background: var(--paper); color: var(--ink); font: 400 17px/1.65 var(--sans); -webkit-font-smoothing: antialiased; overflow-x: hidden; }
 h1, h2, h3, p, ul, figure { margin: 0; }
 a { color: inherit; text-decoration: none; }
