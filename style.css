@@ -204,13 +204,11 @@ h2 { font: 500 clamp(30px, 4vw, 44px)/1.15 var(--serif); letter-spacing: -1.2px;
 .contact-arrow { transition: transform .2s; }
 .contact-toggle[aria-expanded="true"] .contact-arrow { transform: rotate(180deg); }
 .contact-details { display: grid; max-width: 480px; margin: 24px auto 0; text-align: left; }
-.contact-copy { display: grid; grid-template-columns: 80px minmax(0, 1fr) auto; align-items: baseline; gap: 12px; width: 100%; min-height: 52px; padding: 12px 0; border: 0; border-bottom: 1px solid var(--divider); background: transparent; color: var(--ink); font: inherit; text-align: left; cursor: pointer; }
+.contact-copy { display: grid; grid-template-columns: 80px minmax(0, 1fr) auto; align-items: baseline; gap: 12px; width: 100%; min-height: 52px; padding: 12px 0; border: 0; border-bottom: 1px solid var(--divider); background: transparent; color: var(--ink); font: inherit; text-align: left; cursor: pointer; -webkit-tap-highlight-color: transparent; }
 .contact-label { color: var(--muted); font-size: 14px; }
 .contact-value { font-size: 16px; overflow-wrap: anywhere; user-select: text; }
 .contact-copy:hover .contact-value { text-decoration: underline; text-underline-offset: 4px; }
 .contact-copy > :last-child { color: var(--teal); font-size: 20px; }
-.contact-copy.is-copied .contact-value { color: var(--teal); }
-.contact-copy:disabled { cursor: wait; }
 .contact-hint { color: var(--muted); font-size: 13px; }
 .hello .contact-status { min-height: 2.8em; margin-top: 10px; font-size: 14px; }
 @media (max-width: 400px) {

@@ -145,20 +145,20 @@ contactToggle.addEventListener('click', () => {
 const contactCopyButtons = document.querySelectorAll('.contact-copy');
 const contactFeedback = document.querySelectorAll('[data-contact-feedback]');
 let copyFeedbackTimer;
+const pendingCopies = new WeakSet();
 function clearCopyFeedback() {
   contactFeedback.forEach(message => { message.hidden = true; });
   contactCopyButtons.forEach(button => {
-    button.classList.remove('is-copied');
     button.querySelector('[data-copy-icon]').textContent = '⧉';
   });
 }
 contactCopyButtons.forEach(button => button.addEventListener('click', async () => {
-  button.disabled = true;
+  if (pendingCopies.has(button)) return;
+  pendingCopies.add(button);
   clearTimeout(copyFeedbackTimer);
   clearCopyFeedback();
   try {
     await navigator.clipboard.writeText(button.querySelector('.contact-value').textContent);
-    button.classList.add('is-copied');
     button.querySelector('[data-copy-icon]').textContent = '✓';
     const field = button.id === 'contact-email' ? 'email' : 'phone';
     document.querySelector(`[data-contact-feedback="${field}"]`).hidden = false;
@@ -166,6 +166,6 @@ contactCopyButtons.forEach(button => button.addEventListener('click', async () =
   } catch {
     document.querySelector('[data-contact-feedback="error"]').hidden = false;
   } finally {
-    button.disabled = false;
+    pendingCopies.delete(button);
   }
 }));
