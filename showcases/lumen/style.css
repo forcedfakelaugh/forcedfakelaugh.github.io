@@ -41,7 +41,7 @@ svg { width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width:
 .chat { max-width: 720px; margin: 0 auto; min-height: calc(100svh - 160px); display: flex; flex-direction: column; }
 .thread { display: flex; flex-direction: column; gap: 28px; overflow: auto; scroll-behavior: smooth; padding: 0 0 29px; }
 .chat:not(.started) { padding-top: clamp(45px, 9vh, 96px); }
-.empty h1 { font-size: 38px; line-height: 1.2; font-weight: 500; letter-spacing: -1.7px; }
+.empty h1 { font-size: 36px; line-height: 1.3; font-weight: 500; letter-spacing: -1.1px; }
 .empty-sub { font-size: 14px; color: var(--muted); margin-top: 13px; }
 .dock { padding-bottom: 24px; }
 .businesses { display: flex; flex-wrap: wrap; gap: 6px; margin: 0 0 15px; }
@@ -50,6 +50,7 @@ svg { width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width:
 .business-tab[aria-pressed=true] { background: var(--rose); color: var(--ink); }
 .business-tab[data-workspace=coffee][aria-pressed=true] { background: var(--mint); }
 .business-tab[data-workspace=rental][aria-pressed=true] { background: var(--butter); }
+.business-tab[data-workspace=flowers][aria-pressed=true] { background: #f9d5cb; }
 .composer { background: var(--white); border: 1px solid #cdbfc9; border-radius: 12px; padding: 20px 18px 13px; }
 .composer:focus-within { border-color: var(--ink); }
 .composer textarea { display: block; width: 100%; border: 0; background: none; resize: none; outline: 0; font-size: 15px; line-height: 1.65; max-height: 180px; min-height: 61px; padding: 0; }
@@ -59,7 +60,7 @@ svg { width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width:
 .send:hover { background: #554057; }
 .send.stop { background: var(--coral); color: var(--ink); }
 .send.stop svg, .send.stop span { display: none; }
-.send.stop:before { content: 'Stop'; }
+.send.stop:before { content: 'Dừng'; }
 .send.stop:after { content: ''; width: 8px; height: 8px; background: var(--ink); border-radius: 1px; }
 .suggestions { display: flex; flex-direction: column; align-items: flex-start; gap: 5px; margin-top: 23px; }
 .suggestion { display: flex; align-items: center; gap: 10px; text-align: left; border: 0; background: none; color: var(--muted); padding: 8px 0; font-size: 13px; }
@@ -130,7 +131,6 @@ dialog h2 { font-size: 28px; font-weight: 500; line-height: 1.3; letter-spacing:
 .doc-meta { font-size: 11px; color: var(--muted); padding-bottom: 18px; border-bottom: 1px solid var(--line); }
 .doc-body { padding: 20px 0; display: flex; flex-direction: column; gap: 14px; font-size: 14px; line-height: 1.9; }
 mark { background: var(--butter); color: var(--ink); padding: 1px 3px; }
-.doc-note { font-size: 10px; color: var(--muted); }
 .close-dialog { position: absolute; top: 10px; right: 12px; width: 38px; height: 38px; border: 0; background: none; font-size: 24px; line-height: 1; color: var(--muted); }
 @keyframes rise { from { opacity: 0; transform: translateY(4px); } }
 @media (max-width: 760px) {
@@ -149,10 +149,11 @@ mark { background: var(--butter); color: var(--ink); padding: 1px 3px; }
   .new-chat { width: 28px; height: 28px; border: 0; }
   .shell { padding: 0 22px; }
   .chat:not(.started) { padding-top: 46px; }
-  .empty h1 { font-size: 34px; letter-spacing: -1.4px; max-width: 300px; }
+  .empty h1 { font-size: 32px; letter-spacing: -.8px; }
   .empty-sub { font-size: 12px; line-height: 1.8; max-width: 300px; margin-top: 14px; }
   .thread { padding-bottom: 25px; }
-  .business-tab { font-size: 11px; padding: 7px 10px; }
+  .businesses { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 6px; }
+  .business-tab { font-size: 11px; padding: 7px 10px; text-align: left; }
   .composer { padding: 17px 13px 12px; }
   .composer textarea { font-size: 14px; min-height: 78px; }
   .composer-bar { gap: 6px; }

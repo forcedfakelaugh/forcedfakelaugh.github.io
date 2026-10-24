@@ -1,40 +1,51 @@
 'use strict';
-// Fictional examples for a single owner with a café and one holiday rental.
+// Dữ liệu hư cấu cho bản mẫu: một chủ, ba cơ sở kinh doanh.
 const notes = {
-  cafeFeedback:{business:'coffee',kind:'Customer reviews',title:'What café customers are saying',meta:'Mira Coffee · September · 52 reviews',body:['<mark>16 of 52 reviews mention a long wait, usually between 7:30 and 9:00.</mark>','12 reviews praise the oat-milk flat white.','One regular wrote: “Love the coffee. Wish ordering before work was quicker.”']},
-  cafePlan:{business:'coffee',kind:'Owner’s notes',title:'Ideas for the morning rush',meta:'Mira Coffee · September 28',body:['<mark>Try a dedicated person on the till from 7:30 to 9:00 for one week.</mark>','Mark a separate pickup spot so people collecting drinks do not block the queue.','Keep the drinks menu unchanged during the trial so we can compare wait times.']},
-  cafeSales:{business:'coffee',kind:'Sales & expenses',title:'September café numbers',meta:'Mira Coffee · Monthly spreadsheet',body:['<mark>Sales: 112M₫. Ingredients: 36M₫. Rent: 18M₫. Wages: 32M₫. Other recorded costs: 8M₫.</mark>','18M₫ remains after these recorded costs.','The sheet does not include tax, the owner’s pay, or any costs that have not been entered.']},
-  coldBrew:{business:'coffee',kind:'Cost sheet',title:'Bottled cold brew trial',meta:'Mira Coffee · 250 ml bottles',body:['<mark>Ingredients and packaging cost 21,400₫ per bottle. Proposed shelf price: 55,000₫.</mark>','Labour, rent and other overheads are not included in the bottle cost.','Start with 30 bottles for a weekend trial and record how many sell.']},
-  bookings:{business:'rental',kind:'Booking calendar',title:'September stays',meta:'Garden House · One two-bedroom holiday rental',body:['<mark>9 of 20 available weekday nights booked. All 8 available weekend nights booked.</mark>','Two weekday nights were blocked for maintenance, leaving 28 available nights in total.','17 nights booked out of 28 available.']},
-  enquiries:{business:'rental',kind:'Guest messages',title:'Recent booking enquiries',meta:'Garden House · September · 7 weekday enquiries',body:['<mark>7 people asked about weekday stays; 2 went on to book.</mark>','3 asked whether the Wi-Fi was reliable enough for working.','2 asked for a price for a three-night stay. There is no longer-stay offer yet.']},
-  rates:{business:'rental',kind:'Price list',title:'Garden House nightly rates',meta:'Garden House · Current sample rates',body:['Weekday night: 1.4M₫. Weekend night: 2.1M₫.','<mark>There is no special rate for stays of three nights or longer.</mark>','Cleaning costs 250,000₫ per stay and is covered by the nightly price. Booking platform fees vary.']},
-  guestReviews:{business:'rental',kind:'Guest reviews',title:'What Garden House guests are saying',meta:'Garden House · 18 recent reviews',body:['Average guest rating: 4.7 / 5. Guests often mention the quiet garden.','<mark>5 of the 18 reviews mention unreliable Wi-Fi in the upstairs bedroom.</mark>','One guest wrote: “Lovely quiet house, but the Wi-Fi kept dropping upstairs when I tried to work.”']},
-  repairs:{business:'rental',kind:'Maintenance notes',title:'House repairs & quotes',meta:'Garden House · Last updated September 30',body:['<mark>The router has been reset twice. A mesh Wi-Fi upgrade is quoted at 4.8M₫ and has not been approved.</mark>','The kitchen tap was repaired on September 10.','No installation date has been booked for the Wi-Fi upgrade.']}
+  cafeFeedback:{business:'coffee',kind:'Đánh giá của khách',title:'Khách nói gì về Góc Nhỏ?',meta:'Cà phê Góc Nhỏ · Tháng 9 · 52 đánh giá',body:['<mark>16 trong 52 đánh giá nhắc đến việc chờ lâu, chủ yếu từ 7h30 đến 9h.</mark>','12 đánh giá khen cà phê sữa yến mạch.','Một khách quen viết: “Cà phê ngon, giá mà buổi sáng gọi món nhanh hơn chút.”']},
+  cafePlan:{business:'coffee',kind:'Ghi chép của chủ quán',title:'Thử giảm thời gian chờ buổi sáng',meta:'Cà phê Góc Nhỏ · Ngày 28/9',body:['<mark>Thử bố trí riêng một người nhận món từ 7h30 đến 9h trong một tuần.</mark>','Tách chỗ nhận đồ uống để khách lấy món không chắn hàng chờ.','Giữ nguyên thực đơn trong đợt thử để dễ so sánh thời gian chờ.']},
+  cafeSales:{business:'coffee',kind:'Sổ thu chi',title:'Thu chi tháng 9 của Góc Nhỏ',meta:'Cà phê Góc Nhỏ · Tổng kết tháng',body:['<mark>Doanh thu: 112 triệu. Nguyên liệu: 36 triệu. Thuê mặt bằng: 18 triệu. Lương: 32 triệu. Chi phí khác đã ghi nhận: 8 triệu.</mark>','Còn lại 18 triệu sau các khoản đã ghi trong sổ.','Chưa tính thuế, tiền công của chủ quán và các khoản chưa nhập vào sổ.']},
+  coldBrew:{business:'coffee',kind:'Bảng tính giá vốn',title:'Thử bán cà phê ủ lạnh đóng chai',meta:'Cà phê Góc Nhỏ · Chai 250 ml',body:['<mark>Nguyên liệu và chai lọ hết 21.400đ/chai. Giá bán dự kiến: 55.000đ/chai.</mark>','Giá vốn trên chưa gồm công làm, tiền thuê và các chi phí chung.','Thử làm 30 chai vào cuối tuần rồi ghi lại số chai bán được.']},
+  bookings:{business:'rental',kind:'Lịch đặt nhà',title:'Lịch khách ở trong tháng 9',meta:'Nhà Bên Vườn · Một căn nhà hai phòng ngủ',body:['<mark>Có khách đặt 9/20 đêm trong tuần còn mở bán. Cả 8 đêm cuối tuần đều có khách.</mark>','Đã khóa hai đêm trong tuần để sửa nhà, còn 28 đêm mở bán trong tháng.','Tổng cộng có khách ở 17/28 đêm mở bán.']},
+  enquiries:{business:'rental',kind:'Tin nhắn hỏi thuê',title:'Khách hỏi gì trước khi đặt nhà?',meta:'Nhà Bên Vườn · Tháng 9 · 7 lượt hỏi ngày thường',body:['<mark>7 khách hỏi ở ngày thường, nhưng chỉ 2 khách đặt.</mark>','3 khách hỏi Wi-Fi có đủ ổn định để làm việc không.','2 khách hỏi giá ở ba đêm. Hiện chưa có giá riêng cho kỳ ở dài hơn.']},
+  rates:{business:'rental',kind:'Bảng giá',title:'Giá thuê Nhà Bên Vườn',meta:'Nhà Bên Vườn · Giá đang áp dụng trong bản mẫu',body:['Ngày thường: 1,4 triệu/đêm. Cuối tuần: 2,1 triệu/đêm.','<mark>Chưa có giá riêng cho khách ở từ ba đêm trở lên.</mark>','Dọn nhà hết 250.000đ/lượt, đã tính trong giá thuê. Phí nền tảng đặt phòng tùy kênh.']},
+  guestReviews:{business:'rental',kind:'Đánh giá của khách ở',title:'Khách nhận xét về Nhà Bên Vườn',meta:'Nhà Bên Vườn · 18 đánh giá gần đây',body:['Điểm trung bình: 4,7/5. Khách thường khen khu vườn yên tĩnh.','<mark>5 trong 18 đánh giá nhắc đến Wi-Fi chập chờn ở phòng ngủ trên lầu.</mark>','Một khách viết: “Nhà yên tĩnh, vườn đẹp, nhưng Wi-Fi trên lầu hay rớt khi mình làm việc.”']},
+  repairs:{business:'rental',kind:'Ghi chép sửa nhà',title:'Việc đã sửa và báo giá còn chờ',meta:'Nhà Bên Vườn · Cập nhật ngày 30/9',body:['<mark>Đã khởi động lại bộ phát Wi-Fi hai lần. Báo giá nâng cấp hệ thống là 4,8 triệu, chủ nhà chưa duyệt.</mark>','Vòi bếp đã sửa xong ngày 10/9.','Chưa hẹn ngày lắp hệ thống Wi-Fi mới.']},
+  flowerOrders:{business:'flowers',kind:'Sổ đơn hàng',title:'Đơn hoa đã chốt tuần này',meta:'Tiệm hoa Mây · 18 đơn đã chốt',body:['<mark>Đã chốt 10 bó hồng kem, 6 bó cúc và 2 bó hướng dương.</mark>','6 đơn hẹn giao từ 8h đến 9h sáng thứ Bảy.','2 trong 6 đơn sáng thứ Bảy chưa có địa chỉ nhận đầy đủ.']},
+  flowerStock:{business:'flowers',kind:'Sổ hoa tại tiệm',title:'Hoa còn tại Mây',meta:'Tiệm hoa Mây · Kiểm kê chiều thứ Năm',body:['<mark>Còn 64 cành hồng kem, 40 cành cúc và 12 cành hướng dương dùng được.</mark>','Mỗi bó hồng kem dùng 8 cành; bó cúc dùng 5 cành; bó hướng dương dùng 3 cành.','Nhà vườn nhận bổ sung hoa đến 16h thứ Sáu.']},
+  flowerDelivery:{business:'flowers',kind:'Ghi chép giao hàng',title:'Lịch và khả năng giao hoa',meta:'Tiệm hoa Mây · Lịch giao tuần này',body:['<mark>Một người giao được tối đa 3 đơn trong khung 8h–9h sáng thứ Bảy. Hiện mới có một người nhận giao.</mark>','Có thể hỏi thêm người giao hoặc thương lượng khung giờ khác với khách.','Cần chốt đủ địa chỉ và số điện thoại nhận trước chiều thứ Sáu.']},
+  flowerPrices:{business:'flowers',kind:'Mẫu bó và bảng giá',title:'Các bó hoa đang nhận đặt',meta:'Tiệm hoa Mây · Giá bó đã gồm giấy gói',body:['<mark>Bó hồng kem 8 cành: 350.000đ. Bó cúc 5 cành: 250.000đ. Bó hướng dương 3 cành: 280.000đ.</mark>','Phí giao tính riêng sau khi có địa chỉ.','Trước khi nhận đơn cần xác nhận mẫu bó, lời nhắn trên thiệp, giờ và địa chỉ nhận.']}
 };
 const questions = {
-  focus:{short:'What should I focus on this week?',prompt:'What should I focus on this week across my café and rental?',keys:/focus|priorit|this week|attention|what.*(?:first|next)/i,sources:['cafeFeedback','bookings','repairs'],
-    answer:[{p:'Two things deserve your attention: the café’s morning queue and the house Wi-Fi.'},{ul:['At the café, 16 of 52 reviews mention waiting, mostly before 9:00. Try a clearer order-and-pickup flow first [1].','At Garden House, the Wi-Fi upgrade is still an unapproved quote. Get a firm installation plan before advertising the house for working stays [3].']},{p:'Then work on filling weekdays: only 9 of 20 available weekday nights booked last month, while weekends filled completely [2].'}]},
-  reply:{short:'Help me reply to a guest review',prompt:'Help me reply to the guest review about the Wi-Fi at Garden House.',keys:/reply|respond|draft|write.*(?:guest|review)/i,sources:['guestReviews','repairs'],
-    answer:[{p:'Here’s a reply that acknowledges the problem without promising a fix that isn’t booked yet:'},{quote:'Thank you for staying with us, and for letting us know about the Wi-Fi. I’m sorry it interrupted your work. We know the upstairs connection needs attention and are looking into a more reliable setup. I’m glad you enjoyed the quiet garden, and I appreciate the honest feedback.'},{p:'The upgrade is still a quote, so I’ve left out any promise about an installation date [2]. The upstairs connection is also mentioned in other reviews [1]. This is a draft; nothing has been posted.'}]},
-  weekdays:{short:'How can I fill empty weekdays?',prompt:'How can I get more weekday bookings at Garden House?',keys:/weekday|weeknight|empty|fill|book|occupan/i,sources:['bookings','enquiries','rates'],
-    answer:[{p:'Start with people who already asked about staying longer, rather than cutting every nightly rate.'},{ul:['Last month, 9 of 20 available weekday nights booked; all 8 weekend nights filled [1].','7 people enquired about weekday stays, but only 2 booked. Two asked for a three-night price [2].','Your current price list has no longer-stay offer [3].']},{p:'Try a clear three-night weekday offer and track whether it brings in extra bookings after cleaning costs and platform fees. First sort out the Wi-Fi: three enquiries specifically asked about working from the house [2].'}]},
-  repairs:{short:'What needs fixing at the house?',prompt:'What should I fix at Garden House based on recent guest reviews?',keys:/fix|repair|maintenance|wi-?fi|guest|house|rental/i,sources:['guestReviews','repairs'],
-    answer:[{p:'The upstairs Wi-Fi is the clearest recurring issue.'},{ul:['5 of 18 reviews mention an unreliable connection upstairs, despite a strong overall rating of 4.7 / 5 [1].','The router has already been reset twice. A mesh upgrade is quoted at 4.8M₫, with approval and an installation date still outstanding [2].']},{p:'Ask the installer to confirm coverage in the upstairs bedroom, then test it there before telling guests the problem is solved. The kitchen tap is already recorded as repaired [2].'}]},
-  pricing:{short:'Help me price bottled cold brew',prompt:'What price should I try for our bottled cold brew?',keys:/cold brew|bottle|price|pricing/i,sources:['coldBrew'],
-    answer:[{p:'Your cost sheet proposes 55,000₫ for a 250 ml bottle. That’s a starting point for the planned 30-bottle weekend trial [1].'},{p:'At that price, 33,600₫ is left per bottle after the recorded 21,400₫ ingredient and packaging cost—about 61% of the selling price. That is before labour, rent and other overheads, so it isn’t net profit [1].'},{p:'After the trial, check how many sold and how much time they took to make before choosing a regular price.'}]},
-  money:{short:'How did the café do last month?',prompt:'How did Mira Coffee do last month after expenses?',keys:/money|profit|cost|sales|earn|revenue|expenses|last month/i,sources:['cafeSales'],
-    answer:[{p:'The café brought in 112M₫ in September. After the costs entered in your sheet, 18M₫ remains [1].'},{table:[['September','Amount'],['Sales','112M₫'],['Ingredients','−36M₫'],['Rent','−18M₫'],['Wages','−32M₫'],['Other recorded costs','−8M₫'],['Remaining before tax & owner’s pay','18M₫']]},{p:'Tax, your own pay and any missing expenses are not included, so don’t treat the 18M₫ as take-home profit yet [1].'}]},
-  feedback:{short:'What are café customers saying?',prompt:'What are café customers saying, and what can I improve?',keys:/caf[eé]|coffee|customer|queue|wait|review|feedback/i,sources:['cafeFeedback','cafePlan'],
-    answer:[{p:'They like the coffee. It’s the morning wait that needs a little help.'},{ul:['16 of 52 reviews mention waiting, usually between 7:30 and 9:00 [1].','The oat-milk flat white gets 12 positive mentions, so keep that part of the experience [1].']},{p:'Your notes already suggest a small trial: put one person on the till from 7:30 to 9:00 and mark a separate pickup spot. Try it for one week and compare wait times before changing the menu [2].'}]}
+  focus:{short:'Tuần này nên lo việc gì trước?',prompt:'Tuần này nên ưu tiên việc gì ở cả ba cơ sở?',keys:/uu tien|lam gi truoc|viec.*(?:truoc|tuan)|tuan nay|tap trung|can chu y/i,sources:['cafeFeedback','repairs','flowerOrders','flowerDelivery'],
+    answer:[{p:'Mình sẽ chốt việc giao hoa trước, rồi xử lý giờ cao điểm của quán và Wi-Fi ở nhà cho thuê.'},{ul:['Tiệm hoa Mây có 6 đơn cùng hẹn 8h–9h sáng thứ Bảy, trong khi một người chỉ giao được 3 đơn. Hai đơn còn thiếu địa chỉ: cần chốt thông tin và thêm người giao hoặc đổi giờ với khách [3][4].','Ở Góc Nhỏ, 16/52 đánh giá nhắc chuyện chờ lâu buổi sáng. Nên thử tách chỗ gọi món và chỗ lấy đồ uống [1].','Nhà Bên Vườn còn báo giá Wi-Fi 4,8 triệu chưa duyệt và chưa có lịch lắp. Chốt phương án trước khi hứa với khách là mạng đã ổn [2].']}]},
+  reply:{short:'Soạn giúp lời trả lời khách ở',prompt:'Soạn lời trả lời đánh giá về Wi-Fi ở Nhà Bên Vườn.',reply:true,keys:/tra loi|phan hoi danh gia|soan|viet.*(?:khach|danh gia)/i,sources:['guestReviews','repairs'],
+    answer:[{p:'Bạn có thể trả lời thế này:'},{quote:'Cảm ơn bạn đã ở Nhà Bên Vườn và chia sẻ thật lòng. Mình xin lỗi vì Wi-Fi trên lầu làm gián đoạn công việc của bạn. Bên mình đã ghi nhận và đang xem phương án cải thiện đường truyền. Rất vui vì bạn thích khu vườn yên tĩnh, và cảm ơn bạn đã nhắc để mình chăm chút căn nhà tốt hơn.'},{p:'Mình chưa hứa ngày sửa xong vì báo giá vẫn chưa được duyệt và chưa có lịch lắp [2]. Đây cũng là vấn đề được nhắc lại trong các đánh giá gần đây [1].'}]},
+  weekdays:{short:'Làm sao có thêm khách ngày thường?',prompt:'Làm sao để Nhà Bên Vườn có thêm khách thuê ngày thường?',keys:/ngay thuong|trong tuan|trong dem|dat nha|dat phong|thue|lap day|them khach/i,sources:['bookings','enquiries','rates'],
+    answer:[{p:'Thử bắt đầu từ khách muốn ở ba đêm, chưa cần giảm giá tất cả các ngày.'},{ul:['Tháng trước, ngày thường có khách 9/20 đêm mở bán; cả 8 đêm cuối tuần đều kín [1].','Có 7 lượt hỏi ngày thường nhưng chỉ 2 khách chốt. Hai khách đã hỏi riêng giá ba đêm [2].','Bảng giá hiện chưa có mức riêng cho khách ở dài hơn [3].']},{p:'Bạn có thể thử một gói ba đêm ngày thường rồi xem số đặt mới có bù được chi phí dọn nhà và phí nền tảng không. Nhớ xử lý Wi-Fi trước: ba khách đã hỏi về việc làm việc tại nhà [2].'}]},
+  repairs:{short:'Nhà có gì cần sửa trước?',prompt:'Nhà Bên Vườn nên sửa gì trước theo đánh giá của khách?',keys:/sua|hong|bao tri|wi-?fi|wifi|khach|danh gia|ben vuon|nha/i,sources:['guestReviews','repairs'],
+    answer:[{p:'Wi-Fi trên lầu là việc đáng xử lý trước.'},{ul:['5/18 đánh giá nhắc đến kết nối chập chờn, dù điểm chung vẫn tốt ở mức 4,7/5 [1].','Bộ phát đã được khởi động lại hai lần. Báo giá nâng cấp là 4,8 triệu, nhưng chưa duyệt và chưa hẹn lắp [2].']},{p:'Nhờ thợ xác nhận vùng phủ sóng ở phòng ngủ trên lầu rồi kiểm tra thực tế sau khi làm. Vòi bếp đã có ghi nhận sửa xong, nên không cần đưa lại vào danh sách [2].'}]},
+  pricing:{short:'Chai cà phê nên bán bao nhiêu?',prompt:'Cà phê ủ lạnh đóng chai ở Góc Nhỏ nên thử bán giá bao nhiêu?',keys:/u lanh|dong chai|chai ca phe|gia ban|dinh gia|gia.*chai/i,sources:['coldBrew'],
+    answer:[{p:'Bảng tính đang đề xuất 55.000đ/chai 250 ml. Bạn có thể dùng mức đó cho đợt thử 30 chai cuối tuần [1].'},{p:'Mỗi chai còn 33.600đ sau 21.400đ nguyên liệu và chai lọ, tương đương khoảng 61% giá bán. Số này chưa trừ công làm, tiền thuê và chi phí chung, nên chưa phải tiền lãi thực nhận [1].'},{p:'Bán thử xong, xem bao nhiêu chai bán hết và mất bao nhiêu công làm rồi hãy chốt giá lâu dài.'}]},
+  money:{short:'Tháng rồi quán còn lại bao nhiêu?',prompt:'Sau chi phí, Cà phê Góc Nhỏ còn lại bao nhiêu trong tháng 9?',keys:/\b(?:tien|lai|lo)\b|loi bao nhieu|chi phi|thu chi|doanh thu|thang (?:roi|truoc|9)|con lai/i,sources:['cafeSales'],
+    answer:[{p:'Góc Nhỏ thu 112 triệu trong tháng 9. Trừ các khoản đã ghi vào sổ, còn lại 18 triệu [1].'},{table:[['Thu chi tháng 9','Số tiền'],['Doanh thu','112 triệu'],['Nguyên liệu','−36 triệu'],['Thuê mặt bằng','−18 triệu'],['Lương','−32 triệu'],['Chi phí khác đã ghi','−8 triệu'],['Còn lại trước thuế và công của chủ','18 triệu']]},{p:'Sổ chưa tính thuế, công của bạn và các khoản chưa nhập, nên 18 triệu này chưa phải khoản có thể rút hết về dùng [1].'}]},
+  feedback:{short:'Khách đang góp ý gì cho quán?',prompt:'Khách góp ý gì cho Cà phê Góc Nhỏ, và nên cải thiện gì?',keys:/gop y|phan hoi|khach|danh gia|ca phe|goc nho|xep hang|cho lau|cai thien|quan/i,sources:['cafeFeedback','cafePlan'],
+    answer:[{p:'Khách thích cà phê, nhưng buổi sáng đang phải chờ hơi lâu.'},{ul:['16/52 đánh giá nhắc chuyện chờ, chủ yếu từ 7h30 đến 9h [1].','Cà phê sữa yến mạch được khen 12 lần, nên cứ giữ điểm mạnh này [1].']},{p:'Trong ghi chép đã có một cách thử khá gọn: bố trí riêng người nhận món từ 7h30 đến 9h và tách chỗ lấy đồ uống. Thử một tuần rồi so thời gian chờ, chưa cần đổi thực đơn [2].'}]},
+  flowerReply:{short:'Soạn tin nhắn nhận đơn hoa',prompt:'Soạn tin nhắn cho khách muốn đặt bó hồng kem ở Tiệm hoa Mây.',reply:true,keys:/tra loi|tin nhan|soan|viet|nhan don/i,sources:['flowerPrices','flowerDelivery'],
+    answer:[{p:'Bạn có thể gửi khách lời nhắn này:'},{quote:'Mây có bó hồng kem 8 cành, giá 350.000đ đã gồm giấy gói ạ. Bạn cho tiệm xin giờ nhận, địa chỉ và lời nhắn trên thiệp nhé. Có địa chỉ rồi Mây báo phí giao cụ thể, rồi chốt đơn cùng bạn nha.'},{p:'Giá bó đã có trong bảng giá, còn phí giao tính riêng theo địa chỉ [1]. Chưa hứa giờ giao ngay vì khung 8h–9h sáng thứ Bảy đang cần bổ sung người [2].'}]},
+  flowerDelivery:{short:'Lịch giao hoa có bị dồn không?',prompt:'Kiểm tra lịch giao hoa tuần này của Tiệm hoa Mây.',keys:/giao|don|tre|muon|hen|lich/i,sources:['flowerOrders','flowerDelivery'],
+    answer:[{p:'Có một khung giờ đang dồn đơn: 8h–9h sáng thứ Bảy.'},{ul:['6 đơn cùng hẹn trong khung đó, hai đơn chưa có địa chỉ nhận đầy đủ [1].','Hiện chỉ có một người giao, tối đa 3 đơn trong một giờ [2].']},{p:'Chốt ngay địa chỉ còn thiếu trước chiều thứ Sáu. Sau đó thêm một người giao có khả năng nhận đủ 3 đơn còn lại, hoặc hỏi khách có thể nhận sang khung giờ khác không. Chưa nên hứa thêm đơn vào giờ này [2].'}]},
+  flowerStock:{short:'Tiệm hoa cần nhập thêm gì?',prompt:'Tiệm hoa Mây cần nhập thêm hoa gì cho các đơn đã chốt?',keys:/ton|nhap|thieu|canh|con bao nhieu|du (?:hoa|hang)/i,sources:['flowerOrders','flowerStock'],
+    answer:[{p:'Theo các đơn đã chốt, Mây đang thiếu ít nhất 16 cành hồng kem.'},{table:[['Loại hoa','Cần cho đơn đã chốt','Còn tại tiệm'],['Hồng kem','10 bó × 8 = 80 cành','64 cành → thiếu 16'],['Cúc','6 bó × 5 = 30 cành','40 cành → dư 10'],['Hướng dương','2 bó × 3 = 6 cành','12 cành → dư 6']]},{p:'Số bó lấy từ sổ đơn [1], số cành và định mức mỗi bó lấy từ sổ hoa [2]. Bạn nên bổ sung 16 cành hồng trước hạn 16h thứ Sáu; phần dự phòng cho hoa hỏng cần tính riêng theo chất lượng thực tế [2].'}]}
 };
 const pickNotes = business => Object.fromEntries(Object.entries(notes).filter(([,note]) => note.business === business));
 const workspaces = {
-  all:{name:'Everything',description:'Your coffee shop and holiday rental, in one place.',placeholder:'Ask about your café, your rental, or what to do next…',docs:notes,scenarios:Object.values(questions),suggestions:['focus','weekdays','reply']},
-  coffee:{name:'Mira Coffee',description:'Customers, costs and everyday decisions at your café.',placeholder:'Ask about customers, costs, or an idea for the café…',docs:pickNotes('coffee'),scenarios:[questions.pricing,questions.money,questions.feedback],suggestions:['feedback','money','pricing']},
-  rental:{name:'Garden House',description:'Bookings, guest reviews and taking care of the house.',placeholder:'Ask about bookings, guest reviews, or the house…',docs:pickNotes('rental'),scenarios:[questions.reply,questions.weekdays,questions.repairs],suggestions:['weekdays','repairs','reply']}
+  all:{name:'Tất cả',description:'Quán cà phê, nhà cho thuê và tiệm hoa của bạn.',placeholder:'Hỏi chuyện quán, nhà cho thuê hay tiệm hoa…',docs:notes,scenarios:[questions.focus,questions.reply,questions.weekdays,questions.repairs,questions.pricing,questions.money,questions.feedback,questions.flowerReply,questions.flowerStock,questions.flowerDelivery],suggestions:['focus','weekdays','flowerStock']},
+  coffee:{name:'Cà phê Góc Nhỏ',description:'Khách quen, thu chi và những việc ở Cà phê Góc Nhỏ.',placeholder:'Hỏi về khách, thu chi hay một ý tưởng cho quán…',docs:pickNotes('coffee'),scenarios:[questions.pricing,questions.money,questions.feedback],suggestions:['feedback','money','pricing']},
+  rental:{name:'Nhà Bên Vườn',description:'Lịch khách ở và những việc cần chăm chút tại Nhà Bên Vườn.',placeholder:'Hỏi về lịch đặt, lời khách nhắn hay việc sửa nhà…',docs:pickNotes('rental'),scenarios:[questions.reply,questions.weekdays,questions.repairs],suggestions:['weekdays','repairs','reply']},
+  flowers:{name:'Tiệm hoa Mây',description:'Hoa tại tiệm, đơn đã chốt và lịch giao của Mây.',placeholder:'Hỏi về hoa cần nhập, đơn hàng hay lịch giao…',docs:pickNotes('flowers'),scenarios:[questions.flowerReply,questions.flowerStock,questions.flowerDelivery],suggestions:['flowerStock','flowerDelivery','flowerReply']}
 };
 let workspace = 'all', docs, scenarios;
-const fallback = {p:'I only have a few example answers in this demo. Try one of these questions to see how I can help:'};
+const fallback = {p:'Mình chưa có đủ thông tin để trả lời câu này. Bạn thử một trong các câu bên dưới nhé:'};
 const wordDelay = 20;
 const icons = {
   search:'<svg viewBox="0 0 16 16"><circle cx="7" cy="7" r="4.5"/><path d="M10.5 10.5L14 14"/></svg>',
@@ -88,7 +99,7 @@ function setWorkspace(key){
   renderSuggestions();
   resetSources();
   renderLibrary();
-  announce(`Switched to ${space.name}.`);
+  announce(`Đã chuyển sang ${space.name}.`);
 }
 function renderLibrary(){
   const list = $('#library-list');
@@ -111,13 +122,13 @@ function renderLibrary(){
 function setBusy(value){
   busy = value;
   sendButton.classList.toggle('stop', value);
-  sendButton.setAttribute('aria-label', value ? 'Stop generating' : 'Send question');
+  sendButton.setAttribute('aria-label', value ? 'Dừng trả lời' : 'Gửi câu hỏi');
   syncComposer();
 }
 function syncComposer(){ composer.classList.toggle('empty-input', !busy && !input.value.trim()); }
 function resetSources(){
   readCount = 0;
-  $('#source-list').innerHTML = '<li class="source-empty">The notes used in your answer will appear here.</li>';
+  $('#source-list').innerHTML = '<li class="source-empty">Ghi chép được dùng trong câu trả lời sẽ hiện ở đây.</li>';
   $('#cited-count').textContent = '0';
 }
 function addSource(key, index){
@@ -157,7 +168,7 @@ function showCitation(chip, key){
 function citation(index, sources){
   const chip = element('button', 'cite', index), key = sources[index - 1];
   chip.type = 'button';
-  chip.setAttribute('aria-label', `Source ${index}: ${docs[key].title}`);
+  chip.setAttribute('aria-label', `Nguồn ${index}: ${docs[key].title}`);
   chip.addEventListener('click', () => { popover.hidden = true; openDoc(key); });
   chip.addEventListener('mouseenter', () => showCitation(chip, key));
   chip.addEventListener('focus', () => showCitation(chip, key));
@@ -204,14 +215,18 @@ async function ask(text){
   text = text.trim();
   if (!text || busy) return;
   const id = ++run;
+  const folded = text.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/đ/g, 'd');
   let candidates = scenarios;
   if (workspace === 'all'){
-    const coffee = /caf[eé]|coffee|cold brew/i.test(text);
-    const rental = /rental|house|guest|stay|booking|wi-?fi/i.test(text);
-    if (coffee !== rental) candidates = scenarios.filter(item => item.sources.every(key => notes[key].business === (coffee ? 'coffee' : 'rental')));
+    const matches = [
+      ['coffee', /\b(?:ca phe|goc nho|quan|caphe|cold brew)\b/],
+      ['rental', /\b(?:nha|ben vuon|thue|phong|luu tru|wi-?fi|wifi)\b/],
+      ['flowers', /\b(?:tiem hoa|hoa may|hoa|bo hoa|cam hoa)\b/]
+    ].filter(([,pattern]) => pattern.test(folded));
+    if (matches.length === 1) candidates = scenarios.filter(item => item.sources.every(key => notes[key].business === matches[0][0]));
   }
-  const asksForReply = /reply|respond|draft/i.test(text);
-  const scenario = candidates.find(item => item.prompt === text) ?? candidates.find(item => (!asksForReply || item === questions.reply) && item.keys.test(text));
+  const asksForReply = /tra loi|soan|viet.*(?:khach|danh gia|tin nhan)|tin nhan.*khach/.test(folded);
+  const scenario = candidates.find(item => item.prompt === text) ?? candidates.find(item => (!asksForReply || item.reply) && item.keys.test(folded));
   input.value = ''; resizeInput();
   addUserMessage(text);
   resetSources();
@@ -222,16 +237,16 @@ async function ask(text){
   thread.append(message);
   let completed = true;
   if (scenario){
-    const progress = element('p', 'answer-progress', 'Looking through your notes…');
+    const progress = element('p', 'answer-progress', 'Đang xem ghi chép của bạn…');
     message.append(progress);
     for (const key of scenario.sources){
       await wait(380);
       if (id !== run){ completed = false; break; }
-      progress.textContent = `Reading ${docs[key].title.toLowerCase()}…`;
+      progress.textContent = `Đang đọc “${docs[key].title}”…`;
       addSource(key, ++readCount);
       scrollDown();
     }
-    progress.textContent = completed ? `Based on ${readCount} ${readCount === 1 ? 'note' : 'notes'}` : 'Paused';
+    progress.textContent = completed ? `Đã tham khảo ${readCount} ghi chép` : 'Đã tạm dừng';
     message.append(body);
     if (completed) for (const block of scenario.answer) if (!(completed = await renderBlock(block, body, id, scenario.sources))) break;
   } else {
@@ -241,11 +256,11 @@ async function ask(text){
   }
   body.classList.remove('streaming');
   message.removeAttribute('aria-busy');
-  if (!completed) body.append(element('p', 'stopped', 'Answer stopped.'));
+  if (!completed) body.append(element('p', 'stopped', 'Đã dừng trả lời.'));
   if (completed && scenario) message.append(actions(text));
   if (id === run) setBusy(false);
   scrollDown();
-  announce(completed ? 'Pip finished answering.' : 'Answer stopped.');
+  announce(completed ? 'Pip đã trả lời xong.' : 'Đã dừng trả lời.');
 }
 function iconButton(icon, label){
   const button = element('button');
@@ -257,10 +272,10 @@ function iconButton(icon, label){
 }
 function actions(prompt){
   const bar = element('div', 'actions');
-  const copy = iconButton('copy', 'Copy answer'), retry = iconButton('retry', 'Try again');
+  const copy = iconButton('copy', 'Sao chép câu trả lời'), retry = iconButton('retry', 'Trả lời lại');
   copy.addEventListener('click', async () => {
     const text = copy.closest('.message').querySelector('.answer').innerText;
-    try { await navigator.clipboard.writeText(text); copy.title = 'Copied'; announce('Answer copied.'); } catch { announce('Copy unavailable.'); }
+    try { await navigator.clipboard.writeText(text); copy.title = 'Đã sao chép'; announce('Đã sao chép câu trả lời.'); } catch { announce('Chưa sao chép được. Bạn thử chọn và sao chép thủ công nhé.'); }
   });
   retry.addEventListener('click', () => ask(prompt));
   bar.append(copy, retry);
