@@ -21,7 +21,7 @@ const vietnamese = {
   sereinDescription: 'Ngôi nhà ba phòng bên vách biển Quy Nhơn, xoay quanh giờ sau hoàng hôn - giờ mặt trời lặn thực tế và lịch chọn đêm nghỉ.',
   reuDescription: 'Thực đơn cho một căn bếp Hội An, ưu tiên điện thoại - lọc theo chế độ ăn, báo giờ mở cửa và giỏ món mang đi.',
   atelierDescription: 'Một cửa hàng thời trang nhẹ nhàng, nhường chỗ cho quần áo kể chuyện.',
-  emberDescription: 'Trải nghiệm đặt lịch nhà tắm Đà Lạt - chọn liệu trình, kỹ thuật viên, giờ hẹn và xem lại thông tin.',
+  mocDescription: 'Một tiệm spa thảo mộc ở Đà Lạt - xem bốn liệu trình, chọn kỹ thuật viên và trải nghiệm đặt lịch.',
   halyardDescription: 'Trang giới thiệu công cụ ghi chú phiên bản - đổi kỳ thanh toán, so sánh gói và giải đáp thắc mắc.',
   orbitDescription: 'Biến số liệu kinh doanh thành bảng tổng quan dễ đọc trong lúc uống cà phê sáng.',
   lumenDescription: 'Trợ lý tiếng Việt cho quán cà phê, nhà cho thuê và tiệm hoa - hỏi chuyện kinh doanh từ ghi chép của chủ.',
@@ -40,7 +40,7 @@ const vietnamese = {
   contactHint: 'Bấm để sao chép', copyEmail: 'Sao chép email', copyPhone: 'Sao chép số điện thoại',
   copiedEmail: 'Đã sao chép email.', copiedPhone: 'Đã sao chép số điện thoại.', copyError: 'Chưa sao chép được. Bạn hãy chọn nội dung và sao chép thủ công.',
   altPulp: 'Bao bì thực phẩm bằng xơ thực vật định hình', altSerein: 'Mặt biển lúc chạng vạng, ngay sau hoàng hôn',
-  altReu: 'Con phố Hội An dưới ánh đèn lồng', altAtelier: 'Bộ ảnh thời trang Atelier', altEmber: 'Rừng thông trong sương, ảnh mở đầu concept nhà tắm Ember',
+  altReu: 'Con phố Hội An dưới ánh đèn lồng', altAtelier: 'Bộ ảnh thời trang Atelier', altMoc: 'Ảnh tạo bằng AI về chậu ngâm chân, sả và túi chườm thảo mộc cho concept spa Mộc',
   altForma: 'Nghiên cứu kiến trúc Forma', altHien: 'Ảnh kiến trúc minh họa Hiên Studio', altTidal: 'Mặt biển trong thử nghiệm Tidal',
 };
 

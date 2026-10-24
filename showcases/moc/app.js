@@ -5,20 +5,19 @@ const vnd = n => String(n).replace(/\B(?=(\d{3})+(?!\d))/g, '.') + ' ₫';
 const escapeHtml = s => String(s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 
 const services = [
-  { id: 'soak', name: 'Hearth soak', mins: 60, price: 650000, img: 'soak', desc: 'Mineral bath at 40°C, cold plunge, pine tea by the fire.' },
-  { id: 'stone', name: 'Stone & ember massage', mins: 90, price: 1100000, img: 'stones', tag: 'Most booked', desc: 'Full-body massage with heated basalt and camellia oil.' },
-  { id: 'pine', name: 'Pine steam ritual', mins: 75, price: 850000, img: 'oil', desc: 'Steam room, salt and coffee scrub, rinse, rest.' },
-  { id: 'facial', name: 'Quiet facial', mins: 50, price: 700000, img: 'clay-mask', desc: 'Rice-water cleanse, artichoke mask, scalp massage.' },
-  { id: 'cedar', name: 'Cedar room for two', mins: 120, price: 2200000, img: 'two-guests', tag: 'For two', desc: 'Private soak and side-by-side massage for two guests.' }
+  { id: 'soak', name: 'Lemongrass foot soak', local: 'Ngâm chân sả gừng', mins: 45, price: 250000, img: 'herbal-spa', tag: 'A gentle start', desc: 'Warm water with lemongrass and ginger, followed by a gentle foot massage.' },
+  { id: 'compress', name: 'Warm herbal compress', local: 'Chườm thảo mộc', mins: 75, price: 550000, img: 'herbal-compress', desc: 'Warm cotton herb bundles and a slow massage for your back and shoulders.' },
+  { id: 'massage', name: 'Warm oil massage', local: 'Massage tinh dầu', mins: 60, price: 500000, img: 'two-guests', desc: 'A full-body massage with warm oil. Choose gentle or firmer pressure when you arrive.' },
+  { id: 'afternoon', name: 'The slow afternoon', local: 'Một buổi thảnh thơi', mins: 105, price: 700000, img: 'oil', tag: 'Take your time', desc: 'A lemongrass foot soak and foot massage, followed by a full-body oil massage.' }
 ];
 const staff = [
-  { id: 'any', name: 'No preference', role: 'First available therapist', initials: '✦', tone: '#3d352b', offers: null, off: null },
-  { id: 'hanh', name: 'Hạnh', role: 'Head therapist · 12 years', initials: 'H', tone: '#c49a55', offers: ['soak', 'stone', 'pine', 'facial', 'cedar'], off: 3 },
-  { id: 'minh', name: 'Minh', role: 'Deep tissue & steam', initials: 'M', tone: '#e0703a', offers: ['stone', 'pine', 'cedar'], off: 1 },
-  { id: 'linh', name: 'Linh', role: 'Skin & bathing rituals', initials: 'L', tone: '#a8b58c', offers: ['soak', 'pine', 'facial'], off: 4 },
-  { id: 'bao', name: 'Bảo', role: 'Stone therapy', initials: 'B', tone: '#d9b98a', offers: ['soak', 'stone', 'cedar'], off: 0 }
+  { id: 'any', name: 'No preference', role: 'First available therapist', initials: 'M', tone: '#dde6d5', offers: null, off: null },
+  { id: 'hanh', name: 'Hạnh', role: 'Herbal compress & massage', initials: 'H', tone: '#d8cbb4', offers: ['soak', 'compress', 'massage', 'afternoon'], off: 3 },
+  { id: 'minh', name: 'Minh', role: 'Body & shoulder massage', initials: 'M', tone: '#ddc1ae', offers: ['compress', 'massage', 'afternoon'], off: 1 },
+  { id: 'linh', name: 'Linh', role: 'Foot care & gentle massage', initials: 'L', tone: '#c9d7bf', offers: ['soak', 'massage', 'afternoon'], off: 4 },
+  { id: 'bao', name: 'Bảo', role: 'Foot care & herbal compress', initials: 'B', tone: '#e4d9bb', offers: ['soak', 'compress'], off: 0 }
 ];
-const stepNames = ['Ritual', 'Therapist', 'Date & time', 'Details', 'Review'];
+const stepNames = ['Treatment', 'Therapist', 'Date & time', 'Details', 'Review'];
 const dayShort = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 const monthShort = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 const CLOSED_DAY = 2; /* Tuesday */
@@ -57,12 +56,12 @@ function slotsFor(d) {
 const dateLabel = iso => { const d = upcomingDates().find(x => x.iso === iso); return d ? `${dayShort[d.day]} ${d.date} ${monthShort[d.month]}` : iso; };
 
 function renderServices() {
-  $('#services').innerHTML = services.map(s => `<label class="card"><input type="radio" name="service" value="${s.id}"${state.service === s.id ? ' checked' : ''}><span class="card-body"><span class="card-photo"><img src="assets/${s.img}.jpg" alt="" loading="lazy"></span>${s.tag ? `<span class="card-tag">${s.tag}</span>` : ''}<span class="card-text"><span class="card-title">${s.name}</span><span class="card-meta"><span>${s.mins} min</span><span>${vnd(s.price)}</span></span><span class="card-desc">${s.desc}</span></span></span></label>`).join('');
+  $('#services').innerHTML = services.map(s => `<label class="card"><input type="radio" name="service" value="${s.id}"${state.service === s.id ? ' checked' : ''}><span class="card-body"><span class="card-photo"><img src="assets/${s.img}.jpg" alt="" loading="lazy"></span>${s.tag ? `<span class="card-tag">${s.tag}</span>` : ''}<span class="card-text"><span class="card-local" lang="vi">${s.local}</span><span class="card-title">${s.name}</span><span class="card-meta"><span>${s.mins} min</span><span>${vnd(s.price)}</span></span><span class="card-desc">${s.desc}</span></span></span></label>`).join('');
 }
 function renderStaff() {
   $('#staff').innerHTML = staff.map(m => {
     const offers = !m.offers || (state.service && m.offers.includes(state.service));
-    const note = offers ? m.role : `Doesn’t offer ${svc() ? svc().name : 'this ritual'}`;
+    const note = offers ? m.role : `Doesn’t offer ${svc() ? svc().name : 'this treatment'}`;
     return `<label class="card"><input type="radio" name="staff" value="${m.id}"${state.staff === m.id ? ' checked' : ''}${offers ? '' : ' disabled'}><span class="card-body"><span class="avatar" style="--tone:${m.tone}" aria-hidden="true">${m.initials}</span><span><span class="card-title">${m.name}</span><span class="card-desc">${note}${m.off !== null && offers ? ` · off ${dayShort[m.off]}` : ''}</span></span></span></label>`;
   }).join('');
 }
@@ -99,7 +98,7 @@ function renderProgress() {
 function renderSummary() {
   const s = svc(), m = person();
   const row = (k, v) => `<div><dt>${k}</dt><dd${v ? '' : ' class="pending"'}>${v || 'Not chosen'}</dd></div>`;
-  $('#summary').innerHTML = row('Ritual', s && s.name) + row('Therapist', m && m.name) + row('Date', state.date && dateLabel(state.date)) + row('Time', state.time !== null && s ? `${hhmm(state.time)}–${hhmm(state.time + s.mins)}` : null);
+  $('#summary').innerHTML = row('Treatment', s && s.name) + row('Therapist', m && m.name) + row('Date', state.date && dateLabel(state.date)) + row('Time', state.time !== null && s ? `${hhmm(state.time)}–${hhmm(state.time + s.mins)}` : null);
   const total = s ? vnd(s.price) : '-';
   if ($('#sum-total').textContent !== total) { $('#sum-total').textContent = total; bump($('#sum-total')); }
   const photo = $('#sum-photo');
@@ -113,7 +112,7 @@ function bump(el) { el.classList.remove('bump'); void el.offsetWidth; el.classLi
 function reviewRows(withEdit) {
   const s = svc(), m = person();
   const name = $('#f-name').value.trim(), email = $('#f-email').value.trim(), phone = $('#f-phone').value.trim(), notes = $('#f-notes').value.trim();
-  const rows = [['Ritual', `${s.name} · ${s.mins} min`, 0], ['Therapist', m.name, 1], ['When', `${dateLabel(state.date)}, ${hhmm(state.time)}–${hhmm(state.time + s.mins)}`, 2], ['Guest', escapeHtml(name), 3], ['Contact', escapeHtml(email) + (phone ? ` · ${escapeHtml(phone)}` : ''), 3]];
+  const rows = [['Treatment', `${s.name} · ${s.mins} min`, 0], ['Therapist', m.name, 1], ['When', `${dateLabel(state.date)}, ${hhmm(state.time)}–${hhmm(state.time + s.mins)}`, 2], ['Guest', escapeHtml(name), 3], ['Contact', escapeHtml(email) + (phone ? ` · ${escapeHtml(phone)}` : ''), 3]];
   if (notes) rows.push(['Notes', escapeHtml(notes), 3]);
   rows.push(['Total', vnd(s.price), null]);
   return rows.map(([k, v, step]) => `<div><dt>${k}</dt><dd>${v}</dd>${withEdit ? (step === null ? '<span></span>' : `<button type="button" class="edit" data-goto="${step}">Edit<span class="sr-only"> ${k.toLowerCase()}</span></button>`) : ''}</div>`).join('');
@@ -135,7 +134,7 @@ function validateField(name) {
 }
 function showStepError(id, message) { const el = $(id); el.textContent = message; el.hidden = !message; if (message) el.setAttribute('role', 'alert'); }
 function validateStep(step) {
-  if (step === 0) { showStepError('#err-service', state.service ? '' : 'Choose a ritual to continue.'); return Boolean(state.service); }
+  if (step === 0) { showStepError('#err-service', state.service ? '' : 'Choose a treatment to continue.'); return Boolean(state.service); }
   if (step === 1) { showStepError('#err-staff', state.staff ? '' : 'Choose a therapist, or “No preference”.'); return Boolean(state.staff); }
   if (step === 2) { const ok = state.date && state.time !== null; showStepError('#err-time', ok ? '' : 'Pick an open time to continue.'); return Boolean(ok); }
   if (step === 3) {
@@ -166,7 +165,7 @@ $('#flow').addEventListener('submit', event => {
   if (state.step > 4 || !validateStep(state.step)) return;
   if (state.step === 4) {
     $('#final').innerHTML = reviewRows(false);
-    $('#ref').textContent = 'EMB-DEMO-' + Math.random().toString(36).slice(2, 6).toUpperCase();
+    $('#ref').textContent = 'MOC-DEMO-' + Math.random().toString(36).slice(2, 6).toUpperCase();
     goTo(5);
     announce('Demo complete. No booking was made.');
     return;
@@ -195,7 +194,7 @@ $('#flow').addEventListener('change', event => {
     state.service = value;
     state.time = null;
     const m = person();
-    if (m && m.offers && !m.offers.includes(value)) { state.staff = null; announce(`${m.name} doesn’t offer this ritual, so your therapist choice was cleared.`); }
+    if (m && m.offers && !m.offers.includes(value)) { state.staff = null; announce(`${m.name} doesn’t offer this treatment, so your therapist choice was cleared.`); }
     showStepError('#err-service', '');
   } else if (name === 'staff') { state.staff = value; state.time = null; showStepError('#err-staff', ''); }
   else if (name === 'date') { state.date = value; state.time = null; renderSlots(); }
@@ -210,33 +209,5 @@ $('#flow').addEventListener('change', event => {
 $('#f-consent').addEventListener('change', () => { if (state.attempted.has('consent')) validateField('consent'); });
 $('#f-notes').addEventListener('input', event => { $('#c-notes').textContent = `${event.target.value.length} / 300`; });
 
-/* Embers rising off the hero; paused off-screen and skipped for reduced motion. */
-function embers() {
-  const canvas = $('#embers');
-  if (!canvas || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-  const ctx = canvas.getContext('2d');
-  let w, h, dpr, visible = true, frame;
-  const sparks = [];
-  const spawn = (anywhere) => ({ x: Math.random() * w, y: anywhere ? Math.random() * h : h + 10, r: 0.6 + Math.random() * 1.8, vy: 0.25 + Math.random() * 0.7, sway: Math.random() * Math.PI * 2, life: 0.4 + Math.random() * 0.6 });
-  const resize = () => { dpr = Math.min(devicePixelRatio || 1, 2); w = canvas.offsetWidth; h = canvas.offsetHeight; canvas.width = w * dpr; canvas.height = h * dpr; ctx.setTransform(dpr, 0, 0, dpr, 0, 0); };
-  resize();
-  for (let i = 0; i < Math.round(w / 22); i++) sparks.push(spawn(true));
-  const tick = t => {
-    ctx.clearRect(0, 0, w, h);
-    for (const p of sparks) {
-      p.y -= p.vy; p.x += Math.sin(t / 1400 + p.sway) * 0.35;
-      const fade = Math.min(1, p.y / h * 1.6) * p.life * (0.65 + 0.35 * Math.sin(t / 180 + p.sway * 5));
-      if (p.y < -10 || fade <= 0) { Object.assign(p, spawn(false)); continue; }
-      const g = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, p.r * 4);
-      g.addColorStop(0, `rgba(255,190,120,${fade})`); g.addColorStop(0.35, `rgba(236,116,56,${fade * 0.5})`); g.addColorStop(1, 'rgba(236,116,56,0)');
-      ctx.fillStyle = g; ctx.beginPath(); ctx.arc(p.x, p.y, p.r * 4, 0, Math.PI * 2); ctx.fill();
-    }
-    frame = visible ? requestAnimationFrame(tick) : null;
-  };
-  new IntersectionObserver(([entry]) => { visible = entry.isIntersecting; if (visible && !frame) frame = requestAnimationFrame(tick); }).observe(canvas);
-  addEventListener('resize', resize);
-}
-
 renderServices();
 goTo(0, { focus: false });
-embers();
