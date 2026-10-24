@@ -53,6 +53,21 @@ main, .footer { width: min(1120px, 100% - 32px); margin: 0 auto; }
 @keyframes drift { to { transform: translate(14px, -18px) scale(1.04); } }
 
 h1 { font: 500 clamp(40px, 6vw, 74px)/1.05 var(--serif); letter-spacing: -2px; margin-bottom: 24px; }
+/* Signal-tear treatment inspired by Codrops' CSSGlitchEffect. */
+.cyber-glitch { display: inline-grid; white-space: nowrap; }
+.glitch-slice { grid-area: 1 / 1; animation: signal-tear 4.2s .65s steps(1, end) infinite; }
+.glitch-top { --tear-x: -.055em; --tear-y: -.012em; clip-path: inset(-15% -20% 59%); }
+.glitch-middle { --tear-x: .13em; --tear-y: .015em; clip-path: inset(41% -20% 32%); }
+.glitch-bottom { --tear-x: -.08em; --tear-y: 0em; clip-path: inset(68% -20% -15%); }
+.glitch-slice[aria-hidden] { pointer-events: none; user-select: none; }
+@keyframes signal-tear {
+  0%, 13%, 62%, 67%, 100% { transform: none; text-shadow: none; }
+  2%, 8% { transform: translate(var(--tear-x), var(--tear-y)); text-shadow: -.035em 0 #00c7d9, .035em 0 #f12b62; }
+  4% { transform: translate(calc(var(--tear-x) * -.6), 0) skewX(5deg); text-shadow: .045em 0 #00c7d9, -.025em 0 #f12b62; }
+  6%, 10% { transform: none; text-shadow: none; }
+  11% { transform: translate(calc(var(--tear-x) * .4), 0); text-shadow: -.025em 0 #00c7d9; }
+  64% { transform: translate(calc(var(--tear-x) * -.45), 0); text-shadow: .03em 0 #f12b62, -.025em 0 #00c7d9; }
+}
 .lede { font-size: clamp(19px, 2vw, 23px); line-height: 1.55; max-width: 34ch; color: var(--ink); }
 .intro-actions { display: flex; align-items: center; flex-wrap: wrap; gap: 14px 24px; margin-top: 34px; }
 .button { display: inline-block; background: var(--ink); color: var(--paper); font: 600 15px var(--nav); letter-spacing: .6px; text-transform: uppercase; padding: 14px 26px; border-radius: var(--radius); box-shadow: var(--shadow); transition: background .2s, transform .2s; }
@@ -163,6 +178,8 @@ h2 { font: 500 clamp(30px, 4vw, 44px)/1.15 var(--serif); letter-spacing: -1.2px;
 
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation: none !important; transition: none !important; }
+  .glitch-top { clip-path: none; }
+  .glitch-slice[aria-hidden] { display: none; }
   .ink-line { stroke-dashoffset: 0; }
   .fader { display: none; }
   html { scroll-behavior: auto; }
