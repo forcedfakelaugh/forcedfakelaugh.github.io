@@ -249,8 +249,14 @@
       <span data-i18n="contactReveal">Contact details</span><span class="contact-arrow" aria-hidden="true">↓</span>
     </button>
     <div class="contact-details" id="contact-details" hidden>
-      <a class="contact-link" id="contact-email"><span class="contact-label" data-i18n="contactEmail">Email</span><span class="contact-value"></span><span aria-hidden="true">↗</span></a>
-      <a class="contact-link" id="contact-phone"><span class="contact-label" data-i18n="contactPhone">Phone</span><span class="contact-value"></span><span aria-hidden="true">↗</span></a>
+      <span class="contact-hint" data-i18n="contactHint">Click to copy</span>
+      <button class="contact-copy" id="contact-email" type="button" data-i18n-label="copyEmail" aria-label="Copy email"><span class="contact-label" data-i18n="contactEmail">Email</span><span class="contact-value"></span><span data-copy-icon aria-hidden="true">⧉</span></button>
+      <button class="contact-copy" id="contact-phone" type="button" data-i18n-label="copyPhone" aria-label="Copy phone number"><span class="contact-label" data-i18n="contactPhone">Phone</span><span class="contact-value"></span><span data-copy-icon aria-hidden="true">⧉</span></button>
+      <p class="contact-status" role="status" aria-live="polite" aria-atomic="true">
+        <span data-contact-feedback="email" data-i18n="copiedEmail" hidden>Email copied.</span>
+        <span data-contact-feedback="phone" data-i18n="copiedPhone" hidden>Phone number copied.</span>
+        <span data-contact-feedback="error" data-i18n="copyError" hidden>Couldn’t copy. Select the text and copy it manually.</span>
+      </p>
     </div>
     <noscript><p>Please enable JavaScript to view contact details.</p></noscript>
   </section>

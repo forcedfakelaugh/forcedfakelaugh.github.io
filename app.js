@@ -34,6 +34,8 @@ const vietnamese = {
   serviceAi: 'AI agent & trợ lý AI', serviceWorkflows: 'Quy trình LLM & tích hợp', serviceWeb: 'Website & trang giới thiệu', servicePrototypes: 'Bảng tổng quan & bản mẫu tương tác',
   helloTitle: 'cùng làm một thứ ra trò', helloText: 'Có dự án muốn trao đổi? Kể tớ nghe bạn đang muốn xây gì.', backTop: 'về đầu trang ↑',
   contactReveal: 'Thông tin liên hệ', contactEmail: 'Email', contactPhone: 'Điện thoại',
+  contactHint: 'Bấm để sao chép', copyEmail: 'Sao chép email', copyPhone: 'Sao chép số điện thoại',
+  copiedEmail: 'Đã sao chép email.', copiedPhone: 'Đã sao chép số điện thoại.', copyError: 'Chưa sao chép được. Bạn hãy chọn nội dung và sao chép thủ công.',
   altPulp: 'Bao bì thực phẩm bằng xơ thực vật định hình', altSerein: 'Mặt biển lúc chạng vạng, ngay sau hoàng hôn',
   altReu: 'Con phố Hội An dưới ánh đèn lồng', altAtelier: 'Bộ ảnh thời trang Atelier', altEmber: 'Rừng thông trong sương, ảnh mở đầu concept nhà tắm Ember',
   altForma: 'Nghiên cứu kiến trúc Forma', altHien: 'Ảnh kiến trúc minh họa Hiên Studio', altTidal: 'Mặt biển trong thử nghiệm Tidal',
@@ -131,15 +133,39 @@ contactToggle.addEventListener('click', () => {
   if (!contactReady) {
     const email = atob('bHVjYXNuZ3V5ZW4uc2hAZ21haWwuY29t');
     const phone = atob('Kzg0IDk4NCA5ODMgODcx');
-    const emailLink = document.getElementById('contact-email');
-    const phoneLink = document.getElementById('contact-phone');
-    emailLink.href = `mailto:${email}`;
-    phoneLink.href = `tel:${phone.replace(/\s/g, '')}`;
-    emailLink.querySelector('.contact-value').textContent = email;
-    phoneLink.querySelector('.contact-value').textContent = phone;
+    document.querySelector('#contact-email .contact-value').textContent = email;
+    document.querySelector('#contact-phone .contact-value').textContent = phone;
     contactReady = true;
   }
   const expanded = contactToggle.getAttribute('aria-expanded') !== 'true';
   contactToggle.setAttribute('aria-expanded', String(expanded));
   contactDetails.hidden = !expanded;
 });
+
+const contactCopyButtons = document.querySelectorAll('.contact-copy');
+const contactFeedback = document.querySelectorAll('[data-contact-feedback]');
+let copyFeedbackTimer;
+function clearCopyFeedback() {
+  contactFeedback.forEach(message => { message.hidden = true; });
+  contactCopyButtons.forEach(button => {
+    button.classList.remove('is-copied');
+    button.querySelector('[data-copy-icon]').textContent = '⧉';
+  });
+}
+contactCopyButtons.forEach(button => button.addEventListener('click', async () => {
+  button.disabled = true;
+  clearTimeout(copyFeedbackTimer);
+  clearCopyFeedback();
+  try {
+    await navigator.clipboard.writeText(button.querySelector('.contact-value').textContent);
+    button.classList.add('is-copied');
+    button.querySelector('[data-copy-icon]').textContent = '✓';
+    const field = button.id === 'contact-email' ? 'email' : 'phone';
+    document.querySelector(`[data-contact-feedback="${field}"]`).hidden = false;
+    copyFeedbackTimer = setTimeout(clearCopyFeedback, 2500);
+  } catch {
+    document.querySelector('[data-contact-feedback="error"]').hidden = false;
+  } finally {
+    button.disabled = false;
+  }
+}));
