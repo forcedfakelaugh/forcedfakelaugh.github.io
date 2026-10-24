@@ -3,48 +3,42 @@ const $ = selector => document.querySelector(selector);
 const vnd = n => String(n).replace(/\B(?=(\d{3})+(?!\d))/g, '.') + ' ₫';
 const escapeHtml = s => String(s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 
-const art = {
-  bowl: (a, b) => `<svg viewBox="0 0 92 92" aria-hidden="true"><path d="M30 30q-6-8 0-16M46 28q-6-8 0-16M62 30q-6-8 0-16" stroke="#14352a55" stroke-width="3" fill="none" stroke-linecap="round"/><ellipse cx="46" cy="44" rx="34" ry="8" fill="${b}"/><path d="M12 44q34 44 68 0z" fill="#14352a"/><path d="M20 42q26-8 52 0" stroke="${a}" stroke-width="4" fill="none" stroke-linecap="round"/></svg>`,
-  bread: (a, b) => `<svg viewBox="0 0 92 92" aria-hidden="true"><path d="M10 56q4-22 36-30t36 6q2 14-34 26T10 56z" fill="${b}"/><path d="M26 44l8 6M40 38l8 6M54 34l8 6" stroke="#7a4a24" stroke-width="3" stroke-linecap="round"/><path d="M18 58q30 2 60-20" stroke="${a}" stroke-width="5" fill="none" stroke-linecap="round"/></svg>`,
-  cup: (a, b) => `<svg viewBox="0 0 92 92" aria-hidden="true"><rect x="28" y="12" width="34" height="14" rx="3" fill="#14352a"/><path d="M26 30h40l-5 44H31z" fill="${b}"/><path d="M28 46h36l-2 18H30z" fill="${a}"/><ellipse cx="46" cy="78" rx="24" ry="5" fill="#14352a33"/></svg>`,
-  plate: (a, b) => `<svg viewBox="0 0 92 92" aria-hidden="true"><ellipse cx="46" cy="52" rx="38" ry="18" fill="#f9f4e8"/><ellipse cx="46" cy="50" rx="28" ry="12" fill="${b}"/><circle cx="36" cy="46" r="7" fill="${a}"/><circle cx="52" cy="44" r="6" fill="#3f8a4f"/><circle cx="58" cy="54" r="5" fill="${a}"/></svg>`,
-  leaf: (a, b) => `<svg viewBox="0 0 92 92" aria-hidden="true"><path d="M14 66q8-44 64-50-4 52-64 50z" fill="${b}"/><path d="M18 64q22-24 54-44" stroke="${a}" stroke-width="3" fill="none"/><circle cx="62" cy="62" r="10" fill="#c2412d"/></svg>`
-};
-
-const categories = [['all', 'Everything'], ['breakfast', 'Breakfast'], ['noodles', 'Noodles'], ['rice', 'Rice & bánh mì'], ['small', 'Small plates'], ['drinks', 'Coffee & drinks']];
+const categories = [['featured', 'House favourites'], ['noodles', 'Noodles'], ['rice', 'Rice & bánh mì'], ['small', 'Small plates'], ['breakfast', 'Breakfast'], ['drinks', 'Coffee & drinks'], ['all', 'Full menu']];
+const houseFavourites = new Set(['caolau', 'miquangchay', 'banhmi', 'caphe']);
 const diets = [['vegetarian', 'Vegetarian'], ['vegan', 'Vegan'], ['gf', 'Gluten-free'], ['mild', 'Not spicy']];
 const tagNames = { vegetarian: 'Vegetarian', vegan: 'Vegan', gf: 'Gluten-free', spicy: 'Spicy' };
 
 const dishes = [
-  { id: 'caolau', cat: 'noodles', name: 'Cao lầu', vn: 'Hội An’s own noodle', desc: 'Chewy ash-water noodles, char siu pork, crackling, herbs and a spoon of broth.', price: 75000, tags: [], art: 'bowl', a: '#e8c27a', b: '#7a4a24', tone: '#ead9b5' },
-  { id: 'miquang', cat: 'noodles', name: 'Mì Quảng gà', vn: 'Turmeric noodles', desc: 'Flat turmeric noodles, free-range chicken, peanuts, sesame cracker.', price: 70000, tags: ['spicy'], art: 'bowl', a: '#e0a526', b: '#c98b2c', tone: '#f0dfae' },
-  { id: 'miquangchay', cat: 'noodles', name: 'Mì Quảng chay', vn: 'Vegan turmeric noodles', desc: 'Tofu, king oyster mushroom, banana flower and lime leaf broth.', price: 65000, tags: ['vegetarian', 'vegan'], art: 'bowl', a: '#e0a526', b: '#9cc3b0', tone: '#dbe8d8' },
-  { id: 'phobo', cat: 'noodles', name: 'Phở bò tái', vn: 'Rare beef phở', desc: 'Twelve-hour bone broth, rice noodles, rare sirloin, Thai basil.', price: 85000, tags: ['gf'], art: 'bowl', a: '#f0d79d', b: '#a8642e', tone: '#ecd8bd' },
-  { id: 'banhmi', cat: 'rice', name: 'Bánh mì Rêu', vn: 'House bánh mì', desc: 'Wood-oven roll, pâté, roast pork, pickles, chilli jam and coriander.', price: 45000, tags: ['spicy'], art: 'bread', a: '#3f8a4f', b: '#e3b56b', tone: '#f0e2c0' },
-  { id: 'banhmichay', cat: 'rice', name: 'Bánh mì chay', vn: 'Vegan bánh mì', desc: 'Lemongrass tofu, mushroom pâté, pickled daikon, cucumber.', price: 40000, tags: ['vegetarian', 'vegan'], art: 'bread', a: '#9cc3b0', b: '#e3b56b', tone: '#e3ecdc' },
-  { id: 'comga', cat: 'rice', name: 'Cơm gà Hội An', vn: 'Chicken rice', desc: 'Turmeric rice cooked in chicken stock, shredded chicken, papaya salad.', price: 70000, tags: ['gf'], art: 'plate', a: '#e0a526', b: '#f0d79d', tone: '#f3e5bf' },
-  { id: 'comtam', cat: 'rice', name: 'Cơm tấm sườn', vn: 'Broken rice & pork chop', desc: 'Lemongrass-grilled pork chop, egg meatloaf, scallion oil.', price: 80000, tags: ['gf'], art: 'plate', a: '#a8642e', b: '#f9f4e8', tone: '#ebdcc4' },
-  { id: 'xoi', cat: 'breakfast', name: 'Xôi lá dứa', vn: 'Pandan sticky rice', desc: 'Pandan sticky rice, mung bean, fried shallot and coconut.', price: 35000, tags: ['vegetarian', 'vegan', 'gf'], art: 'leaf', a: '#3f8a4f', b: '#9cc3b0', tone: '#d7e6d2' },
-  { id: 'bunbo', cat: 'breakfast', name: 'Bún bò Huế', vn: 'Spicy Huế noodle soup', desc: 'Lemongrass and shrimp-paste broth, beef shank, chilli satế.', price: 75000, tags: ['spicy', 'gf'], art: 'bowl', a: '#c2412d', b: '#d9673c', tone: '#f0d2c0' },
-  { id: 'opla', cat: 'breakfast', name: 'Ốp la', vn: 'Sizzling eggs', desc: 'Two eggs on a hot pan with pâté, tomato and a crusty roll.', price: 50000, tags: ['vegetarian'], art: 'plate', a: '#e0a526', b: '#f9f4e8', tone: '#f4e7c3' },
-  { id: 'hoanhthanh', cat: 'small', name: 'Hoành thánh chiên', vn: 'Hội An fried wontons', desc: 'Crisp wontons topped with sweet-sour tomato, shrimp and pork.', price: 60000, tags: [], art: 'plate', a: '#c2412d', b: '#e3b56b', tone: '#f1dcc0' },
-  { id: 'goicuon', cat: 'small', name: 'Gỏi cuốn chay', vn: 'Fresh spring rolls', desc: 'Rice paper, herbs, tofu and vermicelli with peanut-hoisin dip.', price: 45000, tags: ['vegetarian', 'vegan', 'gf'], art: 'leaf', a: '#14352a', b: '#c8dcc0', tone: '#e2ecd9' },
-  { id: 'banhxeo', cat: 'small', name: 'Bánh xèo', vn: 'Crispy turmeric crêpe', desc: 'Shrimp, pork and bean sprouts, wrapped in mustard greens.', price: 65000, tags: ['gf'], art: 'leaf', a: '#e0a526', b: '#f0d79d', tone: '#f2e3b8' },
-  { id: 'caphe', cat: 'drinks', name: 'Cà phê sữa đá', vn: 'Phin iced coffee', desc: 'Dark-roast robusta through a phin, condensed milk, ice.', price: 30000, tags: ['vegetarian', 'gf'], art: 'cup', a: '#7a4a24', b: '#e8dcc0', tone: '#e6d4b8' },
-  { id: 'caphemuoi', cat: 'drinks', name: 'Cà phê muối', vn: 'Salted cream coffee', desc: 'Huế-style coffee under a lightly salted cream cap.', price: 40000, tags: ['vegetarian', 'gf'], art: 'cup', a: '#5a3317', b: '#f9f4e8', tone: '#ece0cb' },
-  { id: 'nuocmia', cat: 'drinks', name: 'Nước mía tắc', vn: 'Sugarcane & kumquat', desc: 'Pressed to order with calamansi and a little ginger.', price: 25000, tags: ['vegetarian', 'vegan', 'gf'], art: 'cup', a: '#c7d77a', b: '#f2ead9', tone: '#e9edc9' }
+  { id: 'caolau', cat: 'noodles', name: 'Cao lầu', vn: 'Hội An’s own noodle', desc: 'Chewy ash-water noodles, char siu pork, crackling, herbs and a spoon of broth.', price: 75000, tags: [] },
+  { id: 'miquang', cat: 'noodles', name: 'Mì Quảng gà', vn: 'Turmeric noodles', desc: 'Flat turmeric noodles, free-range chicken, peanuts, sesame cracker.', price: 70000, tags: ['spicy'] },
+  { id: 'miquangchay', cat: 'noodles', name: 'Mì Quảng chay', vn: 'Vegan turmeric noodles', desc: 'Tofu, king oyster mushroom, banana flower and lime leaf broth.', price: 65000, tags: ['vegetarian', 'vegan'] },
+  { id: 'phobo', cat: 'noodles', name: 'Phở bò tái', vn: 'Rare beef phở', desc: 'Twelve-hour bone broth, rice noodles, rare sirloin, Thai basil.', price: 85000, tags: ['gf'] },
+  { id: 'banhmi', cat: 'rice', name: 'Bánh mì Rêu', vn: 'House bánh mì', desc: 'Wood-oven roll, pâté, roast pork, pickles, chilli jam and coriander.', price: 45000, tags: ['spicy'] },
+  { id: 'banhmichay', cat: 'rice', name: 'Bánh mì chay', vn: 'Vegan bánh mì', desc: 'Lemongrass tofu, mushroom pâté, pickled daikon, cucumber.', price: 40000, tags: ['vegetarian', 'vegan'] },
+  { id: 'comga', cat: 'rice', name: 'Cơm gà Hội An', vn: 'Chicken rice', desc: 'Turmeric rice cooked in chicken stock, shredded chicken, papaya salad.', price: 70000, tags: ['gf'] },
+  { id: 'comtam', cat: 'rice', name: 'Cơm tấm sườn', vn: 'Broken rice & pork chop', desc: 'Lemongrass-grilled pork chop, egg meatloaf, scallion oil.', price: 80000, tags: ['gf'] },
+  { id: 'xoi', cat: 'breakfast', name: 'Xôi lá dứa', vn: 'Pandan sticky rice', desc: 'Pandan sticky rice, mung bean, fried shallot and coconut.', price: 35000, tags: ['vegetarian', 'vegan', 'gf'] },
+  { id: 'bunbo', cat: 'breakfast', name: 'Bún bò Huế', vn: 'Spicy Huế noodle soup', desc: 'Lemongrass and shrimp-paste broth, beef shank, chilli satế.', price: 75000, tags: ['spicy', 'gf'] },
+  { id: 'opla', cat: 'breakfast', name: 'Ốp la', vn: 'Sizzling eggs', desc: 'Two eggs on a hot pan with pâté, tomato and a crusty roll.', price: 50000, tags: ['vegetarian'] },
+  { id: 'hoanhthanh', cat: 'small', name: 'Hoành thánh chiên', vn: 'Hội An fried wontons', desc: 'Crisp wontons topped with sweet-sour tomato, shrimp and pork.', price: 60000, tags: [] },
+  { id: 'goicuon', cat: 'small', name: 'Gỏi cuốn chay', vn: 'Fresh spring rolls', desc: 'Rice paper, herbs, tofu and vermicelli with peanut-hoisin dip.', price: 45000, tags: ['vegetarian', 'vegan', 'gf'] },
+  { id: 'banhxeo', cat: 'small', name: 'Bánh xèo', vn: 'Crispy turmeric crêpe', desc: 'Shrimp, pork and bean sprouts, wrapped in mustard greens.', price: 65000, tags: ['gf'] },
+  { id: 'caphe', cat: 'drinks', name: 'Cà phê sữa đá', vn: 'Phin iced coffee', desc: 'Dark-roast robusta through a phin, condensed milk, ice.', price: 30000, tags: ['vegetarian', 'gf'] },
+  { id: 'caphemuoi', cat: 'drinks', name: 'Cà phê muối', vn: 'Salted cream coffee', desc: 'Huế-style coffee under a lightly salted cream cap.', price: 40000, tags: ['vegetarian', 'gf'] },
+  { id: 'nuocmia', cat: 'drinks', name: 'Nước mía tắc', vn: 'Sugarcane & kumquat', desc: 'Pressed to order with calamansi and a little ginger.', price: 25000, tags: ['vegetarian', 'vegan', 'gf'] }
 ];
 
-const state = { cat: 'all', diets: new Set(), basket: new Map() };
+const state = { cat: 'featured', diets: new Set(), basket: new Map() };
 const announce = message => { $('#announce').textContent = ''; requestAnimationFrame(() => { $('#announce').textContent = message; }); };
 
 function renderFilters() {
-  $('#categories').innerHTML = categories.map(([id, label]) => `<button type="button" class="chip" data-cat="${id}" aria-pressed="${id === state.cat}">${label}</button>`).join('');
+  $('#categories').innerHTML = categories.map(([id, label]) => `<button type="button" class="chip" data-cat="${id}" aria-pressed="${id === state.cat}">${label}${id === 'all' ? ` · ${dishes.length}` : ''}</button>`).join('');
   $('#diets').innerHTML = '<span class="diet-label" aria-hidden="true">Dietary</span>' + diets.map(([id, label]) => `<button type="button" class="chip" data-diet="${id}" aria-pressed="${state.diets.has(id)}">${label}</button>`).join('');
 }
 
 function matches(dish) {
-  if (state.cat !== 'all' && dish.cat !== state.cat) return false;
+  if (state.cat === 'featured' && !houseFavourites.has(dish.id)) return false;
+  if (state.cat !== 'all' && state.cat !== 'featured' && dish.cat !== state.cat) return false;
   for (const diet of state.diets) {
     if (diet === 'mild' ? dish.tags.includes('spicy') : !dish.tags.includes(diet)) return false;
   }
@@ -61,7 +55,7 @@ function renderMenu() {
   $('#menu-grid').innerHTML = list.map(d => {
     const qty = state.basket.get(d.id) || 0;
     const tags = d.tags.map(t => `<li class="${t}">${tagNames[t]}</li>`).join('');
-    return `<li class="dish"><div class="dish-art" style="--tone:${d.tone}">${art[d.art](d.a, d.b)}</div><div class="dish-body"><h3>${d.name}</h3><span class="vn">${d.vn}</span><p>${d.desc}</p>${tags ? `<ul class="tags" aria-label="Dietary tags">${tags}</ul>` : ''}<div class="dish-foot"><span class="price">${vnd(d.price)}</span><button type="button" class="add${qty ? ' added' : ''}" data-add="${d.id}" aria-label="Add ${escapeHtml(d.name)} to basket${qty ? `, ${qty} in basket` : ''}">${qty ? `Add · ${qty} in basket` : 'Add'}</button></div></div></li>`;
+    return `<li class="dish"><div class="dish-body"><h3>${d.name}</h3><p>${d.desc}</p>${tags ? `<ul class="tags" aria-label="Dietary tags">${tags}</ul>` : ''}</div><div class="dish-foot"><span class="price">${vnd(d.price)}</span><button type="button" class="add${qty ? ' added' : ''}" data-add="${d.id}" aria-label="Add ${escapeHtml(d.name)} to basket${qty ? `, ${qty} in basket` : ''}">${qty ? `Add · ${qty}` : 'Add'}</button></div></li>`;
   }).join('');
 }
 
