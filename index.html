@@ -244,7 +244,15 @@
   <section class="hello" id="hello" aria-labelledby="hello-title">
     <span class="circle c4" aria-hidden="true"></span>
     <h2 id="hello-title" data-i18n="helloTitle">let’s build something solid</h2>
-    <p data-i18n="helloText">Open to freelance collaborations. Contact details coming soon.</p>
+    <p data-i18n="helloText">Have a project in mind? Tell me what you’d like to build.</p>
+    <button class="contact-toggle" type="button" aria-expanded="false" aria-controls="contact-details" hidden>
+      <span data-i18n="contactReveal">Contact details</span><span class="contact-arrow" aria-hidden="true">↓</span>
+    </button>
+    <div class="contact-details" id="contact-details" hidden>
+      <a class="contact-link" id="contact-email"><span class="contact-label" data-i18n="contactEmail">Email</span><span class="contact-value"></span><span aria-hidden="true">↗</span></a>
+      <a class="contact-link" id="contact-phone"><span class="contact-label" data-i18n="contactPhone">Phone</span><span class="contact-value"></span><span aria-hidden="true">↗</span></a>
+    </div>
+    <noscript><p>Please enable JavaScript to view contact details.</p></noscript>
   </section>
 </main>
 

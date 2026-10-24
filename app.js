@@ -32,7 +32,8 @@ const vietnamese = {
   aboutTitle: 'một chút về tớ',
   aboutText: 'Tớ là Lucas, lập trình viên tại Việt Nam, hằng ngày làm việc với AI agent, quy trình LLM và các sản phẩm dùng AI. Tớ thích biến ý tưởng hay thành thứ được chăm chút, tải nhanh và dễ dùng - dù trên điện thoại ở quán cà phê hay laptop lúc nửa đêm.',
   serviceAi: 'AI agent & trợ lý AI', serviceWorkflows: 'Quy trình LLM & tích hợp', serviceWeb: 'Website & trang giới thiệu', servicePrototypes: 'Bảng tổng quan & bản mẫu tương tác',
-  helloTitle: 'cùng làm một thứ ra trò', helloText: 'Tớ nhận hợp tác freelance. Thông tin liên hệ sẽ có sớm.', backTop: 'về đầu trang ↑',
+  helloTitle: 'cùng làm một thứ ra trò', helloText: 'Có dự án muốn trao đổi? Kể tớ nghe bạn đang muốn xây gì.', backTop: 'về đầu trang ↑',
+  contactReveal: 'Thông tin liên hệ', contactEmail: 'Email', contactPhone: 'Điện thoại',
   altPulp: 'Bao bì thực phẩm bằng xơ thực vật định hình', altSerein: 'Mặt biển lúc chạng vạng, ngay sau hoàng hôn',
   altReu: 'Con phố Hội An dưới ánh đèn lồng', altAtelier: 'Bộ ảnh thời trang Atelier', altEmber: 'Rừng thông trong sương, ảnh mở đầu concept nhà tắm Ember',
   altForma: 'Nghiên cứu kiến trúc Forma', altHien: 'Ảnh kiến trúc minh họa Hiên Studio', altTidal: 'Mặt biển trong thử nghiệm Tidal',
@@ -119,3 +120,26 @@ document.querySelectorAll('.card a').forEach(link => link.addEventListener('clic
   setTimeout(() => { location.href = link.href; }, 240);
 }));
 addEventListener('pageshow', event => { if (event.persisted) fader.classList.remove('out'); });
+
+// Decode only on request to deter basic address scrapers. This is obfuscation,
+// not access control: bots that execute JavaScript can still retrieve the details.
+const contactToggle = document.querySelector('.contact-toggle');
+const contactDetails = document.getElementById('contact-details');
+let contactReady = false;
+contactToggle.hidden = false;
+contactToggle.addEventListener('click', () => {
+  if (!contactReady) {
+    const email = atob('bHVjYXNuZ3V5ZW4uc2hAZ21haWwuY29t');
+    const phone = atob('Kzg0IDk4NCA5ODMgODcx');
+    const emailLink = document.getElementById('contact-email');
+    const phoneLink = document.getElementById('contact-phone');
+    emailLink.href = `mailto:${email}`;
+    phoneLink.href = `tel:${phone.replace(/\s/g, '')}`;
+    emailLink.querySelector('.contact-value').textContent = email;
+    phoneLink.querySelector('.contact-value').textContent = phone;
+    contactReady = true;
+  }
+  const expanded = contactToggle.getAttribute('aria-expanded') !== 'true';
+  contactToggle.setAttribute('aria-expanded', String(expanded));
+  contactDetails.hidden = !expanded;
+});

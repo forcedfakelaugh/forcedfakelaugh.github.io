@@ -45,7 +45,7 @@ Pulp Club uses three original generated packaging still lifes, saved locally in 
 
 ## Scope
 
-Designed for showcasing frontend craft: distinct art direction, responsive layouts, accessible controls, and focused interactions. No database, authentication, or production commerce system. Contact details must be supplied by Lucas before adding a real contact destination.
+Designed for showcasing frontend craft: distinct art direction, responsive layouts, accessible controls, and focused interactions. No database, authentication, or production commerce system. The contact section reveals the business-card email and phone number on request, with email and call links. Addresses are obfuscated in JavaScript and absent from the initial HTML; this deters basic text scrapers but does not prevent bots that execute JavaScript from retrieving them. No contact form or email service is used.
 
 ## Tidal
 
