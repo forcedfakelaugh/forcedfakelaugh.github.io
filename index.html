@@ -73,10 +73,26 @@
       <svg viewBox="0 0 420 470">
         <defs>
           <filter id="pen" x="-5%" y="-5%" width="110%" height="110%"><feTurbulence type="fractalNoise" baseFrequency=".012" numOctaves="1" seed="4"/><feDisplacementMap in="SourceGraphic" scale="4"/></filter>
+          <radialGradient id="coffee-bulb-glow">
+            <stop stop-color="#ffe1a3" stop-opacity=".35" />
+            <stop offset="1" stop-color="#ffe1a3" stop-opacity="0" />
+          </radialGradient>
+          <linearGradient id="coffee-light-beam" x1="0" y1="0" x2="0" y2="1">
+            <stop stop-color="#ffd58a" stop-opacity=".13" />
+            <stop offset="1" stop-color="#ffd58a" stop-opacity="0" />
+          </linearGradient>
         </defs>
+        <g class="coffee-light">
+          <path d="M199 64 82 452Q210 476 338 452L221 64Z" fill="url(#coffee-light-beam)" />
+          <circle cx="210" cy="55" r="48" fill="url(#coffee-bulb-glow)" />
+          <path class="bulb-cord" d="M210 0v30" />
+          <path class="bulb-glass" d="M202 36h16v5c4 5 9 9 9 17 0 10-7 18-17 18s-17-8-17-18c0-8 5-12 9-17Z" />
+          <path class="bulb-filament" d="m204 40-3 21 9-6 9 6-3-21" />
+          <rect class="bulb-socket" x="201" y="28" width="18" height="11" rx="3" />
+        </g>
         <g>
-          <path class="ink-line steam" d="M196 140c-12-16 10-26-2-44-8-12 6-22 2-34" />
-          <path class="ink-line steam" d="M226 144c-10-18 12-28 0-46-6-10 6-18 4-30" />
+          <path class="ink-line steam steam-left" d="M196 140c-12-16 10-26-2-44-8-12 6-22 2-34" />
+          <path class="ink-line steam steam-right" d="M226 144c-10-18 12-28 0-46-6-10 6-18 4-30" />
           <path class="glass" d="M132 270c2 62 6 120 12 176 1 6 4 9 10 9h112c6 0 9-3 10-9 6-56 10-114 12-176" />
           <path class="coffee" d="M140 368c46 5 94-5 140 0l-6 70H146z" />
           <path class="milk" d="M144 412c44 4 88-4 132 0l-2 26H146z" />
