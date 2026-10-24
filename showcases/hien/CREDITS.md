@@ -4,20 +4,24 @@ A fictional architecture practice and frontend showcase by Lucas Nguyen. It repr
 
 ## Photography
 
-Downloaded from Unsplash; not AI-generated. Images remain subject to their original rights and the Unsplash license (https://unsplash.com/license). Each photo is a stand-in reference image; the file names are local identifiers, not claims about the buildings' architects, materials or locations.
+All twelve photographs were taken in Vietnam and downloaded from Pexels; they are not AI-generated. The [Pexels license](https://www.pexels.com/license/) permits free use. Images are stored locally, resized and compressed for the web, and may be cropped or shown in grayscale by the layout.
 
-- assets/palm-resort.jpg: https://images.unsplash.com/photo-1520250497591-112f2f40a3f4
-- assets/timber-resort.jpg: https://images.unsplash.com/photo-1566073771259-6a8506099945
-- assets/night-hotel.jpg: https://images.unsplash.com/photo-1571896349842-33c89424de2d
-- assets/pool-hotel.jpg: https://images.unsplash.com/photo-1542314831-068cd1dbfeeb
-- assets/concrete-office.jpg: https://images.unsplash.com/photo-1497366811353-6870744d04b2
-- assets/long-office.jpg: https://images.unsplash.com/photo-1497366216548-37526070297c
-- assets/clay-pavilion.jpg: https://images.unsplash.com/photo-1486718448742-163732cd1544
-- assets/white-gallery.jpg: https://images.unsplash.com/photo-1523217582562-09d0def993a6
-- assets/timber-house.jpg: https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3
-- assets/tree-house.jpg: https://images.unsplash.com/photo-1600585154340-be6161a56a0c
-- assets/tree-house-interior.jpg: https://images.unsplash.com/photo-1600607687939-ce8a6c25118c
-- assets/box-house.jpg: https://images.unsplash.com/photo-1600047509807-ba8f99d2cdde
+These are reference photographs for fictional projects. The photographed buildings are not work by HIÊN STUDIO. Project names and project locations in the demo are invented; the verified photo locations are listed below. Asset filenames are internal identifiers, not architectural attributions.
+
+| Local asset | Photographer | Photo location / subject | Source |
+| --- | --- | --- | --- |
+| assets/palm-resort.jpg | Quang Nguyen Vinh | Phú Lộc, Thừa Thiên Huế; villas and pool among palms | [Pexels 5041987](https://www.pexels.com/photo/tropical-resort-villas-and-pool-located-in-lush-garden-5041987/) |
+| assets/timber-resort.jpg | Kushie In Vietnam | Hồ Tràm, Bà Rịa - Vũng Tàu; aerial resort view | [Pexels 31768455](https://www.pexels.com/photo/aerial-view-of-luxury-resort-in-h-tram-vietnam-31768455/) |
+| assets/night-hotel.jpg | Toàn Văn | Ho Chi Minh City; Rex Hotel at night | [Pexels 20988558](https://www.pexels.com/photo/rex-hotel-in-saigon-vietnam-at-night-20988558/) |
+| assets/pool-hotel.jpg | Quang Nguyen Vinh | Phan Thiết; beachfront resort | [Pexels 14021091](https://www.pexels.com/photo/view-of-a-resort-by-a-sea-14021091/) |
+| assets/concrete-office.jpg | Flint Huynh | Ho Chi Minh City; modern glass high-rise | [Pexels 35671676](https://www.pexels.com/photo/modern-high-rise-building-in-ho-chi-minh-city-35671676/) |
+| assets/long-office.jpg | Vanna Pahm | Ninh Bình; concrete colonnade | [Pexels 9194138](https://www.pexels.com/photo/empty-hallway-9194138/) |
+| assets/clay-pavilion.jpg | Dương Nhân | Huế; traditional lakeside architecture | [Pexels 3155265](https://www.pexels.com/photo/house-near-water-3155265/) |
+| assets/white-gallery.jpg | Phát Trương | Ho Chi Minh City Museum of Fine Arts; courtyard facade | [Pexels 28349104](https://www.pexels.com/photo/a-yellow-building-with-two-balconies-and-a-balcony-28349104/) |
+| assets/timber-house.jpg | Ella Ragasa | Hanoi; traditional wooden house | [Pexels 28728343](https://www.pexels.com/photo/rustic-wooden-house-in-lush-vietnamese-countryside-28728343/) |
+| assets/tree-house.jpg | Thái Trường Giang | Kon Tum; modern house at sunset | [Pexels 34885973](https://www.pexels.com/photo/modern-house-at-sunset-in-kon-tum-vietnam-34885973/) |
+| assets/tree-house-interior.jpg | Kien Tran | Đà Lạt; reception opening and slatted facade | [Pexels 6040381](https://www.pexels.com/photo/aesthetic-interior-design-6040381/) |
+| assets/box-house.jpg | Ngoc Nguyen | Ho Chi Minh City; residential facade | [Pexels 36888584](https://www.pexels.com/photo/modern-urban-building-in-ho-chi-minh-city-36888584/) |
 
 ## Experience
 

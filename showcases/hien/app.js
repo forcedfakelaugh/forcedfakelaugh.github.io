@@ -9,7 +9,7 @@ const UI = {
     aboutText: [
       'HIÊN is a fictional studio imagined for this concept. Its name is the Vietnamese word for the veranda - the shaded edge between a house and the street, where most of daily life actually happens.',
       'The site is a portion of an architecture website I designed and built: a splash that fades into a featured carousel, a works index sorted into columns by project scale, and full-screen slideshows that end in a short project text. Everything works in English and Vietnamese.',
-      'Photographs are Unsplash reference images, not buildings by this studio. Project names, years and sizes are invented.',
+      'Photographs were taken in Vietnam and sourced from Pexels; they are reference images, not buildings by this studio. Project names, years and sizes are invented.',
     ],
   },
   vi: {
@@ -21,7 +21,7 @@ const UI = {
     aboutText: [
       'HIÊN là một văn phòng giả định cho concept này. Tên gọi lấy từ hiên nhà - khoảng đệm có bóng mát giữa ngôi nhà và con phố, nơi phần lớn sinh hoạt hằng ngày diễn ra.',
       'Trang này là một phần của website kiến trúc tôi đã thiết kế và xây dựng: màn hình mở đầu chuyển sang carousel nổi bật, danh mục dự án chia cột theo quy mô, và slideshow toàn màn hình kết thúc bằng đoạn mô tả ngắn. Tất cả đều có tiếng Anh và tiếng Việt.',
-      'Ảnh là ảnh tham khảo từ Unsplash, không phải công trình của văn phòng này. Tên dự án, năm và diện tích đều là giả định.',
+      'Ảnh được chụp tại Việt Nam, lấy từ Pexels để minh họa, không phải công trình của văn phòng này. Tên dự án, năm và diện tích đều là giả định.',
     ],
   },
 };
@@ -42,10 +42,24 @@ const SCALES = [
 ];
 
 const img = name => `assets/${name}.jpg`;
+const PHOTO_ALTS = {
+  'palm-resort': 'Resort villas and a pool among palms in Phú Lộc, Huế, Vietnam',
+  'timber-resort': 'Aerial view of a curved resort building in Hồ Tràm, Vietnam',
+  'night-hotel': 'The illuminated Rex Hotel in Ho Chi Minh City, Vietnam',
+  'pool-hotel': 'Tiled roofs and a beachfront pool in Phan Thiết, Vietnam',
+  'concrete-office': 'Glass high-rise facade in Ho Chi Minh City, Vietnam',
+  'long-office': 'Open concrete colonnade in Ninh Bình, Vietnam',
+  'clay-pavilion': 'Traditional lakeside architecture framed by trees in Huế, Vietnam',
+  'white-gallery': 'Yellow courtyard facade of the Ho Chi Minh City Museum of Fine Arts, Vietnam',
+  'timber-house': 'Traditional wooden house surrounded by greenery in Hanoi, Vietnam',
+  'tree-house': 'Modern house with tiled roofs at sunset in Kon Tum, Vietnam',
+  'tree-house-interior': 'Curved reception opening and slatted shadows in Đà Lạt, Vietnam',
+  'box-house': 'Pale pink residential facade and balconies in Ho Chi Minh City, Vietnam',
+};
 
 const PROJECTS = [
   { slug: 'palm-terrace-resort', title: 'Palm Terrace Resort', scale: 'XXL', disciplines: ['architecture', 'landscape', 'planning'], cover: 'palm-resort', year: 2024, area: '4.2 ha', location: { en: 'Phu Quoc, Viet Nam', vi: 'Phú Quốc, Việt Nam' },
-    slides: [['palm-resort', 'Pool terrace between palms and limestone hills'], ['timber-resort', 'Timber pavilions along the water']],
+    slides: [['palm-resort', PHOTO_ALTS['palm-resort']], ['timber-resort', PHOTO_ALTS['timber-resort']]],
     text: { en: ['Low pavilions are scattered under existing palms so that no tree is cut and every room opens onto shade before it opens onto the sea.', 'Paths follow the old irrigation lines; the pool is simply where they meet.'],
             vi: ['Các nhà nghỉ thấp tầng được rải dưới hàng dừa có sẵn, không chặt một cây nào, để mỗi phòng mở ra bóng mát trước khi mở ra biển.', 'Lối đi men theo các mương nước cũ; hồ bơi chỉ đơn giản là nơi chúng gặp nhau.'] } },
   { slug: 'timber-cove', title: 'Timber Cove', scale: 'XXL', disciplines: ['architecture', 'planning'], cover: 'timber-resort' },
@@ -56,7 +70,7 @@ const PROJECTS = [
   { slug: 'clay-pavilion', title: 'Clay Pavilion', scale: 'M', disciplines: ['architecture'], cover: 'clay-pavilion' },
   { slug: 'white-gallery', title: 'White Gallery', scale: 'M', disciplines: ['architecture', 'interior'], cover: 'white-gallery' },
   { slug: 'tree-house', title: 'The Tree House', scale: 'S', disciplines: ['architecture', 'interior', 'landscape'], cover: 'tree-house', year: 2022, area: '180m²', location: { en: 'Thu Duc, Viet Nam', vi: 'Thủ Đức, Việt Nam' },
-    slides: [['tree-house', 'The house at dusk, built around an old tree'], ['tree-house-interior', 'Living room opening onto the garden'], ['timber-house', 'Timber screen on the street facade'], ['box-house', 'Side elevation with the stair volume']],
+    slides: [['tree-house', PHOTO_ALTS['tree-house']], ['tree-house-interior', PHOTO_ALTS['tree-house-interior']], ['timber-house', PHOTO_ALTS['timber-house']], ['box-house', PHOTO_ALTS['box-house']]],
     text: { en: ['“The site came with one large tree and a family who refused to lose it. The house is arranged as a ring of rooms around its canopy, so the tree shades every floor and every room has a window into the garden.', 'Timber screens on the street side filter the afternoon sun; the ground floor stays open for cooking, guests and the motorbikes.”'],
             vi: ['“Khu đất có một cây lớn và một gia đình nhất quyết không muốn mất nó. Ngôi nhà được bố trí thành một vòng phòng quanh tán cây, để cây che mát mọi tầng và phòng nào cũng có cửa sổ nhìn ra vườn.', 'Lam gỗ phía mặt đường lọc nắng chiều; tầng trệt để mở cho bếp, khách và xe máy.”'] } },
   { slug: 'timber-box', title: 'Timber Box', scale: 'S', disciplines: ['architecture'], cover: 'timber-house' },
@@ -79,7 +93,7 @@ const arrow = d => `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" s
 
 function renderHome() {
   view.innerHTML = `<h1 class="visually-hidden">${t().home}</h1><section class="feature" aria-roledescription="carousel"><div class="feature__slides">${FEATURES.map((f, i) => `
-    <a class="feature__slide${i ? '' : ' is-active'}" href="${f.href}"><img src="${img(f.src)}" alt="${esc(f.title[lang])}"${i ? ' loading="lazy"' : ''}>
+    <a class="feature__slide${i ? '' : ' is-active'}" href="${f.href}"><img src="${img(f.src)}" alt="${esc(PHOTO_ALTS[f.src])}"${i ? ' loading="lazy"' : ''}>
     <span class="feature__caption"><span class="label">${t()[f.label]}</span>${esc(f.title[lang])}</span></a>`).join('')}</div></section>`;
   const slides = view.querySelectorAll('.feature__slide');
   let i = 0;
@@ -93,14 +107,17 @@ function renderHome() {
 function renderWorks(discipline) {
   const label = DISCIPLINES.find(d => d.slug === discipline)?.[lang];
   const projects = discipline ? PROJECTS.filter(p => p.disciplines.includes(discipline)) : PROJECTS;
-  // Lay out row by row so each scale stays in its own column on desktop.
-  const columns = SCALES.map(s => projects.filter(p => p.scale === s.scale));
+  const scales = SCALES.filter(s => projects.some(p => p.scale === s.scale));
+  // Only show populated scales, keeping each heading above its desktop column.
+  const columns = scales.map(s => projects.filter(p => p.scale === s.scale));
   const rows = Math.max(0, ...columns.map(c => c.length));
   const cells = Array.from({ length: rows }, (_, r) => columns.map(c => c[r])).flat();
-  const firstScale = SCALES.find(s => projects.some(p => p.scale === s.scale))?.scale ?? 'XXL';
+  const firstScale = scales[0]?.scale;
   view.innerHTML = `<h1 class="page-title">${esc(label ?? t().works)}</h1>
-    <div class="scale-tabs" role="tablist">${SCALES.map(s => `<button role="tab" data-scale="${s.scale}"><span class="scale">${s.scale}</span><span class="type">${s[lang]}</span></button>`).join('')}</div>
-    <div class="works-grid">${cells.map(p => p ? `<a class="work" href="#/works/${p.slug}" data-scale="${p.scale}"><img src="${img(p.cover)}" alt="${esc(p.title)}" loading="lazy"><span class="work__title">${esc(p.title)}</span></a>` : '<div aria-hidden="true"></div>').join('')}</div>`;
+    <div class="works-index" style="--scale-count: ${scales.length}">
+    <div class="scale-tabs" role="tablist">${scales.map(s => `<button role="tab" data-scale="${s.scale}"><span class="scale">${s.scale}</span><span class="type">${s[lang]}</span></button>`).join('')}</div>
+    <div class="works-grid">${cells.map(p => p ? `<a class="work" href="#/works/${p.slug}" data-scale="${p.scale}"><img src="${img(p.cover)}" alt="${esc(PHOTO_ALTS[p.cover])}" loading="lazy"><span class="work__title">${esc(p.title)}</span></a>` : '<div aria-hidden="true"></div>').join('')}</div>
+    </div>`;
   // Mobile: tabs show one scale at a time. Desktop: tabs are column headers.
   const tabs = view.querySelectorAll('.scale-tabs button');
   const show = scale => {
@@ -112,7 +129,7 @@ function renderWorks(discipline) {
 }
 
 function renderProject(p) {
-  const slides = (p.slides ?? [[p.cover, p.title]]).map(([src, alt]) => ({ src, alt }));
+  const slides = (p.slides ?? [[p.cover, PHOTO_ALTS[p.cover]]]).map(([src, alt]) => ({ src, alt }));
   const text = p.text?.[lang] ?? [lang === 'en' ? 'Project description to come.' : 'Mô tả dự án sẽ được cập nhật.'];
   const all = [...slides, { text }];
   const meta = [p.year, p.area, p.location?.[lang]].filter(Boolean).join(' | ');
