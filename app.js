@@ -3,7 +3,7 @@ document.getElementById('year').textContent = new Date().getFullYear();
 // English stays in the HTML as the no-JavaScript fallback.
 const vietnamese = {
   pageTitle: 'Lucas Nguyen - Kỹ sư AI & lập trình web',
-  metaDescription: 'Lucas Nguyen - Kỹ sư AI và lập trình web tại Việt Nam. AI agent, trợ lý AI, website và 11 concept tương tác.',
+  metaDescription: 'Lucas Nguyen - Kỹ sư AI và lập trình web tại Việt Nam. AI agent, trợ lý AI, website và 10 concept tương tác.',
   skip: 'Đến nội dung chính',
   logoLabel: 'Lucas Inc., trang chủ',
   darkModeLabel: 'Chế độ tối',
@@ -96,7 +96,7 @@ const cards = document.querySelectorAll('.card');
 chips.forEach(chip => chip.addEventListener('click', () => {
   chips.forEach(other => other.setAttribute('aria-pressed', String(other === chip)));
   const filter = chip.dataset.filter;
-  cards.forEach(card => { card.hidden = filter !== 'all' && !card.dataset.tags.split(' ').includes(filter); });
+  cards.forEach(card => { card.hidden = card.hasAttribute('data-unlisted') || (filter !== 'all' && !card.dataset.tags.split(' ').includes(filter)); });
 }));
 
 // highlight the nav link for the section in view
