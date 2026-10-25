@@ -10,7 +10,7 @@ const UI = {
     aboutTitle: 'Practice',
     aboutText: [
       'HIÊN is a fictional studio imagined for this concept. Its name is the Vietnamese word for the veranda - the shaded edge between a house and the street, where most of daily life actually happens.',
-      'The site is a portion of an architecture website I designed and built: a splash that fades into a featured carousel, a works index sorted into columns by project scale, and full-screen slideshows that end in a short project text. Everything works in English and Vietnamese.',
+      'The website includes an opening screen, a featured-project carousel, an index organized by project scale and full-screen slideshows with project descriptions. The interface supports Vietnamese and English.',
       'Photographs were taken in Vietnam and sourced from Pexels; they are reference images, not buildings by this studio. Project names, years and sizes are invented.',
     ],
   },
@@ -24,7 +24,7 @@ const UI = {
     aboutTitle: 'Văn phòng',
     aboutText: [
       'HIÊN là một văn phòng giả định cho concept này. Tên gọi lấy từ hiên nhà - khoảng đệm có bóng mát giữa ngôi nhà và con phố, nơi phần lớn sinh hoạt hằng ngày diễn ra.',
-      'Trang này là một phần của website kiến trúc tôi đã thiết kế và xây dựng: màn hình mở đầu chuyển sang carousel nổi bật, danh mục dự án chia cột theo quy mô, và slideshow toàn màn hình kết thúc bằng đoạn mô tả ngắn. Tất cả đều có tiếng Anh và tiếng Việt.',
+      'Website gồm màn hình mở đầu, carousel công trình nổi bật, danh mục dự án phân loại theo quy mô và slideshow toàn màn hình kèm mô tả. Giao diện hỗ trợ tiếng Việt và tiếng Anh.',
       'Ảnh được chụp tại Việt Nam, lấy từ Pexels để minh họa, không phải công trình của văn phòng này. Tên dự án, năm và diện tích đều là giả định.',
     ],
   },

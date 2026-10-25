@@ -26,7 +26,7 @@ const vietnamese = {
   orbitDescription: 'Biến số liệu kinh doanh thành bảng tổng quan dễ đọc trong lúc uống cà phê sáng.',
   lumenDescription: 'Trợ lý tiếng Việt cho quán cà phê, nhà cho thuê và tiệm hoa - hỏi chuyện kinh doanh từ ghi chép của chủ.',
   formaDescription: 'Kho tư liệu kiến trúc yên tĩnh như chính công trình - điều hướng bằng chữ và bản vẽ sơ đồ.',
-  hienDescription: 'Dựng lại một phần website kiến trúc tớ từng làm - phân loại theo quy mô, slideshow dự án, có tiếng Anh và tiếng Việt.',
+  hienDescription: 'Portfolio kiến trúc với danh mục công trình theo quy mô và thư viện ảnh từng dự án.',
   tidalDescription: 'Một thử nghiệm lập trình sáng tạo: mặt biển thời gian thực để bạn tự do dạo quanh.',
   halyardTagline: 'ra mắt rồi, kể cho rõ.', lumenTagline: 'có gì khó, để Pip phụ.',
   tagFoodservice: 'bao bì thực phẩm', tagHospitality: 'lưu trú', tagRestaurant: 'nhà hàng', tagFashion: 'thời trang',
