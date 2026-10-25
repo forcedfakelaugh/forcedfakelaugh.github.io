@@ -1,7 +1,7 @@
 import { copy, vietnamesePaintings } from './translations.js';
 
 let language = 'vi';
-const languageStorageKey = 'mai-le-language';
+const languageStorageKey = 'lucas-portfolio-language';
 const t = key => copy[language][key];
 const paintings = [
   { id: 'window', title: 'An open window', year: '2026', size: '60 × 90 cm', description: 'The window was open before anyone woke. A little garden light, finding its way into the room.', alt: 'Oil painting of green shutters, white flowers and pears in a sunlit room' },
@@ -163,10 +163,7 @@ function setLanguage(nextLanguage) {
   updateVisitValidity();
   updateInvitation();
 }
-document.querySelector('.language-switch').addEventListener('click', () => {
-  setLanguage(language === 'vi' ? 'en' : 'vi');
-  try { localStorage.setItem(languageStorageKey, language); } catch {}
-});
+window.addEventListener('showcase-language', event => setLanguage(event.detail.language));
 let savedLanguage;
 try { savedLanguage = localStorage.getItem(languageStorageKey); } catch {}
 setLanguage(savedLanguage === 'en' ? 'en' : 'vi');

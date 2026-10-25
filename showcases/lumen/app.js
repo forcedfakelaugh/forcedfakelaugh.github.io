@@ -58,6 +58,9 @@ const icons = {
   down:'<svg viewBox="0 0 16 16"><path d="M5 9V3H3v6zM5 9l3 5c1 0 2-.7 1.6-2L9 10h3.5a1 1 0 001-1.2l-1-5a1 1 0 00-1-.8H5"/></svg>'
 };
 const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
+const localize = text => window.showcaseLanguage?.translate(text) ?? text;
+const streams = new Map();
+let languageVersion = 0;
 const $ = selector => document.querySelector(selector);
 const chat = $('#main'), thread = $('#thread'), input = $('#composer-input'), sendButton = $('#send'), composer = $('#composer');
 const emptyState = $('#empty');
@@ -70,7 +73,7 @@ function suggestionButton(scenario, className){
   const button = element('button', className);
   button.type = 'button';
   button.append(element('span', 'suggestion-dot'), element('span', '', scenario.short));
-  button.addEventListener('click', () => ask(scenario.prompt));
+  button.addEventListener('click', () => ask(localize(scenario.prompt)));
   return button;
 }
 function renderSuggestions(){
@@ -177,11 +180,15 @@ function citation(index, sources){
   return chip;
 }
 async function streamInto(target, text, id, sources, delay = wordDelay){
-  for (const part of text.split(/(\[\d\])/)){
+  target.dataset.noTranslate = '';
+  streams.set(target, { text, sources });
+  const version = languageVersion;
+  for (const part of localize(text).split(/(\[\d\])/)){
     const match = part.match(/^\[(\d)\]$/);
     if (match){ target.append(citation(Number(match[1]), sources)); continue; }
     for (const word of part.split(/(?<=\s)/)){
       if (id !== run) return false;
+      if (version !== languageVersion) return true;
       target.append(word);
       scrollDown();
       await wait(delay);
@@ -208,6 +215,7 @@ function addUserMessage(text){
   emptyState.remove();
   chat.classList.add('started');
   const message = element('div', 'message user');
+  message.dataset.noTranslate = '';
   message.append(element('p', '', text));
   thread.append(message);
 }
@@ -219,14 +227,29 @@ async function ask(text){
   let candidates = scenarios;
   if (workspace === 'all'){
     const matches = [
-      ['coffee', /\b(?:ca phe|goc nho|quan|caphe|cold brew)\b/],
-      ['rental', /\b(?:nha|ben vuon|thue|phong|luu tru|wi-?fi|wifi)\b/],
-      ['flowers', /\b(?:tiem hoa|hoa may|hoa|bo hoa|cam hoa)\b/]
+      ['coffee', /\b(?:ca phe|goc nho|quan|caphe|cold brew|cafe|coffee)\b/],
+      ['rental', /\b(?:nha|ben vuon|thue|phong|luu tru|wi-?fi|wifi|rental|house|guest|weekday)\b/],
+      ['flowers', /\b(?:tiem hoa|hoa may|hoa|bo hoa|cam hoa|flower|flowers|bouquet|roses)\b/]
     ].filter(([,pattern]) => pattern.test(folded));
     if (matches.length === 1) candidates = scenarios.filter(item => item.sources.every(key => notes[key].business === matches[0][0]));
   }
-  const asksForReply = /tra loi|soan|viet.*(?:khach|danh gia|tin nhan)|tin nhan.*khach/.test(folded);
-  const scenario = candidates.find(item => item.prompt === text) ?? candidates.find(item => (!asksForReply || item.reply) && item.keys.test(folded));
+  const asksForReply = /tra loi|soan|viet.*(?:khach|danh gia|tin nhan)|tin nhan.*khach|reply|draft|write.*(?:guest|review|message)/.test(folded);
+  const englishKeys = {
+    focus: /prioriti[sz]e|focus|first.*week|week.*first/,
+    reply: /reply|draft|write/,
+    weekdays: /weekday|booking|occupancy|more guests/,
+    repairs: /repair|fix|wi-?fi|maintenance/,
+    pricing: /cold brew|bottl|pricing|price/,
+    money: /revenue|profit|expense|financ|money|left.*month|month.*left/,
+    feedback: /feedback|review|wait|queue|improve/,
+    flowerReply: /reply|draft|write|message/,
+    flowerDelivery: /deliver|schedule|courier|overlap/,
+    flowerStock: /stock|restock|need|enough|short/,
+  };
+  const scenario = candidates.find(item => item.prompt === text || localize(item.prompt) === text) ?? candidates.find(item => {
+    const key = Object.keys(questions).find(key => questions[key] === item);
+    return (!asksForReply || item.reply) && (item.keys.test(folded) || englishKeys[key]?.test(folded));
+  });
   input.value = ''; resizeInput();
   addUserMessage(text);
   resetSources();
@@ -299,7 +322,18 @@ function toggleSources(open){
   popover.hidden = true;
   $('#sources-toggle').setAttribute('aria-expanded', String(next));
 }
-function newChat(){ setSourceView('library'); stop(); toggleSources(false); chat.classList.remove('started'); thread.replaceChildren(emptyState); resetSources(); input.focus(); }
+function newChat(){ setSourceView('library'); stop(); streams.clear(); toggleSources(false); chat.classList.remove('started'); thread.replaceChildren(emptyState); resetSources(); input.focus(); }
+window.addEventListener('showcase-language', () => {
+  languageVersion++;
+  for (const [target, { text, sources }] of streams) {
+    if (!target.isConnected) { streams.delete(target); continue; }
+    target.replaceChildren();
+    for (const part of localize(text).split(/(\[\d\])/)) {
+      const match = part.match(/^\[(\d)\]$/);
+      target.append(match ? citation(Number(match[1]), sources) : part);
+    }
+  }
+});
 composer.addEventListener('submit', event => { event.preventDefault(); busy ? stop() : ask(input.value); });
 input.addEventListener('keydown', event => { if (event.key === 'Enter' && !event.shiftKey && !event.isComposing){ event.preventDefault(); if (!busy) ask(input.value); } });
 input.addEventListener('input', resizeInput);

@@ -115,3 +115,7 @@ dialog h2{font:800 28px/1.05 var(--display);letter-spacing:-1px;margin:10px 0 12
 @media(max-width:700px){.site-head{top:42px;padding:10px 16px;gap:12px}.site-head nav{display:none}.site-head .btn{margin-left:auto}.hero,.logos,.features,.pricing,.compare,.faq,.foot{padding-left:16px;padding-right:16px}.features,.pricing,.compare,.faq{padding-top:70px}.hero h1{letter-spacing:-2px}.lede{font-size:17px}.window-body{grid-template-columns:1fr}.win-side{display:none}.window{box-shadow:6px 6px 0 var(--cobalt)}.mini-grid{grid-template-columns:1fr}.feature-art{min-height:250px;padding:20px}.qa .answer{padding-right:4px}.cta{margin:80px 16px 0;padding:50px 22px;border-radius:22px}.tier.featured{box-shadow:6px 6px 0 var(--ink)}th,td{padding:12px 14px}.logos ul{font-size:18px;gap:10px 24px}}
 @media(max-width:400px){.hero h1{font-size:48px}.amount strong{font-size:46px}.tier{padding:24px}.toast{left:8px;right:8px}.ch{font-size:12px;padding:6px 10px}}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*:before,*:after{animation:none!important;transition:none!important}.btn:hover{transform:none}}
+/* Allow translated copy and the preview window to shrink inside the grid. */
+.hero>*,.window-body>*,.window-bar>span{min-width:0}
+.badge{max-width:100%}
+@media(max-width:400px){.badge{font-size:11px}.site-head .btn-small{font-size:12px;padding:0 10px}.win-title{flex-wrap:wrap}}

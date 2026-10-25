@@ -19,7 +19,7 @@ function update() {
   for (const option of guests.options) option.disabled = Number(option.value) > selected.capacity;
   if (Number(guests.value) > selected.capacity) guests.value = String(selected.capacity);
   departure.min = arrival.value ? addDays(arrival.value, 1) : addDays(today, 1);
-  departure.setCustomValidity(departure.value && arrival.value && departure.value <= arrival.value ? 'Choose a departure after your arrival.' : '');
+  departure.setCustomValidity(departure.value && arrival.value && departure.value <= arrival.value ? (window.showcaseLanguage?.translate('Choose a departure after your arrival.') ?? 'Choose a departure after your arrival.') : '');
   const nights = (Date.parse(departure.value) - Date.parse(arrival.value)) / 86400000;
   const valid = arrival.value >= today && nights > 0 && Number.isFinite(nights);
   estimate.textContent = valid ? `${nights} ${nights === 1 ? 'night' : 'nights'} × ${money(selected.rate)} = ${money(nights * selected.rate)} · Sample total` : 'Choose a future arrival and a later departure to preview your stay.';
@@ -56,3 +56,5 @@ for (const button of document.querySelectorAll('[data-filter]')) button.addEvent
 });
 document.querySelector('#year').textContent = new Date().getFullYear();
 update();
+
+window.addEventListener('showcase-language', update);

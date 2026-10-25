@@ -63,7 +63,7 @@ document.querySelector('[data-close-samples]').addEventListener('click', () => d
 dialog.addEventListener('click', event => { if (event.target === dialog) dialog.close(); });
 previewButton.addEventListener('click', () => {
   if (!selected.size) return;
-  document.getElementById('preview-selection').textContent = new Intl.ListFormat('en', { style: 'long', type: 'conjunction' }).format([...selected].map(id => products[id]));
+  renderSelection();
   document.getElementById('sample-edit').hidden = true;
   document.getElementById('sample-preview').hidden = false;
   document.getElementById('back-to-box').focus();
@@ -75,3 +75,12 @@ document.getElementById('back-to-box').addEventListener('click', () => {
 });
 
 renderSamples();
+
+function renderSelection() {
+  const locale = window.showcaseLanguage?.language ?? 'vi';
+  const names = [...selected].map(id => window.showcaseLanguage?.translate(products[id]) ?? products[id]);
+  const output = document.getElementById('preview-selection');
+  output.dataset.noTranslate = '';
+  output.textContent = new Intl.ListFormat(locale, { style: 'long', type: 'conjunction' }).format(names);
+}
+window.addEventListener('showcase-language', renderSelection);

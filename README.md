@@ -52,6 +52,8 @@ Designed for showcasing frontend craft: distinct art direction, responsive layou
 
 `showcases/tidal/` contains the Tidal ocean showcase as ordinary portfolio source files. Its entry point is `/showcases/tidal/`. The standalone Git metadata and hosting configuration have been removed. The renderer license is retained in `LICENSE-ocean.txt`.
 
-FORMA research references and photography sources are documented in `showcases/forma/CREDITS.md`.
+NẾP research references and photography sources are documented in `showcases/forma/CREDITS.md`.
 
-All showcases share `showcases/portfolio-nav.css` and a fixed “Back to portfolio” bar linking to the selected-work section, including at mobile sizes.
+All twelve showcases share `showcases/portfolio-nav.css`: a fixed return link on the left, the project name centered, and one `VI / EN` button on the right, including on mobile. Vietnamese is the default; the homepage and showcases share the `lucas-portfolio-language` preference.
+
+`showcases/portfolio-language.js` binds authored copy from `showcases/locales/` to text nodes and accessibility attributes, including content created by demo interactions. Catalog pairs are `[English, Vietnamese]`; `{name}` placeholders preserve dynamic values. Add matching copy when changing visitor-facing text. Mark user-supplied text with `data-no-translate`. Mai Lê and Hiên keep their existing translation renderers and respond to the shared `showcase-language` event. Pip also translates its scripted answers and notes, with question routing in both languages. Language changes retain demo selections and form values.

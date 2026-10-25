@@ -1,6 +1,6 @@
-# FORMA - sources and design notes
+# NẾP - sources and design notes
 
-A fictional architectural practice and original frontend showcase by Lucas Nguyen. The three studies are observations on reference photography, not completed projects attributed to FORMA. SVG drawings are original abstract compositions and do not represent plans of the photographed buildings.
+A fictional architectural practice and original frontend showcase by Lucas Nguyen. The three studies are observations on reference photography, not completed projects attributed to NẾP. SVG drawings are original abstract compositions and do not represent plans of the photographed buildings.
 
 ## Online design references consulted, 22 October 2026
 
@@ -24,4 +24,4 @@ The file names are local identifiers, not assertions of the buildings' materials
 
 Text-only project list with a clear current-project marker, previous/next project navigation, photograph/drawing switch, notes and practice dialogs, image enlargement. Responsive single-column layout on small screens. Bitter and Source Sans 3 load from Google Fonts with local serif/sans-serif fallbacks. No application dependencies, backend or data collection.
 
-Palette refinement: warm coral sidebar, sand background, dark brown text, inspired by TONIC.INC. Upright Bitter slab-serif headings and Source Sans 3 body type distinguish FORMA from the other showcases. Navigation uses 13–16px text; main body copy uses 17px.
+Palette refinement: warm coral sidebar, sand background, dark brown text, inspired by TONIC.INC. Upright Bitter slab-serif headings and Source Sans 3 body type distinguish NẾP from the other showcases. Navigation uses 13–16px text; main body copy uses 17px.

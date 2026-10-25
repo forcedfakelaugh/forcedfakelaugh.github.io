@@ -65,7 +65,7 @@ dialog.addEventListener('click',event => {if(event.target===dialog){const rect=d
 document.querySelector('#export').addEventListener('click',() => {
   const data=periods[activePeriod];
   const rows=[['ORBIT - illustrative demo report'],['Period',data.date],['Revenue',data.revenue+data.cents],['Orders',data.orders],['Average order',data.average+data.averageCents],['Conversion',data.conversion+'%'],[],['Recent sample transactions (current filters)'],['Order','Customer','Email','Date','Status','Amount USD'],...filteredRows().map(row=>[row.order,row.name,row.email,row.date,row.status,row.amount.toFixed(2)])];
-  const csv=rows.map(row=>row.map(value=>'"'+String(value).replaceAll('"','""')+'"').join(',')).join('\r\n');
+  const csv=rows.map(row=>row.map(value=>'"'+(window.showcaseLanguage?.translate(String(value)) ?? String(value)).replaceAll('"','""')+'"').join(',')).join('\r\n');
   const url=URL.createObjectURL(new Blob(['\uFEFF'+csv],{type:'text/csv;charset=utf-8;'}));
   const link=document.createElement('a');link.href=url;link.download=`orbit-demo-${activePeriod}.csv`;document.body.append(link);link.click();link.remove();setTimeout(()=>URL.revokeObjectURL(url),1000);
   const toast=document.querySelector('#toast');toast.textContent='Sample report exported. Your next big picture, in a spreadsheet.';toast.classList.add('visible');setTimeout(()=>toast.classList.remove('visible'),4000);

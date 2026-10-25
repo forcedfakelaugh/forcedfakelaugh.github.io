@@ -115,7 +115,7 @@ function reviewRows(withEdit) {
   const rows = [['Treatment', `${s.name} · ${s.mins} min`, 0], ['Therapist', m.name, 1], ['When', `${dateLabel(state.date)}, ${hhmm(state.time)}–${hhmm(state.time + s.mins)}`, 2], ['Guest', escapeHtml(name), 3], ['Contact', escapeHtml(email) + (phone ? ` · ${escapeHtml(phone)}` : ''), 3]];
   if (notes) rows.push(['Notes', escapeHtml(notes), 3]);
   rows.push(['Total', vnd(s.price), null]);
-  return rows.map(([k, v, step]) => `<div><dt>${k}</dt><dd>${v}</dd>${withEdit ? (step === null ? '<span></span>' : `<button type="button" class="edit" data-goto="${step}">Edit<span class="sr-only"> ${k.toLowerCase()}</span></button>`) : ''}</div>`).join('');
+  return rows.map(([k, v, step]) => `<div><dt>${k}</dt><dd${['Guest', 'Contact', 'Notes'].includes(k) ? ' data-no-translate' : ''}>${v}</dd>${withEdit ? (step === null ? '<span></span>' : `<button type="button" class="edit" data-goto="${step}">Edit<span class="sr-only"> ${k.toLowerCase()}</span></button>`) : ''}</div>`).join('');
 }
 
 /* Validation */

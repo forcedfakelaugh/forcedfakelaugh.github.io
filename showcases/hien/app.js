@@ -61,6 +61,22 @@ const PHOTO_ALTS = {
   'box-house': 'Pale pink residential facade and balconies in Ho Chi Minh City, Vietnam',
 };
 
+const PHOTO_ALTS_VI = {
+  'palm-resort': 'Biệt thự nghỉ dưỡng và hồ bơi giữa hàng dừa ở Phú Lộc, Huế',
+  'timber-resort': 'Góc nhìn trên cao của khu nghỉ dưỡng uốn cong ở Hồ Tràm',
+  'night-hotel': 'Khách sạn Rex sáng đèn tại Thành phố Hồ Chí Minh',
+  'pool-hotel': 'Mái ngói và hồ bơi sát biển ở Phan Thiết',
+  'concrete-office': 'Mặt đứng kính của tòa nhà cao tầng ở Thành phố Hồ Chí Minh',
+  'long-office': 'Hàng cột bê tông mở ở Ninh Bình',
+  'clay-pavilion': 'Kiến trúc truyền thống bên hồ, giữa cây xanh ở Huế',
+  'white-gallery': 'Sân trong với tường vàng của Bảo tàng Mỹ thuật Thành phố Hồ Chí Minh',
+  'timber-house': 'Nhà gỗ truyền thống giữa cây xanh ở Hà Nội',
+  'tree-house': 'Ngôi nhà hiện đại mái ngói trong nắng chiều ở Kon Tum',
+  'tree-house-interior': 'Ô lễ tân uốn cong và bóng nan gỗ ở Đà Lạt',
+  'box-house': 'Mặt đứng và ban công nhà ở màu hồng nhạt tại Thành phố Hồ Chí Minh',
+};
+const photoAlt = src => (lang === 'vi' ? PHOTO_ALTS_VI : PHOTO_ALTS)[src];
+
 const PROJECTS = [
   { slug: 'palm-terrace-resort', title: 'Palm Terrace Resort', scale: 'XXL', disciplines: ['architecture', 'landscape', 'planning'], cover: 'palm-resort', year: 2024, area: '4.2 ha', location: { en: 'Phu Quoc, Viet Nam', vi: 'Phú Quốc, Việt Nam' },
     slides: [['palm-resort', PHOTO_ALTS['palm-resort']], ['timber-resort', PHOTO_ALTS['timber-resort']]],
@@ -107,7 +123,7 @@ const arrow = d => `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" s
 
 function renderHome() {
   view.innerHTML = `<h1 class="visually-hidden">${t().home}</h1><section class="feature" aria-roledescription="carousel"><div class="feature__slides">${FEATURES.map((f, i) => `
-    <a class="feature__slide${i ? '' : ' is-active'}" href="${f.href}"><img src="${img(f.src)}" alt="${esc(PHOTO_ALTS[f.src])}"${i ? ' loading="lazy"' : ''}>
+    <a class="feature__slide${i ? '' : ' is-active'}" href="${f.href}"><img src="${img(f.src)}" alt="${esc(photoAlt(f.src))}"${i ? ' loading="lazy"' : ''}>
     <span class="feature__caption"><span class="label">${t()[f.label]}</span>${esc(f.title[lang])}</span></a>`).join('')}</div></section>`;
   const slides = view.querySelectorAll('.feature__slide');
   let i = 0;
@@ -130,7 +146,7 @@ function renderWorks(discipline) {
   view.innerHTML = `<h1 class="page-title">${esc(label ?? t().works)}</h1>
     <div class="works-index" style="--scale-count: ${scales.length}">
     <div class="scale-tabs" role="tablist">${scales.map(s => `<button role="tab" data-scale="${s.scale}"><span class="scale">${s.scale}</span><span class="type">${s[lang]}</span></button>`).join('')}</div>
-    <div class="works-grid">${cells.map(p => p ? `<a class="work" href="#/works/${p.slug}" data-scale="${p.scale}"><img src="${img(p.cover)}" alt="${esc(PHOTO_ALTS[p.cover])}" loading="lazy"><span class="work__title">${esc(projectTitle(p))}</span></a>` : '<div aria-hidden="true"></div>').join('')}</div>
+    <div class="works-grid">${cells.map(p => p ? `<a class="work" href="#/works/${p.slug}" data-scale="${p.scale}"><img src="${img(p.cover)}" alt="${esc(photoAlt(p.cover))}" loading="lazy"><span class="work__title">${esc(projectTitle(p))}</span></a>` : '<div aria-hidden="true"></div>').join('')}</div>
     </div>`;
   // Mobile: tabs show one scale at a time. Desktop: tabs are column headers.
   const tabs = view.querySelectorAll('.scale-tabs button');
@@ -144,7 +160,7 @@ function renderWorks(discipline) {
 
 function renderProject(p) {
   const title = projectTitle(p);
-  const slides = (p.slides ?? [[p.cover, PHOTO_ALTS[p.cover]]]).map(([src, alt]) => ({ src, alt }));
+  const slides = (p.slides ?? [[p.cover, PHOTO_ALTS[p.cover]]]).map(([src, alt]) => ({ src, alt: photoAlt(src) ?? alt }));
   const text = p.text?.[lang] ?? [lang === 'en' ? 'Project description to come.' : 'Mô tả dự án sẽ được cập nhật.'];
   const all = [...slides, { text }];
   const meta = [p.year, p.area, p.location?.[lang]].filter(Boolean).join(' | ');
@@ -195,6 +211,10 @@ function syncNavSpacing() {
 
 function renderChrome(path) {
   document.documentElement.lang = lang;
+  document.title = lang === 'vi' ? 'HIÊN STUDIO - Kiến trúc & Cộng sự' : 'HIÊN STUDIO - Architecture & Associates';
+  document.querySelector('meta[name="description"]').content = lang === 'vi'
+    ? 'HIÊN STUDIO — ý tưởng website kiến trúc của Lucas Nguyen: công trình nổi bật, danh mục theo quy mô và thư viện ảnh dự án bằng tiếng Việt và tiếng Anh.'
+    : 'HIÊN STUDIO — an architecture portfolio concept by Lucas Nguyen: featured projects, an index by scale and project galleries in Vietnamese and English.';
   document.querySelectorAll('[data-i18n]').forEach(el => { el.textContent = t()[el.dataset.i18n]; });
   document.querySelectorAll('[data-i18n-label]').forEach(el => { el.setAttribute('aria-label', t()[el.dataset.i18nLabel]); });
   const disciplines = document.getElementById('disciplines');
@@ -286,3 +306,13 @@ else {
 
 window.addEventListener('hashchange', route);
 route();
+
+window.addEventListener('showcase-language', async event => {
+  if (lang === event.detail.language) return;
+  const scale = view.querySelector('.scale-tabs .is-active')?.dataset.scale;
+  const slide = Number(view.querySelector('.slideshow .current')?.textContent || 1);
+  lang = event.detail.language;
+  await route();
+  if (scale) view.querySelector(`[data-scale="${scale}"]`)?.click();
+  for (let i = 1; i < slide; i++) view.querySelector('.slideshow .next')?.click();
+});
