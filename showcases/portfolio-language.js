@@ -3,7 +3,7 @@
 const key = 'lucas-portfolio-language';
 const project = location.pathname.split('/showcases/')[1]?.split('/')[0];
 const native = ['mai-le', 'hien'].includes(project);
-const sourceLanguage = project === 'lumen' ? 'vi' : 'en';
+const sourceLanguage = project === 'pip' ? 'vi' : 'en';
 let language = 'vi';
 try { language = localStorage.getItem(key) === 'en' ? 'en' : 'vi'; } catch {}
 const [common, copy] = await Promise.all([
