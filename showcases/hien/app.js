@@ -5,7 +5,9 @@ const UI = {
     fictional: 'a fictional practice', credits: 'Website concept by Lucas Nguyen · Photo credits',
     home: 'Home', news: 'News', project: 'Project', prev: 'Previous image', next: 'Next image',
     inPreparation: 'In preparation', portfolio: label => `${label} portfolio`, comingSoon: 'Coming soon',
-    switchLabel: 'Tiếng Việt', aboutTitle: 'Practice',
+    backToPortfolio: '← Back to portfolio', conceptShowcase: ' / CONCEPT SHOWCASE',
+    portfolioNavigation: 'Portfolio navigation', disciplinesLabel: 'Disciplines', mainNavigation: 'Main', enterSite: 'Enter site',
+    aboutTitle: 'Practice',
     aboutText: [
       'HIÊN is a fictional studio imagined for this concept. Its name is the Vietnamese word for the veranda - the shaded edge between a house and the street, where most of daily life actually happens.',
       'The site is a portion of an architecture website I designed and built: a splash that fades into a featured carousel, a works index sorted into columns by project scale, and full-screen slideshows that end in a short project text. Everything works in English and Vietnamese.',
@@ -17,7 +19,9 @@ const UI = {
     fictional: 'một văn phòng giả định', credits: 'Thiết kế web bởi Lucas Nguyen · Nguồn ảnh',
     home: 'Trang chủ', news: 'Tin tức', project: 'Dự án', prev: 'Ảnh trước', next: 'Ảnh sau',
     inPreparation: 'Đang chuẩn bị', portfolio: label => `Dự án ${label.toLowerCase()}`, comingSoon: 'Sắp ra mắt',
-    switchLabel: 'English', aboutTitle: 'Văn phòng',
+    backToPortfolio: '← Về portfolio', conceptShowcase: ' / CONCEPT MINH HỌA',
+    portfolioNavigation: 'Điều hướng portfolio', disciplinesLabel: 'Lĩnh vực', mainNavigation: 'Điều hướng chính', enterSite: 'Vào trang',
+    aboutTitle: 'Văn phòng',
     aboutText: [
       'HIÊN là một văn phòng giả định cho concept này. Tên gọi lấy từ hiên nhà - khoảng đệm có bóng mát giữa ngôi nhà và con phố, nơi phần lớn sinh hoạt hằng ngày diễn ra.',
       'Trang này là một phần của website kiến trúc tôi đã thiết kế và xây dựng: màn hình mở đầu chuyển sang carousel nổi bật, danh mục dự án chia cột theo quy mô, và slideshow toàn màn hình kết thúc bằng đoạn mô tả ngắn. Tất cả đều có tiếng Anh và tiếng Việt.',
@@ -82,8 +86,12 @@ const FEATURES = [
   { label: 'project', title: { en: 'Clay Pavilion', vi: 'Clay Pavilion' }, src: 'clay-pavilion', href: '#/works/clay-pavilion' },
 ];
 
-let lang = 'en';
-try { if (localStorage.getItem('hien-lang') === 'vi') lang = 'vi'; } catch {}
+const portfolioLanguageKey = 'lucas-portfolio-language';
+function readPortfolioLanguage() {
+  try { return localStorage.getItem(portfolioLanguageKey) === 'en' ? 'en' : 'vi'; }
+  catch { return 'vi'; }
+}
+let lang = readPortfolioLanguage();
 const t = () => UI[lang];
 const view = document.getElementById('view');
 const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[c]);
@@ -177,9 +185,18 @@ function renderAbout() {
     <div><h1 class="split__title">${t().aboutTitle}</h1><div class="columns">${t().aboutText.map(p => `<p>${esc(p)}</p>`).join('')}</div></div></section>`;
 }
 
+function syncNavSpacing() {
+  const nav = document.getElementById('disciplines');
+  const [first, second] = nav.children;
+  if (!second || !nav.getClientRects().length || getComputedStyle(nav).flexDirection !== 'row') return;
+  const gap = second.getBoundingClientRect().left - first.getBoundingClientRect().right;
+  document.querySelector('.site-header').style.setProperty('--nav-link-gap', `${Math.max(0, gap)}px`);
+}
+
 function renderChrome(path) {
   document.documentElement.lang = lang;
   document.querySelectorAll('[data-i18n]').forEach(el => { el.textContent = t()[el.dataset.i18n]; });
+  document.querySelectorAll('[data-i18n-label]').forEach(el => { el.setAttribute('aria-label', t()[el.dataset.i18nLabel]); });
   const disciplines = document.getElementById('disciplines');
   if (disciplines.dataset.lang !== lang) {
     disciplines.innerHTML = DISCIPLINES.map(d => `<a href="#/${d.slug}">${d[lang]}</a>`).join('');
@@ -190,11 +207,8 @@ function renderChrome(path) {
     else a.removeAttribute('aria-current');
   });
   document.querySelectorAll('.nav--right a').forEach(a => a.toggleAttribute('aria-current', path.startsWith(a.getAttribute('href').slice(2))));
-  const other = lang === 'en' ? 'vi' : 'en';
-  const sw = document.querySelector('.lang-switch');
-  sw.textContent = other.toUpperCase();
-  sw.setAttribute('aria-label', t().switchLabel);
   document.querySelector('.menu-toggle').textContent = document.body.classList.contains('menu-open') ? t().close : t().menu;
+  syncNavSpacing();
 }
 
 async function route() {
@@ -237,11 +251,18 @@ async function route() {
   }
 }
 
-document.querySelector('.lang-switch').addEventListener('click', () => {
-  lang = lang === 'en' ? 'vi' : 'en';
-  try { localStorage.setItem('hien-lang', lang); } catch {}
+function syncPortfolioLanguage() {
+  const nextLanguage = readPortfolioLanguage();
+  if (nextLanguage === lang) return;
+  lang = nextLanguage;
   route();
+}
+window.addEventListener('storage', event => {
+  if (event.key === portfolioLanguageKey || event.key === null) syncPortfolioLanguage();
 });
+window.addEventListener('pageshow', syncPortfolioLanguage);
+new ResizeObserver(syncNavSpacing).observe(document.querySelector('.site-header'));
+document.fonts.ready.then(syncNavSpacing);
 
 document.querySelector('.menu-toggle').addEventListener('click', e => {
   const open = document.body.classList.toggle('menu-open');

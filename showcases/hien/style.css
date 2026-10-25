@@ -21,10 +21,10 @@ main:focus { outline: none; }
 /* ---------- Header ---------- */
 .site-header { display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; padding: 34px var(--gutter) 0; min-height: 100px; }
 .nav { display: flex; justify-content: space-between; align-items: center; font-size: 15px; font-weight: 300; }
-.nav a, .lang-switch { color: var(--muted); transition: color .2s; }
-.nav a:hover, .nav a[aria-current], .lang-switch:hover { color: var(--ink); }
+.nav a { color: var(--muted); transition: color .2s; }
+.nav a:hover, .nav a[aria-current] { color: var(--ink); }
 .nav--left { padding-right: 14%; }
-.nav--right { padding-left: 14%; }
+.nav--right { padding-left: 14%; justify-content: flex-start; gap: var(--nav-link-gap, 64px); }
 .logo { font-size: 34px; font-weight: 500; letter-spacing: .01em; padding: 0 40px; text-align: center; white-space: nowrap; }
 .menu-toggle { display: none; font-size: 14px; letter-spacing: .08em; text-transform: uppercase; }
 
