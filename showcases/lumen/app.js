@@ -257,11 +257,18 @@ async function ask(text){
   const message = element('article', 'message assistant'), body = element('div', 'answer streaming');
   message.setAttribute('aria-busy', 'true');
   message.setAttribute('aria-label', 'Pip');
+  const heading = element('div', 'assistant-heading'), avatar = element('img', 'assistant-avatar'), identity = element('div');
+  avatar.src = 'mascot.svg';
+  avatar.alt = '';
+  avatar.width = avatar.height = 38;
+  identity.append(element('span', 'assistant-name', 'Pip'));
+  heading.append(avatar, identity);
+  message.append(heading);
   thread.append(message);
   let completed = true;
   if (scenario){
     const progress = element('p', 'answer-progress', 'Đang xem ghi chép của bạn…');
-    message.append(progress);
+    identity.append(progress);
     for (const key of scenario.sources){
       await wait(380);
       if (id !== run){ completed = false; break; }

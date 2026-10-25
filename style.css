@@ -180,7 +180,9 @@ h2 { font: 500 clamp(30px, 4vw, 44px)/1.15 var(--serif); letter-spacing: -1.2px;
 .orbit-face span { font: 600 36px var(--nav); color: #1d2340; }
 .orbit-face svg { width: 80%; height: 60px; }
 .lumen-face { background: #efdfdb; color: #352637; }
-.lumen-face .pip-logo { width: 112px; height: 70px; }
+.pip-lockup { display: flex; align-items: center; justify-content: center; gap: 6px; width: 230px; max-width: 100%; }
+.lumen-face .pip-mascot { width: 48%; height: auto; aspect-ratio: 1; object-fit: contain; }
+.lumen-face .pip-logo { width: 48%; height: auto; aspect-ratio: 8 / 5; }
 
 .fine { margin-top: 28px; font-size: 14px; color: var(--muted); text-align: center; }
 
