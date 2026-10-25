@@ -28,7 +28,7 @@ const vietnamese = {
   formaDescription: 'Kho tư liệu kiến trúc yên tĩnh như chính công trình - điều hướng bằng chữ và bản vẽ sơ đồ.',
   hienDescription: 'Portfolio kiến trúc với danh mục công trình theo quy mô và thư viện ảnh từng dự án.',
   tidalDescription: 'Một thử nghiệm lập trình sáng tạo: mặt biển thời gian thực để bạn tự do dạo quanh.',
-  halyardTagline: 'ra mắt rồi, kể cho rõ.', lumenTagline: 'có gì khó, để Pip phụ.',
+  halyardTagline: 'ra mắt rồi, kể cho rõ.', lumenTagline: 'có gì khó, để Pip lo.',
   tagFoodservice: 'bao bì thực phẩm', tagHospitality: 'lưu trú', tagRestaurant: 'nhà hàng', tagFashion: 'thời trang',
   tagBooking: 'đặt lịch', tagDashboard: 'bảng tổng quan', tagAi: 'giao diện AI', tagArchitecture: 'kiến trúc', tagCreative: 'lập trình sáng tạo',
   conceptNote: 'Đây đều là concept tự thực hiện với thương hiệu giả định, không có đặt phòng, đơn hàng hay kết quả khách hàng thực tế.',
