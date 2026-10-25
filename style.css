@@ -67,7 +67,7 @@ img { display: block; max-width: 100%; }
 .header-top { display: grid; grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr); align-items: center; gap: 16px; width: min(1120px, 100%); }
 .header-top .logo { grid-column: 2; }
 .header-tools { display: flex; align-items: center; justify-self: end; gap: 8px; }
-.language-switch { display: flex; align-items: center; justify-self: end; gap: 6px; min-height: 44px; padding: 0 6px; border: 0; background: transparent; font: 500 13px var(--nav); color: var(--muted); cursor: pointer; }
+.language-switch { display: flex; align-items: center; justify-self: end; gap: 6px; min-height: 44px; padding: 0 6px; border: 0; background: transparent; font: 500 13px 'JetBrains Mono', ui-monospace, monospace; color: var(--muted); cursor: pointer; }
 .language-switch[hidden] { display: none; }
 .language-switch [data-language] { padding: 10px 2px 8px; border-bottom: 2px solid transparent; }
 .language-switch:hover { color: var(--ink); }
