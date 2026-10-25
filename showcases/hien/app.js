@@ -88,6 +88,11 @@ const t = () => UI[lang];
 const view = document.getElementById('view');
 const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[c]);
 let timer;
+let renderedPath;
+let routeAnimation;
+let routeVersion = 0;
+const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+const isWorksIndex = path => path === 'works' || DISCIPLINES.some(d => d.slug === path);
 
 const arrow = d => `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="${d}"/></svg>`;
 
@@ -173,7 +178,15 @@ function renderAbout() {
 function renderChrome(path) {
   document.documentElement.lang = lang;
   document.querySelectorAll('[data-i18n]').forEach(el => { el.textContent = t()[el.dataset.i18n]; });
-  document.getElementById('disciplines').innerHTML = DISCIPLINES.map(d => `<a href="#/${d.slug}"${path === d.slug ? ' aria-current="page"' : ''}>${d[lang]}</a>`).join('');
+  const disciplines = document.getElementById('disciplines');
+  if (disciplines.dataset.lang !== lang) {
+    disciplines.innerHTML = DISCIPLINES.map(d => `<a href="#/${d.slug}">${d[lang]}</a>`).join('');
+    disciplines.dataset.lang = lang;
+  }
+  disciplines.querySelectorAll('a').forEach(a => {
+    if (a.getAttribute('href') === `#/${path}`) a.setAttribute('aria-current', 'page');
+    else a.removeAttribute('aria-current');
+  });
   document.querySelectorAll('.nav--right a').forEach(a => a.toggleAttribute('aria-current', path.startsWith(a.getAttribute('href').slice(2))));
   const other = lang === 'en' ? 'vi' : 'en';
   const sw = document.querySelector('.lang-switch');
@@ -182,13 +195,28 @@ function renderChrome(path) {
   document.querySelector('.menu-toggle').textContent = document.body.classList.contains('menu-open') ? t().close : t().menu;
 }
 
-function route() {
+async function route() {
+  const path = location.hash.replace(/^#\/?/, '');
+  const version = ++routeVersion;
+  const animate = renderedPath !== path && isWorksIndex(renderedPath) && isWorksIndex(path)
+    && !reducedMotion.matches && typeof view.animate === 'function';
+  // Continue from the visible frame if another discipline is selected mid-transition.
+  const style = animate ? getComputedStyle(view) : null;
+  const from = style ? { opacity: style.opacity, transform: style.transform } : null;
+  routeAnimation?.cancel();
   clearInterval(timer);
   document.onkeydown = null;
   document.body.classList.remove('menu-open');
   document.querySelector('.menu-toggle').setAttribute('aria-expanded', 'false');
-  const path = location.hash.replace(/^#\/?/, '');
   renderChrome(path);
+  if (animate) {
+    routeAnimation = view.animate([from, { opacity: 0, transform: 'translateY(-4px)' }], {
+      duration: 120, easing: 'ease-in', fill: 'forwards',
+    });
+    await routeAnimation.finished.catch(() => {});
+    if (version !== routeVersion) return;
+    routeAnimation.cancel();
+  }
   const [section, slug] = path.split('/');
   const project = section === 'works' && PROJECTS.find(p => p.slug === slug);
   if (project) renderProject(project);
@@ -196,7 +224,15 @@ function route() {
   else if (DISCIPLINES.some(d => d.slug === section)) renderWorks(section);
   else if (section === 'about') renderAbout();
   else renderHome();
+  renderedPath = path;
   if (path) { window.scrollTo(0, 0); view.focus({ preventScroll: true }); }
+  if (animate && !reducedMotion.matches) {
+    // A short fade and a small lift keep the grid change quiet and deliberate.
+    routeAnimation = view.animate([
+      { opacity: 0, transform: 'translateY(6px)' },
+      { opacity: 1, transform: 'translateY(0)' },
+    ], { duration: 280, easing: 'cubic-bezier(.22, 1, .36, 1)' });
+  }
 }
 
 document.querySelector('.lang-switch').addEventListener('click', () => {
