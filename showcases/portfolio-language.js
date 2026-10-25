@@ -6,8 +6,10 @@ const native = ['mai-le', 'hien'].includes(project);
 const sourceLanguage = project === 'lumen' ? 'vi' : 'en';
 let language = 'vi';
 try { language = localStorage.getItem(key) === 'en' ? 'en' : 'vi'; } catch {}
-const common = (await import('./locales/common.js')).default;
-const copy = native ? [] : (await import(`./locales/${project}.js`)).default;
+const [common, copy] = await Promise.all([
+  import('./locales/common.js').then(module => module.default),
+  native ? [] : import(`./locales/${project}.js`).then(module => module.default),
+]);
 const normalize = value => value.replace(/\s+/g, ' ').trim();
 const dictionary = new Map();
 const templates = [];
@@ -103,14 +105,17 @@ function setLanguage(next) {
   window.dispatchEvent(new CustomEvent('showcase-language', { detail: { language } }));
   refresh();
 }
-window.showcaseLanguage = { get language() { return language; }, translate, refresh };
-document.querySelector('.portfolio-nav .language-switch').addEventListener('click', () => {
-  const next = language === 'vi' ? 'en' : 'vi';
-  try { localStorage.setItem(key, next); } catch {}
-  setLanguage(next);
-});
-window.addEventListener('storage', event => { if (event.key === key) setLanguage(event.newValue); });
-window.addEventListener('pageshow', () => {
-  try { const next = localStorage.getItem(key) === 'en' ? 'en' : 'vi'; if (next !== language) setLanguage(next); } catch {}
-});
-setLanguage(language);
+// The head bootstrap waits for deferred demo scripts before applying copy.
+export function initializeLanguage() {
+  window.showcaseLanguage = { get language() { return language; }, translate, refresh };
+  document.querySelector('.portfolio-nav .language-switch').addEventListener('click', () => {
+    const next = language === 'vi' ? 'en' : 'vi';
+    try { localStorage.setItem(key, next); } catch {}
+    setLanguage(next);
+  });
+  window.addEventListener('storage', event => { if (event.key === key) setLanguage(event.newValue); });
+  window.addEventListener('pageshow', () => {
+    try { const next = localStorage.getItem(key) === 'en' ? 'en' : 'vi'; if (next !== language) setLanguage(next); } catch {}
+  });
+  setLanguage(language);
+}
