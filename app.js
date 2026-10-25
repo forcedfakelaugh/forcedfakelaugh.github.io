@@ -18,7 +18,7 @@ const vietnamese = {
   maiLeDescription: 'Portfolio hoạ sĩ với tranh lơ lửng, phòng tranh, xem thử tranh trên tường và thiệp mời triển lãm.',
   tagArtist: 'portfolio hoạ sĩ',
   altMaiLe: 'Tranh sơn dầu tạo bằng AI về cửa sổ đầy nắng cho concept hoạ sĩ Mai Lê',
-  sereinDescription: 'Ngôi nhà ba phòng bên vách biển Quy Nhơn, xoay quanh giờ sau hoàng hôn - giờ mặt trời lặn thực tế và lịch chọn đêm nghỉ.',
+  sereinDescription: 'Một chốn nghỉ bên biển Quy Nhơn. Xem phòng, chọn ngày và thử đặt kỳ nghỉ của bạn.',
   reuDescription: 'Thực đơn cho một căn bếp Hội An, ưu tiên điện thoại - lọc theo chế độ ăn, báo giờ mở cửa và giỏ món mang đi.',
   atelierDescription: 'Một cửa hàng thời trang nhẹ nhàng, nhường chỗ cho quần áo kể chuyện.',
   mocDescription: 'Một tiệm spa thảo mộc ở Đà Lạt - xem bốn liệu trình, chọn kỹ thuật viên và trải nghiệm đặt lịch.',

@@ -24,7 +24,7 @@ npm run build
 - `/` - Main portfolio and selected work.
 - `/showcases/mai-le/` - Mai Lê, a fictional Hội An painter: VI/EN throughout (Vietnamese by default, language preference saved locally), floating artwork entrance, asymmetric gallery of seven AI-generated paintings, including a seascape and a reference-based studio portrait, artwork detail dialogs with keyboard navigation, three wall colour previews, artist note and a simulated exhibition ticket. Inspired by the artist-portfolio film at https://vimeo.com/1226352297. Artwork provenance and generation prompts in `showcases/mai-le/CREDITS.md`.
 - `/showcases/pulp-club/` - Original foodservice packaging concept inspired by Kanak Naturals' foodservice page. Browse and filter four forms, build a sample box, and preview a request without sending anything.
-- `/showcases/serein/` - Editorial luxury hospitality site, accommodation filters and simulated reservation preview.
+- `/showcases/serein/` - Afterglow, an editorial coastal retreat website, accommodation filters and simulated reservation preview.
 - `/showcases/atelier/` - Fashion storefront concept.
 - `/showcases/orbit/` - Business analytics dashboard concept.
 - `/showcases/forma/` - Architecture archive with minimal text-only project navigation, reference photography, original schematic drawings, and project notes.
@@ -36,11 +36,11 @@ npm run build
 
 The concept demos use fictional brands, business data, rates, and transactions. There are no real reservations, purchases, payments, or business integrations. Portfolio case studies do not claim client results or measured commercial outcomes.
 
-Serein lives in `showcases/serein/`. The duplicate standalone repository has been removed; this repository is the single source for all showcases.
+Afterglow lives in `showcases/serein/`. The duplicate standalone repository has been removed; this repository is the single source for all showcases.
 
 ## Asset notes
 
-Serein includes locally downloaded illustrative Unsplash photos (villa `photo-1613490493576-7fde63acd811`, interior `photo-1600210492486-724fe5c67fb0`, ocean `photo-1518837695005-2083093ee35b`). See individual showcase documentation for additional asset credits. Fonts may load from Google Fonts with local fallbacks.
+Afterglow includes locally downloaded illustrative Unsplash photos (villa `photo-1613490493576-7fde63acd811`, interior `photo-1600210492486-724fe5c67fb0`, ocean `photo-1518837695005-2083093ee35b`). See individual showcase documentation for additional asset credits. Fonts may load from Google Fonts with local fallbacks.
 
 Pulp Club uses three original generated packaging still lifes, saved locally in `showcases/pulp-club/assets/`. Its footer credits the Kanak Naturals page as visual inspiration; it is a separate fictional brand and does not use Kanak's imagery.
 
