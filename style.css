@@ -79,7 +79,9 @@ img { display: block; max-width: 100%; }
 .theme-sun, [data-theme="dark"] .theme-moon { display: none; }
 [data-theme="dark"] .theme-sun { display: block; }
 .logo { display: flex; align-items: center; gap: 12px; font: 500 15px 'JetBrains Mono', ui-monospace, monospace; letter-spacing: 2px; }
-.logo-mark { display: grid; place-items: center; width: 54px; height: 54px; border-radius: 50%; background: var(--sun); transition: transform .4s; }
+.logo-mark { display: grid; place-items: center; flex-shrink: 0; width: 54px; height: 54px; border-radius: 50%; background: var(--sun); transition: transform .4s; }
+/* Keep the square artwork inside the circle at every logo size. */
+.logo-mark img { width: 70%; height: 70%; }
 .logo:hover .logo-mark { transform: translateY(-2px); }
 .nav { display: flex; justify-content: space-around; width: min(760px, 100%); }
 .nav a { font: 500 19px var(--nav); color: var(--teal); padding-bottom: 6px; border-bottom: 2px solid transparent; transition: border-color .2s, color .2s; }
