@@ -69,15 +69,15 @@ const PROJECTS = [
   { slug: 'long-hall', title: 'Long Hall', scale: 'L', disciplines: ['interior'], cover: 'long-office' },
   { slug: 'clay-pavilion', title: 'Clay Pavilion', scale: 'M', disciplines: ['architecture'], cover: 'clay-pavilion' },
   { slug: 'white-gallery', title: 'White Gallery', scale: 'M', disciplines: ['architecture', 'interior'], cover: 'white-gallery' },
-  { slug: 'tree-house', title: 'The Tree House', scale: 'S', disciplines: ['architecture', 'interior', 'landscape'], cover: 'tree-house', year: 2022, area: '180m²', location: { en: 'Thu Duc, Viet Nam', vi: 'Thủ Đức, Việt Nam' },
-    slides: [['tree-house', PHOTO_ALTS['tree-house']], ['tree-house-interior', PHOTO_ALTS['tree-house-interior']], ['timber-house', PHOTO_ALTS['timber-house']], ['box-house', PHOTO_ALTS['box-house']]],
-    text: { en: ['“The site came with one large tree and a family who refused to lose it. The house is arranged as a ring of rooms around its canopy, so the tree shades every floor and every room has a window into the garden.', 'Timber screens on the street side filter the afternoon sun; the ground floor stays open for cooking, guests and the motorbikes.”'],
-            vi: ['“Khu đất có một cây lớn và một gia đình nhất quyết không muốn mất nó. Ngôi nhà được bố trí thành một vòng phòng quanh tán cây, để cây che mát mọi tầng và phòng nào cũng có cửa sổ nhìn ra vườn.', 'Lam gỗ phía mặt đường lọc nắng chiều; tầng trệt để mở cho bếp, khách và xe máy.”'] } },
+  { slug: 'sunlit-house', aliases: ['tree-house'], title: { en: 'Sunlit House', vi: 'Nhà của Nắng' }, scale: 'S', disciplines: ['architecture', 'interior', 'landscape'], cover: 'tree-house', year: 2022, area: '180m²', location: { en: 'Thu Duc, Viet Nam', vi: 'Thủ Đức, Việt Nam' },
+    slides: [['tree-house', PHOTO_ALTS['tree-house']]],
+    text: { en: ['Evening light falls across tiled roofs and simple plastered volumes. The stepped roofline and deep window openings give the façade its rhythm.', 'Small planted ledges soften the walls, while the low sun brings out the texture of the tiles and plaster.'],
+            vi: ['Nắng chiều trải trên những mái ngói và các khối tường trát giản dị. Đường mái giật cấp cùng những ô cửa sâu tạo nhịp điệu cho mặt đứng.', 'Những bồn cây nhỏ bên cửa sổ làm mềm các mảng tường; nắng cuối ngày làm rõ bề mặt ngói và lớp vữa trát.'] } },
   { slug: 'timber-box', title: 'Timber Box', scale: 'S', disciplines: ['architecture'], cover: 'timber-house' },
 ];
 
 const FEATURES = [
-  { label: 'news', title: { en: 'Shortlisted: House of the Year - The Tree House', vi: 'Đề cử Nhà ở của năm - The Tree House' }, src: 'tree-house', href: '#/works/tree-house' },
+  { label: 'news', title: { en: 'Shortlisted: House of the Year - Sunlit House', vi: 'Đề cử Nhà ở của năm - Nhà của Nắng' }, src: 'tree-house', href: '#/works/sunlit-house' },
   { label: 'project', title: { en: 'Palm Terrace Resort', vi: 'Palm Terrace Resort' }, src: 'palm-resort', href: '#/works/palm-terrace-resort' },
   { label: 'project', title: { en: 'Clay Pavilion', vi: 'Clay Pavilion' }, src: 'clay-pavilion', href: '#/works/clay-pavilion' },
 ];
@@ -87,6 +87,7 @@ try { if (localStorage.getItem('hien-lang') === 'vi') lang = 'vi'; } catch {}
 const t = () => UI[lang];
 const view = document.getElementById('view');
 const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[c]);
+const projectTitle = p => typeof p.title === 'string' ? p.title : p.title[lang];
 let timer;
 let renderedPath;
 let routeAnimation;
@@ -121,7 +122,7 @@ function renderWorks(discipline) {
   view.innerHTML = `<h1 class="page-title">${esc(label ?? t().works)}</h1>
     <div class="works-index" style="--scale-count: ${scales.length}">
     <div class="scale-tabs" role="tablist">${scales.map(s => `<button role="tab" data-scale="${s.scale}"><span class="scale">${s.scale}</span><span class="type">${s[lang]}</span></button>`).join('')}</div>
-    <div class="works-grid">${cells.map(p => p ? `<a class="work" href="#/works/${p.slug}" data-scale="${p.scale}"><img src="${img(p.cover)}" alt="${esc(PHOTO_ALTS[p.cover])}" loading="lazy"><span class="work__title">${esc(p.title)}</span></a>` : '<div aria-hidden="true"></div>').join('')}</div>
+    <div class="works-grid">${cells.map(p => p ? `<a class="work" href="#/works/${p.slug}" data-scale="${p.scale}"><img src="${img(p.cover)}" alt="${esc(PHOTO_ALTS[p.cover])}" loading="lazy"><span class="work__title">${esc(projectTitle(p))}</span></a>` : '<div aria-hidden="true"></div>').join('')}</div>
     </div>`;
   // Mobile: tabs show one scale at a time. Desktop: tabs are column headers.
   const tabs = view.querySelectorAll('.scale-tabs button');
@@ -134,15 +135,16 @@ function renderWorks(discipline) {
 }
 
 function renderProject(p) {
+  const title = projectTitle(p);
   const slides = (p.slides ?? [[p.cover, PHOTO_ALTS[p.cover]]]).map(([src, alt]) => ({ src, alt }));
   const text = p.text?.[lang] ?? [lang === 'en' ? 'Project description to come.' : 'Mô tả dự án sẽ được cập nhật.'];
   const all = [...slides, { text }];
   const meta = [p.year, p.area, p.location?.[lang]].filter(Boolean).join(' | ');
-  view.innerHTML = `<section class="slideshow"><h1 class="visually-hidden">${esc(p.title)}</h1><div class="slideshow__stage">${all.map((s, i) => s.src
+  view.innerHTML = `<section class="slideshow"><h1 class="visually-hidden">${esc(title)}</h1><div class="slideshow__stage">${all.map((s, i) => s.src
       ? `<figure class="slide${i ? '' : ' is-active'}"><img src="${img(s.src)}" alt="${esc(s.alt)}"></figure>`
       : `<div class="slide slide--text"><div>${s.text.map(x => `<p>${esc(x)}</p>`).join('')}</div></div>`).join('')}</div>
     <div class="slideshow__nav"><button class="prev" aria-label="${t().prev}">${arrow('M19 12H5M11 6l-6 6 6 6')}</button><span aria-live="polite"><span class="current">1</span> / ${all.length}</span><button class="next" aria-label="${t().next}">${arrow('M5 12h14M13 6l6 6-6 6')}</button></div>
-    <div class="slideshow__caption"><strong>${esc(p.title)}</strong>${meta ? `<div>${esc(meta)}</div>` : ''}</div></section>`;
+    <div class="slideshow__caption"><strong>${esc(title)}</strong>${meta ? `<div>${esc(meta)}</div>` : ''}</div></section>`;
   const nodes = view.querySelectorAll('.slide');
   const current = view.querySelector('.current');
   let index = 0;
@@ -218,7 +220,7 @@ async function route() {
     routeAnimation.cancel();
   }
   const [section, slug] = path.split('/');
-  const project = section === 'works' && PROJECTS.find(p => p.slug === slug);
+  const project = section === 'works' && PROJECTS.find(p => p.slug === slug || p.aliases?.includes(slug));
   if (project) renderProject(project);
   else if (section === 'works') renderWorks();
   else if (DISCIPLINES.some(d => d.slug === section)) renderWorks(section);
