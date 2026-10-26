@@ -42,7 +42,7 @@ const vietnamese = {
   contactReveal: 'Thông tin liên hệ', contactEmail: 'Email', contactPhone: 'Điện thoại',
   contactHint: 'Bấm để sao chép', copyEmail: 'Sao chép email', copyPhone: 'Sao chép số điện thoại',
   copiedEmail: 'Đã sao chép email.', copiedPhone: 'Đã sao chép số điện thoại.', copyError: 'Chưa sao chép được. Bạn hãy chọn nội dung và sao chép thủ công.',
-  altPulp: 'Bao bì thực phẩm bằng xơ thực vật định hình', altSerein: 'Mặt biển lúc chạng vạng, ngay sau hoàng hôn',
+  altPulp: 'Bao bì thực phẩm bằng xơ thực vật định hình', altSerein: 'Hồ bơi vô cực giữa hàng dừa nhìn ra biển',
   altReu: 'Con phố Hội An dưới ánh đèn lồng', altCham: 'Những tấm vải chàm phơi trong khoảng sân đầy nắng', altMoc: 'Ảnh tạo bằng AI về chậu ngâm chân, sả và túi chườm thảo mộc cho concept spa Mộc',
   altNep: 'Nghiên cứu kiến trúc Nếp Architects', altHien: 'Ảnh kiến trúc minh họa Hiên Studio', altTidal: 'Mặt biển trong thử nghiệm Tidal',
 };
@@ -97,6 +97,15 @@ languageSwitch.addEventListener('click', () => {
   const language = document.documentElement.lang === 'en' ? 'vi' : 'en';
   setLanguage(language);
   try { localStorage.setItem('lucas-portfolio-language', language); } catch {}
+});
+
+// hide card images until loaded so alt text never flashes
+document.querySelectorAll('.card-image img').forEach(image => {
+  if (image.complete) return;
+  image.classList.add('is-loading');
+  const reveal = () => image.classList.remove('is-loading');
+  image.addEventListener('load', reveal, { once: true });
+  image.addEventListener('error', reveal, { once: true });
 });
 
 // project filters

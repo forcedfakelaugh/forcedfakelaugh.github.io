@@ -165,7 +165,10 @@ h2 { font: 500 clamp(30px, 4vw, 44px)/1.15 var(--serif); letter-spacing: -1.2px;
 .card a { display: flex; flex-direction: column; height: 100%; padding: 12px 12px 20px; }
 .card:hover { transform: translateY(-4px); box-shadow: var(--shadow-lift); }
 .card-image { aspect-ratio: 4 / 3; border-radius: 3px; overflow: hidden; background: var(--image-bg); margin-bottom: 18px; }
-.card-image img { width: 100%; height: 100%; object-fit: cover; transition: transform .6s; }
+.card-image img { width: 100%; height: 100%; object-fit: cover; color: transparent; transition: transform .6s, opacity .5s; }
+.card-image img.is-loading { opacity: 0; }
+.card-image:has(img.is-loading) { animation: image-pulse 1.4s ease-in-out infinite; }
+@keyframes image-pulse { 50% { opacity: .6; } }
 .card:hover .card-image img { transform: scale(1.04); }
 .card h3 { font: 500 23px var(--sans); letter-spacing: -.3px; padding: 0 8px; margin-bottom: 6px; }
 .card p { color: var(--muted); font-size: 15.5px; line-height: 1.6; padding: 0 8px; flex: 1; }
