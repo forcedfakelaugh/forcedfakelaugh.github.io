@@ -43,7 +43,7 @@ export default [
   ["Demo reference", "Mã trải nghiệm"],
   ["- not a real confirmation.", "- không phải xác nhận thật."],
   ["Start again", "Bắt đầu lại"],
-  ["← Back", "← Quay lại"],
+  ["Back", "Quay lại"],
   ["A little time for you", "Một chút thời gian cho bạn"],
   ["Your afternoon at Mộc", "Buổi chiều của bạn ở Mộc"],
   ["Estimated total", "Tổng dự kiến"],

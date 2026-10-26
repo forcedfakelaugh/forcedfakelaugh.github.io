@@ -81,7 +81,7 @@ artDialog.addEventListener('keydown', event => {
 function setWall(enabled) {
   detailStage.classList.toggle('on-wall', enabled);
   wallToggle.setAttribute('aria-pressed', String(enabled));
-  wallToggle.innerHTML = t(enabled ? 'wallHide' : 'wallShow');
+  wallToggle.innerHTML = window.portfolioIcons.html(t(enabled ? 'wallHide' : 'wallShow'));
   wallOptions.hidden = !enabled;
 }
 wallToggle.addEventListener('click', () => setWall(wallToggle.getAttribute('aria-pressed') !== 'true'));
@@ -139,7 +139,7 @@ function setLanguage(nextLanguage) {
   language = nextLanguage === 'en' ? 'en' : 'vi';
   document.documentElement.lang = language;
   // Markup comes only from the local, authored translation dictionary.
-  document.querySelectorAll('[data-i18n]').forEach(element => { element.innerHTML = t(element.dataset.i18n); });
+  document.querySelectorAll('[data-i18n]').forEach(element => { element.innerHTML = window.portfolioIcons.html(t(element.dataset.i18n)); });
   document.querySelectorAll('[data-i18n-label]').forEach(element => { element.setAttribute('aria-label', t(element.dataset.i18nLabel)); });
   document.querySelector('[data-i18n-content]').content = t('metaDescription');
   document.querySelector('.language-switch').setAttribute('aria-label', t(language === 'vi' ? 'chooseEn' : 'chooseVi'));
@@ -150,7 +150,7 @@ function setLanguage(nextLanguage) {
       if (!button.classList.contains('enquire-link')) button.setAttribute('aria-label', `${t('view')} ${painting.title}`);
       const image = button.querySelector('img');
       if (image) image.alt = painting.alt;
-      if (button.classList.contains('floating')) button.querySelector('span').textContent = `${painting.title} ↗`;
+      if (button.classList.contains('floating')) button.querySelector('span').innerHTML = window.portfolioIcons.text(`${painting.title} ↗`);
     });
     const figure = document.querySelector(`.painting .artwork[data-art="${painting.id}"]`).closest('figure');
     figure.querySelector('h3').textContent = painting.title;

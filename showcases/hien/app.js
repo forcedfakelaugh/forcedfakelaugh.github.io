@@ -215,7 +215,7 @@ function renderChrome(path) {
   document.querySelector('meta[name="description"]').content = lang === 'vi'
     ? 'HIÊN STUDIO — ý tưởng website kiến trúc của Lucas Nguyen: công trình nổi bật, danh mục theo quy mô và thư viện ảnh dự án bằng tiếng Việt và tiếng Anh.'
     : 'HIÊN STUDIO — an architecture portfolio concept by Lucas Nguyen: featured projects, an index by scale and project galleries in Vietnamese and English.';
-  document.querySelectorAll('[data-i18n]').forEach(el => { el.textContent = t()[el.dataset.i18n]; });
+  document.querySelectorAll('[data-i18n]').forEach(el => { el.innerHTML = window.portfolioIcons.text(t()[el.dataset.i18n]); });
   document.querySelectorAll('[data-i18n-label]').forEach(el => { el.setAttribute('aria-label', t()[el.dataset.i18nLabel]); });
   const disciplines = document.getElementById('disciplines');
   if (disciplines.dataset.lang !== lang) {

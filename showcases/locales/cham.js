@@ -75,7 +75,7 @@ export default [
   ["Decrease quantity of {name}", "Giảm số lượng {name}"],
   ["Increase quantity of {name}", "Tăng số lượng {name}"],
   ["Remove {name}", "Xóa {name}"],
-  ["Try demo checkout ↗", "Thử thanh toán mô phỏng ↗"],
+  ["Try demo checkout", "Thử thanh toán mô phỏng"],
   ["USD · Concept pricing. Shipping and tax are not calculated.", "USD · Giá minh họa. Chưa tính vận chuyển và thuế."],
   ["No payment or personal information is collected.", "Không thu tiền hay thông tin cá nhân."],
   ["The end of our little demo", "Kết thúc trải nghiệm nhỏ"],
@@ -83,5 +83,5 @@ export default [
   ["done.", "xong."],
   ["You’ve completed the concept shopping journey. No order was placed, and no payment was taken.", "Bạn đã hoàn tất hành trình mua sắm mô phỏng. Không có đơn hàng hay khoản thanh toán nào được tạo."],
   ["Like the experience? There’s more to explore in Lucas’s portfolio.", "Bạn thích trải nghiệm này? Còn nhiều điều để khám phá trong portfolio của Lucas."],
-  ["Back to the portfolio ↗", "Về portfolio ↗"]
+  ["Back to the portfolio", "Về portfolio"]
 ];

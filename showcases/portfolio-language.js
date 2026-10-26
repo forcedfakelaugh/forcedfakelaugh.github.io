@@ -98,7 +98,7 @@ function setLanguage(next) {
   document.documentElement.lang = language;
   const nav = document.querySelector('.portfolio-nav');
   nav.setAttribute('aria-label', language === 'vi' ? 'Điều hướng portfolio' : 'Portfolio navigation');
-  nav.querySelector('.portfolio-return').textContent = language === 'vi' ? '← Về portfolio' : '← Portfolio';
+  nav.querySelector('.portfolio-return').innerHTML = window.portfolioIcons.text(language === 'vi' ? '← Về portfolio' : '← Portfolio');
   const toggle = nav.querySelector('.language-switch');
   toggle.setAttribute('aria-label', language === 'vi' ? 'Chuyển sang tiếng Anh' : 'Switch to Vietnamese');
   toggle.querySelectorAll('[data-language]').forEach(label => label.classList.toggle('is-active', label.dataset.language === language));

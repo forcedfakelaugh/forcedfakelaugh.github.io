@@ -154,7 +154,7 @@ function goTo(step, { focus = true } = {}) {
   if (step === 4) $('#review').innerHTML = reviewRows(true);
   $('#nav-row').hidden = step === 5;
   $('#back').hidden = step === 0;
-  $('#next').textContent = step === 4 ? 'Confirm (demo - nothing is sent)' : 'Continue →';
+  $('#next').innerHTML = window.portfolioIcons.text(step === 4 ? 'Confirm (demo - nothing is sent)' : 'Continue →');
   renderProgress();
   renderSummary();
   if (focus) { const heading = $(`#h${step}`); heading.focus({ preventScroll: true }); $('#booking').scrollIntoView({ block: 'start', behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' }); }

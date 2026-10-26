@@ -29,7 +29,10 @@ section{padding:88px var(--pad);max-width:1720px;margin-inline:auto}
 .hero-details{grid-column:1;grid-row:2;align-self:end;padding-bottom:27px}
 .lede{max-width:28em;font-size:15px;color:var(--muted);line-height:1.75}
 .cta{display:inline-flex;align-items:center;justify-content:space-between;gap:32px;min-height:49px;margin-top:25px;padding:12px 22px;background:var(--fg);color:var(--page-bg);text-decoration:none;font-size:13px}
-.cta:hover{text-decoration:underline;text-underline-offset:4px}.cta span,.text-link span{font-size:19px;line-height:1}
+.cta:hover{text-decoration:underline;text-underline-offset:4px}
+.arrow-up-right{display:block;flex:none;width:16px;height:16px}
+.row-arrow .arrow-up-right{width:14px;height:14px}
+.primary .arrow-up-right{display:inline-block;width:13px;height:13px;margin-left:6px;vertical-align:-2px}
 .hero-band{grid-column:2;grid-row:1/3;display:flex;flex-direction:column;min-width:0}
 .hero-band img{width:100%;height:100%;min-height:0;flex:1;aspect-ratio:1.25;object-fit:cover;object-position:50% 44%}
 .hero-band figcaption{display:flex;justify-content:space-between;gap:16px;margin-top:11px;font-size:10px;color:var(--muted);letter-spacing:.06em}

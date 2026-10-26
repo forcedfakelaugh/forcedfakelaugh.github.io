@@ -68,7 +68,7 @@ let run = 0, busy = false, readCount = 0;
 const wait = ms => new Promise(done => setTimeout(done, reduceMotion ? 0 : ms));
 const announce = text => { $('#status').textContent = text; };
 const scrollDown = () => { thread.scrollTop = thread.scrollHeight; };
-function element(tag, className, text){ const node = document.createElement(tag); if (className) node.className = className; if (text !== undefined) node.textContent = text; return node; }
+function element(tag, className, text){ const node = document.createElement(tag); if (className) node.className = className; if (text !== undefined) node.innerHTML = window.portfolioIcons.text(text); return node; }
 function suggestionButton(scenario, className){
   const button = element('button', className);
   button.type = 'button';
@@ -189,7 +189,7 @@ async function streamInto(target, text, id, sources, delay = wordDelay){
     for (const word of part.split(/(?<=\s)/)){
       if (id !== run) return false;
       if (version !== languageVersion) return true;
-      target.append(word);
+      target.insertAdjacentHTML('beforeend', window.portfolioIcons.text(word));
       scrollDown();
       await wait(delay);
     }
@@ -337,7 +337,8 @@ window.addEventListener('showcase-language', () => {
     target.replaceChildren();
     for (const part of localize(text).split(/(\[\d\])/)) {
       const match = part.match(/^\[(\d)\]$/);
-      target.append(match ? citation(Number(match[1]), sources) : part);
+      if (match) target.append(citation(Number(match[1]), sources));
+      else target.insertAdjacentHTML('beforeend', window.portfolioIcons.text(part));
     }
   }
 });

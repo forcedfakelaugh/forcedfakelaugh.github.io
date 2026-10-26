@@ -21,7 +21,7 @@ function filteredRows(){
 }
 function renderTable(){
   const rows = filteredRows();
-  document.querySelector('#transaction-rows').innerHTML = rows.length ? rows.map(row => `<tr><td><div class="customer"><span class="customer-avatar" style="background:${row.color}">${row.initials}</span><div>${row.name}<small>${row.email}</small></div></div></td><td>#${row.order}</td><td>${row.date}</td><td><span class="status ${row.status.toLowerCase()}">${row.status}</span></td><td class="amount">${money(row.amount)}</td><td><button class="detail-button" data-order="${row.order}" aria-label="View order ${row.order}">↗</button></td></tr>`).join('') : '<tr><td colspan="6" style="text-align:center;padding:35px">No matching transactions. Try another search or status.</td></tr>';
+  document.querySelector('#transaction-rows').innerHTML = rows.length ? rows.map(row => `<tr><td><div class="customer"><span class="customer-avatar" style="background:${row.color}">${row.initials}</span><div>${row.name}<small>${row.email}</small></div></div></td><td>#${row.order}</td><td>${row.date}</td><td><span class="status ${row.status.toLowerCase()}">${row.status}</span></td><td class="amount">${money(row.amount)}</td><td><button class="detail-button" data-order="${row.order}" aria-label="View order ${row.order}">${window.portfolioIcons.arrow("up-right")}</button></td></tr>`).join('') : '<tr><td colspan="6" style="text-align:center;padding:35px">No matching transactions. Try another search or status.</td></tr>';
   document.querySelector('#result-count').textContent = rows.length;
   document.querySelector('#table-summary').textContent = `Showing ${rows.length} of 6 recent sample transactions`;
 }
@@ -34,7 +34,7 @@ function changePeriod(key){
   document.querySelector('#average').innerHTML = `${data.average}<span>${data.averageCents}</span>`;
   document.querySelector('#conversion').innerHTML = `${data.conversion}<span>%</span>`;
   document.querySelector('#channel-total').textContent = data.orders;
-  document.querySelectorAll('.metric .change').forEach((el,index) => el.textContent = `↗ ${data.changes[index]}`);
+  document.querySelectorAll('.metric .change').forEach((el,index) => el.innerHTML = window.portfolioIcons.text(`↗ ${data.changes[index]}`));
   document.querySelector('.chart-note strong').textContent = `${data.changes[0]} higher`;
   document.querySelector('.revenue-panel .panel-heading p').textContent = data.caption;
   document.querySelector('#chart-x').innerHTML = data.labels.map(label => `<span>${label}</span>`).join('');
