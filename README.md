@@ -27,7 +27,7 @@ npm run build
 - `/showcases/serein/` - Afterglow, an editorial coastal retreat website, accommodation filters and simulated reservation preview.
 - `/showcases/cham/` - Chàm indigo clothing storefront concept.
 - `/showcases/orbit/` - Business analytics dashboard concept.
-- `/showcases/nep/` - Nếp, an architecture archive with minimal text-only project navigation, reference photography, original schematic drawings, and project notes. The former `/showcases/forma/` URL redirects here.
+- `/showcases/nep/` - Nếp Architects, an architecture archive with minimal text-only project navigation, reference photography, original schematic drawings, and project notes. The former `/showcases/forma/` URL redirects here.
 - `/showcases/hien/` - Hiên Studio, a fictional architecture practice reproducing part of an architecture-studio site Lucas built: splash, featured carousel, works grid in columns by project scale (tabs on mobile), discipline filters and project slideshows. English/Vietnamese follows the portfolio language setting, defaulting to Vietnamese. Pexels reference photography; sources in `showcases/hien/CREDITS.md`.
 - `/showcases/pip/` - Pip, a helper for Cà phê Góc Nhỏ, Nhà Bên Vườn and Tiệm hoa Mây. A simple interface, thirteen fictional business notes and ten scripted questions about café finances, rental bookings, flower stock and deliveries. Answers link to their supporting notes; no model or backend calls.
 - `/showcases/reu/` - Rêu, a Hội An restaurant and café concept: filterable menu (categories and dietary tags) with prices in ₫, opening hours with a live “open now” status computed in Asia/Ho_Chi_Minh time, and a simulated pickup basket whose “place order” only confirms that nothing was sent.
@@ -52,7 +52,7 @@ Designed for showcasing frontend craft: distinct art direction, responsive layou
 
 `showcases/tidal/` contains the Tidal ocean showcase as ordinary portfolio source files. Its entry point is `/showcases/tidal/`. The standalone Git metadata and hosting configuration have been removed. The renderer license is retained in `LICENSE-ocean.txt`.
 
-NẾP research references and photography sources are documented in `showcases/nep/CREDITS.md`.
+Nếp Architects research references and photography sources are documented in `showcases/nep/CREDITS.md`.
 
 All twelve showcases share `showcases/portfolio-nav.css`: a fixed return link on the left, the project name centered, and one `VI / EN` button on the right, including on mobile. Vietnamese is the default; the homepage and showcases share the `lucas-portfolio-language` preference.
 
