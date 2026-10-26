@@ -24,7 +24,7 @@ const vietnamese = {
   mocDescription: 'Một tiệm spa thảo mộc ở Đà Lạt - xem bốn liệu trình, chọn kỹ thuật viên và trải nghiệm đặt lịch.',
   halyardDescription: 'Trang giới thiệu công cụ ghi chú phiên bản - đổi kỳ thanh toán, so sánh gói và giải đáp thắc mắc.',
   orbitDescription: 'Biến số liệu kinh doanh thành bảng tổng quan dễ đọc trong lúc uống cà phê sáng.',
-  pipDescription: 'Trợ lý tiếng Việt cho quán cà phê, nhà cho thuê và tiệm hoa - hỏi chuyện kinh doanh từ ghi chép của chủ.',
+  pipDescription: 'Trợ lý cho quán cà phê, nhà cho thuê và tiệm hoa - hỏi chuyện kinh doanh từ ghi chép của chủ.',
   nepDescription: 'Kho tư liệu kiến trúc yên tĩnh như chính công trình - điều hướng bằng chữ và bản vẽ sơ đồ.',
   hienDescription: 'Portfolio kiến trúc với danh mục công trình theo quy mô và thư viện ảnh từng dự án.',
   tidalDescription: 'Một thử nghiệm lập trình sáng tạo: mặt biển thời gian thực để bạn tự do dạo quanh.',
