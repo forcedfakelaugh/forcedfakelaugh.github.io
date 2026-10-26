@@ -25,7 +25,7 @@ const vietnamese = {
   halyardDescription: 'Trang giới thiệu công cụ ghi chú phiên bản - đổi kỳ thanh toán, so sánh gói và giải đáp thắc mắc.',
   orbitDescription: 'Biến số liệu kinh doanh thành bảng tổng quan dễ đọc trong lúc uống cà phê sáng.',
   pipDescription: 'Trợ lý tiếng Việt cho quán cà phê, nhà cho thuê và tiệm hoa - hỏi chuyện kinh doanh từ ghi chép của chủ.',
-  formaDescription: 'Kho tư liệu kiến trúc yên tĩnh như chính công trình - điều hướng bằng chữ và bản vẽ sơ đồ.',
+  nepDescription: 'Kho tư liệu kiến trúc yên tĩnh như chính công trình - điều hướng bằng chữ và bản vẽ sơ đồ.',
   hienDescription: 'Portfolio kiến trúc với danh mục công trình theo quy mô và thư viện ảnh từng dự án.',
   tidalDescription: 'Một thử nghiệm lập trình sáng tạo: mặt biển thời gian thực để bạn tự do dạo quanh.',
   halyardTagline: 'ra mắt rồi, kể cho rõ.', pipTagline: 'có gì khó, để Pip lo.',
@@ -41,7 +41,7 @@ const vietnamese = {
   copiedEmail: 'Đã sao chép email.', copiedPhone: 'Đã sao chép số điện thoại.', copyError: 'Chưa sao chép được. Bạn hãy chọn nội dung và sao chép thủ công.',
   altPulp: 'Bao bì thực phẩm bằng xơ thực vật định hình', altSerein: 'Mặt biển lúc chạng vạng, ngay sau hoàng hôn',
   altReu: 'Con phố Hội An dưới ánh đèn lồng', altAtelier: 'Bộ ảnh thời trang Atelier', altMoc: 'Ảnh tạo bằng AI về chậu ngâm chân, sả và túi chườm thảo mộc cho concept spa Mộc',
-  altForma: 'Nghiên cứu kiến trúc Nếp', altHien: 'Ảnh kiến trúc minh họa Hiên Studio', altTidal: 'Mặt biển trong thử nghiệm Tidal',
+  altNep: 'Nghiên cứu kiến trúc Nếp', altHien: 'Ảnh kiến trúc minh họa Hiên Studio', altTidal: 'Mặt biển trong thử nghiệm Tidal',
 };
 
 const languageBindings = [
