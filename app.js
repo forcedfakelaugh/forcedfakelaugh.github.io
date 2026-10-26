@@ -40,7 +40,7 @@ const vietnamese = {
   contactHint: 'Bấm để sao chép', copyEmail: 'Sao chép email', copyPhone: 'Sao chép số điện thoại',
   copiedEmail: 'Đã sao chép email.', copiedPhone: 'Đã sao chép số điện thoại.', copyError: 'Chưa sao chép được. Bạn hãy chọn nội dung và sao chép thủ công.',
   altPulp: 'Bao bì thực phẩm bằng xơ thực vật định hình', altSerein: 'Mặt biển lúc chạng vạng, ngay sau hoàng hôn',
-  altReu: 'Con phố Hội An dưới ánh đèn lồng', altCham: 'Những tấm vải nhuộm chàm phơi trên dây', altMoc: 'Ảnh tạo bằng AI về chậu ngâm chân, sả và túi chườm thảo mộc cho concept spa Mộc',
+  altReu: 'Con phố Hội An dưới ánh đèn lồng', altCham: 'Những tấm vải chàm phơi trong khoảng sân đầy nắng', altMoc: 'Ảnh tạo bằng AI về chậu ngâm chân, sả và túi chườm thảo mộc cho concept spa Mộc',
   altNep: 'Nghiên cứu kiến trúc Nếp', altHien: 'Ảnh kiến trúc minh họa Hiên Studio', altTidal: 'Mặt biển trong thử nghiệm Tidal',
 };
 

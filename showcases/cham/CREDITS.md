@@ -15,7 +15,11 @@ Photographs downloaded from Unsplash on 2026-10-26, subject to the Unsplash lice
 
 The storefront now uses `assets/jacket-editorial.jpg`, `assets/set-editorial.jpg`, `assets/scarf-editorial.jpg`, and `assets/wrap-editorial.jpg`, generated with the built-in OpenAI image-generation tool on 2026-10-26. These are fictional product illustrations, with consistent overhead compositions, warm ecru backgrounds, and diffused daylight. They do not depict real products or substantiate any manufacturing claim. The exact prompts are in [assets/IMAGE-PROMPTS.md](assets/IMAGE-PROMPTS.md).
 
-The original Unsplash product photographs above are retained as earlier assets; the hero, workshop photograph and cloth texture are still used. The workshop and drying photographs do not establish a Vietnamese location.
+## Hero illustration
+
+`assets/hero-daylight.jpg` was generated with the built-in OpenAI image-generation tool on 2026-10-26. Four indigo cotton panels dry in a bright, sunlit courtyard with a warm limewashed wall. This is a fictional illustrative scene, not a real workshop or a claim about its location. It replaces the darker hero photograph in the showcase and its portfolio preview. The prompt is recorded in [assets/IMAGE-PROMPTS.md](assets/IMAGE-PROMPTS.md).
+
+The original Unsplash hero and product photographs above are retained as earlier assets; the workshop photograph and cloth texture are still used. The workshop photograph does not establish a Vietnamese location.
 
 Fonts: Newsreader and Archivo served by Google Fonts, with local system fallbacks. The favicon is original SVG artwork.
 

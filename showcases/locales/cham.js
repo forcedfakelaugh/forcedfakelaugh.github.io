@@ -28,7 +28,7 @@ export default [
   ["The pieces", "Sản phẩm"],
   ["The dye", "Màu nhuộm"],
   ["Bag", "Giỏ hàng"],
-  ["Indigo-dyed cloths drying on a line under a blue sky", "Những tấm vải nhuộm chàm phơi trên dây dưới trời xanh"],
+  ["Sunlit indigo cloths drying in a bright courtyard", "Những tấm vải chàm phơi trong khoảng sân đầy nắng"],
   ["Drying day", "Ngày phơi vải"],
   ["Colour card", "Bảng màu"],
   ["Sky", "Trời"],
