@@ -20,7 +20,7 @@ const vietnamese = {
   altMaiLe: 'Tranh sơn dầu tạo bằng AI về cửa sổ đầy nắng cho concept hoạ sĩ Mai Lê',
   sereinDescription: 'Một chốn nghỉ bên biển Quy Nhơn. Xem phòng, chọn ngày và thử đặt kỳ nghỉ của bạn.',
   reuDescription: 'Thực đơn cho một căn bếp Hội An, ưu tiên điện thoại - lọc theo chế độ ăn, báo giờ mở cửa và giỏ món mang đi.',
-  atelierDescription: 'Một cửa hàng thời trang nhẹ nhàng, nhường chỗ cho quần áo kể chuyện.',
+  chamDescription: 'Một cửa hàng quần áo nhuộm chàm, để một sắc xanh tự kể chuyện.',
   mocDescription: 'Một tiệm spa thảo mộc ở Đà Lạt - xem bốn liệu trình, chọn kỹ thuật viên và trải nghiệm đặt lịch.',
   halyardDescription: 'Trang giới thiệu công cụ ghi chú phiên bản - đổi kỳ thanh toán, so sánh gói và giải đáp thắc mắc.',
   orbitDescription: 'Biến số liệu kinh doanh thành bảng tổng quan dễ đọc trong lúc uống cà phê sáng.',
@@ -40,7 +40,7 @@ const vietnamese = {
   contactHint: 'Bấm để sao chép', copyEmail: 'Sao chép email', copyPhone: 'Sao chép số điện thoại',
   copiedEmail: 'Đã sao chép email.', copiedPhone: 'Đã sao chép số điện thoại.', copyError: 'Chưa sao chép được. Bạn hãy chọn nội dung và sao chép thủ công.',
   altPulp: 'Bao bì thực phẩm bằng xơ thực vật định hình', altSerein: 'Mặt biển lúc chạng vạng, ngay sau hoàng hôn',
-  altReu: 'Con phố Hội An dưới ánh đèn lồng', altAtelier: 'Bộ ảnh thời trang Atelier', altMoc: 'Ảnh tạo bằng AI về chậu ngâm chân, sả và túi chườm thảo mộc cho concept spa Mộc',
+  altReu: 'Con phố Hội An dưới ánh đèn lồng', altCham: 'Những tấm vải nhuộm chàm phơi trên dây', altMoc: 'Ảnh tạo bằng AI về chậu ngâm chân, sả và túi chườm thảo mộc cho concept spa Mộc',
   altNep: 'Nghiên cứu kiến trúc Nếp', altHien: 'Ảnh kiến trúc minh họa Hiên Studio', altTidal: 'Mặt biển trong thử nghiệm Tidal',
 };
 

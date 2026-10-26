@@ -25,7 +25,7 @@ npm run build
 - `/showcases/mai-le/` - Mai Lê, a fictional Hội An painter: VI/EN throughout (Vietnamese by default, language preference saved locally), floating artwork entrance, asymmetric gallery of seven AI-generated paintings, including a seascape and a reference-based studio portrait, artwork detail dialogs with keyboard navigation, three wall colour previews, artist note and a simulated exhibition ticket. Inspired by the artist-portfolio film at https://vimeo.com/1226352297. Artwork provenance and generation prompts in `showcases/mai-le/CREDITS.md`.
 - `/showcases/pulp-club/` - Original foodservice packaging concept inspired by Kanak Naturals' foodservice page. Browse and filter four forms, build a sample box, and preview a request without sending anything.
 - `/showcases/serein/` - Afterglow, an editorial coastal retreat website, accommodation filters and simulated reservation preview.
-- `/showcases/atelier/` - Fashion storefront concept.
+- `/showcases/cham/` - Chàm indigo clothing storefront concept.
 - `/showcases/orbit/` - Business analytics dashboard concept.
 - `/showcases/nep/` - Nếp, an architecture archive with minimal text-only project navigation, reference photography, original schematic drawings, and project notes. The former `/showcases/forma/` URL redirects here.
 - `/showcases/hien/` - Hiên Studio, a fictional architecture practice reproducing part of an architecture-studio site Lucas built: splash, featured carousel, works grid in columns by project scale (tabs on mobile), discipline filters and project slideshows. English/Vietnamese follows the portfolio language setting, defaulting to Vietnamese. Pexels reference photography; sources in `showcases/hien/CREDITS.md`.
