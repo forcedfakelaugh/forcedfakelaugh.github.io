@@ -81,7 +81,7 @@ export default [
   ["REPEAT / MODULATE / REFLECT", "LẶP LẠI / BIẾN ĐỔI / PHẢN CHIẾU"],
   ["← ONE MODULE", "← MỘT MÔ-ĐUN"],
   ["THE VOID", "KHOẢNG TRỐNG"],
-  ["Abstract axonometric drawing of two intersecting volumes", "Sơ đồ trục đo trừu tượng của hai khối giao nhau"],
+  ["Axonometric drawing of a solid cut by a single inclined plane, with visible and hidden intersection edges", "Sơ đồ trục đo của một khối đặc bị cắt bởi một mặt phẳng nghiêng, thể hiện nét thấy và nét khuất của đường giao"],
   ["Abstract stepped elevation with a single module highlighted in red", "Sơ đồ mặt đứng giật cấp với một mô-đun tô đỏ"],
   ["Abstract curved enclosure around a highlighted central void", "Sơ đồ đường bao cong quanh khoảng trống trung tâm được làm nổi bật"]
 ];

@@ -7,8 +7,38 @@ const $ = selector => document.querySelector(selector);
 let selected = 0;
 let representation = 'photo';
 const frame = (content, label) => `<svg viewBox="0 0 800 500" role="img" aria-label="${label}"><defs><pattern id="hatch" width="6" height="6" patternUnits="userSpaceOnUse"><path d="M0 6L6 0" stroke="#b9bcb4" stroke-width=".5"/></pattern></defs>${content}<g fill="#85877f" font-family="Arial,sans-serif" font-size="9"><text x="48" y="460">ABSTRACT COMPOSITION</text><text x="660" y="460">NOT TO SCALE</text></g><path d="M48 434h90m-90-4v8m45-8v8m45-8v8" fill="none" stroke="#54594f"/></svg>`;
+function intersectionDrawing() {
+ // One parallel projection for the unit box and the cutting plane z = .2 + .6x.
+ const project = ([x, y, z]) => `${+(170 + 260*x + 170*y).toFixed(2)} ${+(340 - 140*y - 110*z).toFixed(2)}`;
+ const path = (points, closed = false) => `M${points.map(project).join('L')}${closed ? 'Z' : ''}`;
+ const a = [0,0,0], b = [1,0,0], c = [1,1,0], d = [0,1,0];
+ const e = [0,0,1], f = [1,0,1], g = [1,1,1], h = [0,1,1];
+ const onPlane = (x, y) => [x, y, .2 + .6*x];
+ const plane = [[-.2,-.2],[1.2,-.2],[1.2,1.2],[-.2,1.2]].map(([x,y]) => onPlane(x,y));
+ // The section is bounded by the four vertical faces of the box.
+ const [p, q, r, s] = [[0,0],[1,0],[1,1],[0,1]].map(([x,y]) => onPlane(x,y));
+ return frame(`
+  <g stroke-linejoin="round" stroke-linecap="round">
+   <path d="M130 390H690M370 65V415" fill="none" stroke="#a3a79d" stroke-width="1" stroke-dasharray="4 5"/>
+   <path d="${path([e,f,g,h],true)}" fill="#faf7f0" fill-opacity=".45"/>
+   <path d="${path([a,b,f,e],true)}" fill="#f4ede2" fill-opacity=".5"/>
+   <path d="${path([b,c,g,f],true)}" fill="#8c917f" fill-opacity=".08"/>
+   <path d="${path(plane,true)}" fill="#8eaaa1" fill-opacity=".12" stroke="#7e8b80" stroke-width="1"/>
+   <path d="${path([p,q,r,s],true)}" fill="url(#hatch)"/>
+   <path d="${path([a,d,c])}${path([d,h])}" fill="none" stroke="#92988b" stroke-width="1" stroke-dasharray="5 5"/>
+   <path d="${path([a,b,c,g,h,e,a])}${path([e,f,g])}${path([b,f])}" fill="none" stroke="#383d36" stroke-width="1.5"/>
+   <path d="${path([r,s,p])}" fill="none" stroke="#cf382b" stroke-opacity=".5" stroke-width="1.5" stroke-dasharray="5 5"/>
+   <path d="${path([p,q,r])}" fill="none" stroke="#cf382b" stroke-width="2.5"/>
+   <path d="M430 252L465 300V348" fill="none" stroke="#cf382b" stroke-width=".8"/>
+  </g>
+  <g font-family="Arial" font-size="11" fill="#555b52">
+   <text x="480" y="75">01 / SOLID</text>
+   <text x="85" y="383">02 / PLANE</text>
+   <text x="450" y="370" fill="#cf382b">LINE OF INTERSECTION</text>
+  </g>`, 'Axonometric drawing of a solid cut by a single inclined plane, with visible and hidden intersection edges');
+}
 const drawings = [
- frame('<g fill="none" stroke="#383d36" stroke-width="1.5"><path d="M170 340L430 340 600 200 340 200Z" fill="url(#hatch)"/><path d="M170 340V230L340 90 600 90V200M340 90V200M430 340V230L600 90M170 230H430"/><path d="M170 340L330 380 330 190 170 230M330 190L450 120 450 310 330 380"/><path d="M130 365H650M370 65V400" stroke="#a3a79d" stroke-dasharray="4 5"/><path d="M170 340L450 120" stroke="#cf382b" stroke-width="3"/></g><g font-family="Arial" font-size="11" fill="#555b52"><text x="480" y="75">01 / SOLID</text><text x="100" y="215">02 / PLANE</text><text x="440" y="375" fill="#cf382b">LINE OF INTERSECTION</text></g>', 'Abstract axonometric drawing of two intersecting volumes'),
+ intersectionDrawing(),
  frame('<g fill="none" stroke="#383d36" stroke-width="1.3"><path d="M160 365V180H240V125H320V80H480V125H560V180H640V365Z" fill="url(#hatch)"/><path d="M160 225H640M160 270H640M160 315H640M240 180H560M320 125H480M200 180V365M240 125V365M280 125V365M320 80V365M360 80V365M400 80V365M440 80V365M480 80V365M520 125V365M560 180V365M600 180V365"/><path d="M130 380H670"/><rect x="360" y="225" width="40" height="45" fill="#cf382b" stroke="#cf382b"/></g><g fill="#555b52" font-family="Arial" font-size="11"><text x="162" y="405">REPEAT / MODULATE / REFLECT</text><text x="440" y="250" fill="#cf382b">← ONE MODULE</text></g>', 'Abstract stepped elevation with a single module highlighted in red'),
  frame('<g fill="none" stroke="#383d36" stroke-width="1.5"><path d="M130 120Q400 400 670 120L670 230Q400 490 130 230Z" fill="url(#hatch)"/><path d="M180 75Q400 300 620 75M180 95Q400 320 620 95M180 115Q400 340 620 115M130 145Q400 425 670 145M130 170Q400 450 670 170M130 195Q400 475 670 195"/><path d="M400 50V410M95 230H705" stroke="#adb0a5" stroke-dasharray="4 6"/><ellipse cx="400" cy="150" rx="100" ry="70" stroke="#cf382b" stroke-width="2" stroke-dasharray="4 4"/></g><g fill="#cf382b" font-family="Arial" font-size="11"><text x="374" y="150">THE VOID</text></g>', 'Abstract curved enclosure around a highlighted central void')
 ];
