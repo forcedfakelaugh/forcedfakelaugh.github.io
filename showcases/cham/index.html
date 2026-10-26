@@ -6,14 +6,14 @@
 
 <main id="top">
 <section class="hero" aria-labelledby="hero-title">
-  <p class="hero-meta"><span>Volume 01 — The indigo edit</span><span>Rainy season ’26</span></p>
-  <p class="giant" aria-hidden="true">chàm</p>
-  <div class="hero-band"><img class="dip-image" src="assets/hero.jpg" alt="Indigo-dyed cloths drying on a line under a blue sky" fetchpriority="high"><span class="band-tag">Drying day</span></div>
   <div class="hero-copy">
+    <p class="hero-meta"><span>Volume 01 — The indigo edit</span><span>Rainy season ’26</span></p>
     <h1 id="hero-title">Twenty dips<br>to blue.</h1>
-    <div><p class="lede">Four pieces in one colour. Cloth goes into the vat, comes out green, turns blue in the air, and goes back in. Every piece here is a count of how many times.</p><a class="cta" href="#pieces">Open the order book <span aria-hidden="true">↓</span></a></div>
+    <p class="lede">Four pieces in one colour. Cloth goes into the vat, comes out green, turns blue in the air, and goes back in. Every piece here is a count of how many times.</p>
+    <a class="cta" href="#pieces">Open the order book <span aria-hidden="true">↓</span></a>
+    <ol class="shade-card" id="shade-card" aria-label="Colour card"></ol>
   </div>
-  <ol class="shade-card" id="shade-card" aria-label="Colour card"></ol>
+  <div class="hero-band"><img class="dip-image" src="assets/hero.jpg" alt="Indigo-dyed cloths drying on a line under a blue sky" fetchpriority="high"><span class="band-tag">Drying day</span><p class="giant" aria-hidden="true">chàm</p></div>
 </section>
 
 <section class="pieces" id="pieces" aria-labelledby="pieces-title">
@@ -28,21 +28,21 @@
     <h2 id="dye-title">Dip it. Air it. Again.</h2>
     <div class="dye-text"><p>Indigo never arrives all at once. Cloth leaves the vat green, meets the air and turns blue, then goes back in. The deeper the shade, the more times it has been dipped.</p>
     <p>CHÀM, the Vietnamese word for indigo, is a fictional label built around that slow colour. The clothes are imagined; the patience is real.</p></div>
-  </div>
-  <div class="dip-tool">
-    <div class="dip-swatch" id="dip-swatch" aria-hidden="true"><b id="dip-big">08</b></div>
-    <div class="dip-controls">
-      <label for="dip-range">How many dips?</label>
-      <input id="dip-range" type="range" min="1" max="20" value="8" aria-describedby="dip-result">
-      <div class="dip-result" id="dip-result" aria-live="polite"><b id="dip-count">8 dips</b><span id="dip-shade">Mid</span></div>
+    <div class="dip-tool">
+      <div class="dip-swatch" id="dip-swatch" aria-hidden="true"><b id="dip-big">08</b></div>
+      <div class="dip-controls">
+        <label for="dip-range">How many dips?</label>
+        <input id="dip-range" type="range" min="1" max="20" value="8" aria-describedby="dip-result">
+        <div class="dip-result" id="dip-result" aria-live="polite"><b id="dip-count">8 dips</b><span id="dip-shade">Mid</span></div>
+      </div>
     </div>
   </div>
 </section>
 
-<section class="closing"><p class="kicker">Take your time</p><h2>Let it fade.</h2><p>Indigo keeps changing after it leaves the vat. Wear it, wash it, and the blue becomes yours.</p><a class="cta" href="#pieces">Back to the pieces <span aria-hidden="true">↑</span></a></section>
+<section class="closing"><div><p class="kicker">Take your time</p><h2>Let it fade.</h2></div><div><p>Indigo keeps changing after it leaves the vat. Wear it, wash it, and the blue becomes yours.</p><a class="cta" href="#pieces">Back to the pieces <span aria-hidden="true">↑</span></a></div></section>
 </main>
 
-<footer class="footer"><p>A fictional indigo clothing label.<br>Designed &amp; built by Lucas Nguyen.</p><p>Portfolio concept only.<br>No real orders or payments.<br><a href="CREDITS.md">Photography credits</a></p><span class="footer-mark" aria-hidden="true">chàm</span></footer>
+<footer class="footer"><div class="footer-notes"><p>A fictional indigo clothing label.<br>Designed &amp; built by Lucas Nguyen.</p><p>Portfolio concept only.<br>No real orders or payments.<br><a href="CREDITS.md">Photography credits</a></p></div><span class="footer-mark" aria-hidden="true">chàm</span></footer>
 
 <dialog id="product-dialog" aria-labelledby="product-title"><button class="close-dialog" type="button" data-close="product-dialog" aria-label="Close product details">×</button><div id="product-detail"></div></dialog>
 <dialog id="cart-dialog" aria-labelledby="cart-title"><div class="cart-head"><h2 id="cart-title">Your bag</h2><button class="close-dialog" type="button" data-close="cart-dialog" aria-label="Close bag">×</button></div><div id="cart-items"></div><div id="cart-bottom"></div></dialog>

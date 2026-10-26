@@ -109,7 +109,7 @@ document.querySelector('.dip-image').classList.add('is-dipped');
 function fitWordmarks() {
   document.querySelectorAll('.giant, .footer-mark').forEach(mark => {
     mark.style.fontSize = '';
-    const available = mark.parentElement.clientWidth - parseFloat(getComputedStyle(mark.parentElement).paddingLeft) * 2;
+    const available = mark.parentElement.clientWidth - Math.max(mark.offsetLeft, 0) * 2;
     mark.style.fontSize = `${parseFloat(getComputedStyle(mark).fontSize) * available / mark.scrollWidth}px`;
   });
 }
