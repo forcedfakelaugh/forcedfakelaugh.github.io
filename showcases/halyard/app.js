@@ -19,7 +19,7 @@ function renderTiers() {
     const per = yearly ? t.yearly / 12 : t.monthly;
     const saved = t.monthly * 12 - t.yearly;
     const billed = yearly ? `Billed ${money(t.yearly)} yearly · <b>save ${money(saved)} (${savingPct(t)}%)</b>` : `Billed monthly · or ${money(t.yearly)}/yr, save ${savingPct(t)}%`;
-    return `<article class="tier${t.featured ? ' featured' : ''}" aria-labelledby="tier-${t.id}"><div class="tier-head"><h3 id="tier-${t.id}">${t.name}</h3>${t.featured ? '<span class="tier-badge">Most popular</span>' : ''}</div><p class="tier-desc">${t.desc}</p><div><p class="amount"><strong>${money(Math.round(per * 100) / 100)}</strong><span class="per">/ month</span></p><p class="billed">${billed}</p></div><ul aria-label="${t.name} includes">${t.perks.map(p => `<li>${p}</li>`).join('')}</ul><button class="btn" type="button" data-concept="${t.name}">${t.cta}</button></article>`;
+    return `<article class="tier${t.featured ? ' featured' : ''}" aria-labelledby="tier-${t.id}"><div class="tier-head"><h3 id="tier-${t.id}">${t.name}</h3>${t.featured ? '<span class="tier-badge">Most popular</span>' : ''}</div><p class="tier-desc">${t.desc}</p><div><p class="amount"><strong>${money(Math.round(per * 100) / 100)}</strong><span class="per">/ month</span></p><p class="billed">${billed}</p></div><ul aria-label="${t.name} includes">${t.perks.map(p => `<li>${window.portfolioIcons.arrow("right")}${p}</li>`).join('')}</ul><button class="btn" type="button" data-concept="${t.name}">${t.cta}</button></article>`;
   }).join('');
   const label = $('#save-label');
   label.textContent = billing === 'yearly' ? `You’re saving up to ${maxSaving}%` : `Save up to ${maxSaving}% yearly`;

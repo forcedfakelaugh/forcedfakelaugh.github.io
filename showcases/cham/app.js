@@ -1,6 +1,6 @@
 'use strict';
-// Inline paths keep arrows independent of platform emoji and font rendering.
-const arrowUpRight = '<svg class="arrow-up-right" viewBox="0 0 20 20" width="20" height="20" fill="none" aria-hidden="true" focusable="false"><path d="M3 17 17 3M3 3h14v14" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+// Use the shared SVG component with Chàm's smaller icon variant.
+const arrowUpRight = window.portfolioIcons.arrow('up-right', 'cham');
 const products = [
   { id: 'jacket', name: 'The Dye-House Jacket', category: 'Clothing', color: 'Washed indigo', dips: 8, price: 185, image: 'jacket-editorial', sizes: ['XS', 'S', 'M', 'L'], description: 'A boxy work jacket that fades along every seam. Imagined for market mornings, motorbike rides and the years after.' },
   { id: 'set', name: 'The Leaf Set', category: 'Clothing', color: 'Night indigo', dips: 14, price: 210, image: 'set-editorial', sizes: ['XS', 'S', 'M', 'L'], description: 'A relaxed tunic and trouser with pale leaf embroidery. A conceptual pairing for warm evenings and long dinners.' },

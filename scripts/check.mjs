@@ -12,6 +12,7 @@ async function walk(directory) {
   return files;
 }
 let issues = 0;
+const svgIds = new Map();
 const files = await walk(root);
 for (const file of files) {
   if (['.js', '.mjs'].includes(extname(file))) {
@@ -25,7 +26,14 @@ for (const file of files) {
     const pathname = decodeURIComponent(link.split(/[?#]/)[0]);
     if (!pathname) continue;
     const target = pathname.startsWith('/') ? resolve(root, '.' + pathname) : resolve(dirname(file), pathname);
-    try { await access(target); } catch { console.error(`Missing local target: ${file} → ${link}`); issues++; }
+    try {
+      await access(target);
+      const fragment = link.split('#')[1];
+      if (fragment && extname(target) === '.svg') {
+        if (!svgIds.has(target)) svgIds.set(target, new Set([...(await readFile(target, 'utf8')).matchAll(/\bid=["']([^"']+)["']/g)].map(match => match[1])));
+        if (!svgIds.get(target).has(decodeURIComponent(fragment))) { console.error(`Missing SVG symbol: ${file} → ${link}`); issues++; }
+      }
+    } catch { console.error(`Missing local target: ${file} → ${link}`); issues++; }
   }
 }
 if (issues) process.exit(1);
