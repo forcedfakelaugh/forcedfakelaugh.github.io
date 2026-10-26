@@ -1,9 +1,9 @@
 'use strict';
 const products = [
-  { id: 'jacket', name: 'The Dye-House Jacket', category: 'Clothing', color: 'Washed indigo', dips: 8, price: 185, image: 'jacket', sizes: ['XS', 'S', 'M', 'L'], description: 'A boxy work jacket that fades along every seam. Imagined for market mornings, motorbike rides and the years after.' },
-  { id: 'set', name: 'The Leaf Set', category: 'Clothing', color: 'Night indigo', dips: 14, price: 210, image: 'set', sizes: ['XS', 'S', 'M', 'L'], description: 'A relaxed tunic and trouser with pale leaf embroidery. A conceptual pairing for warm evenings and long dinners.' },
-  { id: 'scarf', name: 'The Resist-Print Scarf', category: 'Accessories', color: 'Indigo and undyed', dips: 5, price: 65, image: 'scarf', sizes: ['One size'], description: 'The pattern comes from binding the cloth before each dip, so no two are alike. Imagined in light cotton for heat, wind and sun.' },
-  { id: 'wrap', name: 'The Deep-Dip Wrap', category: 'Accessories', color: 'Deepest indigo', dips: 20, price: 95, image: 'cloth', sizes: ['One size'], description: 'A long cotton wrap dipped until it is almost black-blue. Wear it, sit on it, pack it for the night bus north.' }
+  { id: 'jacket', name: 'The Dye-House Jacket', category: 'Clothing', color: 'Washed indigo', dips: 8, price: 185, image: 'jacket-editorial', sizes: ['XS', 'S', 'M', 'L'], description: 'A boxy work jacket that fades along every seam. Imagined for market mornings, motorbike rides and the years after.' },
+  { id: 'set', name: 'The Leaf Set', category: 'Clothing', color: 'Night indigo', dips: 14, price: 210, image: 'set-editorial', sizes: ['XS', 'S', 'M', 'L'], description: 'A relaxed tunic and trouser with pale leaf embroidery. A conceptual pairing for warm evenings and long dinners.' },
+  { id: 'scarf', name: 'The Resist-Print Scarf', category: 'Accessories', color: 'Indigo and undyed', dips: 5, price: 65, image: 'scarf-editorial', sizes: ['One size'], description: 'The pattern comes from binding the cloth before each dip, so no two are alike. Imagined in light cotton for heat, wind and sun.' },
+  { id: 'wrap', name: 'The Deep-Dip Wrap', category: 'Accessories', color: 'Deepest indigo', dips: 20, price: 95, image: 'wrap-editorial', sizes: ['One size'], description: 'A long cotton wrap dipped until it is almost black-blue. Wear it, sit on it, pack it for the night bus north.' }
 ];
 const cart = [];
 const money = value => new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(value);
@@ -11,7 +11,7 @@ const pad = value => String(value).padStart(2, '0');
 const dipLabel = count => `${count} ${count === 1 ? 'dip' : 'dips'}`;
 const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-// Shade stops sampled from the colour card: undyed sky blue at one dip, near-black at twenty.
+// Illustrative shade stops for the colour card and local fabric preview.
 const stops = [[1, [213, 223, 235]], [3, [167, 186, 211]], [6, [108, 136, 174]], [10, [52, 80, 125]], [20, [20, 29, 51]]];
 function shadeFor(dips) {
   const upper = stops.findIndex(([at]) => at >= dips);
@@ -31,16 +31,14 @@ document.querySelectorAll('dialog').forEach(dialog => {
 });
 document.querySelectorAll('[data-close]').forEach(button => button.addEventListener('click', () => document.getElementById(button.dataset.close).close()));
 
-// Colour card: twenty cells, one per dip, with the named stops labelled.
-const namedStops = { 1: 'Sky', 3: 'Washed', 6: 'Mid', 10: 'Night', 20: 'Deepest' };
-document.querySelector('#shade-card').innerHTML = Array.from({ length: 20 }, (_, i) => {
-  const dips = i + 1; const name = namedStops[dips];
-  return `<li style="--shade:${shadeFor(dips)}" class="${dips >= 8 ? 'on-dark' : ''}${name ? ' labelled' : ''}">${name ? `<span><b>${pad(dips)}</b><span>${name}</span></span>` : ''}</li>`;
-}).join('');
+// Twenty steps, with accessible labels and a compact visual colour scale.
+document.querySelector('#shade-card').innerHTML = Array.from({ length: 20 }, (_, i) =>
+  `<li style="--shade:${shadeFor(i + 1)}" aria-label="${dipLabel(i + 1)}"></li>`
+).join('');
 
-// Order book: one card per piece; hovering lowers it into its own shade.
+// One consistent editorial photograph per piece.
 const ledger = document.querySelector('#ledger');
-ledger.innerHTML = products.map((product, index) => `<div class="ledger-row" role="listitem" style="--shade:${shadeFor(product.dips)}"><button type="button" data-product="${product.id}" aria-label="View ${product.name}"><span class="row-media"><img src="assets/${product.image}.jpg" alt="" loading="lazy"><span class="row-dipcount" aria-hidden="true">${pad(product.dips)}<small>${dipLabel(product.dips)}</small></span></span><span class="row-info"><span class="row-no">No. ${pad(index + 1)}</span><span class="row-name">${product.name}</span><span class="row-price">${money(product.price)}</span><span class="row-shade"><i></i><span>${product.color}</span></span></span></button></div>`).join('');
+ledger.innerHTML = products.map((product, index) => `<div class="ledger-row" role="listitem" style="--shade:${shadeFor(product.dips)}"><button type="button" data-product="${product.id}" aria-label="View ${product.name}"><span class="row-media"><img src="assets/${product.image}.jpg" alt="" width="1024" height="1536" loading="lazy"><span class="row-arrow" aria-hidden="true">↗</span></span><span class="row-info"><span class="row-no">No. ${pad(index + 1)}</span><span class="row-name">${product.name}</span><span class="row-price">${money(product.price)}</span><span class="row-shade"><i></i><span>${product.color}</span></span></span></button></div>`).join('');
 ledger.querySelectorAll('[data-product]').forEach(button => button.addEventListener('click', () => showProduct(button.dataset.product)));
 
 function showProduct(id) {
@@ -55,7 +53,7 @@ function showProduct(id) {
 function updateCount() { document.querySelector('#bag-count').textContent = cart.reduce((sum, item) => sum + item.quantity, 0); }
 function renderCart() {
   const container = document.querySelector('#cart-items'); const bottom = document.querySelector('#cart-bottom');
-  if (!cart.length) { container.innerHTML = '<p class="empty-bag">Nothing in the vat yet.</p>'; bottom.innerHTML = '<button type="button" class="primary" id="continue-shopping">Open the order book</button><p>Your bag is empty. This is a simulated shopping experience.</p>'; document.querySelector('#continue-shopping').addEventListener('click', () => { document.querySelector('#cart-dialog').close(); document.querySelector('#pieces').scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth' }); }); return; }
+  if (!cart.length) { container.innerHTML = '<p class="empty-bag">Nothing in the vat yet.</p>'; bottom.innerHTML = '<button type="button" class="primary" id="continue-shopping">Explore the collection</button><p>Your bag is empty. This is a simulated shopping experience.</p>'; document.querySelector('#continue-shopping').addEventListener('click', () => { document.querySelector('#cart-dialog').close(); document.querySelector('#pieces').scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth' }); }); return; }
   container.innerHTML = cart.map((item, index) => { const product = products.find(p => p.id === item.id); return `<div class="cart-item"><img src="assets/${product.image}.jpg" alt="${product.name}"><div><h3>${product.name}</h3><p>${product.color} / ${item.size}</p><div class="quantity"><button type="button" data-quantity="${index}" data-change="-1" aria-label="Decrease quantity of ${product.name}">−</button><span aria-label="Quantity">${item.quantity}</span><button type="button" data-quantity="${index}" data-change="1" aria-label="Increase quantity of ${product.name}">+</button></div></div><div class="item-right">${money(product.price * item.quantity)}<button type="button" class="remove" data-remove="${index}" aria-label="Remove ${product.name}">Remove</button></div></div>`; }).join('');
   const subtotal = cart.reduce((sum, item) => sum + products.find(p => p.id === item.id).price * item.quantity, 0);
   bottom.innerHTML = `<div class="total"><span>Subtotal</span><strong>${money(subtotal)}</strong></div><button type="button" class="primary" id="demo-checkout">Try demo checkout ↗</button><p>USD · Concept pricing. Shipping and tax are not calculated.</p><p>No payment or personal information is collected.</p>`;
@@ -79,39 +77,51 @@ function updateDip() {
 range.addEventListener('input', updateDip);
 updateDip();
 
-// Scrolling dips the page: the background deepens from one dip to twenty, and the type flips to undyed cotton once the blue is dark enough.
-const root = document.documentElement;
-const gaugeLabel = document.querySelector('#gauge-label');
-let gaugeQueued = false;
-function updateGauge() {
-  gaugeQueued = false;
-  const max = root.scrollHeight - innerHeight;
-  const progress = max > 0 ? Math.min(1, Math.max(0, scrollY / max)) : 0;
-  const dips = 1 + progress * 19;
-  root.style.setProperty('--vat', shadeFor(dips));
-  const dark = dips >= 7.5;
-  if (root.dataset.dark !== String(dark)) {
-    root.dataset.dark = String(dark);
-    root.style.setProperty('--fg', dark ? '#f3efe6' : '#141d33');
-    root.style.setProperty('--fg-soft', dark ? 'rgba(243,239,230,.72)' : 'rgba(20,29,51,.68)');
-    root.style.setProperty('--rule', dark ? 'rgba(243,239,230,.24)' : 'rgba(20,29,51,.22)');
+// Scrolling slowly dyes the page. Foreground tones are chosen for the actual
+// background, so body copy stays legible throughout the middle shades too.
+const pageShades = [[0, [245, 242, 235]], [.2, [217, 225, 229]], [.47, [119, 147, 172]], [.72, [52, 79, 109]], [1, [23, 43, 67]]];
+const mix = (a, b, amount) => a.map((value, index) => Math.round(value + (b[index] - value) * amount));
+const rgb = color => `rgb(${color.join(',')})`;
+function luminance(color) {
+  const linear = color.map(value => { const channel = value / 255; return channel <= .04045 ? channel / 12.92 : ((channel + .055) / 1.055) ** 2.4; });
+  return linear[0] * .2126 + linear[1] * .7152 + linear[2] * .0722;
+}
+function readableTone(preferred, background, extreme) {
+  const backgroundLight = luminance(background);
+  for (let step = 0; step <= 20; step++) {
+    const tone = mix(preferred, extreme, step / 20);
+    const light = luminance(tone);
+    if ((Math.max(light, backgroundLight) + .05) / (Math.min(light, backgroundLight) + .05) >= 4.5) return tone;
   }
-  const label = `Dip ${pad(Math.round(dips))}`;
-  if (gaugeLabel.textContent !== label) gaugeLabel.textContent = label;
+  return extreme;
 }
-addEventListener('scroll', () => { if (!gaugeQueued) { gaugeQueued = true; requestAnimationFrame(updateGauge); } }, { passive: true });
-addEventListener('resize', updateGauge);
-updateGauge();
-
-document.querySelector('.dip-image').classList.add('is-dipped');
-
-// Size the giant wordmarks so they run exactly edge to edge of their measure.
-function fitWordmarks() {
-  document.querySelectorAll('.giant, .footer-mark').forEach(mark => {
-    mark.style.fontSize = '';
-    const available = mark.parentElement.clientWidth - Math.max(mark.offsetLeft, 0) * 2;
-    mark.style.fontSize = `${parseFloat(getComputedStyle(mark).fontSize) * available / mark.scrollWidth}px`;
-  });
+let shadeFrame = 0;
+function dyePageOnScroll() {
+  shadeFrame = 0;
+  const root = document.documentElement;
+  const distance = root.scrollHeight - innerHeight;
+  const progress = distance > 0 ? Math.min(1, Math.max(0, scrollY / distance)) : 0;
+  const next = Math.max(1, pageShades.findIndex(([stop]) => stop >= progress));
+  const [fromAt, from] = pageShades[next - 1];
+  const [toAt, to] = pageShades[next];
+  const background = mix(from, to, (progress - fromAt) / (toAt - fromAt));
+  const lightText = luminance(background) < .179;
+  const extreme = lightText ? [255, 255, 255] : [0, 0, 0];
+  const foreground = readableTone(lightText ? [245, 242, 235] : [36, 60, 81], background, extreme);
+  const muted = readableTone(lightText ? [202, 214, 224] : [99, 112, 120], background, extreme);
+  const accent = readableTone(lightText ? [208, 222, 233] : [76, 100, 123], background, extreme);
+  root.style.setProperty('--page-bg', rgb(background));
+  root.style.setProperty('--fg', rgb(foreground));
+  root.style.setProperty('--muted', rgb(muted));
+  root.style.setProperty('--hero-accent', rgb(accent));
+  root.style.setProperty('--rule', rgb(mix(background, foreground, .23)));
 }
-document.fonts.ready.then(fitWordmarks);
-addEventListener('resize', fitWordmarks);
+function queuePageShade() { if (!shadeFrame) shadeFrame = requestAnimationFrame(dyePageOnScroll); }
+if (!reduceMotion) {
+  addEventListener('scroll', queuePageShade, { passive: true });
+  addEventListener('resize', queuePageShade);
+  addEventListener('showcase-language', queuePageShade);
+  addEventListener('load', queuePageShade, { once: true });
+  document.fonts.ready.then(queuePageShade);
+  dyePageOnScroll();
+}
