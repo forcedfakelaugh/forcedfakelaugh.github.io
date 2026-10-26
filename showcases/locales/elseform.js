@@ -25,7 +25,6 @@ export default [
   ['Cream MÙA coffee packaging and a burgundy cup on a terracotta backdrop', 'Bao bì cà phê MÙA màu kem và tách đỏ sẫm trên nền đất nung'],
   ['SÓNG music identity with bold white lettering and a lime wave on charcoal', 'Nhận diện âm nhạc SÓNG với chữ trắng và đường sóng xanh chanh trên nền đen than'],
   ['VÒM architectural identity with forest green arch forms and pale pink stationery', 'Nhận diện kiến trúc VÒM với hình vòm xanh rừng và ấn phẩm hồng nhạt'],
-  ['Different worlds. One curious mind.', 'Nhiều thế giới. Một tinh thần tò mò.'],
   ['01 / THE AGENCY', '01 / VỀ ELSEFORM AGENCY'], ['A brand is a feeling.', 'Thương hiệu là cảm xúc.'], ['We give it', 'Chúng tôi cho cảm xúc'], ['form.', 'thành hình.'],
   ['ELSEFORM AGENCY starts with another point of view. We turn what makes you different into something people can see, feel and remember.', 'ELSEFORM AGENCY bắt đầu từ một góc nhìn khác. Chúng tôi biến điều làm bạn khác biệt thành thứ có thể nhìn thấy, cảm nhận và ghi nhớ.'],
   ['From a first conversation to the smallest detail on a label, we build identities with a clear idea at their heart. Made in Saigon. Open to the world.', 'Từ cuộc trò chuyện đầu tiên đến chi tiết nhỏ trên nhãn giấy, mỗi bản sắc đều bắt đầu từ một ý tưởng rõ ràng. Làm tại Sài Gòn. Mở ra thế giới.'],
