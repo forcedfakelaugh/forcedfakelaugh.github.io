@@ -6,7 +6,7 @@ export default [
   ['ELSEFORM AGENCY is an independent branding agency concept in Saigon. Strategy, identities, packaging and things that move.', 'ELSEFORM AGENCY là concept agency thiết kế thương hiệu độc lập tại Sài Gòn. Chiến lược, nhận diện, bao bì và chuyển động.'],
   ['ELSEFORM AGENCY home', 'ELSEFORM AGENCY, về đầu trang'], ['Work', 'Dự án'], ['Agency', 'Về agency'], ['Let’s talk', 'Trò chuyện'],
   ['Open menu', 'Mở menu'], ['Close menu', 'Đóng menu'], ['Site menu', 'Menu điều hướng'],
-  ['Independent minds. Shared ambition.', 'Tư duy riêng. Chung khát vọng.'], ['Saigon, Vietnam', 'Sài Gòn, Việt Nam'],
+  ['Independent minds. Shared ambition.', 'Tư duy riêng. Khát vọng chung.'], ['Saigon, Vietnam', 'Sài Gòn, Việt Nam'],
   ['Good ideas.', 'Ý tưởng hay.'], ['Distinct identities.', 'Bản sắc riêng.'],
   ['Brand strategy', 'Chiến lược thương hiệu'], ['Visual identity', 'Nhận diện thương hiệu'], ['Packaging design', 'Thiết kế bao bì'],
   ['Art direction', 'Định hướng nghệ thuật'], ['Digital experiences', 'Trải nghiệm số'], ['Motion & type', 'Chuyển động & chữ'],
