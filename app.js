@@ -3,7 +3,7 @@ document.getElementById('year').textContent = new Date().getFullYear();
 // English stays in the HTML as the no-JavaScript fallback.
 const vietnamese = {
   pageTitle: 'Lucas Nguyen - Kỹ sư AI & lập trình web',
-  metaDescription: 'Lucas Nguyen - Kỹ sư AI và lập trình web tại Việt Nam. AI agent, trợ lý AI, website và 10 concept tương tác.',
+  metaDescription: 'Lucas Nguyen - Kỹ sư AI và lập trình web tại Việt Nam. AI agent, trợ lý AI, website và các concept tương tác.',
   skip: 'Đến nội dung chính',
   logoLabel: 'Lucas Inc., trang chủ',
   darkModeLabel: 'Chế độ tối',
@@ -17,6 +17,9 @@ const vietnamese = {
   pulpDescription: 'Website bao bì cho quán cà phê - xem bốn mẫu, chọn bộ dùng thử và xem trước yêu cầu.',
   maiLeDescription: 'Portfolio hoạ sĩ với tranh lơ lửng, phòng tranh, xem thử tranh trên tường và thiệp mời triển lãm.',
   tagArtist: 'portfolio hoạ sĩ',
+  elseformDescription: 'Branding agency tại Sài Gòn với chữ lớn, nhận diện đầy màu sắc và câu chuyện của bốn thương hiệu giả định.',
+  tagBranding: 'branding agency',
+  altElseform: 'Bao bì LÁ xanh chanh trên nền xanh cobalt cho concept ELSEFORM AGENCY',
   altMaiLe: 'Tranh sơn dầu tạo bằng AI về cửa sổ đầy nắng cho concept hoạ sĩ Mai Lê',
   sereinDescription: 'Một chốn nghỉ bên biển Quy Nhơn. Xem phòng, chọn ngày và thử đặt kỳ nghỉ của bạn.',
   reuDescription: 'Thực đơn cho một căn bếp Hội An, ưu tiên điện thoại - lọc theo chế độ ăn, báo giờ mở cửa và giỏ món mang đi.',
