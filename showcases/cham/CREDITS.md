@@ -11,10 +11,10 @@ Photographs downloaded from Unsplash on 2026-10-26, subject to the Unsplash lice
 - `assets/cloth.jpg` - dark blue pleated fabric, by Tim Mossholder - https://unsplash.com/photos/91PGEPmwT60
 - `assets/dye-vat.jpg` - worker dyeing fabric in a workshop, by C Cai - https://unsplash.com/photos/yMg8G-s7TfM
 
-Fonts: Barlow and Barlow Condensed served by Google Fonts, with local system fallbacks.
+Fonts: Newsreader and Archivo served by Google Fonts, with local system fallbacks. The favicon is original SVG artwork.
 
 ## Scope
 
-Dependency-free HTML, CSS and JavaScript. Category filters, accessible native quick-view dialogs, size selection, bag quantity edits/removal, calculated USD subtotal and explicitly simulated checkout. Bag state is held in memory and resets on refresh. No external APIs, backend, accounts or payment collection.
+Dependency-free HTML, CSS and JavaScript. Dye-house layout: a scroll gauge counts dips from undyed to deepest indigo, an order-book product list with a hover/focus preview, and a dip slider that mixes the shade. Accessible native product dialogs, size selection, bag quantity edits/removal, calculated USD subtotal and explicitly simulated checkout. Bag state is held in memory and resets on refresh. No external APIs, backend, accounts or payment collection.
 
 Validation: `node --check app.js`.

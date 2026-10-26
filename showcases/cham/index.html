@@ -1,12 +1,50 @@
 <!doctype html>
-<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#c7d3e8"><meta name="description" content="Chàm - a fictional indigo clothing label. An interactive editorial storefront concept by Lucas Nguyen."><title>CHÀM - Indigo for every day</title><link rel="stylesheet" href="style.css"><script src="app.js" defer></script><link rel="stylesheet" href="../portfolio-nav.css"><script src="../portfolio-language-init.js"></script></head>
-<body><nav class="portfolio-nav" aria-label="Điều hướng portfolio"><a class="portfolio-return" href="../../#work">← Về portfolio</a><span class="portfolio-context">CHÀM</span><button class="language-switch" type="button" aria-label="Chuyển sang tiếng Anh"><span data-language="vi" lang="vi" class="is-active">VI</span><span aria-hidden="true">/</span><span data-language="en" lang="en">EN</span></button></nav><a class="skip" href="#collection">Skip to collection</a><header><a class="wordmark" href="#" aria-label="Chàm home">CHÀM<span>DYED SLOWLY</span></a><nav aria-label="Main navigation"><a href="#collection">Collection</a><a href="#story">The dye</a></nav><button class="bag-button" id="open-bag">Bag <span id="bag-count">0</span></button></header>
-<main><section class="hero" aria-labelledby="hero-title"><div class="hero-copy"><div class="eyebrow">VOLUME 01 &nbsp; / &nbsp; THE INDIGO EDIT</div><h1 id="hero-title">DYED BLUE.<br>WORN<br><em>EVERY DAY.</em></h1><p>Four pieces, one colour, dipped again and again.<br>Every wash softens the blue.</p><a class="text-link" href="#collection">SHOP DROP 001 <span>↗</span></a><span class="hero-index">01 - 04 &nbsp; / &nbsp; ONE COLOUR, MANY BLUES</span></div><div class="hero-photo"><img src="assets/hero.jpg" alt="Indigo-dyed cloths drying on a line under a blue sky" fetchpriority="high"><span class="vertical-caption">DIP. AIR. REPEAT.</span><div class="image-note"><span>DRYING DAY</span><span>Rainy season ’26</span></div></div></section>
-<div class="manifesto-strip"><span>One colour.</span><span>Many blues.</span><span>DROP 001 / AVAILABLE TO EXPLORE</span><span class="strip-symbol">↗</span></div>
-<section class="collection" id="collection"><div class="section-top"><div><p class="eyebrow">THE INDIGO WARDROBE</p><h2>THE DROP<span class="drop-count"> / 001</span></h2></div><p>A small edit, every piece<br>the same deep blue.</p></div><div class="collection-toolbar"><div class="filters" role="group" aria-label="Filter collection"><button class="active" data-filter="all" aria-pressed="true">All pieces <sup>04</sup></button><button data-filter="clothing" aria-pressed="false">Clothing</button><button data-filter="accessories" aria-pressed="false">Accessories</button></div><span id="result-count" aria-live="polite">4 pieces</span></div><div class="product-grid" id="products"></div></section>
-<section class="story" id="story"><div class="story-image"><img src="assets/dye-vat.jpg" alt="A dyer working beside indigo vats in a workshop" loading="lazy"><span>THE BLUE TAKES TIME.</span></div><div class="story-copy"><p class="eyebrow">THE DYE</p><h2>DIP IT.<br>AIR IT.<br><em>AGAIN.</em></h2><p>Indigo never arrives all at once. Cloth leaves the vat green, meets the air and turns blue, then goes back in. The deeper the shade, the more times it has been dipped.</p><p>CHÀM, the Vietnamese word for indigo, is a fictional label built around that slow colour. The clothes are imagined; the patience is real.</p><a class="text-link" href="#collection">Find your blue <span>↗</span></a></div></section>
-<section class="closing"><p class="eyebrow">TAKE YOUR TIME. LET IT FADE.</p><h2>FIND YOUR<br><em>OWN BLUE.</em></h2><a href="#collection" class="light-button">Explore all pieces <span>↗</span></a></section></main>
-<footer><a class="footer-brand" href="#">CHÀM</a><div><p>A fictional indigo clothing label.<br>Designed & built by Lucas Nguyen.</p></div><p class="footer-note">Portfolio concept only.<br>No real orders or payments.<br><a href="CREDITS.md">Photography credits</a></p></footer>
-<dialog id="product-dialog" aria-labelledby="product-title"><button class="close-dialog" data-close="product-dialog" aria-label="Close product details">×</button><div id="product-detail"></div></dialog>
-<dialog id="cart-dialog" aria-labelledby="cart-title"><div class="cart-head"><h2 id="cart-title">Your bag</h2><button class="close-dialog" data-close="cart-dialog" aria-label="Close bag">×</button></div><p class="cart-intro">A few blue things, just for you.</p><div id="cart-items"></div><div id="cart-bottom"></div></dialog><div id="toast" role="status" aria-live="polite"></div>
+<html lang="en" data-wait-for-fonts><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#d5dfeb"><meta name="description" content="Chàm - a fictional indigo clothing label. An interactive dye-house storefront concept by Lucas Nguyen."><title>CHÀM - Indigo for every day</title><link rel="icon" href="favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="style.css"><script src="app.js" defer></script><link rel="stylesheet" href="../portfolio-nav.css"><script src="../portfolio-language-init.js"></script></head>
+<body><nav class="portfolio-nav" aria-label="Điều hướng portfolio"><a class="portfolio-return" href="../../#work">← Về portfolio</a><span class="portfolio-context">CHÀM</span><button class="language-switch" type="button" aria-label="Chuyển sang tiếng Anh"><span data-language="vi" lang="vi" class="is-active">VI</span><span aria-hidden="true">/</span><span data-language="en" lang="en">EN</span></button></nav><a class="skip" href="#pieces">Skip to the pieces</a>
+
+<header class="masthead"><a class="wordmark" href="#top" aria-label="Chàm home">chàm</a><span class="dip-counter" id="gauge-label" aria-hidden="true">Dip 01</span><nav aria-label="Main navigation"><a href="#pieces">The pieces</a><a href="#dye">The dye</a><button class="bag-button" id="open-bag" type="button">Bag <span id="bag-count">0</span></button></nav></header>
+
+<main id="top">
+<section class="hero" aria-labelledby="hero-title">
+  <p class="hero-meta"><span>Volume 01 — The indigo edit</span><span>Rainy season ’26</span></p>
+  <p class="giant" aria-hidden="true">chàm</p>
+  <div class="hero-band"><img class="dip-image" src="assets/hero.jpg" alt="Indigo-dyed cloths drying on a line under a blue sky" fetchpriority="high"><span class="band-tag">Drying day</span></div>
+  <div class="hero-copy">
+    <h1 id="hero-title">Twenty dips<br>to blue.</h1>
+    <div><p class="lede">Four pieces in one colour. Cloth goes into the vat, comes out green, turns blue in the air, and goes back in. Every piece here is a count of how many times.</p><a class="cta" href="#pieces">Open the order book <span aria-hidden="true">↓</span></a></div>
+  </div>
+  <ol class="shade-card" id="shade-card" aria-label="Colour card"></ol>
+</section>
+
+<section class="pieces" id="pieces" aria-labelledby="pieces-title">
+  <div class="pieces-head"><p class="kicker">Drop 001</p><h2 id="pieces-title">The order book</h2><p>Each piece is listed the way a dye house would log it: number, shade, and how many times it went into the vat.</p></div>
+  <div class="ledger" role="list" id="ledger"></div>
+</section>
+
+<section class="dye" id="dye" aria-labelledby="dye-title">
+  <figure class="dye-figure"><img src="assets/dye-vat.jpg" alt="A dyer working beside indigo vats in a workshop"><figcaption>The blue takes time.</figcaption></figure>
+  <div class="dye-copy">
+    <p class="kicker">The dye</p>
+    <h2 id="dye-title">Dip it. Air it. Again.</h2>
+    <div class="dye-text"><p>Indigo never arrives all at once. Cloth leaves the vat green, meets the air and turns blue, then goes back in. The deeper the shade, the more times it has been dipped.</p>
+    <p>CHÀM, the Vietnamese word for indigo, is a fictional label built around that slow colour. The clothes are imagined; the patience is real.</p></div>
+  </div>
+  <div class="dip-tool">
+    <div class="dip-swatch" id="dip-swatch" aria-hidden="true"><b id="dip-big">08</b></div>
+    <div class="dip-controls">
+      <label for="dip-range">How many dips?</label>
+      <input id="dip-range" type="range" min="1" max="20" value="8" aria-describedby="dip-result">
+      <div class="dip-result" id="dip-result" aria-live="polite"><b id="dip-count">8 dips</b><span id="dip-shade">Mid</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="closing"><p class="kicker">Take your time</p><h2>Let it fade.</h2><p>Indigo keeps changing after it leaves the vat. Wear it, wash it, and the blue becomes yours.</p><a class="cta" href="#pieces">Back to the pieces <span aria-hidden="true">↑</span></a></section>
+</main>
+
+<footer class="footer"><p>A fictional indigo clothing label.<br>Designed &amp; built by Lucas Nguyen.</p><p>Portfolio concept only.<br>No real orders or payments.<br><a href="CREDITS.md">Photography credits</a></p><span class="footer-mark" aria-hidden="true">chàm</span></footer>
+
+<dialog id="product-dialog" aria-labelledby="product-title"><button class="close-dialog" type="button" data-close="product-dialog" aria-label="Close product details">×</button><div id="product-detail"></div></dialog>
+<dialog id="cart-dialog" aria-labelledby="cart-title"><div class="cart-head"><h2 id="cart-title">Your bag</h2><button class="close-dialog" type="button" data-close="cart-dialog" aria-label="Close bag">×</button></div><div id="cart-items"></div><div id="cart-bottom"></div></dialog>
+<div id="toast" role="status" aria-live="polite"></div>
 </body></html>
