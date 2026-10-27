@@ -160,7 +160,7 @@ h2 { font: 500 clamp(30px, 4vw, 44px)/1.15 var(--serif); letter-spacing: -1.2px;
 .chip[aria-pressed="true"] { background: var(--ink); border-color: var(--ink); color: var(--paper); }
 
 .cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 26px; }
-.card { background: var(--card); border-radius: var(--radius); box-shadow: var(--shadow); transition: transform .3s, box-shadow .3s, opacity .3s; }
+.card { min-width: 0; background: var(--card); border-radius: var(--radius); box-shadow: var(--shadow); transition: transform .3s, box-shadow .3s, opacity .3s; }
 .card[hidden] { display: none; }
 .card a { display: flex; flex-direction: column; height: 100%; padding: 12px 12px 20px; }
 .card:hover { transform: translateY(-4px); box-shadow: var(--shadow-lift); }
@@ -232,7 +232,16 @@ h2 { font: 500 clamp(30px, 4vw, 44px)/1.15 var(--serif); letter-spacing: -1.2px;
 .bugs svg:nth-child(2) { stroke: var(--sun); transform: rotate(24deg); }
 .bugs svg:nth-child(3) { transform: rotate(-18deg); }
 
-@media (min-width: 721px) { .card--wide { grid-column: 1 / -1; } .card--wide .card-image { aspect-ratio: 3 / 1; } }
+/* Let the final showcase fill the remaining columns, counting only visible cards. */
+.card--wide { --card-span: 1; --card-ratio: 4 / 3; grid-column: span var(--card-span); }
+.card--wide .card-image { aspect-ratio: var(--card-ratio); }
+@media (min-width: 961px) {
+  .card--wide:nth-child(3n + 1 of :not([hidden])) { --card-span: 3; --card-ratio: 3 / 1; }
+  .card--wide:nth-child(3n + 2 of :not([hidden])) { --card-span: 2; --card-ratio: 8 / 3; }
+}
+@media (min-width: 721px) and (max-width: 960px) {
+  .card--wide:nth-child(2n + 1 of :not([hidden])) { --card-span: 2; --card-ratio: 8 / 3; }
+}
 
 /* tablet */
 @media (max-width: 960px) {
