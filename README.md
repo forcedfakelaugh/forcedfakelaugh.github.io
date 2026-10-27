@@ -1,6 +1,6 @@
 # Lucas Nguyen - Freelance portfolio
 
-A portfolio with twelve interactive concept showcases (ten listed on the homepage). No dependencies or backend services.
+A portfolio with interactive concept showcases. No dependencies or backend services.
 
 ## Local development
 
@@ -22,6 +22,7 @@ npm run build
 ## Pages
 
 - `/` - Main portfolio and selected work.
+- `/showcases/nature-island/` - Nature Island, an illustrated travel concept inspired by the Variations WordPress theme preview. Original SVG landscapes, three places to explore, three selectable day plans, and a downloadable itinerary in VI/EN. No reservations or external services. Sources and scope in `showcases/nature-island/CREDITS.md`.
 - `/showcases/mai-le/` - Mai Lê, a fictional Hội An painter: VI/EN throughout (Vietnamese by default, language preference saved locally), floating artwork entrance, asymmetric gallery of seven AI-generated paintings, including a seascape and a reference-based studio portrait, artwork detail dialogs with keyboard navigation, three wall colour previews, artist note and a simulated exhibition ticket. Inspired by the artist-portfolio film at https://vimeo.com/1226352297. Artwork provenance and generation prompts in `showcases/mai-le/CREDITS.md`.
 - `/showcases/pulp-club/` - Original foodservice packaging concept inspired by Kanak Naturals' foodservice page. Browse and filter four forms, build a sample box, and preview a request without sending anything.
 - `/showcases/serein/` - Solen Retreat, an editorial coastal retreat website, accommodation filters and simulated reservation preview.
@@ -54,6 +55,6 @@ Designed for showcasing frontend craft: distinct art direction, responsive layou
 
 Nếp Architects research references and photography sources are documented in `showcases/nep/CREDITS.md`.
 
-All twelve showcases share `showcases/portfolio-nav.css`: a fixed return link on the left, the project name centered, and one `VI / EN` button on the right, including on mobile. Vietnamese is the default; the homepage and showcases share the `lucas-portfolio-language` preference.
+Showcases share `showcases/portfolio-nav.css`: a fixed return link on the left, the project name centered, and one `VI / EN` button on the right, including on mobile. Vietnamese is the default; the homepage and showcases share the `lucas-portfolio-language` preference.
 
 `showcases/portfolio-language.js` binds authored copy from `showcases/locales/` to text nodes and accessibility attributes, including content created by demo interactions. Catalog pairs are `[English, Vietnamese]`; `{name}` placeholders preserve dynamic values. Add matching copy when changing visitor-facing text. Mark user-supplied text with `data-no-translate`. Mai Lê and Hiên keep their existing translation renderers and respond to the shared `showcase-language` event. Pip also translates its scripted answers and notes, with question routing in both languages. Language changes retain demo selections and form values.
