@@ -84,10 +84,27 @@ function filterProjects(filter, announce = true) {
 }
 filters.forEach(button => button.addEventListener('click', () => filterProjects(button.dataset.filter)));
 
-menuToggle.addEventListener('click', () => { menuDialog.showModal(); menuToggle.setAttribute('aria-expanded', 'true'); window.dispatchEvent(new Event('elseform-project')); });
-document.querySelector('.close-menu').addEventListener('click', () => menuDialog.close());
+const closeMenuButton = menuDialog.querySelector('.close-menu');
+// Pin the close button over the hamburger so it morphs into an X in place
+function placeCloseButton() {
+  const toggle = menuToggle.getBoundingClientRect();
+  const dialog = menuDialog.getBoundingClientRect();
+  closeMenuButton.style.top = `${toggle.top - dialog.top}px`;
+  closeMenuButton.style.left = `${toggle.left - dialog.left}px`;
+}
+addEventListener('resize', () => { if (menuDialog.open) placeCloseButton(); });
+menuToggle.addEventListener('click', () => { clearTimeout(closeTimer); menuDialog.classList.remove('is-closing'); menuDialog.showModal(); placeCloseButton(); menuToggle.setAttribute('aria-expanded', 'true'); window.dispatchEvent(new Event('elseform-project')); });
+// Play the X → hamburger fold and the wipe before actually closing the dialog
+let closeTimer;
+function closeMenu() {
+  if (!menuDialog.open || menuDialog.classList.contains('is-closing')) return;
+  menuDialog.classList.add('is-closing');
+  closeTimer = setTimeout(() => { menuDialog.close(); menuDialog.classList.remove('is-closing'); }, reducedMotion.matches ? 0 : 950);
+}
+closeMenuButton.addEventListener('click', closeMenu);
+menuDialog.addEventListener('cancel', event => { event.preventDefault(); closeMenu(); });
 menuDialog.addEventListener('close', () => { menuToggle.setAttribute('aria-expanded', 'false'); window.dispatchEvent(new Event('elseform-project')); });
-menuDialog.querySelectorAll('nav a').forEach(link => link.addEventListener('click', () => menuDialog.close()));
+menuDialog.querySelectorAll('nav a').forEach(link => link.addEventListener('click', closeMenu));
 
 const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)');
 const word = document.getElementById('changing-word');
