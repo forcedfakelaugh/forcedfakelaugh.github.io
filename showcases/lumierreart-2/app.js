@@ -18,7 +18,7 @@ let dialogMode = null;
 let toastTimer;
 const heroWorks = ['vs5','tth14','ngoclien'];
 try {
-  language = localStorage.getItem('lumierreart-2-language') === 'en' ? 'en' : 'vi';
+  language = localStorage.getItem('lucas-portfolio-language') === 'en' ? 'en' : 'vi';
   const stored = JSON.parse(localStorage.getItem(storageKey) || '[]');
   if (Array.isArray(stored)) saved = new Set(stored.filter(id => artworks.some(art => art.id === id)));
 } catch { /* A private browser session can still use every control. */ }
@@ -40,8 +40,6 @@ function applyLanguage() {
     const realAttr = attr === 'label' ? 'aria-label' : attr;
     $$(`[data-en-${attr}]`).forEach(el => el.setAttribute(realAttr,el.dataset[language+attr[0].toUpperCase()+attr.slice(1)]));
   }
-  $$('[data-lang]').forEach(el => el.classList.toggle('active',el.dataset.lang === language));
-  $('.language').setAttribute('aria-label',t('Switch to English','Chuyển sang tiếng Việt'));
   $('.menu-toggle').setAttribute('aria-label',$('#mobile-nav').hidden?t('Mở menu','Open menu'):t('Đóng menu','Close menu'));
   document.title = t('lumierreart 2 — Lumiere Arts · Tranh, lụa và đời sống','lumierreart 2 — Lumiere Arts · Art, silk and life');
   $('meta[name="description"]').content = t('Tranh lụa của Nguyễn Văn Trinh, khăn lụa từ hội họa và những vật phẩm làm bằng tay. Một tuyển chọn từ Lumiere Arts, Hà Nội.','Silk paintings by Nguyễn Văn Trinh, artist-designed scarves and handmade objects. A selection from Lumiere Arts, Hanoi.');
@@ -122,9 +120,8 @@ function renderSelection() {
   $('#dialog-content').innerHTML = `<div class="selection-content"><p class="eyebrow">${t('LƯU ĐỂ XEM LẠI','YOUR SELECTION')}</p><h2 id="dialog-title">${t('Tác phẩm đã lưu.','Saved works.')}</h2>${selected.length?selected.map(art=>`<div class="saved-item"><button type="button" data-art="${art.id}" aria-label="${t('Xem','View')} ${art[language]}" style="margin:0;padding:0"><img src="assets/${art.id}.webp" alt="${art[language]}"></button><div><h3>${art[language]}</h3><p>${art.size} · ${art.year}</p></div><button type="button" data-remove="${art.id}" aria-label="${t('Bỏ lưu','Remove')} ${art[language]}">${t('Bỏ lưu','Remove')}</button></div>`).join(''):`<p class="empty-selection">${t('Chọn Lưu bên cạnh tác phẩm bạn yêu thích. Những lựa chọn ấy sẽ được lưu tại đây.','Choose Save beside an artwork you love. Your selection will be collected here.')}</p><button class="solid-link" type="button" data-close>${t('Khám phá tác phẩm','Explore the artworks')} </button>`}${selected.length?`<a class="solid-link" href="mailto:lumierearts26@gmail.com?subject=${encodeURIComponent(t('Tư vấn bộ sưu tập cá nhân','My art selection'))}&body=${encodeURIComponent(body)}">${t('Trao đổi về lựa chọn của bạn','Inquire about your selection')} </a><p class="form-note">${t('Soạn email với danh sách tác phẩm đã lưu.','Compose an email with your selected artworks.')}</p>`:''}</div>`;
 }
 
-$('.language').addEventListener('click',()=>{
-  language = language === 'vi' ? 'en' : 'vi';
-  try {localStorage.setItem('lumierreart-2-language',language);} catch {}
+window.addEventListener('showcase-language', event => {
+  language = event.detail.language === 'en' ? 'en' : 'vi';
   applyLanguage();
 });
 $$('[data-filter]').forEach(button=>button.addEventListener('click',()=>{

@@ -2,6 +2,7 @@ import { execFileSync } from 'node:child_process';
 import { mkdirSync } from 'node:fs';
 import { basename, extname } from 'node:path';
 const sources = [
+  'showcases/lumierreart-2/assets/vs5.webp',
   'showcases/mai-le/assets/window.jpg',
   'showcases/hien/assets/tree-house.jpg',
   'showcases/cham/assets/hero-daylight.jpg',

@@ -2,7 +2,7 @@
 // place so switching languages never replaces controls or resets demo state.
 const key = 'lucas-portfolio-language';
 const project = location.pathname.split('/showcases/')[1]?.split('/')[0];
-const native = ['mai-le', 'hien'].includes(project);
+const native = ['mai-le', 'hien', 'lumierreart-2'].includes(project);
 const sourceLanguage = project === 'pip' ? 'vi' : 'en';
 let language = 'vi';
 try { language = localStorage.getItem(key) === 'en' ? 'en' : 'vi'; } catch {}

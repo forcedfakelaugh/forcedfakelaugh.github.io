@@ -6,6 +6,6 @@ http://127.0.0.1:4174/showcases/lumierreart-2/
 
 An exhibition catalogue direction: burgundy typography on pale grey paper, a large Lumiere masthead, an irregular artwork wall and full-size original artwork photography. Reference research is documented in CREDITS.md.
 
-Features: Vietnamese/English switch with persistence, three featured artworks, series filters, gallery/index layout switch, six artwork detail views, illustrative wall preview with three wall colours, saved selection with persistence, painting/scarf study switch, email inquiry draft, responsive menu, keyboard-accessible dialogs and reduced-motion support.
+Features: shared portfolio top bar with a return link, centered project name and Vietnamese/English switch using the portfolio language preference; three featured artworks, series filters, gallery/index layout switch, six artwork detail views, illustrative wall preview with three wall colours, saved selection with persistence, painting/scarf study switch, email inquiry draft, responsive menu, keyboard-accessible dialogs and reduced-motion support.
 
-The route is intentionally unlisted on the portfolio homepage for client-demo use, matching the parallel Lumiere concept. All code and copied assets are local to this directory; no shared portfolio or Claude files are changed. See CREDITS.md for provenance and demo boundaries.
+Listed on the portfolio homepage as Lumiere Arts, under the creative and shops filters. The earlier `/showcases/lumiere/` direction remains unlisted. Gallery code and source assets are local to this directory, with shared portfolio navigation, language controls and icons. The homepage uses responsive thumbnails generated from `assets/vs5.webp`. See CREDITS.md for provenance and demo boundaries.
