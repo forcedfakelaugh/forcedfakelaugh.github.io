@@ -1,6 +1,6 @@
 # Lucas Nguyen - Freelance portfolio
 
-A portfolio with interactive concept showcases. No dependencies or backend services.
+A portfolio with interactive concept showcases. No package installation or backend services; some showcases include licensed, vendored rendering libraries.
 
 ## Local development
 
@@ -22,6 +22,7 @@ npm run build
 ## Pages
 
 - `/` - Main portfolio and selected work.
+- `/showcases/lento/` - Lento, unlisted from the homepage and linked from `/hidden/`, with `noindex`. An interactive lighting concept with a detailed Poly Haven desk lamp (2.87 MB), a compact desktop with a notebook and PBR surface textures, scroll-driven close-up views, finish/brightness/angle controls and warm evening lighting. VI/EN, reduced motion, ambient pause and a still fallback. Oryzo-inspired storytelling; no reference-site assets. See `showcases/lento/CREDITS.md`.
 - `/hidden/` - Unlisted index of hidden showcases (client proposals and drafts), not linked from the homepage and marked `noindex`. Add new hidden showcases here.
 - `/showcases/lumierreart-2/` - Lumiere Arts, listed on the homepage: a gallery redesign with an artwork wall, collection filters, wall previews, saved favourites and silk collections. Uses the gallery's existing artwork photography; see `showcases/lumierreart-2/CREDITS.md`.
 - `/showcases/nature-island/` - Nature Island, an illustrated travel concept inspired by the Variations WordPress theme preview. Original SVG landscapes, three places to explore, three selectable day plans, and a downloadable itinerary in VI/EN. No reservations or external services. Sources and scope in `showcases/nature-island/CREDITS.md`.
