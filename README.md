@@ -22,6 +22,7 @@ npm run build
 ## Pages
 
 - `/` - Main portfolio and selected work.
+- `/hidden/` - Unlisted index of hidden showcases (client proposals and drafts), not linked from the homepage and marked `noindex`. Add new hidden showcases here.
 - `/showcases/nature-island/` - Nature Island, an illustrated travel concept inspired by the Variations WordPress theme preview. Original SVG landscapes, three places to explore, three selectable day plans, and a downloadable itinerary in VI/EN. No reservations or external services. Sources and scope in `showcases/nature-island/CREDITS.md`.
 - `/showcases/lumiere/` - Lumiere Arts, an unlisted redesign proposal for the real gallery at lumierearts.com: a scroll-driven hero that pulls back across a 6 m silk painting, four series with an artwork viewer and true-scale wall preview, a painting-to-scarf comparison slider with size pricing, art objects, artist section and a simulated inquiry list. Uses the client's own photography and catalogue data; see `showcases/lumiere/CREDITS.md`.
 - `/showcases/mai-le/` - Mai Lê, a fictional Hội An painter: VI/EN throughout (Vietnamese by default, language preference saved locally), floating artwork entrance, asymmetric gallery of seven AI-generated paintings, including a seascape and a reference-based studio portrait, artwork detail dialogs with keyboard navigation, three wall colour previews, artist note and a simulated exhibition ticket. Inspired by the artist-portfolio film at https://vimeo.com/1226352297. Artwork provenance and generation prompts in `showcases/mai-le/CREDITS.md`.

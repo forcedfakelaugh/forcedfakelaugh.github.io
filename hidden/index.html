@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Hidden showcases · Lucas Nguyen</title>
+<meta name="theme-color" content="#f1efe9">
+<script>
+(() => {
+  let theme = 'light';
+  try {
+    const saved = localStorage.getItem('lucas-portfolio-theme');
+    if (saved === 'light' || saved === 'dark') theme = saved;
+  } catch {}
+  document.documentElement.dataset.theme = theme;
+})();
+</script>
+<link rel="icon" href="../favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,500&family=Figtree:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--paper:#f1efe9;--card:#fbfaf7;--ink:#1c201e;--muted:#5d625e;--divider:#e2dfd6;--image-bg:#e4e1d8;--sun:#d9892b}
+:root[data-theme="dark"]{--paper:#1b201e;--card:#252c27;--ink:#f1efe9;--muted:#b4bcb3;--divider:#3d483e;--image-bg:#303a32;--sun:#e0a45e}
+*{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font:400 16px/1.6 'Figtree',system-ui,sans-serif}a{color:inherit}
+main{width:min(1080px,calc(100% - 32px));margin:0 auto;padding:56px 0 80px}
+.back{font-size:14px;color:var(--muted);text-decoration:none}.back:hover{color:var(--ink)}
+h1{font:500 clamp(34px,5vw,52px)/1.1 'Literata',Georgia,serif;margin:28px 0 10px}
+.lead{color:var(--muted);max-width:560px;margin:0 0 40px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:24px;list-style:none;margin:0;padding:0}
+.card a{display:block;text-decoration:none;background:var(--card);border:1px solid var(--divider);border-radius:6px;overflow:hidden;transition:transform .2s}
+.card a:hover{transform:translateY(-3px)}
+.card img{display:block;width:100%;aspect-ratio:16/10;object-fit:cover;background:var(--image-bg)}
+.face{display:grid;place-items:center;aspect-ratio:16/10;background:var(--image-bg);font:500 34px 'Literata',Georgia,serif;color:var(--muted)}
+.card div{padding:16px 18px 20px}.card h2{font:500 21px/1.3 'Literata',Georgia,serif;margin:0 0 6px}.card p{margin:0;font-size:14px;color:var(--muted)}
+.tag{display:inline-block;margin-top:12px;font-size:12px;color:var(--sun)}
+@media(prefers-reduced-motion:reduce){.card a{transition:none}}
+</style>
+</head>
+<body>
+<main>
+  <a class="back" href="../">← Portfolio</a>
+  <h1>Hidden showcases</h1>
+  <p class="lead">Unlisted work: client proposals and drafts that are not shown on the portfolio homepage. Share links individually.</p>
+  <ul class="grid">
+    <li class="card"><a href="../showcases/lumiere/"><img src="../showcases/lumiere/assets/vs7.webp" alt="" loading="lazy" width="1600" height="752"><div><h2>Lumiere Arts</h2><p>Redesign proposal: scroll-driven silk hero, four series with a true-scale wall preview, painting-to-scarf slider and inquiry list.</p><span class="tag">client proposal</span></div></a></li>
+    <li class="card"><a href="../showcases/lumierreart-2/"><img src="../showcases/lumierreart-2/assets/tth14.webp" alt="" loading="lazy"><div><h2>Lumiere Arts · version 2</h2><p>Alternative direction for the Lumiere Arts redesign.</p><span class="tag">client proposal</span></div></a></li>
+    <li class="card"><a href="../showcases/moc/"><img src="../assets/thumbs/herbal-spa-640.webp" alt="" loading="lazy"><div><h2>Mộc</h2><p>A small herbal spa in Đà Lạt: four treatments, therapist choice and an appointment flow.</p><span class="tag">unlisted from homepage</span></div></a></li>
+    <li class="card"><a href="../showcases/pulp-club/"><img src="../assets/thumbs/packaging-hero-640.webp" alt="" loading="lazy"><div><h2>Pulp Club</h2><p>Packaging brand site for cafés: browse four forms, build a sample box and preview a request.</p><span class="tag">unlisted from homepage</span></div></a></li>
+    <li class="card"><a href="../showcases/orbit/"><span class="face" aria-hidden="true">orbit.</span><div><h2>Orbit</h2><p>A small business’s numbers as a dashboard you can read over morning coffee.</p><span class="tag">unlisted from homepage</span></div></a></li>
+    <li class="card"><a href="../showcases/halyard/"><span class="face" aria-hidden="true">halyard</span><div><h2>Halyard</h2><p>Landing page for a changelog tool: pricing toggle, plan comparison and FAQ.</p><span class="tag">unlisted from homepage</span></div></a></li>
+  </ul>
+</main>
+</body>
+</html>
