@@ -12,13 +12,13 @@ These references informed the information structure, not copied source code or v
 
 ## Reference images
 
-The first photograph was supplied by the user and is retained unchanged. The other two were selected from Unsplash on 26 October 2026 for distinctive contemporary Asian architecture: stacked building volumes and curved walkways around an atrium. These are reference photographs, not Nếp Architects projects.
+The first two photographs were supplied by the user and are retained unchanged. The third was selected from Unsplash on 26 October 2026 for its curved walkways around an atrium. These are reference photographs, not Nếp Architects projects.
 
 - `assets/taa-balconies.jpg` — planted cantilevered balconies at the building signed Cát Vàng Hotel & Apartment. Photograph, 1594 × 1063. [Exact supplied image](https://taadesign.com/wp-content/uploads/2023/07/d2.jpg). Source: TAA DESIGN; an individual photographer is not attributed without verification. Original copyrights remain with the respective owners.
-- `assets/interlace-singapore.jpg` — **The Interlace, Singapore**, photographed by **CHUTTERSNAP**. Stacked white residential blocks and planted courts, viewed from above. [Original photograph](https://unsplash.com/photos/aerial-photography-of-white-architectural-building-8GF7WUEn_uo) · [Image file](https://images.unsplash.com/photo-1504762453622-71611c124797). Free to use under the [Unsplash License](https://unsplash.com/license), as stated on the source page.
+- `assets/taa-rhythm.jpg` — repeating rectangular facade frames and slatted screens surrounded by dense greenery. Photograph, 1920 × 1208. [Exact supplied image](https://taadesign.com/wp-content/uploads/2021/06/8-1920x1208.jpg), selected for Nhịp điệu on 27 October 2026. Source: TAA DESIGN; a project name and individual photographer are not attributed without verification. Original copyrights remain with the respective owners.
 - `assets/hive-singapore.jpg` — **The Hive, Singapore**, photographed by **John Marvin De Jose**. Curved concrete walkways and hanging plants around the central atrium. [Original photograph](https://unsplash.com/photos/a-very-tall-building-with-lots-of-plants-growing-on-it-Xab9B5LbF_4) · [Image file](https://images.unsplash.com/photo-1681531396865-3f3d11e1dd29). Free to use under the [Unsplash License](https://unsplash.com/license), as stated on the source page.
 
-The TAA DESIGN file is preserved byte for byte; the two Unsplash JPEGs are downloaded at 1800 px wide. The viewer crops responsively; the enlargement shows each full image. Each image displays its own source. The accompanying diagrams remain independent abstract studies and do not reproduce the referenced project drawings.
+The TAA DESIGN files are preserved byte for byte; the Unsplash JPEG is downloaded at 1800 px wide. The viewer crops responsively; the enlargement shows each full image. Each image displays its own source. The accompanying diagrams remain independent abstract studies and do not reproduce the referenced project drawings.
 
 ## Experience
 
