@@ -11,6 +11,7 @@ let activeProject = null;
 let returnFocus = null;
 let projectHashOwned = false;
 let previousHash = '';
+let projectCloseTimer;
 
 function showProject(id, trigger) {
   const project = projects[id];
@@ -25,6 +26,8 @@ function showProject(id, trigger) {
     <p class="case-note">An independent concept project. Brand names and imagery were created for this showcase.</p>`;
   document.getElementById('next-name').textContent = projects[project.next].name;
   window.showcaseLanguage?.refresh();
+  clearTimeout(projectCloseTimer);
+  projectDialog.classList.remove('is-closing');
   if (!projectDialog.open) projectDialog.showModal();
   window.dispatchEvent(new Event('elseform-project'));
   projectDialog.scrollTop = 0;
@@ -39,8 +42,14 @@ document.querySelectorAll('[data-project]').forEach(link => link.addEventListene
   history.pushState(null, '', `#project-${link.dataset.project}`);
   showProject(link.dataset.project, link);
 }));
+// Slide the dialog out before actually closing it
+function hideProject() {
+  if (!projectDialog.open || projectDialog.classList.contains('is-closing')) return;
+  projectDialog.classList.add('is-closing');
+  projectCloseTimer = setTimeout(() => { projectDialog.close(); projectDialog.classList.remove('is-closing'); }, reducedMotion.matches ? 0 : 350);
+}
 function closeProject() {
-  if (projectDialog.open) projectDialog.close();
+  hideProject();
   if (location.hash.startsWith('#project-')) {
     if (projectHashOwned) history.back();
     else history.replaceState(null, '', `${location.pathname}${location.search}${previousHash || '#work'}`);
@@ -59,7 +68,7 @@ document.querySelector('.next-project').addEventListener('click', () => {
 function syncHash() {
   const id = location.hash.replace('#project-', '');
   if (location.hash.startsWith('#project-') && projects[id]) showProject(id);
-  else if (projectDialog.open) projectDialog.close();
+  else hideProject();
 }
 window.addEventListener('popstate', syncHash);
 window.addEventListener('hashchange', syncHash);
