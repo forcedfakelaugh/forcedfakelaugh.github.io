@@ -180,3 +180,25 @@ window.addEventListener('showcase-language', () => {
   filterProjects(activeFilter, false);
 });
 resetTypewriter();
+
+document.querySelectorAll('.services details').forEach(details => {
+  const summary = details.querySelector('summary');
+  let animation;
+  summary.addEventListener('click', event => {
+    if (reducedMotion.matches || !details.animate) return;
+    event.preventDefault();
+    const opening = !details.open || details.classList.contains('is-closing');
+    const start = details.getBoundingClientRect().height;
+    animation?.cancel();
+    details.classList.toggle('is-closing', !opening);
+    if (opening) details.open = true;
+    const end = (opening ? details : summary).getBoundingClientRect().height;
+    animation = details.animate({ height: [`${start}px`, `${end}px`] }, { duration: 450, easing: 'cubic-bezier(.6,0,.2,1)', fill: 'forwards' });
+    animation.onfinish = () => {
+      if (!opening) details.open = false;
+      details.classList.remove('is-closing');
+      animation.cancel();
+      animation = null;
+    };
+  });
+});
