@@ -14,4 +14,6 @@
 .scene.is-ready{z-index:110}
 .experience>.scene{grid-area:1/1;align-self:start;position:sticky;inset:auto;top:42px;height:calc(100dvh - 42px)}
 .story{grid-area:1/1;position:relative;z-index:1;min-width:0}
+/* Keep browser-toolbar motion from reallocating the mobile WebGL buffer. */
+@media(max-width:760px){.experience>.scene{height:calc(100lvh - 42px)}}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*:before,*:after{transition:none!important;animation:none!important}}

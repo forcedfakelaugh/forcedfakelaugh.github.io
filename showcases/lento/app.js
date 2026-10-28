@@ -4,11 +4,13 @@ import { GLTFLoader } from './vendor/GLTFLoader.js';
 const sceneElement = document.querySelector('#scene');
 const canvas = document.querySelector('#lamp-canvas');
 const motionQuery = matchMedia('(prefers-reduced-motion: reduce)');
+const mobileQuality = innerWidth < 761 || matchMedia('(pointer: coarse)').matches;
 const finishes = { clay: { color: '#b95735', name: 'Terracotta' }, chalk: { color: '#ded8ca', name: 'Chalk' }, olive: { color: '#626954', name: 'Olive' } };
 const state = { finish: 'clay', brightness: .75, on: true, paused: motionQuery.matches, rotation: 0, pointerX: 0, pointerY: 0 };
 const sections = ['top', 'inside', 'play'].map(id => document.getElementById(id));
 const translate = text => window.showcaseLanguage?.translate(text) || text;
-let renderer, renderFrame, dirty = true, contextLost = false;
+let renderer, renderFrame = 0, contextLost = false;
+let requestRender = () => {};
 
 function labels() {
   document.querySelectorAll('[data-power]').forEach(button => {
@@ -25,25 +27,25 @@ function labels() {
 document.querySelectorAll('[data-finish]').forEach(button => button.addEventListener('click', () => {
   state.finish = button.dataset.finish;
   document.querySelectorAll('[data-finish]').forEach(item => item.setAttribute('aria-pressed', String(item === button)));
-  labels(); dirty = true;
+  labels(); requestRender();
 }));
-document.querySelectorAll('[data-power]').forEach(button => button.addEventListener('click', () => { state.on = !state.on; labels(); dirty = true; }));
+document.querySelectorAll('[data-power]').forEach(button => button.addEventListener('click', () => { state.on = !state.on; labels(); requestRender(); }));
 document.querySelector('#brightness').addEventListener('input', event => {
   state.brightness = Number(event.target.value) / 100;
   document.querySelector('#brightness-value').textContent = `${event.target.value}%`;
-  state.on = true; labels(); dirty = true;
+  state.on = true; labels(); requestRender();
 });
-document.querySelector('#rotation').addEventListener('input', event => { state.rotation = Number(event.target.value) * Math.PI / 180; dirty = true; });
-document.querySelector('#motion-toggle').addEventListener('click', () => { state.paused = !state.paused; labels(); dirty = true; });
-motionQuery.addEventListener('change', event => { state.paused = event.matches; labels(); dirty = true; });
-window.addEventListener('showcase-language', () => { labels(); dirty = true; });
+document.querySelector('#rotation').addEventListener('input', event => { state.rotation = Number(event.target.value) * Math.PI / 180; requestRender(); });
+document.querySelector('#motion-toggle').addEventListener('click', () => { state.paused = !state.paused; labels(); requestRender(); });
+motionQuery.addEventListener('change', event => { state.paused = event.matches; labels(); requestRender(); });
+window.addEventListener('showcase-language', () => { labels(); requestRender(); });
 window.addEventListener('pointermove', event => {
   if (event.pointerType !== 'mouse' || state.paused) return;
   state.pointerX = event.clientX / innerWidth - .5;
   state.pointerY = event.clientY / innerHeight - .5;
-  dirty = true;
+  requestRender();
 }, { passive: true });
-window.addEventListener('scroll', () => { dirty = true; }, { passive: true });
+window.addEventListener('scroll', () => { requestRender(); }, { passive: true });
 labels();
 
 function fallback(message = 'A still preview is shown because 3D is unavailable on this device.') {
@@ -52,11 +54,13 @@ function fallback(message = 'A still preview is shown because 3D is unavailable 
   document.querySelector('#render-status').textContent = translate(message);
   document.querySelectorAll('.configurator button,.configurator input,[data-power],#motion-toggle').forEach(control => { control.disabled = true; });
   if (renderFrame) cancelAnimationFrame(renderFrame);
+  renderFrame = 0;
+  requestRender = () => {};
 }
 
 try {
   renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true, powerPreference: 'low-power' });
-  renderer.setPixelRatio(Math.min(devicePixelRatio, innerWidth < 761 ? 1.5 : 1.8));
+  renderer.setPixelRatio(Math.min(devicePixelRatio, mobileQuality ? 1.25 : 1.8));
   renderer.shadowMap.enabled = true;
   renderer.shadowMap.type = THREE.PCFSoftShadowMap;
   renderer.outputColorSpace = THREE.SRGBColorSpace;
@@ -96,13 +100,13 @@ function initScene() {
   const stone = new THREE.MeshStandardMaterial({ color: '#b5b3a6', roughness: .94, envMapIntensity: .25 });
   const textures = new THREE.TextureLoader();
   const surfaceMap = (file, options = {}) => {
-    const texture = textures.load(`assets/${file}`, () => { dirty = true; }, undefined, () => {
+    const texture = textures.load(`assets/${file}`, () => { requestRender(); }, undefined, () => {
       sceneElement.dataset.surfaceDetail = 'partial';
     });
     texture.wrapS = texture.wrapT = THREE.RepeatWrapping;
     texture.repeat.set(...(options.repeat || [1, 1]));
     texture.offset.set(...(options.offset || [0, 0]));
-    texture.anisotropy = Math.min(8, renderer.capabilities.getMaxAnisotropy());
+    texture.anisotropy = Math.min(mobileQuality ? 2 : 8, renderer.capabilities.getMaxAnisotropy());
     if (options.color) texture.colorSpace = THREE.SRGBColorSpace;
     return texture;
   };
@@ -150,7 +154,7 @@ function initScene() {
   mesh(new THREE.BoxGeometry(.91, .11, 1.1), new THREE.MeshStandardMaterial({ color: '#e6ddc8', roughness: .9 }), book, 0, .09);
   mesh(new THREE.BoxGeometry(.95, .027, 1.15), coverMat, book, 0, .16);
   const models = new GLTFLoader();
-  models.loadAsync('assets/desk-lamp.glb').then(({ scene: model }) => {
+  models.loadAsync(`assets/desk-lamp${mobileQuality ? '-mobile' : ''}.glb`).then(({ scene: model }) => {
     if (contextLost) return;
     let emittingMesh;
     model.scale.setScalar(lampScale);
@@ -162,7 +166,7 @@ function initScene() {
       for (const material of Array.isArray(object.material) ? object.material : [object.material]) {
         material.envMapIntensity = 1.1;
         for (const key of ['map', 'normalMap', 'roughnessMap', 'metalnessMap']) {
-          if (material[key]) material[key].anisotropy = Math.min(8, renderer.capabilities.getMaxAnisotropy());
+          if (material[key]) material[key].anisotropy = Math.min(mobileQuality ? 2 : 8, renderer.capabilities.getMaxAnisotropy());
         }
         if (material.name.endsWith('_light')) {
           emittingMesh = object;
@@ -193,14 +197,14 @@ function initScene() {
       bulb.position.y -= .12;
     }
     sceneElement.dataset.lamp = 'ready';
-    dirty = true;
+    requestRender();
   }).catch(error => {
     console.warn('Lento lamp model unavailable:', error);
     fallback();
   });
   const loadProp = async (file, fallbackObject, { width: propWidth, x, z, rotation }) => {
     try {
-      const { scene: model } = await models.loadAsync(`assets/${file}.glb`);
+      const { scene: model } = await models.loadAsync(`assets/${file}${mobileQuality ? '-mobile' : ''}.glb`);
       const bounds = new THREE.Box3().setFromObject(model);
       const size = bounds.getSize(new THREE.Vector3());
       const center = bounds.getCenter(new THREE.Vector3());
@@ -213,7 +217,7 @@ function initScene() {
         for (const material of Array.isArray(object.material) ? object.material : [object.material]) {
           material.envMapIntensity = .7;
           for (const key of ['map', 'normalMap', 'roughnessMap', 'metalnessMap']) {
-            if (material[key]) material[key].anisotropy = Math.min(8, renderer.capabilities.getMaxAnisotropy());
+            if (material[key]) material[key].anisotropy = Math.min(mobileQuality ? 2 : 8, renderer.capabilities.getMaxAnisotropy());
           }
         }
       });
@@ -226,7 +230,7 @@ function initScene() {
       scenery.remove(fallbackObject);
       fallbackObject.traverse(object => { if (object.isMesh) object.geometry.dispose(); });
       sceneElement.dataset[file] = 'ready';
-      dirty = true;
+      requestRender();
     } catch (error) {
       sceneElement.dataset[file] = 'fallback';
       console.warn(`Lento ${file} detail unavailable:`, error);
@@ -243,42 +247,47 @@ function initScene() {
 
   const fill = new THREE.HemisphereLight('#fff9eb', '#8c8475', .4); scene.add(fill);
   const key = new THREE.DirectionalLight('#fff3dc', 2.2); key.position.set(-3.5, 7, 4); scene.add(key);
-  key.castShadow = true; key.shadow.mapSize.set(innerWidth < 761 ? 1024 : 2048, innerWidth < 761 ? 1024 : 2048);
+  const shadowSize = mobileQuality ? 512 : 2048;
+  key.castShadow = true; key.shadow.mapSize.set(shadowSize, shadowSize);
   key.shadow.camera.left = -7; key.shadow.camera.right = 7; key.shadow.camera.top = 7; key.shadow.camera.bottom = -7;
   key.shadow.normalBias = .025; key.shadow.bias = -.0001; key.shadow.radius = 4;
   const rim = new THREE.DirectionalLight('#ffffff', 1.4); rim.position.set(4, 3, -3); scene.add(rim);
   const bulb = new THREE.PointLight('#ffcc91', 10 * state.brightness, 7, 2); bulb.position.set(-.08, 2.25, 1.62); lamp.add(bulb);
 
-  let mobile = innerWidth < 761, height = innerHeight - 42, width = innerWidth;
-  let bounds = [], clock = 0, last = performance.now(), lastScroll = -1, settledFrames = 100;
+  let mobile = innerWidth < 761, height = 0, width = 0;
+  let bounds = [], clock = 0, last = performance.now(), sceneInView = true;
   let lampTurn = 0;
   const color = new THREE.Color();
   const clamp = value => Math.max(0, Math.min(1, value));
   const smooth = value => { const t = clamp(value); return t * t * (3 - 2 * t); };
   const mix = THREE.MathUtils.lerp;
-  const measure = () => {
-    width = innerWidth; height = innerHeight - 42; mobile = width < 761;
-    renderer.setSize(width, height, false);
+  const measure = (force = false) => {
+    const nextWidth = innerWidth, nextHeight = sceneElement.clientHeight;
+    if (!force && width === nextWidth && height === nextHeight) return;
+    const resized = width !== nextWidth || height !== nextHeight;
+    width = nextWidth; height = nextHeight; mobile = width < 761;
+    // Only reallocate the drawing buffer when its actual CSS size changes.
+    if (resized) renderer.setSize(width, height, false);
     const halfHeight = 2.8;
     camera.left = -halfHeight * width / height; camera.right = halfHeight * width / height;
     camera.top = halfHeight; camera.bottom = -halfHeight; camera.updateProjectionMatrix();
     bounds = sections.map(section => { const rect = section.getBoundingClientRect(); return { top: rect.top + scrollY, height: rect.height }; });
-    dirty = true;
+    requestRender();
   };
-  window.addEventListener('resize', measure, { passive: true });
-  document.fonts.ready.then(measure);
-  window.addEventListener('showcase-language', () => requestAnimationFrame(measure));
+  let measureFrame = 0;
+  window.addEventListener('resize', () => {
+    if (!measureFrame) measureFrame = requestAnimationFrame(() => { measureFrame = 0; measure(); });
+  }, { passive: true });
+  document.fonts.ready.then(() => measure(true));
+  window.addEventListener('showcase-language', () => requestAnimationFrame(() => measure(true)));
   measure();
 
   function draw(now) {
+    renderFrame = 0;
     if (contextLost) return;
-    renderFrame = requestAnimationFrame(draw);
-    if (document.hidden) { last = now; return; }
+    if (document.hidden || !sceneInView) { last = now; return; }
     const dt = Math.min((now - last) / 1000, .05); last = now;
     if (!state.paused) clock += dt;
-    if (dirty || scrollY !== lastScroll) { settledFrames = 100; lastScroll = scrollY; dirty = false; }
-    if ((state.paused || mobile) && settledFrames <= 0) return;
-    settledFrames--;
     const revealing = sceneElement.dataset.lamp === 'ready' && !sceneElement.classList.contains('is-ready');
     const damping = revealing || motionQuery.matches ? 1 : 1 - Math.exp(-dt * 8);
     const scroll = scrollY;
@@ -317,7 +326,9 @@ function initScene() {
     // Half a turn leaves the lamp facing right at the configurator.
     // Reduced motion switches poses directly without the scroll-driven spin.
     const scrollTurn = (motionQuery.matches ? (sectionIndex === 2 ? 1 : 0) : turnProgress) * Math.PI;
-    lampTurn = mix(lampTurn, state.rotation + pointerRotation + movement - scrollTurn, damping);
+    const targetTurn = state.rotation + pointerRotation + movement - scrollTurn;
+    lampTurn = mix(lampTurn, targetTurn, damping);
+    if (Math.abs(lampTurn - targetTurn) < .001) lampTurn = targetTurn;
     world.position.copy(screenUp).multiplyScalar(y); world.position.x = x;
     world.scale.setScalar(scale);
     // Turn the mounted assembly together so the jaws never leave the desk edge.
@@ -328,14 +339,26 @@ function initScene() {
     if (lampEmitter) lampEmitter.emissiveIntensity = mix(lampEmitter.emissiveIntensity, intensity * 2.5, damping);
     bulb.intensity = mix(bulb.intensity, intensity * 10, damping);
     glow.material.opacity = intensity * .24;
+    const settling = lampTurn !== targetTurn
+      || lampMaterials.some(uniform => Math.abs(uniform.value.r - color.r) + Math.abs(uniform.value.g - color.g) + Math.abs(uniform.value.b - color.b) > .001)
+      || Math.abs(bulb.intensity - intensity * 10) > .001
+      || (lampEmitter && Math.abs(lampEmitter.emissiveIntensity - intensity * 2.5) > .001);
     renderer.render(scene, camera);
     // Reveal only a rendered model in the current scroll pose, never a stale frame.
     if (revealing) sceneElement.classList.add('is-ready');
-    sceneElement.dataset.chapter = String(sectionIndex);
+    if (sceneElement.dataset.chapter !== String(sectionIndex)) sceneElement.dataset.chapter = String(sectionIndex);
+    if ((!state.paused && !mobile) || settling) requestRender();
   }
-  renderFrame = requestAnimationFrame(draw);
+  requestRender = () => {
+    if (!renderFrame && !contextLost && !document.hidden && sceneInView) renderFrame = requestAnimationFrame(draw);
+  };
+  new IntersectionObserver(([entry]) => {
+    sceneInView = entry.isIntersecting;
+    if (sceneInView) requestRender();
+  }).observe(sceneElement);
+  requestRender();
   canvas.addEventListener('webglcontextlost', event => { event.preventDefault(); contextLost = true; fallback('The 3D preview paused. Reload to try again.'); });
-  document.addEventListener('visibilitychange', () => { dirty = true; last = performance.now(); });
-  window.addEventListener('pagehide', () => { if (renderFrame) cancelAnimationFrame(renderFrame); });
-  window.addEventListener('pageshow', event => { if (event.persisted && !contextLost) { dirty = true; last = performance.now(); renderFrame = requestAnimationFrame(draw); } });
+  document.addEventListener('visibilitychange', () => { requestRender(); last = performance.now(); });
+  window.addEventListener('pagehide', () => { if (renderFrame) cancelAnimationFrame(renderFrame); renderFrame = 0; });
+  window.addEventListener('pageshow', event => { if (event.persisted && !contextLost) { last = performance.now(); requestRender(); } });
 }
