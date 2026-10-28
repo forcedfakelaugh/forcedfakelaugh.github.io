@@ -49,8 +49,6 @@ export default [
   ['Chalk', 'Trắng phấn'],
   ['Olive', 'Xanh ô liu'],
   ['The glow', 'Độ sáng'],
-  ['A quiet evening', 'Một tối yên ả'],
-  ['A brighter moment', 'Một chút rạng rỡ'],
   ['A different angle', 'Một góc nhìn khác'],
   ['04 / THAT’S THE FEELING', '04 / ĐÚNG CẢM GIÁC ẤY'],
   ['Less rush.', 'Bớt vội vàng.'],
