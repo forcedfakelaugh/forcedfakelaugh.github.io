@@ -10,6 +10,7 @@ const state = { finish: 'clay', brightness: .75, on: true, paused: motionQuery.m
 const experience = document.querySelector('.experience');
 const panels = [...document.querySelectorAll('.story-panel')];
 const stage = document.querySelector('.story-stage');
+const animatedStyles = new Map();
 const translate = text => window.showcaseLanguage?.translate(text) || text;
 let renderer, renderFrame = 0, contextLost = false;
 let requestRender = () => {};
@@ -37,7 +38,7 @@ document.querySelector('#rotation').addEventListener('input', event => { state.r
 motionQuery.addEventListener('change', event => { state.paused = event.matches; labels(); requestRender(); });
 window.addEventListener('showcase-language', () => { labels(); requestRender(); });
 window.addEventListener('pointermove', event => {
-  if (event.pointerType !== 'mouse' || state.paused) return;
+  if (event.pointerType !== 'mouse' || state.paused || mobileQuality || innerWidth < 761) return;
   state.pointerX = event.clientX / innerWidth - .5;
   state.pointerY = event.clientY / innerHeight - .5;
   requestRender();
@@ -48,6 +49,10 @@ labels();
 function fallback(message = 'A still preview is shown because 3D is unavailable on this device.') {
   sceneElement.classList.remove('is-ready');
   document.body.classList.remove('is-animated');
+  for (const [element, properties] of animatedStyles) {
+    for (const property of Object.keys(properties)) element.style.removeProperty(property);
+  }
+  animatedStyles.clear();
   panels.forEach((panel, index) => {
     panel.inert = false; panel.removeAttribute('aria-hidden'); panel.removeAttribute('style');
     const marker = document.querySelectorAll('[data-stop]')[index];
@@ -66,6 +71,7 @@ try {
   renderer.setPixelRatio(Math.min(devicePixelRatio, mobileQuality ? 1.25 : 1.8));
   renderer.shadowMap.enabled = true;
   renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+  renderer.shadowMap.autoUpdate = !mobileQuality;
   renderer.outputColorSpace = THREE.SRGBColorSpace;
   renderer.toneMapping = THREE.ACESFilmicToneMapping;
   renderer.toneMappingExposure = 1.05;
@@ -85,6 +91,7 @@ function initScene() {
   const lampMaterials = [];
   let lampEmitter;
   const scenery = new THREE.Group(); world.add(scenery);
+  let geometryVersion = 0;
 
   // A small, locally generated studio environment provides broad reflections.
   const environmentScene = new THREE.Scene();
@@ -102,7 +109,8 @@ function initScene() {
   const stone = new THREE.MeshStandardMaterial({ color: '#b5b3a6', roughness: .94, envMapIntensity: .25 });
   const textures = new THREE.TextureLoader();
   const surfaceMap = (file, options = {}) => {
-    const texture = textures.load(`assets/${file}`, () => { requestRender(); }, undefined, () => {
+    const asset = mobileQuality ? file.replace('.jpg', '-mobile.jpg') : file;
+    const texture = textures.load(`assets/${asset}`, () => { requestRender(); }, undefined, () => {
       sceneElement.dataset.surfaceDetail = 'partial';
     });
     texture.wrapS = texture.wrapT = THREE.RepeatWrapping;
@@ -192,6 +200,7 @@ function initScene() {
       }
     });
     lamp.add(model);
+    geometryVersion++;
     world.updateMatrixWorld(true);
     if (emittingMesh) {
       const lightCenter = new THREE.Box3().setFromObject(emittingMesh).getCenter(new THREE.Vector3());
@@ -231,6 +240,7 @@ function initScene() {
       placement.add(model);
       scenery.add(placement);
       scenery.remove(fallbackObject);
+      geometryVersion++;
       fallbackObject.traverse(object => { if (object.isMesh) object.geometry.dispose(); });
       sceneElement.dataset[file] = 'ready';
       requestRender();
@@ -263,6 +273,26 @@ function initScene() {
   const color = new THREE.Color();
   const projectedBounds = new THREE.Box3();
   const corner = new THREE.Vector3();
+  const framingPoints = [];
+  const worldInverse = new THREE.Matrix4();
+  const objectToWorld = new THREE.Matrix4();
+  const worldToCamera = new THREE.Matrix4();
+  let framingVersion = -1, framedTurn = NaN, framedWidth = 0, framedHeight = 0;
+  const framedPose = {};
+  let shadowVersion = -1, shadowTurn = NaN, shadowScenery, shadowTime = -Infinity;
+  let sceneryVersion = -1, lastSceneryOpacity = NaN;
+  const backdrop = document.querySelector('.stage-backdrop');
+  const halo = document.querySelector('.evening-halo');
+  const wordmark = document.querySelector('.wordmark');
+  const progress = document.querySelector('.story-progress');
+  const progressBar = progress.querySelector('i');
+  const setStyle = (element, property, value) => {
+    let values = animatedStyles.get(element);
+    if (!values) { values = {}; animatedStyles.set(element, values); }
+    if (values[property] === value) return;
+    values[property] = value;
+    element.style.setProperty(property, value);
+  };
   const clamp = value => Math.max(0, Math.min(1, value));
   const smooth = value => { const t = clamp(value); return t * t * (3 - 2 * t); };
   const mix = THREE.MathUtils.lerp;
@@ -279,22 +309,37 @@ function initScene() {
     { cx: .51, cy: .56, w: .94, h: .46, zoom: 1, focus: .5, turn: .86 },
     { cx: .50, cy: .50, w: .9, h: .40, zoom: .96, focus: .5, turn: -2.8 },
   ];
+  const poseKeys = Object.keys(desktopPoses[0]);
+  const pose = {};
   // Fit the mounted assembly to an authored screen rectangle, then move the
   // view toward the reflector. Framing remains stable across aspect ratios.
   function frameCamera(pose) {
-    camera.updateMatrixWorld(true);
-    world.updateMatrixWorld(true);
+    if (framingVersion === geometryVersion && framedTurn === world.rotation.y
+      && framedWidth === width && framedHeight === height
+      && poseKeys.every(key => framedPose[key] === pose[key])) return;
+    camera.updateWorldMatrix(true, false);
+    // The assembly is rigid. Cache its mesh corners in world-local space only
+    // when a model arrives, instead of walking every mesh on every scroll frame.
+    if (framingVersion !== geometryVersion) {
+      world.updateWorldMatrix(true, true);
+      worldInverse.copy(world.matrixWorld).invert();
+      framingPoints.length = 0;
+      world.traverse(object => {
+        if (!object.isMesh || object === glow) return;
+        if (!object.geometry.boundingBox) object.geometry.computeBoundingBox();
+        const { min, max } = object.geometry.boundingBox;
+        objectToWorld.multiplyMatrices(worldInverse, object.matrixWorld);
+        for (let i = 0; i < 8; i++) {
+          framingPoints.push(new THREE.Vector3(i & 1 ? max.x : min.x, i & 2 ? max.y : min.y, i & 4 ? max.z : min.z).applyMatrix4(objectToWorld));
+        }
+      });
+      framingVersion = geometryVersion;
+    } else {
+      world.updateWorldMatrix(true, false);
+    }
+    worldToCamera.multiplyMatrices(camera.matrixWorldInverse, world.matrixWorld);
     projectedBounds.makeEmpty();
-    world.traverse(object => {
-      if (!object.isMesh || object === glow) return;
-      if (!object.geometry.boundingBox) object.geometry.computeBoundingBox();
-      const { min, max } = object.geometry.boundingBox;
-      for (let i = 0; i < 8; i++) {
-        corner.set(i & 1 ? max.x : min.x, i & 2 ? max.y : min.y, i & 4 ? max.z : min.z);
-        corner.applyMatrix4(object.matrixWorld).applyMatrix4(camera.matrixWorldInverse);
-        projectedBounds.expandByPoint(corner);
-      }
-    });
+    for (const point of framingPoints) projectedBounds.expandByPoint(corner.copy(point).applyMatrix4(worldToCamera));
     const boxWidth = projectedBounds.max.x - projectedBounds.min.x;
     const boxHeight = projectedBounds.max.y - projectedBounds.min.y;
     const aspect = width / height;
@@ -305,6 +350,8 @@ function initScene() {
     camera.left = centerX - halfWidth; camera.right = centerX + halfWidth;
     camera.top = centerY + halfHeight; camera.bottom = centerY - halfHeight;
     camera.updateProjectionMatrix();
+    framedTurn = world.rotation.y; framedWidth = width; framedHeight = height;
+    Object.assign(framedPose, pose);
   }
   panels.forEach((panel, index) => {
     const marker = document.querySelectorAll('[data-stop]')[index];
@@ -348,10 +395,14 @@ function initScene() {
     const inspect = reduced ? Number(chapter > 1) : ramp(position, 2.15, 3.1);
     const play = reduced ? Number(chapter > 2) : ramp(position, 3.85, 4.7);
     const darkness = approach * (1 - .16 * inspect);
-    experience.style.setProperty('--dark', darkness.toFixed(4));
-    experience.style.setProperty('--evening', play.toFixed(4));
-    experience.style.setProperty('--hero-out', ramp(position, .15, .7).toFixed(4));
-    experience.style.setProperty('--progress', clamp(position / 5.2).toFixed(4));
+    // Scope changing styles to their consumers, so inherited custom properties
+    // do not invalidate every chapter and control while the page scrolls.
+    setStyle(backdrop, '--dark', darkness.toFixed(4));
+    setStyle(halo, 'opacity', play.toFixed(4));
+    const heroOut = ramp(position, .15, .7).toFixed(4);
+    setStyle(wordmark, 'opacity', heroOut);
+    setStyle(progress, 'opacity', heroOut);
+    setStyle(progressBar, 'transform', `scaleX(${clamp(position / 5.2).toFixed(4)})`);
     const opacity = reduced ? panels.map((_, i) => Number(i === chapter)) : [
       1 - ramp(position, .12, .75),
       ramp(position, .9, 1.35) * (1 - ramp(position, 2, 2.45)),
@@ -360,40 +411,44 @@ function initScene() {
     ];
     panels.forEach((panel, i) => {
       const visible = opacity[i] > .001;
-      panel.style.opacity = opacity[i].toFixed(4);
-      panel.style.visibility = visible ? 'visible' : 'hidden';
-      panel.style.transform = reduced ? 'none' : `translateY(${(1 - opacity[i]) * (i < chapter ? -24 : 24)}px)`;
+      setStyle(panel, 'opacity', opacity[i].toFixed(4));
+      setStyle(panel, 'visibility', visible ? 'visible' : 'hidden');
+      setStyle(panel, 'transform', reduced ? 'none' : `translateY(${((1 - opacity[i]) * (i < chapter ? -24 : 24)).toFixed(3)}px)`);
       // Inactive scenes cannot receive keyboard focus or duplicate screen-reader copy.
-      panel.inert = opacity[i] < .5;
-      panel.setAttribute('aria-hidden', String(opacity[i] < .5));
+      const inactive = opacity[i] < .5;
+      if (panel.inert !== inactive) panel.inert = inactive;
+      if (panel.getAttribute('aria-hidden') !== String(inactive)) panel.setAttribute('aria-hidden', String(inactive));
     });
     const poses = mobile ? mobilePoses : desktopPoses;
-    const pose = {};
-    for (const key of Object.keys(poses[0])) {
+    for (const key of poseKeys) {
       pose[key] = mix(mix(mix(poses[0][key], poses[1][key], approach), poses[2][key], inspect), poses[3][key], play);
     }
     if (mobile && height < 700) {
       pose.h *= 1 - .1 * play;
       pose.cy -= .02 * inspect * (1 - play);
     }
-    const movement = state.paused || mobile ? 0 : Math.sin(clock * .45) * .012;
-    const pointerRotation = state.paused || mobile ? 0 : state.pointerX * .09;
+    const animateAmbient = !state.paused && !mobileQuality && !mobile;
+    const movement = animateAmbient ? Math.sin(clock * .45) * .012 : 0;
+    const pointerRotation = animateAmbient ? state.pointerX * .09 : 0;
     const targetTurn = state.rotation * play + pointerRotation + movement;
     lampTurn = mix(lampTurn, targetTurn, damping);
     if (Math.abs(lampTurn - targetTurn) < .001) lampTurn = targetTurn;
     world.rotation.y = pose.turn + lampTurn;
     frameCamera(pose);
     const sceneryOpacity = 1 - approach * (1 - inspect);
-    scenery.traverse(object => {
-      if (!object.isMesh || object === glow) return;
-      object.visible = sceneryOpacity > .005;
-      object.castShadow = sceneryOpacity > .5;
-      for (const material of Array.isArray(object.material) ? object.material : [object.material]) {
-        if (!material.transparent) { material.transparent = true; material.needsUpdate = true; }
-        material.opacity = sceneryOpacity;
-        material.depthWrite = sceneryOpacity > .95;
-      }
-    });
+    if (sceneryVersion !== geometryVersion || lastSceneryOpacity !== sceneryOpacity) {
+      scenery.traverse(object => {
+        if (!object.isMesh || object === glow) return;
+        object.visible = sceneryOpacity > .005;
+        object.castShadow = sceneryOpacity > .5;
+        for (const material of Array.isArray(object.material) ? object.material : [object.material]) {
+          if (!material.transparent) { material.transparent = true; material.needsUpdate = true; }
+          material.opacity = sceneryOpacity;
+          material.depthWrite = sceneryOpacity > .95;
+        }
+      });
+      sceneryVersion = geometryVersion; lastSceneryOpacity = sceneryOpacity;
+    }
     color.set(finishes[state.finish].color);
     for (const uniform of lampMaterials) uniform.value.lerp(color, damping);
     const intensity = state.on ? state.brightness : 0;
@@ -406,10 +461,20 @@ function initScene() {
       || lampMaterials.some(uniform => Math.abs(uniform.value.r - color.r) + Math.abs(uniform.value.g - color.g) + Math.abs(uniform.value.b - color.b) > .001)
       || Math.abs(bulb.intensity - intensity * 10) > .001
       || (lampEmitter && Math.abs(lampEmitter.emissiveIntensity - intensity * 2.5) > .001);
+    // Camera, paint and brightness changes can reuse the shadow map. During
+    // rotation, update mobile shadows at most 30 times/s and settle the last pose.
+    const shadowGeometryChanged = shadowVersion !== geometryVersion || shadowScenery !== (sceneryOpacity > .5);
+    let shadowPending = mobileQuality && (shadowGeometryChanged || shadowTurn !== world.rotation.y);
+    if (shadowPending && (shadowGeometryChanged || now - shadowTime >= 1000 / 30)) {
+      renderer.shadowMap.needsUpdate = true;
+      shadowVersion = geometryVersion; shadowScenery = sceneryOpacity > .5;
+      shadowTurn = world.rotation.y; shadowTime = now;
+      shadowPending = false;
+    }
     renderer.render(scene, camera);
     if (revealing) sceneElement.classList.add('is-ready');
-    sceneElement.dataset.chapter = String(chapter);
-    if ((!state.paused && !mobile) || settling) requestRender();
+    if (sceneElement.dataset.chapter !== String(chapter)) sceneElement.dataset.chapter = String(chapter);
+    if (animateAmbient || settling || shadowPending) requestRender();
   }
   requestRender = () => {
     if (!renderFrame && !contextLost && !document.hidden && sceneInView) renderFrame = requestAnimationFrame(draw);
