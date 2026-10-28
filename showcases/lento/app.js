@@ -282,10 +282,13 @@ function initScene() {
     settledFrames--;
     const damping = motionQuery.matches ? 1 : 1 - Math.exp(-dt * 8);
     const scroll = scrollY;
-    let x = camera.right * .43, y = -.05, scale = 1.12, targetInspection = 0, sectionIndex = 0;
+    let x = camera.right * .43, y = -.05, scale = 1.12, targetInspection = 0, sectionIndex = 0, turnProgress = 0;
     if (!mobile) {
       const anatomyIn = smooth((scroll - bounds[1].top + height * .65) / (height * .85));
       const playIn = smooth((scroll - bounds[2].top + height * .9) / (height * .65));
+      const turnStart = bounds[1].top - height * .65;
+      const turnEnd = bounds[2].top - height * .25;
+      turnProgress = smooth((scroll - turnStart) / (turnEnd - turnStart));
       targetInspection = anatomyIn * (1 - playIn);
       x = mix(camera.right * .37, -camera.right * .48, playIn);
       scale = mix(mix(1.12, 1.32, targetInspection), .94, playIn);
@@ -295,6 +298,9 @@ function initScene() {
     } else {
       // Anchor each mobile object below its copy, so it never obscures reading.
       const anchorOffsets = [500, 820, 400];
+      const turnStart = Math.max(0, bounds[0].top + anchorOffsets[0] - height * .6);
+      const turnEnd = (bounds[1].top + anchorOffsets[1] + bounds[2].top + anchorOffsets[2]) / 2 - height * .6;
+      turnProgress = smooth((scroll - turnStart) / (turnEnd - turnStart));
       const distances = bounds.map((bound, index) => Math.abs(bound.top + anchorOffsets[index] - scroll - height * .6));
       sectionIndex = distances.indexOf(Math.min(...distances));
       const anchorY = bounds[sectionIndex].top + anchorOffsets[sectionIndex] - scroll - 42;
@@ -308,7 +314,10 @@ function initScene() {
     // Reduced motion retains useful scroll states without interpolated travel.
     const movement = state.paused || mobile ? 0 : Math.sin(clock * .45) * .035;
     const pointerRotation = state.paused || mobile ? 0 : state.pointerX * .22;
-    lampTurn = mix(lampTurn, state.rotation + pointerRotation + movement - targetInspection * .12, damping);
+    // Half a turn leaves the lamp facing right at the configurator.
+    // Reduced motion switches poses directly without the scroll-driven spin.
+    const scrollTurn = (motionQuery.matches ? (sectionIndex === 2 ? 1 : 0) : turnProgress) * Math.PI;
+    lampTurn = mix(lampTurn, state.rotation + pointerRotation + movement - scrollTurn, damping);
     world.position.copy(screenUp).multiplyScalar(y); world.position.x = x;
     world.scale.setScalar(scale);
     // Turn the mounted assembly together so the jaws never leave the desk edge.
