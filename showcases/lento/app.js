@@ -156,7 +156,10 @@ function initScene() {
   for (let i = 0; i < deskPosition.count; i++) {
     deskUV.setXY(i, (deskPosition.getX(i) - deskCenter) / deskWidth + .5, deskPosition.getZ(i) / deskDepth + .5);
   }
-  mesh(deskGeometry, stone, scenery);
+  const desk = mesh(deskGeometry, stone, scenery);
+  // Draw the notebook before the surface beneath it, then the light pool.
+  // Camera-depth sorting can otherwise swap these overlapping transparent meshes.
+  desk.renderOrder = 1;
   // One small notebook keeps the desktop coherent and the lamp prominent.
   const book = new THREE.Group(); scenery.add(book); book.position.set(-.47, -.01, .08); book.rotation.y = -.12; book.scale.setScalar(.72);
   const coverMat = new THREE.MeshStandardMaterial({ color: '#6b735e', roughness: .9 });
@@ -223,8 +226,10 @@ function initScene() {
       const factor = propWidth / Math.max(size.x, size.z);
       model.scale.setScalar(factor);
       model.position.set(-center.x * factor, -bounds.min.y * factor + .006, -center.z * factor);
+      const solidMeshes = [];
       model.traverse(object => {
         if (!object.isMesh) return;
+        solidMeshes.push(object);
         object.castShadow = object.receiveShadow = true;
         for (const material of Array.isArray(object.material) ? object.material : [object.material]) {
           material.envMapIntensity = .7;
@@ -233,6 +238,15 @@ function initScene() {
           }
         }
       });
+      // Keep only the closed prop's outer surface visible as its color fades.
+      // A depth-only draw prevents back faces/pages showing through its cover.
+      const depthMaterial = new THREE.MeshBasicMaterial({ colorWrite: false, side: THREE.DoubleSide });
+      for (const object of solidMeshes) {
+        const depth = new THREE.Mesh(object.geometry, depthMaterial);
+        depth.userData.fadeDepth = true;
+        depth.renderOrder = -1;
+        object.add(depth);
+      }
       const placement = new THREE.Group();
       placement.name = file;
       placement.position.set(x, 0, z);
@@ -256,6 +270,7 @@ function initScene() {
   glowGradient.addColorStop(0, 'rgba(255,204,111,.7)'); glowGradient.addColorStop(.4, 'rgba(255,201,107,.35)'); glowGradient.addColorStop(1, 'rgba(255,201,107,0)');
   glowContext.fillStyle = glowGradient; glowContext.fillRect(0, 0, 128, 128);
   const glow = new THREE.Mesh(new THREE.PlaneGeometry(deskWidth - .15, deskDepth - .15), new THREE.MeshBasicMaterial({ map: new THREE.CanvasTexture(glowCanvas), transparent: true, depthWrite: false, opacity: .18, blending: THREE.AdditiveBlending }));
+  glow.renderOrder = 2;
   glow.position.set(deskCenter, .008, 0); glow.rotation.x = -Math.PI / 2; scenery.add(glow);
 
   const fill = new THREE.HemisphereLight('#fff9eb', '#8c8475', .4); scene.add(fill);
@@ -325,7 +340,7 @@ function initScene() {
       worldInverse.copy(world.matrixWorld).invert();
       framingPoints.length = 0;
       world.traverse(object => {
-        if (!object.isMesh || object === glow) return;
+        if (!object.isMesh || object === glow || object.userData.fadeDepth) return;
         if (!object.geometry.boundingBox) object.geometry.computeBoundingBox();
         const { min, max } = object.geometry.boundingBox;
         objectToWorld.multiplyMatrices(worldInverse, object.matrixWorld);
@@ -439,12 +454,15 @@ function initScene() {
     if (sceneryVersion !== geometryVersion || lastSceneryOpacity !== sceneryOpacity) {
       scenery.traverse(object => {
         if (!object.isMesh || object === glow) return;
+        if (object.userData.fadeDepth) { object.visible = sceneryOpacity < 1; return; }
         object.visible = sceneryOpacity > .005;
         object.castShadow = sceneryOpacity > .5;
         for (const material of Array.isArray(object.material) ? object.material : [object.material]) {
           if (!material.transparent) { material.transparent = true; material.needsUpdate = true; }
           material.opacity = sceneryOpacity;
-          material.depthWrite = sceneryOpacity > .95;
+          // Keep solid surfaces occluded throughout the fade. Turning depth writes
+          // off mid-transition exposes the notebook's interior and the desk behind it.
+          material.depthWrite = true;
         }
       });
       sceneryVersion = geometryVersion; lastSceneryOpacity = sceneryOpacity;
