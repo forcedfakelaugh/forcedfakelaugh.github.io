@@ -20,3 +20,5 @@ html[lang=vi]{--serif:'Literata',Georgia,serif}html[lang=vi] h2{font-size:clamp(
 @media(max-width:600px){html[lang=vi] .hero-title .eyebrow{font-size:7px;letter-spacing:.09em}html[lang=vi] .handwritten{font-size:23px}html[lang=vi] .section-heading h2{font-size:32px}html[lang=vi] .about-copy h2{font-size:34px}html[lang=vi] .about-copy{padding-left:3%}html[lang=vi] .visit-heading h2{font-size:48px}html[lang=vi] .ticket h3{font-size:33px}html[lang=vi] .detail-copy h2{font-size:32px}html[lang=vi] .visit-dialog-content h2{font-size:30px}html[lang=vi] .mini-ticket h3{font-size:29px}html[lang=vi] .site-header nav{gap:17px}}
 @media(max-width:360px){html[lang=vi] .section-heading h2{font-size:28px}html[lang=vi] .about-copy h2{font-size:30px}html[lang=vi] .ticket h3{font-size:28px}html[lang=vi] .visit-dialog-content h2{font-size:27px}html[lang=vi] .mini-ticket h3{font-size:26px}}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*:before,*:after{animation:none!important;transition:none!important}.floating{transform:none!important}}
+
+@media(min-width:1001px) and (max-height:1000px){.f2{width:7%;top:-3%}}
