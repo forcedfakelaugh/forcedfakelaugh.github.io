@@ -150,7 +150,7 @@ function setLanguage(nextLanguage) {
       if (!button.classList.contains('enquire-link')) button.setAttribute('aria-label', `${t('view')} ${painting.title}`);
       const image = button.querySelector('img');
       if (image) image.alt = painting.alt;
-      if (button.classList.contains('floating')) button.querySelector('span').innerHTML = window.portfolioIcons.text(`${painting.title} ↗`);
+      if (button.classList.contains('floating')) button.querySelector('span').innerHTML = window.portfolioIcons.text(painting.title);
     });
     const figure = document.querySelector(`.painting .artwork[data-art="${painting.id}"]`).closest('figure');
     figure.querySelector('h3').textContent = painting.title;
