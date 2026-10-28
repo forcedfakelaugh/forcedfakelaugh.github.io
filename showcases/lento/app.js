@@ -193,7 +193,6 @@ function initScene() {
       bulb.position.y -= .12;
     }
     sceneElement.dataset.lamp = 'ready';
-    sceneElement.classList.add('is-ready');
     dirty = true;
   }).catch(error => {
     console.warn('Lento lamp model unavailable:', error);
@@ -280,7 +279,8 @@ function initScene() {
     if (dirty || scrollY !== lastScroll) { settledFrames = 100; lastScroll = scrollY; dirty = false; }
     if ((state.paused || mobile) && settledFrames <= 0) return;
     settledFrames--;
-    const damping = motionQuery.matches ? 1 : 1 - Math.exp(-dt * 8);
+    const revealing = sceneElement.dataset.lamp === 'ready' && !sceneElement.classList.contains('is-ready');
+    const damping = revealing || motionQuery.matches ? 1 : 1 - Math.exp(-dt * 8);
     const scroll = scrollY;
     let x = camera.right * .43, y = -.05, scale = 1.12, targetInspection = 0, sectionIndex = 0, turnProgress = 0;
     if (!mobile) {
@@ -329,9 +329,10 @@ function initScene() {
     bulb.intensity = mix(bulb.intensity, intensity * 10, damping);
     glow.material.opacity = intensity * .24;
     renderer.render(scene, camera);
+    // Reveal only a rendered model in the current scroll pose, never a stale frame.
+    if (revealing) sceneElement.classList.add('is-ready');
     sceneElement.dataset.chapter = String(sectionIndex);
   }
-  renderer.render(scene, camera);
   renderFrame = requestAnimationFrame(draw);
   canvas.addEventListener('webglcontextlost', event => { event.preventDefault(); contextLost = true; fallback('The 3D preview paused. Reload to try again.'); });
   document.addEventListener('visibilitychange', () => { dirty = true; last = performance.now(); });

@@ -18,7 +18,7 @@ The following Poly Haven assets are released under [CC0](https://polyhaven.com/l
 | `assets/notebook.glb` | [Binder Notebook](https://polyhaven.com/a/binder_notebook), DaDrood | Closed variant selected; glTF and 1K PBR textures packed into one GLB; scene scale and placement adjusted. |
 | `assets/stone-*.jpg` | [Marble 01](https://polyhaven.com/a/marble_01), Rob Tuytel | 2K color, normal and roughness maps; UVs select a slab area without grout. |
 
-The imported assets and surface maps total approximately 6.7 MB. Models load asynchronously with simple local geometry as a fallback; their textures are embedded, with no external fetches. The fallback SVG is a stylized articulated-lamp illustration, not an image provided by the asset authors.
+The imported assets and surface maps total approximately 6.7 MB. Models load asynchronously with simple local geometry as a fallback; their textures are embedded, with no external fetches. The lamp is revealed only after its first frame has been rendered in the current scroll pose. The fallback SVG appears only if 3D fails or JavaScript is disabled, so it cannot flash a different pose during loading. It is a stylized articulated-lamp illustration, not an image provided by the asset authors. The listing thumbnail, `assets/preview.png`, is a centered 1280 × 800 render of the actual 3D scene on a warm background.
 
 ## Interaction and fallback
 
