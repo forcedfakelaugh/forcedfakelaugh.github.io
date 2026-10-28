@@ -258,6 +258,75 @@ function initScene() {
   let bounds = [], clock = 0, last = performance.now(), sceneInView = true;
   let lampTurn = 0;
   const color = new THREE.Color();
+  const mobileStages = [...document.querySelectorAll('[data-mobile-stage]')];
+  const mobileCamera = camera.clone();
+  const projectedBounds = new THREE.Box3();
+  const corner = new THREE.Vector3();
+  let stageBounds = [];
+  const stagePoses = [
+    { turn: -.4, zoom: .93 },
+    { turn: .9, zoom: 1.04 },
+    { turn: -2.7, zoom: .93 },
+  ];
+  // Fit the actual mesh bounds to a portrait frame, including the clamp and desk.
+  function frameMobileCamera(frame, zoom) {
+    mobileCamera.updateMatrixWorld(true);
+    world.updateMatrixWorld(true);
+    projectedBounds.makeEmpty();
+    world.traverse(object => {
+      if (!object.isMesh || object === glow) return;
+      if (!object.geometry.boundingBox) object.geometry.computeBoundingBox();
+      const { min, max } = object.geometry.boundingBox;
+      for (let i = 0; i < 8; i++) {
+        corner.set(i & 1 ? max.x : min.x, i & 2 ? max.y : min.y, i & 4 ? max.z : min.z);
+        corner.applyMatrix4(object.matrixWorld).applyMatrix4(mobileCamera.matrixWorldInverse);
+        projectedBounds.expandByPoint(corner);
+      }
+    });
+    const centerX = (projectedBounds.min.x + projectedBounds.max.x) / 2;
+    const centerY = (projectedBounds.min.y + projectedBounds.max.y) / 2;
+    const aspect = frame.width / frame.height;
+    const halfHeight = Math.max(
+      (projectedBounds.max.y - projectedBounds.min.y) / 2,
+      (projectedBounds.max.x - projectedBounds.min.x) / (2 * aspect),
+    ) / zoom;
+    mobileCamera.left = centerX - halfHeight * aspect;
+    mobileCamera.right = centerX + halfHeight * aspect;
+    mobileCamera.top = centerY + halfHeight;
+    mobileCamera.bottom = centerY - halfHeight;
+    mobileCamera.updateProjectionMatrix();
+  }
+  function renderMobile() {
+    // One GPU canvas renders into real layout slots. No pixel anchors or jumps
+    // between chapters, and no 3D drawing over text or touch controls.
+    const canvasRect = canvas.getBoundingClientRect();
+    renderer.setScissorTest(false);
+    renderer.setViewport(0, 0, width, height);
+    renderer.clear();
+    renderer.setScissorTest(true);
+    world.position.set(0, 0, 0);
+    world.scale.setScalar(1);
+    world.visible = true;
+    let activeChapter = 0, closest = Infinity;
+    stageBounds.forEach((frame, index) => {
+      const top = frame.top - scrollY - canvasRect.top;
+      if (top >= height || top + frame.height <= 0) return;
+      const distance = Math.abs(top + frame.height / 2 - height / 2);
+      if (distance < closest) { activeChapter = index; closest = distance; }
+      const pose = stagePoses[index];
+      const progress = clamp((height - top) / (height + frame.height));
+      const travel = motionQuery.matches || state.paused ? 0 : (progress - .5) * .5;
+      world.rotation.y = pose.turn + travel + (index === 2 ? lampTurn : 0);
+      frameMobileCamera(frame, pose.zoom);
+      const bottom = height - top - frame.height;
+      renderer.setViewport(frame.left, bottom, frame.width, frame.height);
+      renderer.setScissor(frame.left, Math.max(0, bottom), frame.width, Math.max(0, Math.min(height, top + frame.height) - Math.max(0, top)));
+      renderer.render(scene, mobileCamera);
+    });
+    renderer.setScissorTest(false);
+    renderer.setViewport(0, 0, width, height);
+    return activeChapter;
+  }
   const clamp = value => Math.max(0, Math.min(1, value));
   const smooth = value => { const t = clamp(value); return t * t * (3 - 2 * t); };
   const mix = THREE.MathUtils.lerp;
@@ -272,12 +341,19 @@ function initScene() {
     camera.left = -halfHeight * width / height; camera.right = halfHeight * width / height;
     camera.top = halfHeight; camera.bottom = -halfHeight; camera.updateProjectionMatrix();
     bounds = sections.map(section => { const rect = section.getBoundingClientRect(); return { top: rect.top + scrollY, height: rect.height }; });
+    stageBounds = mobileStages.map(stage => {
+      const rect = stage.getBoundingClientRect();
+      return { top: rect.top + scrollY, left: rect.left, width: rect.width, height: rect.height };
+    });
     requestRender();
   };
   let measureFrame = 0;
   window.addEventListener('resize', () => {
     if (!measureFrame) measureFrame = requestAnimationFrame(() => { measureFrame = 0; measure(); });
   }, { passive: true });
+  const layoutObserver = new ResizeObserver(() => measure(true));
+  sections.forEach(section => layoutObserver.observe(section));
+  mobileStages.forEach(stage => layoutObserver.observe(stage));
   document.fonts.ready.then(() => measure(true));
   window.addEventListener('showcase-language', () => requestAnimationFrame(() => measure(true)));
   measure();
@@ -304,28 +380,14 @@ function initScene() {
       y = mix(-.05, 1, playIn) - targetInspection * .2;
       if (anatomyIn > .5) sectionIndex = 1;
       if (playIn > .5) sectionIndex = 2;
-    } else {
-      // Anchor each mobile object below its copy, so it never obscures reading.
-      const anchorOffsets = [500, 820, 400];
-      const turnStart = Math.max(0, bounds[0].top + anchorOffsets[0] - height * .6);
-      const turnEnd = (bounds[1].top + anchorOffsets[1] + bounds[2].top + anchorOffsets[2]) / 2 - height * .6;
-      turnProgress = smooth((scroll - turnStart) / (turnEnd - turnStart));
-      const distances = bounds.map((bound, index) => Math.abs(bound.top + anchorOffsets[index] - scroll - height * .6));
-      sectionIndex = distances.indexOf(Math.min(...distances));
-      const anchorY = bounds[sectionIndex].top + anchorOffsets[sectionIndex] - scroll - 42;
-      y = (.5 - anchorY / height) * 5.6;
-      x = -.12;
-      scale = (sectionIndex === 1 ? .55 : .56) * Math.min(1, width / 390) * 802 / height;
-      targetInspection = sectionIndex === 1 ? 1 : 0;
-      world.visible = anchorY > -300 && anchorY < height + 350;
     }
-    if (!mobile) world.visible = true;
+    world.visible = true;
     // Reduced motion retains useful scroll states without interpolated travel.
     const movement = state.paused || mobile ? 0 : Math.sin(clock * .45) * .035;
     const pointerRotation = state.paused || mobile ? 0 : state.pointerX * .22;
     // Half a turn leaves the lamp facing right at the configurator.
     // Reduced motion switches poses directly without the scroll-driven spin.
-    const scrollTurn = (motionQuery.matches ? (sectionIndex === 2 ? 1 : 0) : turnProgress) * Math.PI;
+    const scrollTurn = mobile ? 0 : (motionQuery.matches ? (sectionIndex === 2 ? 1 : 0) : turnProgress) * Math.PI;
     const targetTurn = state.rotation + pointerRotation + movement - scrollTurn;
     lampTurn = mix(lampTurn, targetTurn, damping);
     if (Math.abs(lampTurn - targetTurn) < .001) lampTurn = targetTurn;
@@ -343,7 +405,8 @@ function initScene() {
       || lampMaterials.some(uniform => Math.abs(uniform.value.r - color.r) + Math.abs(uniform.value.g - color.g) + Math.abs(uniform.value.b - color.b) > .001)
       || Math.abs(bulb.intensity - intensity * 10) > .001
       || (lampEmitter && Math.abs(lampEmitter.emissiveIntensity - intensity * 2.5) > .001);
-    renderer.render(scene, camera);
+    if (mobile) sectionIndex = renderMobile();
+    else renderer.render(scene, camera);
     // Reveal only a rendered model in the current scroll pose, never a stale frame.
     if (revealing) sceneElement.classList.add('is-ready');
     if (sceneElement.dataset.chapter !== String(sectionIndex)) sceneElement.dataset.chapter = String(sectionIndex);
