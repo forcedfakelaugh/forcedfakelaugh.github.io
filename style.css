@@ -98,7 +98,7 @@ main, .footer { width: min(1120px, 100% - 32px); margin: 0 auto; }
 .c3 { width: 320px; height: 320px; top: 150px; left: -120px; opacity: .12; animation-delay: -9s; }
 @keyframes drift { to { transform: translate(14px, -18px) scale(1.04); } }
 
-h1 { font: 500 clamp(40px, 6vw, 74px)/1.05 var(--serif); letter-spacing: -2px; margin-bottom: 24px; }
+h1 { font: 500 clamp(40px, 6vw, 74px)/1.05 var(--serif); font-variation-settings: "opsz" 24; letter-spacing: -2px; margin-bottom: 24px; }
 .intro-greeting { display: block; }
 .intro-build, .intro-ending { white-space: nowrap; }
 /* Signal-tear treatment inspired by Codrops' CSSGlitchEffect. */

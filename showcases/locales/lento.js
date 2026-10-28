@@ -15,8 +15,6 @@ export default [
   ['A little warmth. A little wonder.', 'Một chút ấm áp. Một chút bất ngờ.'],
   ['A light that feels like good company.', 'Ánh đèn như một người bạn nhỏ.'],
   ['Get to know Lento', 'Làm quen với Lento'],
-  ['Small object. Big atmosphere.', 'Vật nhỏ. Cảm xúc lớn.'],
-  ['MADE TO SLOW THINGS DOWN', 'ĐỂ MỌI THỨ CHẬM LẠI MỘT CHÚT'],
   ['Turn the lamp off', 'Tắt đèn'],
   ['Turn the lamp on', 'Bật đèn'],
   ['Lights on', 'Đèn đang bật'],
