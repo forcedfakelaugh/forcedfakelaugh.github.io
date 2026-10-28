@@ -54,7 +54,6 @@ export default [
   ['One more little look', 'Ngắm thêm một chút'],
   ['A familiar object. A different perspective.', 'Một đồ vật quen thuộc. Một góc nhìn khác.'],
   ['Interactive design by Lucas Nguyen.', 'Thiết kế tương tác của Lucas Nguyen.'],
-  ['A portfolio concept. Not a product for sale.', 'Concept trong portfolio. Không phải sản phẩm mở bán.'],
   ['Lamp model · Poly Haven', 'Mô hình đèn · Poly Haven'],
   ['More things I’ve made', 'Xem thêm dự án của tôi'],
   ['This is a still preview. Enable JavaScript to explore the lamp.', 'Đây là bản xem tĩnh. Bật JavaScript để khám phá chiếc đèn.'],
