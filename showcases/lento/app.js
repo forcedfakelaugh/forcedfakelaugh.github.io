@@ -259,6 +259,7 @@ function initScene() {
   let lampTurn = 0;
   const color = new THREE.Color();
   const mobileStages = [...document.querySelectorAll('[data-mobile-stage]')];
+  const mobileViews = mobileStages.map(element => ({ element, canvas: null, context: null, needsPaint: true }));
   const mobileCamera = camera.clone();
   const projectedBounds = new THREE.Box3();
   const corner = new THREE.Vector3();
@@ -296,54 +297,75 @@ function initScene() {
     mobileCamera.bottom = centerY - halfHeight;
     mobileCamera.updateProjectionMatrix();
   }
-  function renderMobile() {
-    // One GPU canvas renders into real layout slots. No pixel anchors or jumps
-    // between chapters, and no 3D drawing over text or touch controls.
-    const canvasRect = canvas.getBoundingClientRect();
+  function renderMobile(revealing) {
+    // Copy one shared WebGL renderer into canvases inside the document flow.
+    // Safari can then scroll the pictures with the page without waiting for JS.
+    const viewportHeight = sceneElement.clientHeight;
     renderer.setScissorTest(false);
-    renderer.setViewport(0, 0, width, height);
-    renderer.clear();
-    renderer.setScissorTest(true);
     world.position.set(0, 0, 0);
     world.scale.setScalar(1);
     world.visible = true;
     let activeChapter = 0, closest = Infinity;
     stageBounds.forEach((frame, index) => {
-      const top = frame.top - scrollY - canvasRect.top;
-      if (top >= height || top + frame.height <= 0) return;
-      const distance = Math.abs(top + frame.height / 2 - height / 2);
-      if (distance < closest) { activeChapter = index; closest = distance; }
+      const view = mobileViews[index];
+      const { top, bottom } = view.element.getBoundingClientRect();
+      const visible = top < viewportHeight && bottom > 0;
+      const distance = Math.abs(top + frame.height / 2 - viewportHeight / 2);
+      if (visible && distance < closest) { activeChapter = index; closest = distance; }
+      // Paint every slot once, so a fast swipe never exposes an empty canvas.
+      if (!visible && !view.needsPaint && !revealing) return;
       const pose = stagePoses[index];
-      const progress = clamp((height - top) / (height + frame.height));
+      const progress = clamp((viewportHeight - top) / (viewportHeight + frame.height));
       const travel = motionQuery.matches || state.paused ? 0 : (progress - .5) * .5;
       world.rotation.y = pose.turn + travel + (index === 2 ? lampTurn : 0);
       frameMobileCamera(frame, pose.zoom);
-      const bottom = height - top - frame.height;
-      renderer.setViewport(frame.left, bottom, frame.width, frame.height);
-      renderer.setScissor(frame.left, Math.max(0, bottom), frame.width, Math.max(0, Math.min(height, top + frame.height) - Math.max(0, top)));
+      renderer.setViewport(0, 0, frame.width, frame.height);
       renderer.render(scene, mobileCamera);
+      const { width: pixelWidth, height: pixelHeight } = view.canvas;
+      view.context.clearRect(0, 0, pixelWidth, pixelHeight);
+      // Copy immediately, before WebGL discards its drawing buffer.
+      view.context.drawImage(canvas, 0, canvas.height - pixelHeight, pixelWidth, pixelHeight, 0, 0, pixelWidth, pixelHeight);
+      view.needsPaint = false;
+      if (sceneElement.dataset.lamp === 'ready') view.element.classList.add('is-ready');
     });
-    renderer.setScissorTest(false);
     renderer.setViewport(0, 0, width, height);
     return activeChapter;
   }
   const clamp = value => Math.max(0, Math.min(1, value));
   const smooth = value => { const t = clamp(value); return t * t * (3 - 2 * t); };
   const mix = THREE.MathUtils.lerp;
-  const measure = (force = false) => {
-    const nextWidth = innerWidth, nextHeight = sceneElement.clientHeight;
-    if (!force && width === nextWidth && height === nextHeight) return;
+  const measure = () => {
+    mobile = innerWidth < 761;
+    bounds = sections.map(section => { const rect = section.getBoundingClientRect(); return { top: rect.top + scrollY, height: rect.height }; });
+    stageBounds = mobileStages.map(stage => {
+      const rect = stage.getBoundingClientRect();
+      return { width: rect.width, height: rect.height };
+    });
+    // The shared mobile buffer only needs to fit the largest layout slot.
+    const nextWidth = mobile ? Math.ceil(Math.max(...stageBounds.map(frame => frame.width))) : innerWidth;
+    const nextHeight = mobile ? Math.ceil(Math.max(...stageBounds.map(frame => frame.height))) : sceneElement.clientHeight;
     const resized = width !== nextWidth || height !== nextHeight;
-    width = nextWidth; height = nextHeight; mobile = width < 761;
+    width = nextWidth; height = nextHeight;
     // Only reallocate the drawing buffer when its actual CSS size changes.
     if (resized) renderer.setSize(width, height, false);
     const halfHeight = 2.8;
     camera.left = -halfHeight * width / height; camera.right = halfHeight * width / height;
     camera.top = halfHeight; camera.bottom = -halfHeight; camera.updateProjectionMatrix();
-    bounds = sections.map(section => { const rect = section.getBoundingClientRect(); return { top: rect.top + scrollY, height: rect.height }; });
-    stageBounds = mobileStages.map(stage => {
-      const rect = stage.getBoundingClientRect();
-      return { top: rect.top + scrollY, left: rect.left, width: rect.width, height: rect.height };
+    if (mobile) mobileViews.forEach((view, index) => {
+      if (!view.canvas) {
+        view.canvas = document.createElement('canvas');
+        view.canvas.setAttribute('aria-hidden', 'true');
+        view.context = view.canvas.getContext('2d');
+        if (!view.context) throw new Error('Mobile canvas is unavailable');
+        view.element.append(view.canvas);
+      }
+      const frame = stageBounds[index];
+      const pixelWidth = Math.floor(frame.width * renderer.getPixelRatio());
+      const pixelHeight = Math.floor(frame.height * renderer.getPixelRatio());
+      if (view.canvas.width !== pixelWidth || view.canvas.height !== pixelHeight) {
+        view.canvas.width = pixelWidth; view.canvas.height = pixelHeight;
+        view.needsPaint = true;
+      }
     });
     requestRender();
   };
@@ -351,11 +373,11 @@ function initScene() {
   window.addEventListener('resize', () => {
     if (!measureFrame) measureFrame = requestAnimationFrame(() => { measureFrame = 0; measure(); });
   }, { passive: true });
-  const layoutObserver = new ResizeObserver(() => measure(true));
+  const layoutObserver = new ResizeObserver(measure);
   sections.forEach(section => layoutObserver.observe(section));
   mobileStages.forEach(stage => layoutObserver.observe(stage));
-  document.fonts.ready.then(() => measure(true));
-  window.addEventListener('showcase-language', () => requestAnimationFrame(() => measure(true)));
+  document.fonts.ready.then(measure);
+  window.addEventListener('showcase-language', () => requestAnimationFrame(measure));
   measure();
 
   function draw(now) {
@@ -405,7 +427,7 @@ function initScene() {
       || lampMaterials.some(uniform => Math.abs(uniform.value.r - color.r) + Math.abs(uniform.value.g - color.g) + Math.abs(uniform.value.b - color.b) > .001)
       || Math.abs(bulb.intensity - intensity * 10) > .001
       || (lampEmitter && Math.abs(lampEmitter.emissiveIntensity - intensity * 2.5) > .001);
-    if (mobile) sectionIndex = renderMobile();
+    if (mobile) sectionIndex = renderMobile(revealing);
     else renderer.render(scene, camera);
     // Reveal only a rendered model in the current scroll pose, never a stale frame.
     if (revealing) sceneElement.classList.add('is-ready');
@@ -418,7 +440,7 @@ function initScene() {
   new IntersectionObserver(([entry]) => {
     sceneInView = entry.isIntersecting;
     if (sceneInView) requestRender();
-  }).observe(sceneElement);
+  }).observe(document.querySelector('.experience'));
   requestRender();
   canvas.addEventListener('webglcontextlost', event => { event.preventDefault(); contextLost = true; fallback('The 3D preview paused. Reload to try again.'); });
   document.addEventListener('visibilitychange', () => { requestRender(); last = performance.now(); });
