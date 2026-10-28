@@ -7,7 +7,9 @@ const motionQuery = matchMedia('(prefers-reduced-motion: reduce)');
 const mobileQuality = innerWidth < 761 || matchMedia('(pointer: coarse)').matches;
 const finishes = { clay: { color: '#b95735', name: 'Terracotta' }, chalk: { color: '#ded8ca', name: 'Chalk' }, olive: { color: '#626954', name: 'Olive' } };
 const state = { finish: 'clay', brightness: .75, on: true, paused: motionQuery.matches, rotation: 0, pointerX: 0, pointerY: 0 };
-const sections = ['top', 'inside', 'play'].map(id => document.getElementById(id));
+const experience = document.querySelector('.experience');
+const panels = [...document.querySelectorAll('.story-panel')];
+const stage = document.querySelector('.story-stage');
 const translate = text => window.showcaseLanguage?.translate(text) || text;
 let renderer, renderFrame = 0, contextLost = false;
 let requestRender = () => {};
@@ -19,10 +21,6 @@ function labels() {
     button.querySelector('[data-power-label]').textContent = translate(state.on ? 'Lights on' : 'Lights off');
   });
   document.querySelector('#finish-name').textContent = translate(finishes[state.finish].name);
-  document.querySelector('#motion-toggle').setAttribute('aria-pressed', String(state.paused));
-  document.querySelector('#motion-toggle').setAttribute('aria-label', translate(state.paused ? 'Resume ambient motion' : 'Pause ambient motion'));
-  document.querySelector('[data-motion-label]').textContent = translate(state.paused ? 'Resume motion' : 'Pause motion');
-  document.querySelector('[data-motion-icon]').textContent = state.paused ? '▷' : 'Ⅱ';
 }
 document.querySelectorAll('[data-finish]').forEach(button => button.addEventListener('click', () => {
   state.finish = button.dataset.finish;
@@ -36,7 +34,6 @@ document.querySelector('#brightness').addEventListener('input', event => {
   state.on = true; labels(); requestRender();
 });
 document.querySelector('#rotation').addEventListener('input', event => { state.rotation = Number(event.target.value) * Math.PI / 180; requestRender(); });
-document.querySelector('#motion-toggle').addEventListener('click', () => { state.paused = !state.paused; labels(); requestRender(); });
 motionQuery.addEventListener('change', event => { state.paused = event.matches; labels(); requestRender(); });
 window.addEventListener('showcase-language', () => { labels(); requestRender(); });
 window.addEventListener('pointermove', event => {
@@ -50,9 +47,15 @@ labels();
 
 function fallback(message = 'A still preview is shown because 3D is unavailable on this device.') {
   sceneElement.classList.remove('is-ready');
+  document.body.classList.remove('is-animated');
+  panels.forEach((panel, index) => {
+    panel.inert = false; panel.removeAttribute('aria-hidden'); panel.removeAttribute('style');
+    const marker = document.querySelectorAll('[data-stop]')[index];
+    marker.removeAttribute('id'); panel.id = marker.dataset.stop;
+  });
   document.body.classList.add('is-static');
   document.querySelector('#render-status').textContent = translate(message);
-  document.querySelectorAll('.configurator button,.configurator input,[data-power],#motion-toggle').forEach(control => { control.disabled = true; });
+  document.querySelectorAll('.configurator button,.configurator input,[data-power]').forEach(control => { control.disabled = true; });
   if (renderFrame) cancelAnimationFrame(renderFrame);
   renderFrame = 0;
   requestRender = () => {};
@@ -77,7 +80,6 @@ function initScene() {
   const camera = new THREE.OrthographicCamera(-5, 5, 2.8, -2.8, .1, 80);
   camera.position.set(0, 4.5, 9);
   camera.lookAt(0, 1.45, 0);
-  const screenUp = new THREE.Vector3(0, 1, 0).applyQuaternion(camera.quaternion);
   const world = new THREE.Group(); scene.add(world);
   const lamp = new THREE.Group(); world.add(lamp);
   const lampMaterials = [];
@@ -197,6 +199,7 @@ function initScene() {
       bulb.position.y -= .12;
     }
     sceneElement.dataset.lamp = 'ready';
+    measure();
     requestRender();
   }).catch(error => {
     console.warn('Lento lamp model unavailable:', error);
@@ -255,23 +258,31 @@ function initScene() {
   const bulb = new THREE.PointLight('#ffcc91', 10 * state.brightness, 7, 2); bulb.position.set(-.08, 2.25, 1.62); lamp.add(bulb);
 
   let mobile = innerWidth < 761, height = 0, width = 0;
-  let bounds = [], clock = 0, last = performance.now(), sceneInView = true;
+  let storyTop = 0, clock = 0, last = performance.now(), sceneInView = true;
   let lampTurn = 0;
   const color = new THREE.Color();
-  const mobileStages = [...document.querySelectorAll('[data-mobile-stage]')];
-  const mobileViews = mobileStages.map(element => ({ element, canvas: null, context: null, needsPaint: true }));
-  const mobileCamera = camera.clone();
   const projectedBounds = new THREE.Box3();
   const corner = new THREE.Vector3();
-  let stageBounds = [];
-  const stagePoses = [
-    { turn: -.4, zoom: .93 },
-    { turn: .9, zoom: 1.04 },
-    { turn: -2.7, zoom: .93 },
+  const clamp = value => Math.max(0, Math.min(1, value));
+  const smooth = value => { const t = clamp(value); return t * t * (3 - 2 * t); };
+  const mix = THREE.MathUtils.lerp;
+  const ramp = (position, start, end) => smooth((position - start) / (end - start));
+  const desktopPoses = [
+    { cx: .52, cy: .61, w: .49, h: .66, zoom: 1, focus: .5, turn: -.4 },
+    { cx: .69, cy: .57, w: .62, h: .76, zoom: 1.65, focus: .72, turn: -.04 },
+    { cx: .70, cy: .53, w: .51, h: .74, zoom: 1, focus: .5, turn: .86 },
+    { cx: .28, cy: .54, w: .50, h: .73, zoom: .96, focus: .5, turn: -2.8 },
   ];
-  // Fit the actual mesh bounds to a portrait frame, including the clamp and desk.
-  function frameMobileCamera(frame, zoom) {
-    mobileCamera.updateMatrixWorld(true);
+  const mobilePoses = [
+    { cx: .53, cy: .61, w: .9, h: .45, zoom: 1, focus: .5, turn: -.4 },
+    { cx: .59, cy: .58, w: .94, h: .48, zoom: 2.1, focus: .77, turn: -.04 },
+    { cx: .51, cy: .56, w: .94, h: .46, zoom: 1, focus: .5, turn: .86 },
+    { cx: .50, cy: .50, w: .9, h: .40, zoom: .96, focus: .5, turn: -2.8 },
+  ];
+  // Fit the mounted assembly to an authored screen rectangle, then move the
+  // view toward the reflector. Framing remains stable across aspect ratios.
+  function frameCamera(pose) {
+    camera.updateMatrixWorld(true);
     world.updateMatrixWorld(true);
     projectedBounds.makeEmpty();
     world.traverse(object => {
@@ -280,102 +291,44 @@ function initScene() {
       const { min, max } = object.geometry.boundingBox;
       for (let i = 0; i < 8; i++) {
         corner.set(i & 1 ? max.x : min.x, i & 2 ? max.y : min.y, i & 4 ? max.z : min.z);
-        corner.applyMatrix4(object.matrixWorld).applyMatrix4(mobileCamera.matrixWorldInverse);
+        corner.applyMatrix4(object.matrixWorld).applyMatrix4(camera.matrixWorldInverse);
         projectedBounds.expandByPoint(corner);
       }
     });
-    const centerX = (projectedBounds.min.x + projectedBounds.max.x) / 2;
-    const centerY = (projectedBounds.min.y + projectedBounds.max.y) / 2;
-    const aspect = frame.width / frame.height;
-    const halfHeight = Math.max(
-      (projectedBounds.max.y - projectedBounds.min.y) / 2,
-      (projectedBounds.max.x - projectedBounds.min.x) / (2 * aspect),
-    ) / zoom;
-    mobileCamera.left = centerX - halfHeight * aspect;
-    mobileCamera.right = centerX + halfHeight * aspect;
-    mobileCamera.top = centerY + halfHeight;
-    mobileCamera.bottom = centerY - halfHeight;
-    mobileCamera.updateProjectionMatrix();
+    const boxWidth = projectedBounds.max.x - projectedBounds.min.x;
+    const boxHeight = projectedBounds.max.y - projectedBounds.min.y;
+    const aspect = width / height;
+    const halfHeight = Math.max(boxHeight / pose.h, boxWidth / (pose.w * aspect)) / (2 * pose.zoom);
+    const halfWidth = halfHeight * aspect;
+    const centerX = (projectedBounds.min.x + projectedBounds.max.x) / 2 + (1 - pose.cx * 2) * halfWidth;
+    const centerY = projectedBounds.min.y + boxHeight * pose.focus - (1 - pose.cy * 2) * halfHeight;
+    camera.left = centerX - halfWidth; camera.right = centerX + halfWidth;
+    camera.top = centerY + halfHeight; camera.bottom = centerY - halfHeight;
+    camera.updateProjectionMatrix();
   }
-  function renderMobile(revealing) {
-    // Copy one shared WebGL renderer into canvases inside the document flow.
-    // Safari can then scroll the pictures with the page without waiting for JS.
-    const viewportHeight = sceneElement.clientHeight;
-    renderer.setScissorTest(false);
-    world.position.set(0, 0, 0);
-    world.scale.setScalar(1);
-    world.visible = true;
-    let activeChapter = 0, closest = Infinity;
-    stageBounds.forEach((frame, index) => {
-      const view = mobileViews[index];
-      const { top, bottom } = view.element.getBoundingClientRect();
-      const visible = top < viewportHeight && bottom > 0;
-      const distance = Math.abs(top + frame.height / 2 - viewportHeight / 2);
-      if (visible && distance < closest) { activeChapter = index; closest = distance; }
-      // Paint every slot once, so a fast swipe never exposes an empty canvas.
-      if (!visible && !view.needsPaint && !revealing) return;
-      const pose = stagePoses[index];
-      const progress = clamp((viewportHeight - top) / (viewportHeight + frame.height));
-      const travel = motionQuery.matches || state.paused ? 0 : (progress - .5) * .5;
-      world.rotation.y = pose.turn + travel + (index === 2 ? lampTurn : 0);
-      frameMobileCamera(frame, pose.zoom);
-      renderer.setViewport(0, 0, frame.width, frame.height);
-      renderer.render(scene, mobileCamera);
-      const { width: pixelWidth, height: pixelHeight } = view.canvas;
-      view.context.clearRect(0, 0, pixelWidth, pixelHeight);
-      // Copy immediately, before WebGL discards its drawing buffer.
-      view.context.drawImage(canvas, 0, canvas.height - pixelHeight, pixelWidth, pixelHeight, 0, 0, pixelWidth, pixelHeight);
-      view.needsPaint = false;
-      if (sceneElement.dataset.lamp === 'ready') view.element.classList.add('is-ready');
-    });
-    renderer.setViewport(0, 0, width, height);
-    return activeChapter;
-  }
-  const clamp = value => Math.max(0, Math.min(1, value));
-  const smooth = value => { const t = clamp(value); return t * t * (3 - 2 * t); };
-  const mix = THREE.MathUtils.lerp;
+  panels.forEach((panel, index) => {
+    const marker = document.querySelectorAll('[data-stop]')[index];
+    panel.removeAttribute('id'); marker.id = marker.dataset.stop;
+  });
+  document.body.classList.add('is-animated');
   const measure = () => {
     mobile = innerWidth < 761;
-    bounds = sections.map(section => { const rect = section.getBoundingClientRect(); return { top: rect.top + scrollY, height: rect.height }; });
-    stageBounds = mobileStages.map(stage => {
-      const rect = stage.getBoundingClientRect();
-      return { width: rect.width, height: rect.height };
-    });
-    // The shared mobile buffer only needs to fit the largest layout slot.
-    const nextWidth = mobile ? Math.ceil(Math.max(...stageBounds.map(frame => frame.width))) : innerWidth;
-    const nextHeight = mobile ? Math.ceil(Math.max(...stageBounds.map(frame => frame.height))) : sceneElement.clientHeight;
-    const resized = width !== nextWidth || height !== nextHeight;
-    width = nextWidth; height = nextHeight;
-    // Only reallocate the drawing buffer when its actual CSS size changes.
-    if (resized) renderer.setSize(width, height, false);
-    const halfHeight = 2.8;
-    camera.left = -halfHeight * width / height; camera.right = halfHeight * width / height;
-    camera.top = halfHeight; camera.bottom = -halfHeight; camera.updateProjectionMatrix();
-    if (mobile) mobileViews.forEach((view, index) => {
-      if (!view.canvas) {
-        view.canvas = document.createElement('canvas');
-        view.canvas.setAttribute('aria-hidden', 'true');
-        view.context = view.canvas.getContext('2d');
-        if (!view.context) throw new Error('Mobile canvas is unavailable');
-        view.element.append(view.canvas);
-      }
-      const frame = stageBounds[index];
-      const pixelWidth = Math.floor(frame.width * renderer.getPixelRatio());
-      const pixelHeight = Math.floor(frame.height * renderer.getPixelRatio());
-      if (view.canvas.width !== pixelWidth || view.canvas.height !== pixelHeight) {
-        view.canvas.width = pixelWidth; view.canvas.height = pixelHeight;
-        view.needsPaint = true;
-      }
-    });
+    // A stable viewport prevents address-bar animation from moving the scroll
+    // landmarks. Resize/orientation and language changes still remeasure them.
+    const nextHeight = Math.round(stage.getBoundingClientRect().height);
+    const nextWidth = Math.round(stage.getBoundingClientRect().width);
+    storyTop = experience.getBoundingClientRect().top + scrollY - 42;
+    if (width !== nextWidth || height !== nextHeight) {
+      width = nextWidth; height = nextHeight;
+      renderer.setSize(width, height, false);
+    }
     requestRender();
   };
   let measureFrame = 0;
   window.addEventListener('resize', () => {
     if (!measureFrame) measureFrame = requestAnimationFrame(() => { measureFrame = 0; measure(); });
   }, { passive: true });
-  const layoutObserver = new ResizeObserver(measure);
-  sections.forEach(section => layoutObserver.observe(section));
-  mobileStages.forEach(stage => layoutObserver.observe(stage));
+  new ResizeObserver(measure).observe(stage);
   document.fonts.ready.then(measure);
   window.addEventListener('showcase-language', () => requestAnimationFrame(measure));
   measure();
@@ -387,51 +340,75 @@ function initScene() {
     const dt = Math.min((now - last) / 1000, .05); last = now;
     if (!state.paused) clock += dt;
     const revealing = sceneElement.dataset.lamp === 'ready' && !sceneElement.classList.contains('is-ready');
-    const damping = revealing || motionQuery.matches ? 1 : 1 - Math.exp(-dt * 8);
-    const scroll = scrollY;
-    let x = camera.right * .43, y = -.05, scale = 1.12, targetInspection = 0, sectionIndex = 0, turnProgress = 0;
-    if (!mobile) {
-      const anatomyIn = smooth((scroll - bounds[1].top + height * .65) / (height * .85));
-      const playIn = smooth((scroll - bounds[2].top + height * .9) / (height * .65));
-      const turnStart = bounds[1].top - height * .65;
-      const turnEnd = bounds[2].top - height * .25;
-      turnProgress = smooth((scroll - turnStart) / (turnEnd - turnStart));
-      targetInspection = anatomyIn * (1 - playIn);
-      x = mix(camera.right * .37, -camera.right * .48, playIn);
-      scale = mix(mix(1.12, 1.32, targetInspection), .94, playIn);
-      y = mix(-.05, 1, playIn) - targetInspection * .2;
-      if (anatomyIn > .5) sectionIndex = 1;
-      if (playIn > .5) sectionIndex = 2;
+    const damping = revealing || motionQuery.matches ? 1 : 1 - Math.exp(-dt * 10);
+    const position = Math.max(0, (scrollY - storyTop) / height);
+    const chapter = position < 1.05 ? 0 : position < 2.75 ? 1 : position < 4.4 ? 2 : 3;
+    const reduced = motionQuery.matches;
+    const approach = reduced ? Number(chapter > 0) : ramp(position, .2, 1.45);
+    const inspect = reduced ? Number(chapter > 1) : ramp(position, 2.15, 3.1);
+    const play = reduced ? Number(chapter > 2) : ramp(position, 3.85, 4.7);
+    const darkness = approach * (1 - .16 * inspect);
+    experience.style.setProperty('--dark', darkness.toFixed(4));
+    experience.style.setProperty('--evening', play.toFixed(4));
+    experience.style.setProperty('--hero-out', ramp(position, .15, .7).toFixed(4));
+    experience.style.setProperty('--progress', clamp(position / 5.2).toFixed(4));
+    const opacity = reduced ? panels.map((_, i) => Number(i === chapter)) : [
+      1 - ramp(position, .12, .75),
+      ramp(position, .9, 1.35) * (1 - ramp(position, 2, 2.45)),
+      ramp(position, 2.65, 3.1) * (1 - ramp(position, 3.85, 4.25)),
+      ramp(position, 4.35, 4.7),
+    ];
+    panels.forEach((panel, i) => {
+      const visible = opacity[i] > .001;
+      panel.style.opacity = opacity[i].toFixed(4);
+      panel.style.visibility = visible ? 'visible' : 'hidden';
+      panel.style.transform = reduced ? 'none' : `translateY(${(1 - opacity[i]) * (i < chapter ? -24 : 24)}px)`;
+      // Inactive scenes cannot receive keyboard focus or duplicate screen-reader copy.
+      panel.inert = opacity[i] < .5;
+      panel.setAttribute('aria-hidden', String(opacity[i] < .5));
+    });
+    const poses = mobile ? mobilePoses : desktopPoses;
+    const pose = {};
+    for (const key of Object.keys(poses[0])) {
+      pose[key] = mix(mix(mix(poses[0][key], poses[1][key], approach), poses[2][key], inspect), poses[3][key], play);
     }
-    world.visible = true;
-    // Reduced motion retains useful scroll states without interpolated travel.
-    const movement = state.paused || mobile ? 0 : Math.sin(clock * .45) * .035;
-    const pointerRotation = state.paused || mobile ? 0 : state.pointerX * .22;
-    // Half a turn leaves the lamp facing right at the configurator.
-    // Reduced motion switches poses directly without the scroll-driven spin.
-    const scrollTurn = mobile ? 0 : (motionQuery.matches ? (sectionIndex === 2 ? 1 : 0) : turnProgress) * Math.PI;
-    const targetTurn = state.rotation + pointerRotation + movement - scrollTurn;
+    if (mobile && height < 700) {
+      pose.h *= 1 - .1 * play;
+      pose.cy -= .02 * inspect * (1 - play);
+    }
+    const movement = state.paused || mobile ? 0 : Math.sin(clock * .45) * .012;
+    const pointerRotation = state.paused || mobile ? 0 : state.pointerX * .09;
+    const targetTurn = state.rotation * play + pointerRotation + movement;
     lampTurn = mix(lampTurn, targetTurn, damping);
     if (Math.abs(lampTurn - targetTurn) < .001) lampTurn = targetTurn;
-    world.position.copy(screenUp).multiplyScalar(y); world.position.x = x;
-    world.scale.setScalar(scale);
-    // Turn the mounted assembly together so the jaws never leave the desk edge.
-    world.rotation.y = -.35 + lampTurn;
+    world.rotation.y = pose.turn + lampTurn;
+    frameCamera(pose);
+    const sceneryOpacity = 1 - approach * (1 - inspect);
+    scenery.traverse(object => {
+      if (!object.isMesh || object === glow) return;
+      object.visible = sceneryOpacity > .005;
+      object.castShadow = sceneryOpacity > .5;
+      for (const material of Array.isArray(object.material) ? object.material : [object.material]) {
+        if (!material.transparent) { material.transparent = true; material.needsUpdate = true; }
+        material.opacity = sceneryOpacity;
+        material.depthWrite = sceneryOpacity > .95;
+      }
+    });
     color.set(finishes[state.finish].color);
     for (const uniform of lampMaterials) uniform.value.lerp(color, damping);
     const intensity = state.on ? state.brightness : 0;
     if (lampEmitter) lampEmitter.emissiveIntensity = mix(lampEmitter.emissiveIntensity, intensity * 2.5, damping);
     bulb.intensity = mix(bulb.intensity, intensity * 10, damping);
-    glow.material.opacity = intensity * .24;
+    glow.material.opacity = intensity * .24 * sceneryOpacity;
+    key.intensity = mix(2.2, 1.8, approach);
+    fill.intensity = mix(.4, .22, approach);
     const settling = lampTurn !== targetTurn
       || lampMaterials.some(uniform => Math.abs(uniform.value.r - color.r) + Math.abs(uniform.value.g - color.g) + Math.abs(uniform.value.b - color.b) > .001)
       || Math.abs(bulb.intensity - intensity * 10) > .001
       || (lampEmitter && Math.abs(lampEmitter.emissiveIntensity - intensity * 2.5) > .001);
-    if (mobile) sectionIndex = renderMobile(revealing);
-    else renderer.render(scene, camera);
-    // Reveal only a rendered model in the current scroll pose, never a stale frame.
+    renderer.render(scene, camera);
     if (revealing) sceneElement.classList.add('is-ready');
-    if (sceneElement.dataset.chapter !== String(sectionIndex)) sceneElement.dataset.chapter = String(sectionIndex);
+    sceneElement.dataset.chapter = String(chapter);
     if ((!state.paused && !mobile) || settling) requestRender();
   }
   requestRender = () => {
