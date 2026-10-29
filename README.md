@@ -21,6 +21,8 @@ npm run build
 
 ## Pages
 
+- `/showcases/fieldwork/` - Fieldwork, an interactive sculpture exhibit migrated from the standalone `huyml` project. Eleven procedural metal ribbons morph between Orbit, Helix and Bloom, with drag/keyboard rotation, finish and speed controls, reduced motion, and a still fallback. Shared VI/EN navigation. The original Framer component and design notes are retained; see `showcases/fieldwork/CREDITS.md` for dependencies and maintenance.
+
 - `/` - Main portfolio and selected work.
 - `/showcases/selected-studies/` - Parallax, unlisted from the homepage and linked with a thumbnail from `/hidden/`, with `noindex`. An interactive portfolio with a scroll-driven perspective gallery, four original concept worlds, editorial About/Approach pages, layered Contact cards, scrolling project presentations and four live Canvas experiments. Includes shared VI/EN navigation and the faster gallery snap. Uses the original AI-generated Monsoon, Strata, Lacquer and Resonance images; see `showcases/selected-studies/CREDITS.md`.
 - `/showcases/lento/` - Lento, unlisted from the homepage and linked from `/hidden/`, with `noindex`. An interactive lighting concept with a detailed Poly Haven desk lamp (2.87 MB), a compact desktop with a notebook and PBR surface textures, scroll-driven close-up views, finish/brightness/angle controls and warm evening lighting. VI/EN, reduced motion and a still fallback. Oryzo-inspired storytelling; no reference-site assets. See `showcases/lento/CREDITS.md`.
