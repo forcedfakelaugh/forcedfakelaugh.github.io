@@ -1,6 +1,6 @@
 # Portfolio thumbnail refresh — 2026-10-29
 
-The hidden gallery and the existing unlisted homepage cards use these local WebP images:
+The portfolio cards use these local WebP images. Lento is listed on the homepage; Orbit and Halyard remain in the hidden gallery.
 
 | Project | File | Dimensions | Source |
 | --- | --- | --- | --- |
