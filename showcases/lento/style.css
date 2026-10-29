@@ -20,23 +20,17 @@
 .scene-poster{position:absolute;left:27.5%;top:28%;width:49%;height:66%;object-fit:contain;transition:opacity .6s}
 .scene-loading{position:absolute;right:5%;bottom:70px;font-size:11px;letter-spacing:.02em;color:var(--muted);transition:opacity .3s}
 .scene.is-ready .scene-poster,.scene.is-ready .scene-loading{opacity:0;visibility:hidden;transition:opacity .6s,visibility 0s .6s}
-.detail-tabs{display:none}
-.part-list [hidden]{display:none!important}
 @media(max-width:760px){
   .scene-poster{left:8%;top:38.5%;width:90%;height:45%}
   .scene-loading{right:6%;bottom:42px;font-size:10px}
   .evening-halo{background:radial-gradient(ellipse at 50% 62%,#da914b66,transparent 66%)}
   .is-animated .anatomy .chapter-copy>p:not(.eyebrow){display:none}
   .is-animated .detail-explorer{top:auto;bottom:7%;left:7%;width:86%;max-width:none}
-  .is-animated .detail-tabs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
-  .detail-tabs button{min-height:44px;padding:8px 5px;background:transparent;border:1px solid var(--line);border-radius:6px;font-size:12px;color:var(--muted)}
-  .detail-tabs button[aria-selected=true]{color:var(--ink);border-color:var(--accent);background:#e3ab8714}
-  .is-animated .part-list{margin:16px 0 0;padding:0;border:0;min-height:90px}
-  .is-animated .part-list li{gap:12px;padding:0;border:0}
+  .is-animated .part-list{margin:0;padding:0;border-top:1px solid var(--line)}
+  .is-animated .part-list li{gap:12px;padding:9px 0;border-bottom:1px solid var(--line)}
   .is-animated .part-list li>span{font-size:10px;padding-top:3px}
-  .is-animated .part-list h3{font-size:15px;line-height:1.4;margin:0}
-  .is-animated .part-list p{font-size:13px;line-height:1.55;margin-top:7px;max-width:30em}
-  .is-animated .part-list li:focus-visible{outline:1px solid var(--accent);outline-offset:6px}
+  .is-animated .part-list h3{font-size:14px;line-height:1.4;margin:0}
+  .is-animated .part-list p{font-size:12px;line-height:1.5;margin-top:4px;max-width:30em}
   .swatches{gap:6px}
   .swatches button{min-width:44px}
   .swatches small{font-size:10px}

@@ -1,10 +1,6 @@
 // Authored English / Vietnamese copy. Product names remain unchanged.
 export default [
   ['Preparing your light…', 'Đang chuẩn bị ánh sáng…'],
-  ['Lamp details', 'Chi tiết đèn'],
-  ['Reflector', 'Chao đèn'],
-  ['Springs', 'Lò xo'],
-  ['Clamp', 'Chân kẹp'],
   ['Light for', 'Ánh sáng cho'],
   ['the slower hours.', 'những giờ thong thả.'],
   ['01 / A DIFFERENT PERSPECTIVE', '01 / MỘT GÓC NHÌN KHÁC'],
