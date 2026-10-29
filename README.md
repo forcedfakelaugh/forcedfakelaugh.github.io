@@ -22,6 +22,7 @@ npm run build
 ## Pages
 
 - `/` - Main portfolio and selected work.
+- `/showcases/selected-studies/` - Parallax, unlisted from the homepage and linked with a thumbnail from `/hidden/`, with `noindex`. An interactive portfolio with a scroll-driven perspective gallery, four original concept worlds, editorial About/Approach pages, layered Contact cards, scrolling project presentations and four live Canvas experiments. Includes shared VI/EN navigation and the faster gallery snap. Uses the original AI-generated Monsoon, Strata, Lacquer and Resonance images; see `showcases/selected-studies/CREDITS.md`.
 - `/showcases/lento/` - Lento, unlisted from the homepage and linked from `/hidden/`, with `noindex`. An interactive lighting concept with a detailed Poly Haven desk lamp (2.87 MB), a compact desktop with a notebook and PBR surface textures, scroll-driven close-up views, finish/brightness/angle controls and warm evening lighting. VI/EN, reduced motion and a still fallback. Oryzo-inspired storytelling; no reference-site assets. See `showcases/lento/CREDITS.md`.
 - `/hidden/` - Unlisted index of hidden showcases (client proposals and drafts), not linked from the homepage and marked `noindex`. Add new hidden showcases here.
 - `/showcases/lumierreart-2/` - Lumiere Arts, listed on the homepage: a gallery redesign with an artwork wall, collection filters, wall previews, saved favourites and silk collections. Uses the gallery's existing artwork photography; see `showcases/lumierreart-2/CREDITS.md`.
