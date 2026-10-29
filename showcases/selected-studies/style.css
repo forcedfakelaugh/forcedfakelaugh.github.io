@@ -15,7 +15,7 @@ button:hover, a:hover { color: #77776d; }
 .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
 .skip-link { position: fixed; left: 16px; top: -70px; padding: 14px; background: var(--ink); color: white; z-index: 200; }
 .skip-link:focus { top: 16px; }
-.page-shell { position: fixed; inset: 0; overflow: hidden; isolation: isolate; }
+.page-shell { position: fixed; inset: 0; overflow: hidden; isolation: isolate; background: var(--paper); }
 .site-header { position: absolute; inset: 0 0 auto; z-index: 20; pointer-events: none; }
 .site-header a, .site-header button { pointer-events: auto; }
 .identity { position: absolute; top: 28px; left: 27px; display: flex; gap: 10px; align-items: flex-start; }
@@ -52,7 +52,7 @@ dt, dd { margin: 0; }
 .project-label h2 { font-family: var(--serif); font-weight: 400; font-size: clamp(27px, 2.45vw, 43px); letter-spacing: -1.5px; line-height: 1; margin: 0; text-transform: uppercase; }
 .project-label .project-description { display: block; font-size: 13px; line-height: 1.35; max-width: 300px; margin: 24px auto 0; text-wrap: pretty; }
 .project-label.is-active:hover { color: var(--ink); }
-.counter-block { position: absolute; bottom: 42px; left: 14.1%; display: flex; gap: 15px; align-items: flex-start; z-index: -1; }
+.counter-block { position: absolute; bottom: 42px; left: 14.1%; display: flex; gap: 15px; align-items: flex-start; z-index: 2; color: #fff; mix-blend-mode: difference; pointer-events: none; }
 .counter-label { padding-top: 16px; width: 90px; }
 .counter-number { font-size: clamp(138px, 12.5vw, 240px); line-height: .9; letter-spacing: -.095em; font-weight: 400; font-variant-numeric: tabular-nums; padding-right: .09em; }
 .counter-total { padding-top: 17px; padding-left: 14px; }
