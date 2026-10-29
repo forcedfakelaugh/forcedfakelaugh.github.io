@@ -126,10 +126,11 @@ h1 { font: 500 clamp(40px, 6vw, 72px)/1.05 var(--nav); letter-spacing: -2.5px; m
 .doodle svg { width: 100%; max-width: 440px; margin-left: auto; display: block; overflow: visible; }
 .coffee-light { display: none; }
 [data-theme="dark"] .coffee-light { display: inline; }
-.bulb-cord { fill: none; stroke: var(--muted); stroke-width: 1.6; }
-.bulb-glass { fill: #ffd58a; fill-opacity: .18; stroke: #efd09a; stroke-width: 1.6; }
-.bulb-filament { fill: none; stroke: #ffe6b5; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; filter: drop-shadow(0 0 3px #ffc66f); }
-.bulb-socket { fill: var(--steel); stroke: var(--ink); stroke-width: 1.6; }
+.bulb-cord { fill: none; stroke: var(--muted); stroke-width: 1.6; stroke-linecap: round; }
+.bulb-glass { fill: #ffd58a; fill-opacity: .18; stroke: #efd09a; stroke-width: 1.6; stroke-linejoin: round; }
+.bulb-filament { fill: none; stroke: #ffe6b5; stroke-width: .8; stroke-linecap: round; stroke-linejoin: round; filter: drop-shadow(0 0 1.5px #ffc66f); }
+.bulb-shine { fill: none; stroke: #fff2d5; stroke-width: 1.2; stroke-linecap: round; opacity: .65; }
+.bulb-socket { fill: var(--steel); stroke: var(--ink); stroke-width: 1.6; stroke-linejoin: round; }
 [data-theme="dark"] .drip { fill: #dba56f; stroke: #f5d4a1; stroke-width: .6; filter: drop-shadow(0 0 3px #dba56f66); }
 .ink-line { fill: none; stroke: var(--ink); stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; stroke-dasharray: 1600; stroke-dashoffset: 1600; animation: draw 2.6s .3s ease forwards; }
 .ink-line.thin { stroke-width: 1.6; }
