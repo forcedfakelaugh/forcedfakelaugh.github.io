@@ -181,6 +181,7 @@
     button.tabIndex = -1;
     const record = { button, category: button.querySelector('.project-category'), title: button.querySelector('h2'), description: button.querySelector('.project-description'), logical: null, index: null, slot };
     button.addEventListener('click', () => {
+      if (performance.now() < suppressClickUntil) return;
       if (record.logical === Math.round(position)) navigate(`#study/${studies[record.index].slug}`);
       else goTo(record.logical);
     });
@@ -236,8 +237,10 @@
   function paint() {
     const center = Math.round(position);
     const centerX = width * (mobile ? .5 : .52);
-    const centerY = height * (mobile ? .385 : .5);
-    const maxY = height * (mobile ? .38 : .69);
+    const centerY = height * (mobile ? .52 : .5);
+    const maxY = height * (mobile ? .65 : .69);
+    const motion = mobile && !reduced.matches ? Math.min(1, Math.max(Math.abs(target - position) * 2, Math.abs(position - center) * 2)) : 0;
+    gallery.style.setProperty('--mobile-motion-blur', `${motion * 7}px`);
     updateActive(mod(center));
 
     cards.forEach((record, slot) => {
@@ -255,7 +258,9 @@
         record.index = index;
       }
       record.logical = logical;
-      const x = centerX - direction * width * (mobile ? .15 : .135) * Math.pow(distance, .72);
+      const x = mobile
+        ? centerX - width * .42 * Math.tanh(delta * 1.5)
+        : centerX - direction * width * .135 * Math.pow(distance, .72);
       const y = centerY + direction * maxY * (1 - Math.exp(-distance * 1.65));
       const z = -distance * (mobile ? 45 : 65);
       const tiltX = reduced.matches ? 0 : -direction * Math.min(distance * 12, 26) + pointerSmoothY * Math.max(0, 1 - distance) * 2;
@@ -264,8 +269,8 @@
       const scale = Math.max(.7, 1 - distance * .04);
       record.button.style.transform = `translate3d(${x}px,${y}px,${z}px) rotateX(${tiltX}deg) rotateY(${tiltY}deg) rotateZ(${tiltZ}deg) scale(${scale})`;
       record.button.style.zIndex = String(20 - Math.round(distance * 3));
-      record.button.style.opacity = mobile ? String(Math.max(0, 1 - distance * 1.8)) : '1';
-      record.button.style.visibility = mobile && distance > .6 ? 'hidden' : 'visible';
+      record.button.style.opacity = '1';
+      record.button.style.visibility = mobile && distance > 2.5 ? 'hidden' : 'visible';
       record.button.classList.toggle('is-active', isActive);
       record.button.tabIndex = isActive ? 0 : -1;
       record.button.setAttribute('aria-hidden', String(!isActive));
@@ -288,8 +293,8 @@
       record.button.tabIndex = isActive ? 0 : -1;
       record.button.setAttribute('aria-hidden', String(!isActive));
       record.button.setAttribute('aria-label', `${isActive ? 'View' : 'Select'} ${studies[index].name}`);
-      record.button.style.transform = mobile ? `translateY(${delta * 16}px)` : `translateY(calc(-50% + ${delta * Math.max(170, height * .245)}px))`;
-      record.button.style.opacity = mobile ? String(Math.max(0, 1 - distance * 2.2)) : String(Math.max(.12, 1 - Math.min(distance, 1) * .8 - Math.max(0, distance - 1) * .06));
+      record.button.style.transform = mobile ? 'none' : `translateY(calc(-50% + ${delta * Math.max(170, height * .245)}px))`;
+      record.button.style.opacity = mobile ? '1' : String(Math.max(.12, 1 - Math.min(distance, 1) * .8 - Math.max(0, distance - 1) * .06));
       record.button.style.visibility = mobile && !isActive ? 'hidden' : 'visible';
       record.button.style.pointerEvents = mobile && !isActive ? 'none' : 'auto';
     });
@@ -299,7 +304,8 @@
     frame = 0;
     const elapsed = Math.min(50, time - (lastTime || time - 16));
     lastTime = time;
-    const ease = reduced.matches ? 1 : 1 - Math.exp(-elapsed / 65);
+    const smoothing = mobile ? (touchStart ? 45 : 135) : 65;
+    const ease = reduced.matches ? 1 : 1 - Math.exp(-elapsed / smoothing);
     position += (target - position) * ease;
     pointerSmoothX += (pointerX - pointerSmoothX) * ease;
     pointerSmoothY += (pointerY - pointerSmoothY) * ease;
@@ -317,21 +323,24 @@
   }
   function snap() { clearTimeout(snapTimer); snapTimer = setTimeout(() => goTo(Math.round(target)), 90); }
   function modalOpen() { return !!document.querySelector('dialog[open]'); }
+  function touchStep() { return Math.max(130, height * .26); }
 
   window.addEventListener('wheel', (event) => {
     if (modalOpen() || event.ctrlKey || Math.abs(event.deltaX) > Math.abs(event.deltaY)) return;
     event.preventDefault();
     const pixels = event.deltaY * (event.deltaMode === 1 ? 16 : event.deltaMode === 2 ? height : 1);
-    target += Math.max(-1.25, Math.min(1.25, pixels / Math.max(560, height * .8)));
+    target += Math.max(-1.25, Math.min(1.25, pixels / (mobile ? touchStep() : Math.max(560, height * .8))));
     wake();
     snap();
   }, { passive: false });
 
   gallery.addEventListener('touchstart', (event) => {
-    if (event.touches.length !== 1) { touchStart = null; return; }
+    if (event.touches.length !== 1) { finishTouch(true); return; }
     clearTimeout(snapTimer);
     touchMoved = false;
-    touchStart = { x: event.touches[0].clientX, y: event.touches[0].clientY, position: target };
+    // Catch the image where it is, including when a new swipe interrupts settling.
+    target = position;
+    touchStart = { x: event.touches[0].clientX, y: event.touches[0].clientY, position, lastY: event.touches[0].clientY, lastTime: performance.now(), velocity: 0 };
   }, { passive: true });
   gallery.addEventListener('touchmove', (event) => {
     if (!touchStart || event.touches.length !== 1) return;
@@ -340,16 +349,26 @@
     if (Math.abs(changeY) < 5 || Math.abs(changeX) > Math.abs(changeY)) return;
     event.preventDefault();
     touchMoved = true;
-    target = touchStart.position + changeY / Math.max(210, height * .35);
+    const now = performance.now();
+    const elapsed = Math.max(8, now - touchStart.lastTime);
+    const velocity = (touchStart.lastY - event.touches[0].clientY) / elapsed;
+    touchStart.velocity = touchStart.velocity * .3 + velocity * .7;
+    touchStart.lastY = event.touches[0].clientY;
+    touchStart.lastTime = now;
+    target = touchStart.position + changeY / touchStep();
     wake();
   }, { passive: false });
-  const finishTouch = () => {
+  function finishTouch(cancelled = false) {
     if (touchMoved) suppressClickUntil = performance.now() + 500;
-    if (touchStart) goTo(Math.round(target));
+    if (!touchStart) return;
+    // A short flick can advance a photo; a held drag settles to the nearest one.
+    const velocity = !cancelled && touchMoved && performance.now() - touchStart.lastTime < 100 ? touchStart.velocity : 0;
+    const coast = Math.max(-.6, Math.min(.6, velocity * 120 / touchStep()));
     touchStart = null;
-  };
-  gallery.addEventListener('touchend', finishTouch, { passive: true });
-  gallery.addEventListener('touchcancel', finishTouch, { passive: true });
+    goTo(Math.round(target + coast));
+  }
+  gallery.addEventListener('touchend', () => finishTouch(), { passive: true });
+  gallery.addEventListener('touchcancel', () => finishTouch(true), { passive: true });
 
   window.addEventListener('keydown', (event) => {
     if (modalOpen() || event.metaKey || event.ctrlKey || event.altKey || /INPUT|TEXTAREA|SELECT/.test(event.target.tagName)) return;
@@ -366,7 +385,13 @@
     wake();
   }, { passive: true });
   window.addEventListener('blur', () => { pointerX = pointerY = 0; wake(); });
-  window.addEventListener('resize', () => { width = gallery.clientWidth; height = gallery.clientHeight; mobile = width <= 760; wake(); });
+  window.addEventListener('resize', () => {
+    width = gallery.clientWidth;
+    height = gallery.clientHeight;
+    mobile = width <= 760;
+    if (!mobile && $('#mobile-menu-dialog').open) $('#mobile-menu-dialog').close();
+    wake();
+  });
   reduced.addEventListener('change', () => { pointerX = pointerY = 0; goTo(Math.round(target), true); });
   $('#previous').addEventListener('click', () => goTo(Math.round(target) - 1));
   $('#next').addEventListener('click', () => goTo(Math.round(target) + 1));
@@ -391,6 +416,13 @@
     if (portfolioNav.parentElement !== host) host.prepend(portfolioNav);
   }
   document.querySelectorAll('dialog').forEach((dialog) => dialog.addEventListener('close', syncPortfolioNav));
+  $('#mobile-menu-toggle').addEventListener('click', () => {
+    finishTouch(true);
+    $('#mobile-menu-dialog').showModal();
+    $('#mobile-menu-toggle').setAttribute('aria-expanded', 'true');
+    syncPortfolioNav();
+  });
+  $('#mobile-menu-dialog').addEventListener('close', () => $('#mobile-menu-toggle').setAttribute('aria-expanded', 'false'));
   function renderRoute() {
     const route = location.hash.slice(1);
     let desired = null;

@@ -1,4 +1,6 @@
 const copy = [
+  ['Open menu', 'Mở trình đơn'],
+  ['Close menu', 'Đóng trình đơn'],
   ["Landscape & water", "Cảnh quan & mặt nước"],
   ["Palms surround a pale blue pool in Phú Lộc, Huế.", "Những hàng cọ bao quanh hồ nước xanh nhạt ở Phú Lộc, Huế."],
   ["A quiet clearing in a sea of green.", "Một khoảng lặng giữa biển xanh của cây lá."],

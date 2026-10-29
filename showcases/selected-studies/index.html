@@ -22,6 +22,7 @@
     <a class="skip-link" href="#gallery-control">Skip to the studies</a>
     <div class="page-shell" id="page-shell">
       <header class="site-header">
+        <button class="mobile-menu-toggle" id="mobile-menu-toggle" type="button" aria-label="Open menu" aria-haspopup="dialog" aria-controls="mobile-menu-dialog" aria-expanded="false"><span></span><span></span></button>
         <a class="identity" href="#work" aria-label="Lucas, Parallax">
           <span class="identity-mark">lucas<span>®</span></span>
           <span class="identity-small">Independent<br>design & development</span>
@@ -59,6 +60,11 @@
         <div class="gallery-actions"><button class="index-toggle small" data-panel="index" aria-label="Open collection index">Index</button><button id="previous" aria-label="Previous study"><svg class="portfolio-arrow" data-direction="left" width="1em" height="1em" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false"><use href="../icons/arrows.svg#arrow-left"/></svg></button><button id="next" aria-label="Next study"><svg class="portfolio-arrow" data-direction="right" width="1em" height="1em" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false"><use href="../icons/arrows.svg#arrow-right"/></svg></button><button class="open-study small" id="open-study">View study <span aria-hidden="true"><svg class="portfolio-arrow" data-direction="up-right" data-arrow-style="text" width="1em" height="1em" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false"><use href="../icons/arrows.svg#arrow-up-right"/></svg></span></button></div>
       </footer>
     </div>
+
+    <dialog class="mobile-menu-dialog" id="mobile-menu-dialog" aria-label="Main navigation">
+      <button class="mobile-menu-close" data-close aria-label="Close menu">Close ×</button>
+      <nav aria-label="Main navigation"><button data-panel="work">Work</button><button data-panel="about">About</button><button data-panel="playground">Playground</button><button data-panel="index">Index</button><button data-panel="contact">Contact</button></nav>
+    </dialog>
 
     <dialog class="sheet case-sheet" id="study-dialog" aria-labelledby="study-title">
       <div class="sheet-top"><a class="sheet-wordmark" href="#work" data-close>lucas®</a><span class="small muted" id="study-position">Study 01 / 10</span><button class="close-button" data-close aria-label="Close study">Close <span aria-hidden="true">×</span></button></div>
