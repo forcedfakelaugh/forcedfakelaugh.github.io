@@ -73,18 +73,16 @@
       <svg viewBox="0 0 420 470">
         <defs>
           <filter id="pen" x="-5%" y="-5%" width="110%" height="110%"><feTurbulence type="fractalNoise" baseFrequency=".012" numOctaves="1" seed="4"/><feDisplacementMap in="SourceGraphic" scale="4"/></filter>
-          <radialGradient id="coffee-bulb-glow">
-            <stop stop-color="#ffe1a3" stop-opacity=".35" />
+          <radialGradient id="coffee-light-wash" gradientUnits="userSpaceOnUse" cx="0" cy="0" r="1" fx="0" fy="-.45" gradientTransform="translate(210 160) scale(105 220)">
+            <stop stop-color="#ffe1a3" stop-opacity=".1" />
+            <stop offset=".2" stop-color="#ffe1a3" stop-opacity=".065" />
+            <stop offset=".45" stop-color="#ffe1a3" stop-opacity=".025" />
+            <stop offset=".75" stop-color="#ffe1a3" stop-opacity=".005" />
             <stop offset="1" stop-color="#ffe1a3" stop-opacity="0" />
           </radialGradient>
-          <linearGradient id="coffee-light-beam" x1="0" y1="0" x2="0" y2="1">
-            <stop stop-color="#ffd58a" stop-opacity=".13" />
-            <stop offset="1" stop-color="#ffd58a" stop-opacity="0" />
-          </linearGradient>
         </defs>
         <g class="coffee-light">
-          <path d="M199 64 82 452Q210 476 338 452L221 64Z" fill="url(#coffee-light-beam)" />
-          <circle cx="210" cy="55" r="48" fill="url(#coffee-bulb-glow)" />
+          <ellipse cx="210" cy="160" rx="105" ry="220" fill="url(#coffee-light-wash)" />
           <path class="bulb-cord" d="M210 0C209.5 10 210.5 20 210 30" />
           <g>
             <path class="bulb-glass" d="M202 36Q210 35 218 37L218 42C222 47 230 50 229 60 228 71 221 78 209 77 198 78 190 69 192 58 192 50 198 46 201 41Z" />
