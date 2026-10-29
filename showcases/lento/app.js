@@ -348,7 +348,7 @@ function initScene() {
   const worldToCamera = new THREE.Matrix4();
   let framingVersion = -1, framedTurn = NaN, framedWidth = 0, framedHeight = 0;
   const framedPose = {};
-  let shadowVersion = -1, shadowTurn = NaN, shadowScenery, shadowTime = -Infinity;
+  let shadowVersion = -1, shadowTurn = NaN, shadowScenery, nextShadowTime = 0;
   let sceneryVersion = -1, lastSceneryOpacity = NaN;
   const backdrop = document.querySelector('.stage-backdrop');
   const halo = document.querySelector('.evening-halo');
@@ -366,6 +366,7 @@ function initScene() {
   const smooth = value => { const t = clamp(value); return t * t * (3 - 2 * t); };
   const mix = THREE.MathUtils.lerp;
   const ramp = (position, start, end) => smooth((position - start) / (end - start));
+  const scrollProgress = (position, start, end) => clamp((position - start) / (end - start));
   const desktopPoses = [
     { cx: .52, cy: .61, w: .49, h: .66, zoom: 1, focus: .5, turn: -.4 },
     { cx: .77, cy: .59, w: .56, h: .72, zoom: 1.6, focus: .72, turn: -.04 },
@@ -507,21 +508,28 @@ function initScene() {
       if (panel.inert !== inactive) panel.inert = inactive;
       if (panel.getAttribute('aria-hidden') !== String(inactive)) panel.setAttribute('aria-hidden', String(inactive));
     });
-    const poses = mobile ? mobilePoses : desktopPoses;
-    for (const key of poseKeys) {
-      pose[key] = mix(mix(mix(poses[0][key], poses[1][key], approach), poses[2][key], inspect), poses[3][key], play);
-    }
     const detailWeight = mobile ? (reduced ? Number(chapter === 2) : ramp(position, 2.7, 3.1) * (1 - ramp(position, 3.85, 4.2))) : 0;
     for (const key of Object.keys(detailView)) {
       detailView[key] = mix(detailView[key], detailViews[state.detail][key], damping);
       if (Math.abs(detailView[key] - detailViews[state.detail][key]) < .001) detailView[key] = detailViews[state.detail][key];
-      pose[key] = mix(pose[key], detailView[key], detailWeight);
     }
-    if (detailWeight) {
-      pose.cx = mix(pose.cx, (detailRect.x + detailRect.width / 2) / width, detailWeight);
-      pose.cy = mix(pose.cy, (detailRect.y + detailRect.height / 2) / height, detailWeight);
-      pose.w = mix(pose.w, detailRect.width / width, detailWeight);
-      pose.h = mix(pose.h, detailRect.height / height, detailWeight);
+    // Finger travel should move the mobile lamp immediately. Keep the softer
+    // text/lighting fades above, but map its camera poses directly to scrolling.
+    const directMotion = (mobileQuality || mobile) && !reduced;
+    const approachMotion = directMotion ? scrollProgress(position, .2, 1.45) : approach;
+    const inspectMotion = directMotion ? scrollProgress(position, 2.15, 3.1) : inspect;
+    const playMotion = directMotion ? scrollProgress(position, 3.85, 4.7) : play;
+    const poses = mobile ? mobilePoses : desktopPoses;
+    const detailPose = mobile ? {
+      ...poses[2], ...detailView,
+      cx: (detailRect.x + detailRect.width / 2) / width,
+      cy: (detailRect.y + detailRect.height / 2) / height,
+      w: detailRect.width / width, h: detailRect.height / height,
+    } : poses[2];
+    for (const key of poseKeys) {
+      // Interpolate from the selected detail once. Blending back into it after
+      // the play transition starts multiplies two ease-ins and stalls rotation.
+      pose[key] = mix(mix(mix(poses[0][key], poses[1][key], approachMotion), detailPose[key], inspectMotion), poses[3][key], playMotion);
     }
     if (mobile && height < 700) {
       pose.h *= 1 - .1 * play;
@@ -530,7 +538,7 @@ function initScene() {
     const animateAmbient = !state.paused && !mobileQuality && !mobile;
     const movement = animateAmbient ? Math.sin(clock * .45) * .012 : 0;
     const pointerRotation = animateAmbient ? state.pointerX * .09 : 0;
-    const targetTurn = state.rotation * play + pointerRotation + movement;
+    const targetTurn = state.rotation * playMotion + pointerRotation + movement;
     lampTurn = mix(lampTurn, targetTurn, damping);
     if (Math.abs(lampTurn - targetTurn) < .001) lampTurn = targetTurn;
     world.rotation.y = pose.turn + lampTurn;
@@ -574,15 +582,20 @@ function initScene() {
     const settling = lampTurn !== targetTurn
       || lampMaterials.some(uniform => Math.abs(uniform.value.r - color.r) + Math.abs(uniform.value.g - color.g) + Math.abs(uniform.value.b - color.b) > .001)
       || glowLevel !== intensity
-      || (detailWeight > 0 && Object.keys(detailView).some(key => detailView[key] !== detailViews[state.detail][key]));
+      || (mobile && inspectMotion > 0 && playMotion < 1 && Object.keys(detailView).some(key => detailView[key] !== detailViews[state.detail][key]));
     // Camera, paint and brightness changes can reuse the shadow map. During
     // rotation, update mobile shadows at most 30 times/s and settle the last pose.
     const shadowGeometryChanged = shadowVersion !== geometryVersion || shadowScenery !== (sceneryOpacity > .5);
     let shadowPending = mobileQuality && (shadowGeometryChanged || shadowTurn !== world.rotation.y);
-    if (shadowPending && (shadowGeometryChanged || now - shadowTime >= 1000 / 30)) {
+    const shadowInterval = 1000 / 30;
+    if (shadowPending && (shadowGeometryChanged || now + .5 >= nextShadowTime)) {
       renderer.shadowMap.needsUpdate = true;
       shadowVersion = geometryVersion; shadowScenery = sceneryOpacity > .5;
-      shadowTurn = world.rotation.y; shadowTime = now;
+      shadowTurn = world.rotation.y;
+      // Preserve the deadline's phase: resetting to each frame's rounded time
+      // can turn a nominal 30 Hz schedule into uneven 20 Hz shadow updates.
+      nextShadowTime = shadowGeometryChanged || now - nextShadowTime > shadowInterval
+        ? now + shadowInterval : nextShadowTime + shadowInterval;
       shadowPending = false;
     }
     if (!scenePrepared) { last = 0; return; }
