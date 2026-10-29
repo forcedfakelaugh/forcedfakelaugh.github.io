@@ -24,6 +24,10 @@ Mobile and coarse-pointer devices load derived `desk-lamp-mobile.glb` and `noteb
 
 Mobile stone maps total 324,302 bytes instead of 1,960,157 bytes (83.5% smaller), with one quarter of the original texture pixels. Models and surface maps together total 1,119,014 bytes on mobile. Original maps remain unchanged for desktop.
 
+## Listing image refresh
+
+The cards now use `assets/preview-studio.webp`, an AI-enhanced studio interpretation of the original scene render, created with the built-in image generation tool on 2026-10-29. It retains the orange articulated lamp and notebook while adding directional daylight, richer material detail and a larger stone tabletop. This is illustrative cover artwork, not a screenshot of the live WebGL lighting. The original `assets/preview.png` and the real-time scene assets remain available. The exact generation prompt and the capture details for the Orbit and Halyard thumbnails are recorded in [thumbnail notes](../../assets/thumbnail-notes.md).
+
 ## Interaction and fallback
 
 The same canvas stays pinned through four scroll chapters on desktop and mobile. The opening uses an oversized Lento wordmark, a softly gridded studio backdrop and the complete mounted lamp. As visitors scroll, the opening copy clears, the background darkens, the desktop and notebook fade, and the camera framing moves toward the reflector. The next headline enters after the opening has cleared. The view then moves into the detail study and rotates the mounted assembly into the finish, brightness and angle configurator. The detail study shows the complete assembly and all three descriptions on both desktop and mobile. On phones, the assembly fits the measured space between the heading and the description list. A warm spotlight targets the desk, while the configurator softens the studio lighting; brightness controls the spotlight, emissive bulb, tabletop glow and background halo together. The complete stage leaves with the end of the story before the closing copy and footer.
