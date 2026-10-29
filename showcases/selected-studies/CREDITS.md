@@ -10,12 +10,12 @@ Lucas's biography, capabilities and email were taken from the existing local `lu
 
 ## Original collection images
 
-The four images were generated with the built-in image generator in this conversation on October 28, 2026. They are fictional concept imagery, not photographs documenting real buildings, installations or commissioned work.
+The four original images were generated with the built-in image generator on October 28, 2026. They are fictional concept imagery, not photographs documenting real buildings, installations or commissioned work. Lacquer and Resonance remain in the gallery; the original Monsoon and Strata are retained as an archive and replaced on screen by the Unsplash photographs below.
 
 The images were converted to WebP at quality 88 without changing their composition. All four images and the complete prompt set (`assets/concept-prompts.json`) are included locally. No asset depends on the original development workspace. `assets/preview.webp` is a browser capture of this showcase's gallery.
 
-- `monsoon.webp`: imagined rainy Saigon alley.
-- `strata.webp`: conceptual limestone pavilion with suspended architectural layers.
+- `monsoon.webp`: archived imagined rainy Saigon alley; no longer used in the gallery.
+- `strata.webp`: archived conceptual limestone pavilion with suspended architectural layers; no longer used in the gallery.
 - `lacquer.webp`: imagined crimson lacquer object with gold inlay.
 - `resonance.webp`: imagined gallery installation of luminous rods.
 
@@ -25,13 +25,27 @@ The portfolio return bar, SVG arrows, and Vietnamese/English controls use the sh
 
 ## Selected photographs
 
-Six photographs extend the gallery to ten entries. They reuse the locally stored Pexels images from [HIÊN](../hien/CREDITS.md), whose source table records the original photo links, photographers and locations. They are photographic references, not commissioned work or architecture by Lucas Nguyen.
+The twelve-entry collection includes eight photographs. Five were selected from Unsplash on October 29, 2026 and saved locally as WebP images, at up to 2000 pixels wide and quality 85, without changing the source composition. Their source pages identify them as free under the [Unsplash License](https://unsplash.com/license). Gallery thumbnails crop responsively; the full-image view preserves each complete photograph.
+
+| Study | Local asset | Photographer | Source and location |
+| --- | --- | --- | --- |
+| Monsoon | `assets/monsoon-rain.webp` | Hieu Do Quang | [Rhythm of the rain](https://unsplash.com/photos/a-wet-sidewalk-with-a-street-light-in-the-background-6fbBAd18FKY), Hanoi, Vietnam |
+| Strata | `assets/strata-courtyard.webp` | I P | [Courtyard with a water feature](https://unsplash.com/photos/modern-building-exterior-with-a-tranquil-water-feature-9hj4WRa8QPc), Cam Ranh, Khánh Hòa, Vietnam |
+| Canopy | `assets/canopy.webp` | Geio Tischler | [Aerial jungle](https://unsplash.com/photos/an-aerial-view-of-a-river-in-the-middle-of-a-forest-PwlwbdF0R3U), Ubud, Bali, Indonesia |
+| After Hours | `assets/after-hours.webp` | Tobias Reich | [City canal at night](https://unsplash.com/photos/city-canal-at-night-with-bright-neon-signs-NHadNj6UIkk), Dōtonbori, Osaka, Japan |
+| Colonnade | `assets/colonnade.webp` | Jason Leung | [Hallways with columns](https://unsplash.com/photos/brown-concrete-hallways-with-columns-r93UZeT3AQE), Stanford University, United States |
+
+Three photographs reuse the locally stored Pexels images from [HIÊN](../hien/CREDITS.md), whose source table records the original photo links, photographers and locations. All eight are photographic references, not commissioned work or architecture by Lucas Nguyen.
 
 | Study | Shared local asset | Photographer |
 | --- | --- | --- |
-| Canopy | `../hien/assets/palm-resort.jpg` | Quang Nguyen Vinh |
-| After Hours | `../hien/assets/night-hotel.jpg` | Toàn Văn |
-| Colonnade | `../hien/assets/long-office.jpg` | Vanna Pahm |
 | Still Water | `../hien/assets/clay-pavilion.jpg` | Dương Nhân |
 | Ochre | `../hien/assets/white-gallery.jpg` | Phát Trương |
 | Threshold | `../hien/assets/tree-house-interior.jpg` | Kien Tran |
+
+## Shared concept artwork
+
+- **Mai Lê** uses `../mai-le/assets/seascape.jpg`, titled *Where the light goes / Nơi ánh sáng đi qua*. It is an AI-generated painting illustration from the fictional artist portfolio, not a physical painting or a claim of real-world authorship. The original prompt and reference provenance remain in [Mai Lê credits](../mai-le/CREDITS.md).
+- **LÁ** uses `../elseform/assets/la-tea.webp`, the original lime-green sparkling tea packaging on cobalt blue. It is AI-generated imagery of a fictional brand from the Elseform agency concept, not commissioned client work. See [Elseform credits](../elseform/CREDITS.md).
+
+Both assets are reused directly from their existing showcase directories, with their provenance shown in the study presentations.

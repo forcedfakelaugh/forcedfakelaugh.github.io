@@ -20,7 +20,7 @@ const vietnamese = {
   tagArtGallery: 'phòng tranh',
   altLumiere: 'Vùng sống 5, tranh lụa của Nguyễn Văn Trinh cho Lumiere Arts',
   tagArtist: 'portfolio hoạ sĩ',
-  parallaxDescription: 'Portfolio cuộn với thư viện ảnh phối cảnh, bốn thế giới ý tưởng và góc thử nghiệm tương tác.',
+  parallaxDescription: 'Portfolio cuộn với mười hai nghiên cứu hình ảnh, thư viện phối cảnh và góc thử nghiệm tương tác.',
   tagInteractivePortfolio: 'portfolio tương tác',
   altParallax: 'Portfolio Parallax với thư viện ảnh nghiêng và thông tin dự án theo bố cục biên tập',
   fieldworkDescription: 'Mười một dải kim loại, ba hình thái biến đổi. Xoay tác phẩm, chọn chất liệu và khám phá góc nhìn mới.',

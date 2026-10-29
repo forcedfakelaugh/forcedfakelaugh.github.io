@@ -4,19 +4,21 @@
   const studies = [
     {
       slug: 'monsoon', name: 'Monsoon', category: 'Atmosphere & place',
-      image: 'assets/monsoon.webp', alt: 'A rain-soaked Saigon alley, with warm cafe lights reflected in the water.',
-      description: 'A quiet Saigon night. Rain, warm windows, and a city reflected in the water.',
-      discipline: ['Art direction', 'Creative development'], focus: ['Atmosphere', 'Rain & reflected light', 'A sense of place'],
+      image: 'assets/monsoon-rain.webp', alt: 'Raindrops splash into a Hanoi street, catching amber and white light after dark.',
+      description: 'Rain breaks the surface of a Hanoi street. Amber light gathers in the water.',
+      discipline: ['Photography selection', 'Visual study'], focus: ['Atmosphere', 'Rain & reflected light', 'A sense of place'],
       intro: 'The city slows down. The rain takes over.',
-      paragraphs: ['An imagined Saigon alley, seen from just above the water. Warm interiors meet the last blue of the evening; every light has a second life in the street.', 'The proposed experience follows the transition from dusk to night, with layered depth, drifting rain and ripples that respond to touch. This image establishes the atmosphere for that exploration.'],
+      paragraphs: ['A close view of rain on a Hanoi street. Drops, ripples and blurred streetlights turn an ordinary evening into a study of light on water.', 'A photograph selected for its atmosphere, colour and sense of place.'],
+      credit: 'Photography by Hieu Do Quang / Unsplash.',
     },
     {
       slug: 'strata', name: 'Strata', category: 'Architecture & space',
-      image: 'assets/strata.webp', alt: 'An imagined limestone pavilion separated into floating architectural layers above a courtyard pool.',
-      description: 'Architecture, opened up. A study of stone, sunlight, and the spaces in between.',
-      discipline: ['Spatial direction', 'Interaction design'], focus: ['Architectural layers', 'Light & shadow', 'Changing perspective'],
+      image: 'assets/strata-courtyard.webp', alt: 'A textured stone wall, glass doors and a slender tree reflected in a courtyard pool in Cam Ranh.',
+      description: 'Layers of stone, glass and water in a quiet Cam Ranh courtyard.',
+      discipline: ['Photography selection', 'Visual study'], focus: ['Architectural layers', 'Surface & texture', 'Changing perspective'],
       intro: 'Every space has another story inside it.',
-      paragraphs: ['A limestone pavilion in an open mineral landscape. Its roof and walls lift apart to expose the courtyard, the pool, and the relationship between solid stone and empty space.', 'The proposed interaction lets visitors separate the building into layers and move the sun across its surfaces. This is a conceptual architectural visualization, rather than an existing building.'],
+      paragraphs: ['A rough stone wall sits above a row of glass doors. In front, a slender tree and the surrounding architecture meet their reflections in a shallow pool in Cam Ranh, Vietnam.', 'A photographic reference selected for its colour, composition and sense of place. The photographed architecture is not a project by Lucas Nguyen.'],
+      credit: 'Photography by I P / Unsplash.',
     },
     {
       slug: 'lacquer', name: 'Lacquer', category: 'Material & craft',
@@ -36,30 +38,30 @@
     },
     {
       slug: 'canopy', name: 'Canopy', category: 'Landscape & water',
-      image: '../hien/assets/palm-resort.jpg', alt: 'Palms surround a pale blue pool in Phú Lộc, Huế.',
-      description: 'Palms surround a pale blue pool in Phú Lộc, Huế.',
+      image: 'assets/canopy.webp', alt: 'A river threads through dense green jungle seen from above in Ubud, Bali.',
+      description: 'A river disappears beneath the deep green canopy of Ubud, Bali.',
       discipline: ['Photography selection', 'Visual study'], focus: ['Light & shadow', 'A sense of place'],
       intro: 'A quiet clearing in a sea of green.',
-      paragraphs: ['Palms surround a pale blue pool in Phú Lộc, Huế.', 'A photographic reference selected for its colour, composition and sense of place. The photographed architecture is not a project by Lucas Nguyen.'],
-      credit: 'Photography by Quang Nguyen Vinh / Pexels.',
+      paragraphs: ['Seen from above, the jungle becomes a field of overlapping leaves. A narrow river runs through the shadows between the trees in Ubud, Bali.', 'A photograph selected for its atmosphere, colour and sense of place.'],
+      credit: 'Photography by Geio Tischler / Unsplash.',
     },
     {
       slug: 'after-hours', name: 'After Hours', category: 'City & light',
-      image: '../hien/assets/night-hotel.jpg', alt: 'The Rex Hotel lights up a corner of Saigon after dark.',
-      description: 'The Rex Hotel lights up a corner of Saigon after dark.',
+      image: 'assets/after-hours.webp', alt: 'Illuminated signs and evening crowds line the Dōtonbori canal in Osaka.',
+      description: 'Bright signs, evening crowds and a ribbon of water in Dōtonbori, Osaka.',
       discipline: ['Photography selection', 'Visual study'], focus: ['Light & shadow', 'A sense of place'],
       intro: 'The city puts on its evening colours.',
-      paragraphs: ['The Rex Hotel lights up a corner of Saigon after dark.', 'A photographic reference selected for its colour, composition and sense of place. The photographed architecture is not a project by Lucas Nguyen.'],
-      credit: 'Photography by Toàn Văn / Pexels.',
+      paragraphs: ['Looking along the Dōtonbori canal after dark. Illuminated signs rise above the crowds, while their reflections stretch across the water below.', 'A photograph selected for its atmosphere, colour and sense of place.'],
+      credit: 'Photography by Tobias Reich / Unsplash.',
     },
     {
       slug: 'colonnade', name: 'Colonnade', category: 'Space & repetition',
-      image: '../hien/assets/long-office.jpg', alt: 'A concrete colonnade in Ninh Bình frames a rhythm of light and shadow.',
-      description: 'A concrete colonnade in Ninh Bình frames a rhythm of light and shadow.',
+      image: 'assets/colonnade.webp', alt: 'Sunlit stone columns and repeating arches frame a walkway at Stanford University.',
+      description: 'Warm stone, repeating arches and long shadows at Stanford University.',
       discipline: ['Photography selection', 'Visual study'], focus: ['Light & shadow', 'A sense of place'],
       intro: 'A rhythm you can walk through.',
-      paragraphs: ['A concrete colonnade in Ninh Bình frames a rhythm of light and shadow.', 'A photographic reference selected for its colour, composition and sense of place. The photographed architecture is not a project by Lucas Nguyen.'],
-      credit: 'Photography by Vanna Pahm / Pexels.',
+      paragraphs: ['A low viewpoint draws the eye through the colonnade at Stanford University. Sunlight picks out the warm stone and the rhythm of each arch.', 'A photographic reference selected for its colour, composition and sense of place. The photographed architecture is not a project by Lucas Nguyen.'],
+      credit: 'Photography by Jason Leung / Unsplash.',
     },
     {
       slug: 'still-water', name: 'Still Water', category: 'Architecture & reflection',
@@ -87,6 +89,24 @@
       intro: 'Light finds its way inside.',
       paragraphs: ['Slatted timber and a reception opening filter the daylight in Đà Lạt.', 'A photographic reference selected for its colour, composition and sense of place. The photographed architecture is not a project by Lucas Nguyen.'],
       credit: 'Photography by Kien Tran / Pexels.',
+    },
+    {
+      slug: 'mai-le', name: 'Mai Lê', category: 'Painting & light',
+      image: '../mai-le/assets/seascape.jpg', alt: 'A painterly seascape with blue waves, golden sunset light and a three-masted sailing ship.',
+      description: 'Where the light goes. A seascape from the Mai Lê collection.',
+      discipline: ['Art direction', 'Digital exhibition'], focus: ['Colour & texture', 'Evening light', 'Painted movement'],
+      intro: 'Where the light goes.',
+      paragraphs: ['Blue and teal waves break beneath a golden sky. A small sailing ship sits near the horizon, surrounded by broad, textured marks of colour.', 'An artwork from the fictional Mai Lê artist portfolio, reused here as a study of colour and light.'],
+      credit: 'From the Mai Lê concept. AI-generated artwork.', imageKind: 'Painting study',
+    },
+    {
+      slug: 'la', name: 'LÁ', category: 'Identity & packaging',
+      image: '../elseform/assets/la-tea.webp', alt: 'Three lime-green LÁ sparkling tea cans on a cobalt-blue background.',
+      description: 'Lime green meets cobalt blue. Sparkling tea from the Elseform collection.',
+      discipline: ['Art direction', 'Brand identity'], focus: ['Colour contrast', 'Typography', 'Packaging'],
+      intro: 'A bright pause in the everyday.',
+      paragraphs: ['Three lime-green cans, a cobalt-blue stage and a single leaf. Oversized lettering and hard shadows give the LÁ sparkling tea concept its character.', 'A fictional packaging concept from Elseform, reused here as a study of identity, colour and composition.'],
+      credit: 'From the Elseform concept. AI-generated packaging imagery.', imageKind: 'Packaging concept',
     },
   ];
 
@@ -467,7 +487,7 @@
         $('#case-frame-2').style.setProperty('--poster-bg', palettes[index % palettes.length][0]);
         $('#case-frame-2').style.setProperty('--poster-ink', palettes[index % palettes.length][1]);
         $('.study-note').textContent = study.credit || 'Independent concept. AI-generated imagery.';
-        $('#image-kind').textContent = study.credit ? 'Reference photograph' : 'Concept image';
+        $('#image-kind').textContent = study.imageKind || (study.credit ? 'Reference photograph' : 'Concept image');
         $('#study-title').textContent = study.name;
         $('#study-category').textContent = study.category;
         $('#study-position').textContent = `Study ${number(index)} / ${total}`;

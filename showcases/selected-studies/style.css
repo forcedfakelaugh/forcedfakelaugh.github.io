@@ -94,7 +94,7 @@ dt, dd { margin: 0; }
 .index-heading h2 { font-family: var(--serif); font-size: clamp(45px, 5.8vw, 100px); font-weight: 400; line-height: .95; letter-spacing: -.055em; margin: 0; }
 .index-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 22px; padding: 0 6vw 60px; }
 .index-item { text-align: left; }
-.index-item img { width: 100%; aspect-ratio: .85; object-fit: cover; display: block; transition: filter .3s; }
+.index-item img { width: 100%; height: auto; aspect-ratio: .85; object-fit: cover; display: block; transition: filter .3s; }
 .index-item:hover img { filter: brightness(.85); }
 .index-item > div { display: flex; justify-content: space-between; margin-top: 16px; font-size: 12px; }
 .index-item h3 { font-family: var(--serif); font-weight: 400; font-size: 30px; text-transform: uppercase; letter-spacing: -1px; margin: 9px 0 5px; }
