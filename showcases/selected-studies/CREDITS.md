@@ -22,3 +22,16 @@ The images were converted to WebP at quality 88 without changing their compositi
 Typography uses the device's Arial/Helvetica and Times fonts. The favicon is original. Optional navigation tones are generated with Web Audio; no sound files are used.
 
 The portfolio return bar, SVG arrows, and Vietnamese/English controls use the shared components in `showcases/`. The Vietnamese catalog is `showcases/locales/selected-studies.js`.
+
+## Selected photographs
+
+Six photographs extend the gallery to ten entries. They reuse the locally stored Pexels images from [HIÊN](../hien/CREDITS.md), whose source table records the original photo links, photographers and locations. They are photographic references, not commissioned work or architecture by Lucas Nguyen.
+
+| Study | Shared local asset | Photographer |
+| --- | --- | --- |
+| Canopy | `../hien/assets/palm-resort.jpg` | Quang Nguyen Vinh |
+| After Hours | `../hien/assets/night-hotel.jpg` | Toàn Văn |
+| Colonnade | `../hien/assets/long-office.jpg` | Vanna Pahm |
+| Still Water | `../hien/assets/clay-pavilion.jpg` | Dương Nhân |
+| Ochre | `../hien/assets/white-gallery.jpg` | Phát Trương |
+| Threshold | `../hien/assets/tree-house-interior.jpg` | Kien Tran |

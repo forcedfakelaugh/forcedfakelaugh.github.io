@@ -34,11 +34,66 @@
       intro: 'A small movement can fill a whole room.',
       paragraphs: ['A field of luminous rods becomes a landscape of peaks and troughs. Repetition gives the installation its structure; changing heights give it a sense of movement.', 'The proposed experience turns touch into waves that travel through the room, with optional sound responding to each gesture. This visual is a starting point for an interactive installation.'],
     },
+    {
+      slug: 'canopy', name: 'Canopy', category: 'Landscape & water',
+      image: '../hien/assets/palm-resort.jpg', alt: 'Palms surround a pale blue pool in Phú Lộc, Huế.',
+      description: 'Palms surround a pale blue pool in Phú Lộc, Huế.',
+      discipline: ['Photography selection', 'Visual study'], focus: ['Light & shadow', 'A sense of place'],
+      intro: 'A quiet clearing in a sea of green.',
+      paragraphs: ['Palms surround a pale blue pool in Phú Lộc, Huế.', 'A photographic reference selected for its colour, composition and sense of place. The photographed architecture is not a project by Lucas Nguyen.'],
+      credit: 'Photography by Quang Nguyen Vinh / Pexels.',
+    },
+    {
+      slug: 'after-hours', name: 'After Hours', category: 'City & light',
+      image: '../hien/assets/night-hotel.jpg', alt: 'The Rex Hotel lights up a corner of Saigon after dark.',
+      description: 'The Rex Hotel lights up a corner of Saigon after dark.',
+      discipline: ['Photography selection', 'Visual study'], focus: ['Light & shadow', 'A sense of place'],
+      intro: 'The city puts on its evening colours.',
+      paragraphs: ['The Rex Hotel lights up a corner of Saigon after dark.', 'A photographic reference selected for its colour, composition and sense of place. The photographed architecture is not a project by Lucas Nguyen.'],
+      credit: 'Photography by Toàn Văn / Pexels.',
+    },
+    {
+      slug: 'colonnade', name: 'Colonnade', category: 'Space & repetition',
+      image: '../hien/assets/long-office.jpg', alt: 'A concrete colonnade in Ninh Bình frames a rhythm of light and shadow.',
+      description: 'A concrete colonnade in Ninh Bình frames a rhythm of light and shadow.',
+      discipline: ['Photography selection', 'Visual study'], focus: ['Light & shadow', 'A sense of place'],
+      intro: 'A rhythm you can walk through.',
+      paragraphs: ['A concrete colonnade in Ninh Bình frames a rhythm of light and shadow.', 'A photographic reference selected for its colour, composition and sense of place. The photographed architecture is not a project by Lucas Nguyen.'],
+      credit: 'Photography by Vanna Pahm / Pexels.',
+    },
+    {
+      slug: 'still-water', name: 'Still Water', category: 'Architecture & reflection',
+      image: '../hien/assets/clay-pavilion.jpg', alt: 'Traditional lakeside architecture in Huế meets its reflection in the water.',
+      description: 'Traditional lakeside architecture in Huế meets its reflection in the water.',
+      discipline: ['Photography selection', 'Visual study'], focus: ['Light & shadow', 'A sense of place'],
+      intro: 'One building, two perspectives.',
+      paragraphs: ['Traditional lakeside architecture in Huế meets its reflection in the water.', 'A photographic reference selected for its colour, composition and sense of place. The photographed architecture is not a project by Lucas Nguyen.'],
+      credit: 'Photography by Dương Nhân / Pexels.',
+    },
+    {
+      slug: 'ochre', name: 'Ochre', category: 'Colour & history',
+      image: '../hien/assets/white-gallery.jpg', alt: 'The warm courtyard facade of the Ho Chi Minh City Museum of Fine Arts.',
+      description: 'The warm courtyard facade of the Ho Chi Minh City Museum of Fine Arts.',
+      discipline: ['Photography selection', 'Visual study'], focus: ['Light & shadow', 'A sense of place'],
+      intro: 'Colour holds the memory of a place.',
+      paragraphs: ['The warm courtyard facade of the Ho Chi Minh City Museum of Fine Arts.', 'A photographic reference selected for its colour, composition and sense of place. The photographed architecture is not a project by Lucas Nguyen.'],
+      credit: 'Photography by Phát Trương / Pexels.',
+    },
+    {
+      slug: 'threshold', name: 'Threshold', category: 'Interior & daylight',
+      image: '../hien/assets/tree-house-interior.jpg', alt: 'Slatted timber and a reception opening filter the daylight in Đà Lạt.',
+      description: 'Slatted timber and a reception opening filter the daylight in Đà Lạt.',
+      discipline: ['Photography selection', 'Visual study'], focus: ['Light & shadow', 'A sense of place'],
+      intro: 'Light finds its way inside.',
+      paragraphs: ['Slatted timber and a reception opening filter the daylight in Đà Lạt.', 'A photographic reference selected for its colour, composition and sense of place. The photographed architecture is not a project by Lucas Nguyen.'],
+      credit: 'Photography by Kien Tran / Pexels.',
+    },
   ];
 
   const $ = (selector) => document.querySelector(selector);
   const mod = (value, length = studies.length) => ((value % length) + length) % length;
   const number = (value) => String(value + 1).padStart(2, '0');
+  const total = String(studies.length).padStart(2, '0');
   const reduced = matchMedia('(prefers-reduced-motion: reduce)');
   const mediaStage = $('#media-stage');
   const rail = $('#project-rail');
@@ -93,12 +148,15 @@
     imageItem.addEventListener('click', () => navigate(`#study/${study.slug}`));
     $('#playground-grid').append(imageItem);
     const experiment = experiments[index];
+    if (!experiment) return;
     const labItem = document.createElement('button');
     labItem.className = 'play-item';
     labItem.innerHTML = window.portfolioIcons.html(`<span class="play-visual"><canvas data-experiment="${experiment.slug}" aria-label="${experiment.name} preview"></canvas></span><span class="play-caption"><span>${experiment.name}</span><span>Play ↗</span></span>`);
     labItem.addEventListener('click', () => navigate(`#experiment/${experiment.slug}`));
     $('#playground-grid').append(labItem);
   });
+  $('.counter-total').textContent = `/${total}`;
+  $('.playground-count').textContent = String(studies.length + experiments.length).padStart(2, '0');
   window.StudiesLab.init();
 
   const cards = Array.from({ length: 9 }, (_, slot) => {
@@ -119,7 +177,7 @@
   const labels = Array.from({ length: 5 }, (_, slot) => {
     const button = document.createElement('button');
     button.className = 'project-label';
-    button.innerHTML = window.portfolioIcons.html('<span class="project-category"></span><h2></h2><span class="project-dash" aria-hidden="true">—</span><span class="project-description"></span>');
+    button.innerHTML = window.portfolioIcons.html('<span class="project-category"></span><h2></h2><span class="project-description"></span>');
     button.tabIndex = -1;
     const record = { button, category: button.querySelector('.project-category'), title: button.querySelector('h2'), description: button.querySelector('.project-description'), logical: null, index: null, slot };
     button.addEventListener('click', () => {
@@ -140,7 +198,7 @@
     img.height = 941;
     item.append(img);
     const meta = document.createElement('div');
-    meta.innerHTML = window.portfolioIcons.html(`<span>${number(index)} / 04</span><span aria-hidden="true">↗</span>`);
+    meta.innerHTML = window.portfolioIcons.html(`<span>${number(index)} / ${total}</span><span aria-hidden="true">↗</span>`);
     item.append(meta);
     const title = document.createElement('h3');
     title.textContent = study.name;
@@ -340,7 +398,7 @@
       const contact = $('#contact-dialog');
       if (!contact.open) contact.showModal();
       syncPortfolioNav();
-      document.title = 'Contact — Parallax';
+      document.title = 'Contact - Parallax';
       window.StudiesLab.sync();
       return;
     }
@@ -353,7 +411,7 @@
         $('#experiment-description').textContent = experiment.description;
         window.StudiesLab.select(experiment.slug);
         desired = $('#experiment-dialog');
-        document.title = `${experiment.name} — Parallax`;
+        document.title = `${experiment.name} - Parallax`;
       }
     }
     else if (route.startsWith('study/')) {
@@ -361,7 +419,8 @@
       if (index >= 0) {
         const study = studies[index];
         const current = Math.round(target);
-        const difference = mod(index - mod(current) + 2) - 2;
+        const half = Math.floor(studies.length / 2);
+        const difference = mod(index - mod(current) + half) - half;
         goTo(current + difference, true);
         updateActive(index);
         $('#study-image').src = study.image;
@@ -373,11 +432,13 @@
         $('#case-poster-phrase').textContent = study.intro;
         $('#mini-title').textContent = study.name[0];
         const palettes = [['#243e43', '#f1e8d1'], ['#d3c6af', '#34352d'], ['#5d1918', '#e3c68f'], ['#181c2d', '#dedbf3']];
-        $('#case-frame-2').style.setProperty('--poster-bg', palettes[index][0]);
-        $('#case-frame-2').style.setProperty('--poster-ink', palettes[index][1]);
+        $('#case-frame-2').style.setProperty('--poster-bg', palettes[index % palettes.length][0]);
+        $('#case-frame-2').style.setProperty('--poster-ink', palettes[index % palettes.length][1]);
+        $('.study-note').textContent = study.credit || 'Independent concept. AI-generated imagery.';
+        $('#image-kind').textContent = study.credit ? 'Reference photograph' : 'Concept image';
         $('#study-title').textContent = study.name;
         $('#study-category').textContent = study.category;
-        $('#study-position').textContent = `Study ${number(index)} / 04`;
+        $('#study-position').textContent = `Study ${number(index)} / ${total}`;
         $('#study-intro').textContent = study.intro;
         $('#study-description').replaceChildren(...study.paragraphs.map((text) => {
           const paragraph = document.createElement('p');
@@ -386,7 +447,7 @@
         }));
         $('#next-study-name').textContent = studies[mod(index + 1)].name;
         $('#next-study').dataset.next = String(mod(index + 1));
-        document.title = `${study.name} — Parallax`;
+        document.title = `${study.name} - Parallax`;
         desired = $('#study-dialog');
       }
     }
@@ -395,9 +456,9 @@
       clearTimeout(snapTimer);
       if (!desired.open) desired.showModal();
       desired.scrollTop = 0;
-      if (!route.startsWith('study/') && !route.startsWith('experiment/')) document.title = `${route[0].toUpperCase() + route.slice(1)} — Parallax`;
+      if (!route.startsWith('study/') && !route.startsWith('experiment/')) document.title = `${route[0].toUpperCase() + route.slice(1)} - Parallax`;
     } else {
-      document.title = 'Parallax — Lucas';
+      document.title = 'Parallax - Lucas';
       if (route && route !== 'work') history.replaceState(null, '', '#work');
       wake();
     }
@@ -435,7 +496,7 @@
     const oscillator = audioContext.createOscillator();
     const gain = audioContext.createGain();
     oscillator.type = 'sine';
-    oscillator.frequency.value = [196, 220, 261.63, 293.66][index];
+    oscillator.frequency.value = [196, 220, 261.63, 293.66][index % 4];
     gain.gain.setValueAtTime(0, time);
     gain.gain.linearRampToValueAtTime(.055, time + .012);
     gain.gain.exponentialRampToValueAtTime(.0001, time + .35);
