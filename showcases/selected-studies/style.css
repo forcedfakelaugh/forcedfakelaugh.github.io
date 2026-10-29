@@ -67,7 +67,6 @@ dt, dd { margin: 0; }
 .scroll-prompt { color: var(--muted); display: flex; align-items: center; gap: 10px; }
 .scroll-line { font-size: 18px; color: var(--ink); }
 .mobile-scroll { display: none; }
-.collection-note { position: absolute; left: 52%; transform: translateX(-50%); }
 .gallery-actions { display: flex; align-items: center; gap: 6px; }
 .gallery-actions > button:not(.open-study) { width: 36px; height: 32px; font-size: 18px; }
 .open-study { margin-left: 15px; padding: 8px 0 8px 15px; }
@@ -241,7 +240,6 @@ dt, dd { margin: 0; }
   .counter-number { font-size: clamp(82px, 23vw, 130px); filter: blur(var(--mobile-motion-blur, 0px)); }
   .counter-total { padding: 5px 0 0; font-size: 13px; }
   .site-footer { display: none; }
-  .collection-note { display: none; }
   .scroll-prompt { display: none; }
   .desktop-scroll { display: none; }
   .mobile-scroll { display: inline; }

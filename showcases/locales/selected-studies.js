@@ -95,7 +95,6 @@ const copy = [
   ['Study {index} of {count}: {name}. {category}.', 'Nghiên cứu {index}/{count}: {name}. {category}.'],
   ['Scroll to explore', 'Cuộn để khám phá'],
   ['Swipe to explore', 'Vuốt để khám phá'],
-  ['Ideas, taking shape.', 'Ý tưởng dần thành hình.'],
   ['Open collection index', 'Mở danh mục bộ sưu tập'],
   ['Index', 'Danh mục'],
   ['Previous study', 'Nghiên cứu trước'],
