@@ -27,7 +27,7 @@
       <div class="story-stage">
         <div class="stage-backdrop" aria-hidden="true"><div class="studio-grid"></div><div class="evening-halo"></div></div>
         <header class="site-header"><a class="wordmark" href="#top" aria-label="Lento home">lento<span class="logo-dot"></span></a><nav aria-label="Main navigation"><a href="#inside">A closer look</a><a href="#play" class="header-cta">Find your glow</a></nav></header>
-        <div class="scene" id="scene" role="img" aria-label="An articulated metal lamp clamped to the edge of a stone desktop"><canvas id="lamp-canvas" aria-hidden="true"></canvas></div>
+        <div class="scene" id="scene" role="img" aria-label="An articulated metal lamp clamped to the edge of a stone desktop"><img class="scene-poster" src="assets/lamp-poster.webp" alt="" width="800" height="800" fetchpriority="high"><canvas id="lamp-canvas" aria-hidden="true"></canvas><span class="scene-loading" aria-hidden="true">Preparing your light…</span></div>
         <div class="story-panels">
           <section class="story-panel hero" id="top" aria-labelledby="hero-title">
             <div class="hero-topline"><span>OBJECTS FOR THE UNHURRIED.</span><span>VOL. 01 — THE DESK LIGHT</span></div>
@@ -46,7 +46,18 @@
           <section class="story-panel anatomy" id="details" aria-labelledby="inside-title">
             <div class="chapter-copy"><p class="eyebrow">02 / THOUGHTFULLY SIMPLE</p><h2 id="inside-title">Good things.<br><em>In the details.</em></h2><p>A shaped reflector, balanced arms, a reassuring grip. Springs, pivots and little traces of use. Every detail has a purpose.</p></div>
             <img class="still-lamp" src="assets/lamp.svg" alt="" width="1000" height="1000">
-            <ol class="part-list"><li><span>01</span><div><h3>A focused glow</h3><p>A metal reflector gathers the light into a warm pool.</p></div></li><li><span>02</span><div><h3>A little balance</h3><p>Paired springs and articulated arms hold the light in place.</p></div></li><li><span>03</span><div><h3>A steady grip</h3><p>A screw clamp anchors the lamp to the edge of your desk.</p></div></li></ol>
+            <div class="detail-explorer">
+              <div class="detail-tabs" role="tablist" aria-label="Lamp details">
+                <button type="button" id="detail-tab-0" role="tab" data-detail="0" aria-controls="detail-0" aria-selected="true">Reflector</button>
+                <button type="button" id="detail-tab-1" role="tab" data-detail="1" aria-controls="detail-1" aria-selected="false" tabindex="-1">Springs</button>
+                <button type="button" id="detail-tab-2" role="tab" data-detail="2" aria-controls="detail-2" aria-selected="false" tabindex="-1">Clamp</button>
+              </div>
+              <ol class="part-list">
+                <li id="detail-0"><span>01</span><div><h3>A focused glow</h3><p>A metal reflector gathers the light into a warm pool.</p></div></li>
+                <li id="detail-1"><span>02</span><div><h3>A little balance</h3><p>Paired springs and articulated arms hold the light in place.</p></div></li>
+                <li id="detail-2"><span>03</span><div><h3>A steady grip</h3><p>A screw clamp anchors the lamp to the edge of your desk.</p></div></li>
+              </ol>
+            </div>
             <div class="anatomy-aside" aria-hidden="true"><span>FORM, MEET FEELING.</span><span>DETAIL STUDY / 01</span></div>
           </section>
           <section class="story-panel play" id="play" aria-labelledby="play-title">

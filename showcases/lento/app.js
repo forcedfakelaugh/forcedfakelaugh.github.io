@@ -4,9 +4,10 @@ import { GLTFLoader } from './vendor/GLTFLoader.js';
 const sceneElement = document.querySelector('#scene');
 const canvas = document.querySelector('#lamp-canvas');
 const motionQuery = matchMedia('(prefers-reduced-motion: reduce)');
+const portraitQuery = matchMedia('(max-width: 760px)');
 const mobileQuality = innerWidth < 761 || matchMedia('(pointer: coarse)').matches;
 const finishes = { clay: { color: '#b95735', name: 'Terracotta' }, chalk: { color: '#ded8ca', name: 'Chalk' }, olive: { color: '#626954', name: 'Olive' } };
-const state = { finish: 'clay', brightness: .75, on: true, paused: motionQuery.matches, rotation: 0, pointerX: 0, pointerY: 0 };
+const state = { finish: 'clay', brightness: .75, on: true, paused: motionQuery.matches, rotation: 0, pointerX: 0, pointerY: 0, detail: 0 };
 const experience = document.querySelector('.experience');
 const panels = [...document.querySelectorAll('.story-panel')];
 const stage = document.querySelector('.story-stage');
@@ -14,6 +15,44 @@ const animatedStyles = new Map();
 const translate = text => window.showcaseLanguage?.translate(text) || text;
 let renderer, renderFrame = 0, contextLost = false;
 let requestRender = () => {};
+let scrollActiveUntil = 0;
+function wakeScroll() {
+  // Touch begins before the browser delivers its first scroll event. Start the
+  // mobile loop then, and keep it running through short gaps in gesture events.
+  scrollActiveUntil = performance.now() + 180;
+  requestRender();
+}
+const detailTabs = [...document.querySelectorAll('[data-detail]')];
+const detailList = document.querySelector('.part-list');
+const detailPanels = [...detailList.children];
+function updateDetails() {
+  const interactive = portraitQuery.matches && document.body.classList.contains('is-animated');
+  if (interactive) detailList.setAttribute('role', 'presentation');
+  else detailList.removeAttribute('role');
+  detailTabs.forEach((tab, index) => {
+    tab.setAttribute('aria-selected', String(index === state.detail));
+    tab.tabIndex = index === state.detail ? 0 : -1;
+    const panel = detailPanels[index];
+    panel.hidden = interactive && index !== state.detail;
+    if (interactive) {
+      panel.setAttribute('role', 'tabpanel');
+      panel.setAttribute('aria-labelledby', tab.id);
+      panel.tabIndex = 0;
+    } else {
+      panel.removeAttribute('role'); panel.removeAttribute('aria-labelledby'); panel.removeAttribute('tabindex');
+    }
+  });
+  requestRender();
+}
+detailTabs.forEach((tab, index) => {
+  tab.addEventListener('click', () => { state.detail = index; updateDetails(); });
+  tab.addEventListener('keydown', event => {
+    const next = { ArrowRight: (index + 1) % 3, ArrowLeft: (index + 2) % 3, Home: 0, End: 2 }[event.key];
+    if (next === undefined) return;
+    event.preventDefault(); state.detail = next; updateDetails(); detailTabs[next].focus();
+  });
+});
+portraitQuery.addEventListener('change', updateDetails);
 
 function labels() {
   document.querySelectorAll('[data-power]').forEach(button => {
@@ -43,7 +82,9 @@ window.addEventListener('pointermove', event => {
   state.pointerY = event.clientY / innerHeight - .5;
   requestRender();
 }, { passive: true });
-window.addEventListener('scroll', () => { requestRender(); }, { passive: true });
+window.addEventListener('scroll', wakeScroll, { passive: true });
+window.addEventListener('touchstart', wakeScroll, { passive: true });
+window.addEventListener('touchmove', wakeScroll, { passive: true });
 labels();
 
 function fallback(message = 'A still preview is shown because 3D is unavailable on this device.') {
@@ -59,6 +100,8 @@ function fallback(message = 'A still preview is shown because 3D is unavailable 
     marker.removeAttribute('id'); panel.id = marker.dataset.stop;
   });
   document.body.classList.add('is-static');
+  updateDetails();
+  sceneElement.removeAttribute('aria-busy');
   document.querySelector('#render-status').textContent = translate(message);
   document.querySelectorAll('.configurator button,.configurator input,[data-power]').forEach(control => { control.disabled = true; });
   if (renderFrame) cancelAnimationFrame(renderFrame);
@@ -83,6 +126,7 @@ try {
 
 function initScene() {
   const scene = new THREE.Scene();
+  sceneElement.setAttribute('aria-busy', 'true');
   const camera = new THREE.OrthographicCamera(-5, 5, 2.8, -2.8, .1, 80);
   camera.position.set(0, 4.5, 9);
   camera.lookAt(0, 1.45, 0);
@@ -92,6 +136,8 @@ function initScene() {
   let lampEmitter;
   const scenery = new THREE.Group(); world.add(scenery);
   let geometryVersion = 0;
+  let scenePrepared = false;
+  const surfaceLoads = [];
 
   // A small, locally generated studio environment provides broad reflections.
   const environmentScene = new THREE.Scene();
@@ -110,8 +156,11 @@ function initScene() {
   const textures = new THREE.TextureLoader();
   const surfaceMap = (file, options = {}) => {
     const asset = mobileQuality ? file.replace('.jpg', '-mobile.jpg') : file;
-    const texture = textures.load(`assets/${asset}`, () => { requestRender(); }, undefined, () => {
+    let loaded;
+    surfaceLoads.push(new Promise(resolve => { loaded = resolve; }));
+    const texture = textures.load(`assets/${asset}`, () => { loaded(); requestRender(); }, undefined, () => {
       sceneElement.dataset.surfaceDetail = 'partial';
+      loaded();
     });
     texture.wrapS = texture.wrapT = THREE.RepeatWrapping;
     texture.repeat.set(...(options.repeat || [1, 1]));
@@ -167,7 +216,7 @@ function initScene() {
   mesh(new THREE.BoxGeometry(.91, .11, 1.1), new THREE.MeshStandardMaterial({ color: '#e6ddc8', roughness: .9 }), book, 0, .09);
   mesh(new THREE.BoxGeometry(.95, .027, 1.15), coverMat, book, 0, .16);
   const models = new GLTFLoader();
-  models.loadAsync(`assets/desk-lamp${mobileQuality ? '-mobile' : ''}.glb`).then(({ scene: model }) => {
+  const lampLoaded = models.loadAsync(`assets/desk-lamp${mobileQuality ? '-mobile' : ''}.glb`).then(({ scene: model }) => {
     if (contextLost) return;
     let emittingMesh;
     model.scale.setScalar(lampScale);
@@ -263,7 +312,7 @@ function initScene() {
       console.warn(`Lento ${file} detail unavailable:`, error);
     }
   };
-  loadProp('notebook', book, { width: .82, x: -.47, z: .08, rotation: -.12 });
+  const notebookLoaded = loadProp('notebook', book, { width: .82, x: -.47, z: .08, rotation: -.12 });
   const glowCanvas = document.createElement('canvas'); glowCanvas.width = glowCanvas.height = 128;
   const glowContext = glowCanvas.getContext('2d');
   const glowGradient = glowContext.createRadialGradient(64, 64, 0, 64, 64, 64);
@@ -280,11 +329,16 @@ function initScene() {
   key.shadow.camera.left = -7; key.shadow.camera.right = 7; key.shadow.camera.top = 7; key.shadow.camera.bottom = -7;
   key.shadow.normalBias = .025; key.shadow.bias = -.0001; key.shadow.radius = 4;
   const rim = new THREE.DirectionalLight('#ffffff', 1.4); rim.position.set(4, 3, -3); scene.add(rim);
-  const bulb = new THREE.PointLight('#ffcc91', 10 * state.brightness, 7, 2); bulb.position.set(-.08, 2.25, 1.62); lamp.add(bulb);
+  // The reflector directs a soft cone onto the desk. Keep the target in the
+  // assembly so the pool of light follows the lamp when visitors turn it.
+  const bulb = new THREE.SpotLight('#ffd09a', 45 * state.brightness, 9, .65, .8, 2);
+  bulb.position.set(-.08, 2.25, 1.62); lamp.add(bulb);
+  bulb.target.position.set(deskCenter + .1, .015, .08); world.add(bulb.target);
 
   let mobile = innerWidth < 761, height = 0, width = 0;
-  let storyTop = 0, clock = 0, last = performance.now(), sceneInView = true;
+  let storyTop = 0, clock = 0, last = 0, sceneInView = true;
   let lampTurn = 0;
+  let glowLevel = state.brightness;
   const color = new THREE.Color();
   const projectedBounds = new THREE.Box3();
   const corner = new THREE.Vector3();
@@ -314,7 +368,7 @@ function initScene() {
   const ramp = (position, start, end) => smooth((position - start) / (end - start));
   const desktopPoses = [
     { cx: .52, cy: .61, w: .49, h: .66, zoom: 1, focus: .5, turn: -.4 },
-    { cx: .69, cy: .57, w: .62, h: .76, zoom: 1.65, focus: .72, turn: -.04 },
+    { cx: .77, cy: .59, w: .56, h: .72, zoom: 1.6, focus: .72, turn: -.04 },
     { cx: .70, cy: .53, w: .51, h: .74, zoom: 1, focus: .5, turn: .86 },
     { cx: .28, cy: .54, w: .50, h: .73, zoom: .96, focus: .5, turn: -2.8 },
   ];
@@ -324,6 +378,17 @@ function initScene() {
     { cx: .51, cy: .56, w: .94, h: .46, zoom: 1, focus: .5, turn: .86 },
     { cx: .50, cy: .50, w: .9, h: .40, zoom: .96, focus: .5, turn: -2.8 },
   ];
+  [...desktopPoses, ...mobilePoses].forEach(pose => { pose.focusX = .5; });
+  const detailViews = [
+    { zoom: 2.05, focus: .76, focusX: .49, turn: .86 },
+    { zoom: 2.35, focus: .31, focusX: .70, turn: .86 },
+    { zoom: 3, focus: .13, focusX: .63, turn: -.4 },
+  ];
+  const detailView = { ...detailViews[0] };
+  const detailRect = { x: 0, y: 0, width: 1, height: 1 };
+  const detailCopy = document.querySelector('.anatomy .chapter-copy');
+  const detailExplorer = document.querySelector('.detail-explorer');
+  const poster = document.querySelector('.scene-poster');
   const poseKeys = Object.keys(desktopPoses[0]);
   const pose = {};
   // Fit the mounted assembly to an authored screen rectangle, then move the
@@ -360,7 +425,7 @@ function initScene() {
     const aspect = width / height;
     const halfHeight = Math.max(boxHeight / pose.h, boxWidth / (pose.w * aspect)) / (2 * pose.zoom);
     const halfWidth = halfHeight * aspect;
-    const centerX = (projectedBounds.min.x + projectedBounds.max.x) / 2 + (1 - pose.cx * 2) * halfWidth;
+    const centerX = projectedBounds.min.x + boxWidth * pose.focusX + (1 - pose.cx * 2) * halfWidth;
     const centerY = projectedBounds.min.y + boxHeight * pose.focus - (1 - pose.cy * 2) * halfHeight;
     camera.left = centerX - halfWidth; camera.right = centerX + halfWidth;
     camera.top = centerY + halfHeight; camera.bottom = centerY - halfHeight;
@@ -373,6 +438,8 @@ function initScene() {
     panel.removeAttribute('id'); marker.id = marker.dataset.stop;
   });
   document.body.classList.add('is-animated');
+  document.querySelector('#render-status').textContent = translate('Preparing your light…');
+  updateDetails();
   const measure = () => {
     mobile = innerWidth < 761;
     // A stable viewport prevents address-bar animation from moving the scroll
@@ -384,13 +451,18 @@ function initScene() {
       width = nextWidth; height = nextHeight;
       renderer.setSize(width, height, false);
     }
+    detailRect.x = 0;
+    detailRect.y = detailCopy.offsetTop + detailCopy.offsetHeight + 20;
+    detailRect.width = width;
+    detailRect.height = Math.max(80, detailExplorer.offsetTop - detailRect.y - 20);
     requestRender();
   };
   let measureFrame = 0;
   window.addEventListener('resize', () => {
     if (!measureFrame) measureFrame = requestAnimationFrame(() => { measureFrame = 0; measure(); });
   }, { passive: true });
-  new ResizeObserver(measure).observe(stage);
+  const resizeObserver = new ResizeObserver(measure);
+  [stage, detailCopy, detailExplorer].forEach(element => resizeObserver.observe(element));
   document.fonts.ready.then(measure);
   window.addEventListener('showcase-language', () => requestAnimationFrame(measure));
   measure();
@@ -398,10 +470,12 @@ function initScene() {
   function draw(now) {
     renderFrame = 0;
     if (contextLost) return;
-    if (document.hidden || !sceneInView) { last = now; return; }
-    const dt = Math.min((now - last) / 1000, .05); last = now;
+    if (document.hidden || !sceneInView) { last = 0; return; }
+    // Idle time is not animation time: a new gesture starts with one normal
+    // frame instead of jumping 50 ms into its first interpolated movement.
+    const dt = last ? Math.min((now - last) / 1000, .05) : 1 / 60; last = now;
     if (!state.paused) clock += dt;
-    const revealing = sceneElement.dataset.lamp === 'ready' && !sceneElement.classList.contains('is-ready');
+    const revealing = scenePrepared && sceneElement.dataset.lamp === 'ready' && !sceneElement.classList.contains('is-ready');
     const damping = revealing || motionQuery.matches ? 1 : 1 - Math.exp(-dt * 10);
     const position = Math.max(0, (scrollY - storyTop) / height);
     const chapter = position < 1.05 ? 0 : position < 2.75 ? 1 : position < 4.4 ? 2 : 3;
@@ -413,7 +487,6 @@ function initScene() {
     // Scope changing styles to their consumers, so inherited custom properties
     // do not invalidate every chapter and control while the page scrolls.
     setStyle(backdrop, '--dark', darkness.toFixed(4));
-    setStyle(halo, 'opacity', play.toFixed(4));
     const heroOut = ramp(position, .15, .7).toFixed(4);
     setStyle(wordmark, 'opacity', heroOut);
     setStyle(progress, 'opacity', heroOut);
@@ -438,6 +511,18 @@ function initScene() {
     for (const key of poseKeys) {
       pose[key] = mix(mix(mix(poses[0][key], poses[1][key], approach), poses[2][key], inspect), poses[3][key], play);
     }
+    const detailWeight = mobile ? (reduced ? Number(chapter === 2) : ramp(position, 2.7, 3.1) * (1 - ramp(position, 3.85, 4.2))) : 0;
+    for (const key of Object.keys(detailView)) {
+      detailView[key] = mix(detailView[key], detailViews[state.detail][key], damping);
+      if (Math.abs(detailView[key] - detailViews[state.detail][key]) < .001) detailView[key] = detailViews[state.detail][key];
+      pose[key] = mix(pose[key], detailView[key], detailWeight);
+    }
+    if (detailWeight) {
+      pose.cx = mix(pose.cx, (detailRect.x + detailRect.width / 2) / width, detailWeight);
+      pose.cy = mix(pose.cy, (detailRect.y + detailRect.height / 2) / height, detailWeight);
+      pose.w = mix(pose.w, detailRect.width / width, detailWeight);
+      pose.h = mix(pose.h, detailRect.height / height, detailWeight);
+    }
     if (mobile && height < 700) {
       pose.h *= 1 - .1 * play;
       pose.cy -= .02 * inspect * (1 - play);
@@ -450,6 +535,12 @@ function initScene() {
     if (Math.abs(lampTurn - targetTurn) < .001) lampTurn = targetTurn;
     world.rotation.y = pose.turn + lampTurn;
     frameCamera(pose);
+    if (!sceneElement.classList.contains('is-ready')) {
+      setStyle(poster, 'left', `${(pose.cx - pose.w / 2) * 100}%`);
+      setStyle(poster, 'top', `${(pose.cy - pose.h / 2) * 100}%`);
+      setStyle(poster, 'width', `${pose.w * 100}%`);
+      setStyle(poster, 'height', `${pose.h * 100}%`);
+    }
     const sceneryOpacity = 1 - approach * (1 - inspect);
     if (sceneryVersion !== geometryVersion || lastSceneryOpacity !== sceneryOpacity) {
       scenery.traverse(object => {
@@ -470,15 +561,20 @@ function initScene() {
     color.set(finishes[state.finish].color);
     for (const uniform of lampMaterials) uniform.value.lerp(color, damping);
     const intensity = state.on ? state.brightness : 0;
-    if (lampEmitter) lampEmitter.emissiveIntensity = mix(lampEmitter.emissiveIntensity, intensity * 2.5, damping);
-    bulb.intensity = mix(bulb.intensity, intensity * 10, damping);
-    glow.material.opacity = intensity * .24 * sceneryOpacity;
-    key.intensity = mix(2.2, 1.8, approach);
-    fill.intensity = mix(.4, .22, approach);
+    glowLevel = mix(glowLevel, intensity, damping);
+    if (Math.abs(glowLevel - intensity) < .001) glowLevel = intensity;
+    if (lampEmitter) lampEmitter.emissiveIntensity = glowLevel * 4;
+    bulb.intensity = glowLevel * 45;
+    glow.material.opacity = glowLevel * .4 * sceneryOpacity;
+    setStyle(halo, 'opacity', (glowLevel * (.15 + .85 * play)).toFixed(4));
+    key.intensity = mix(mix(2.2, 1.8, approach), .65, play);
+    fill.intensity = mix(mix(.4, .22, approach), .16, play);
+    rim.intensity = mix(1.4, .65, play);
+    scene.environmentIntensity = mix(1, .45, play);
     const settling = lampTurn !== targetTurn
       || lampMaterials.some(uniform => Math.abs(uniform.value.r - color.r) + Math.abs(uniform.value.g - color.g) + Math.abs(uniform.value.b - color.b) > .001)
-      || Math.abs(bulb.intensity - intensity * 10) > .001
-      || (lampEmitter && Math.abs(lampEmitter.emissiveIntensity - intensity * 2.5) > .001);
+      || glowLevel !== intensity
+      || (detailWeight > 0 && Object.keys(detailView).some(key => detailView[key] !== detailViews[state.detail][key]));
     // Camera, paint and brightness changes can reuse the shadow map. During
     // rotation, update mobile shadows at most 30 times/s and settle the last pose.
     const shadowGeometryChanged = shadowVersion !== geometryVersion || shadowScenery !== (sceneryOpacity > .5);
@@ -489,21 +585,56 @@ function initScene() {
       shadowTurn = world.rotation.y; shadowTime = now;
       shadowPending = false;
     }
+    if (!scenePrepared) { last = 0; return; }
+    // Focused mobile details are cropped to the measured space between copy
+    // and selectors. Clear the whole canvas before drawing this smaller window.
+    renderer.setScissorTest(false);
+    if (detailWeight > 0) {
+      renderer.clear();
+      renderer.setScissor(detailRect.x * detailWeight, (height - detailRect.y - detailRect.height) * detailWeight,
+        mix(width, detailRect.width, detailWeight), mix(height, detailRect.height, detailWeight));
+      renderer.setScissorTest(true);
+    }
     renderer.render(scene, camera);
-    if (revealing) sceneElement.classList.add('is-ready');
+    renderer.setScissorTest(false);
+    if (revealing) {
+      sceneElement.classList.add('is-ready'); sceneElement.removeAttribute('aria-busy');
+      document.querySelector('#render-status').textContent = '';
+    }
     if (sceneElement.dataset.chapter !== String(chapter)) sceneElement.dataset.chapter = String(chapter);
-    if (animateAmbient || settling || shadowPending) requestRender();
+    if (animateAmbient || settling || shadowPending || (!state.paused && now < scrollActiveUntil)) requestRender();
+    else last = 0;
   }
   requestRender = () => {
     if (!renderFrame && !contextLost && !document.hidden && sceneInView) renderFrame = requestAnimationFrame(draw);
   };
   new IntersectionObserver(([entry]) => {
     sceneInView = entry.isIntersecting;
+    if (!sceneInView) last = 0;
     if (sceneInView) requestRender();
   }).observe(document.querySelector('.experience'));
+  // Compile hidden fade/depth materials too. Otherwise the notebook's first
+  // transparent frame asks the GPU to build a new program during the gesture.
+  // The poster remains visible until assets and programs are ready.
+  Promise.all([...surfaceLoads, lampLoaded, notebookLoaded]).then(async () => {
+    if (contextLost || document.body.classList.contains('is-static')) return;
+    scenery.traverse(object => {
+      if (!object.isMesh || object === glow || object.userData.fadeDepth) return;
+      for (const material of Array.isArray(object.material) ? object.material : [object.material]) {
+        if (!material.transparent) { material.transparent = true; material.needsUpdate = true; }
+      }
+    });
+    await renderer.compileAsync(scene, camera);
+    if (contextLost) return;
+    scenePrepared = true;
+    requestRender();
+  }).catch(error => {
+    console.warn('Lento scene preparation unavailable:', error);
+    fallback();
+  });
   requestRender();
   canvas.addEventListener('webglcontextlost', event => { event.preventDefault(); contextLost = true; fallback('The 3D preview paused. Reload to try again.'); });
-  document.addEventListener('visibilitychange', () => { requestRender(); last = performance.now(); });
-  window.addEventListener('pagehide', () => { if (renderFrame) cancelAnimationFrame(renderFrame); renderFrame = 0; });
-  window.addEventListener('pageshow', event => { if (event.persisted && !contextLost) { last = performance.now(); requestRender(); } });
+  document.addEventListener('visibilitychange', () => { last = 0; requestRender(); });
+  window.addEventListener('pagehide', () => { if (renderFrame) cancelAnimationFrame(renderFrame); renderFrame = 0; last = 0; });
+  window.addEventListener('pageshow', event => { if (event.persisted && !contextLost) { last = 0; requestRender(); } });
 }
