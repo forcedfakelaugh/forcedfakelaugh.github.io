@@ -48,4 +48,8 @@ Three photographs reuse the locally stored Pexels images from [HIÊN](../hien/CR
 - **Mai Lê** uses `../mai-le/assets/seascape.jpg`, titled *Where the light goes / Nơi ánh sáng đi qua*. It is an AI-generated painting illustration from the fictional artist portfolio, not a physical painting or a claim of real-world authorship. The original prompt and reference provenance remain in [Mai Lê credits](../mai-le/CREDITS.md).
 - **LÁ** uses `../elseform/assets/la-tea.webp`, the original lime-green sparkling tea packaging on cobalt blue. It is AI-generated imagery of a fictional brand from the Elseform agency concept, not commissioned client work. See [Elseform credits](../elseform/CREDITS.md).
 
-Both assets are reused directly from their existing showcase directories, with their provenance shown in the study presentations.
+Both originals remain in their existing showcase directories, with their provenance shown in the study presentations.
+
+## Responsive image derivatives
+
+`assets/responsive/{study-slug}-{480,960}.webp` contains two smaller versions of each of the twelve gallery images above. They preserve the original aspect ratio and composition, with no additional crop. Generated locally with `cwebp -q 80 -m 6 -resize WIDTH 0 SOURCE -o OUTPUT`; the original files are unchanged and remain available in the full-image viewer. Credits and concept labels apply equally to these derivatives.

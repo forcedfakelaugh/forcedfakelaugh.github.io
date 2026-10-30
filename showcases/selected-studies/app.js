@@ -4,6 +4,7 @@
   const studies = [
     {
       slug: 'monsoon', name: 'Monsoon', category: 'Atmosphere & place',
+      width: 2000, height: 1335,
       image: 'assets/monsoon-rain.webp', alt: 'Raindrops splash into a Hanoi street, catching amber and white light after dark.',
       description: 'Rain breaks the surface of a Hanoi street. Amber light gathers in the water.',
       discipline: ['Photography selection', 'Visual study'], focus: ['Atmosphere', 'Rain & reflected light', 'A sense of place'],
@@ -13,6 +14,7 @@
     },
     {
       slug: 'strata', name: 'Strata', category: 'Architecture & space',
+      width: 2000, height: 1333,
       image: 'assets/strata-courtyard.webp', alt: 'A textured stone wall, glass doors and a slender tree reflected in a courtyard pool in Cam Ranh.',
       description: 'Layers of stone, glass and water in a quiet Cam Ranh courtyard.',
       discipline: ['Photography selection', 'Visual study'], focus: ['Architectural layers', 'Surface & texture', 'Changing perspective'],
@@ -22,6 +24,7 @@
     },
     {
       slug: 'lacquer', name: 'Lacquer', category: 'Material & craft',
+      width: 1672, height: 941,
       image: 'assets/lacquer.webp', alt: 'A deep crimson lacquer box with a fine gold inlay and a partially raised lid against black.',
       description: 'Crimson, gold, and a little darkness. An intimate encounter with a crafted object.',
       discipline: ['Art direction', 'Digital exhibition'], focus: ['Surface & texture', 'Controlled light', 'The detail of an object'],
@@ -30,6 +33,7 @@
     },
     {
       slug: 'resonance', name: 'Resonance', category: 'Light & motion',
+      width: 1672, height: 941,
       image: 'assets/resonance.webp', alt: 'Hundreds of slender white light rods form rolling waves in a dark reflective gallery.',
       description: 'One gesture, a thousand small movements. A room imagined as a wave of light.',
       discipline: ['Interaction design', 'Creative development'], focus: ['Wave & rhythm', 'Light as material', 'Playful participation'],
@@ -38,6 +42,7 @@
     },
     {
       slug: 'canopy', name: 'Canopy', category: 'Landscape & water',
+      width: 2000, height: 1332,
       image: 'assets/canopy.webp', alt: 'A river threads through dense green jungle seen from above in Ubud, Bali.',
       description: 'A river disappears beneath the deep green canopy of Ubud, Bali.',
       discipline: ['Photography selection', 'Visual study'], focus: ['Light & shadow', 'A sense of place'],
@@ -47,6 +52,7 @@
     },
     {
       slug: 'after-hours', name: 'After Hours', category: 'City & light',
+      width: 2000, height: 1333,
       image: 'assets/after-hours.webp', alt: 'Illuminated signs and evening crowds line the Dōtonbori canal in Osaka.',
       description: 'Bright signs, evening crowds and a ribbon of water in Dōtonbori, Osaka.',
       discipline: ['Photography selection', 'Visual study'], focus: ['Light & shadow', 'A sense of place'],
@@ -56,6 +62,7 @@
     },
     {
       slug: 'colonnade', name: 'Colonnade', category: 'Space & repetition',
+      width: 2000, height: 1333,
       image: 'assets/colonnade.webp', alt: 'Sunlit stone columns and repeating arches frame a walkway at Stanford University.',
       description: 'Warm stone, repeating arches and long shadows at Stanford University.',
       discipline: ['Photography selection', 'Visual study'], focus: ['Light & shadow', 'A sense of place'],
@@ -65,6 +72,7 @@
     },
     {
       slug: 'still-water', name: 'Still Water', category: 'Architecture & reflection',
+      width: 1800, height: 1200,
       image: '../hien/assets/clay-pavilion.jpg', alt: 'Traditional lakeside architecture in Huế meets its reflection in the water.',
       description: 'Traditional lakeside architecture in Huế meets its reflection in the water.',
       discipline: ['Photography selection', 'Visual study'], focus: ['Light & shadow', 'A sense of place'],
@@ -74,6 +82,7 @@
     },
     {
       slug: 'ochre', name: 'Ochre', category: 'Colour & history',
+      width: 1800, height: 1350,
       image: '../hien/assets/white-gallery.jpg', alt: 'The warm courtyard facade of the Ho Chi Minh City Museum of Fine Arts.',
       description: 'The warm courtyard facade of the Ho Chi Minh City Museum of Fine Arts.',
       discipline: ['Photography selection', 'Visual study'], focus: ['Light & shadow', 'A sense of place'],
@@ -83,6 +92,7 @@
     },
     {
       slug: 'threshold', name: 'Threshold', category: 'Interior & daylight',
+      width: 1800, height: 1270,
       image: '../hien/assets/tree-house-interior.jpg', alt: 'Slatted timber and a reception opening filter the daylight in Đà Lạt.',
       description: 'Slatted timber and a reception opening filter the daylight in Đà Lạt.',
       discipline: ['Photography selection', 'Visual study'], focus: ['Light & shadow', 'A sense of place'],
@@ -92,6 +102,7 @@
     },
     {
       slug: 'mai-le', name: 'Mai Lê', category: 'Painting & light',
+      width: 1536, height: 1024,
       image: '../mai-le/assets/seascape.jpg', alt: 'A painterly seascape with blue waves, golden sunset light and a three-masted sailing ship.',
       description: 'Where the light goes. A seascape from the Mai Lê collection.',
       discipline: ['Art direction', 'Digital exhibition'], focus: ['Colour & texture', 'Evening light', 'Painted movement'],
@@ -101,6 +112,7 @@
     },
     {
       slug: 'la', name: 'LÁ', category: 'Identity & packaging',
+      width: 1536, height: 1024,
       image: '../elseform/assets/la-tea.webp', alt: 'Three lime-green LÁ sparkling tea cans on a cobalt-blue background.',
       description: 'Lime green meets cobalt blue. Sparkling tea from the Elseform collection.',
       discipline: ['Art direction', 'Brand identity'], focus: ['Colour contrast', 'Typography', 'Packaging'],
@@ -141,6 +153,25 @@
   let contactReturn = '#work';
   let studyReturn = '#work';
 
+  const galleryImageSizes = '(max-width: 760px) min(60vw, 28svh), (max-height: 540px) 25vw, (max-width: 1100px) 32vw, clamp(310px, 29vw, 620px)';
+  function setStudyImage(image, study, sizes) {
+    image.decoding = 'async';
+    image.width = study.width;
+    image.height = study.height;
+    image.alt = study.alt;
+    // Set sizes/srcset before src so small screens never request the fallback original.
+    image.sizes = sizes;
+    image.srcset = `assets/responsive/${study.slug}-480.webp 480w, assets/responsive/${study.slug}-960.webp 960w, ${study.image} ${study.width}w`;
+    image.src = study.image;
+  }
+
+  // Warm the whole gallery at its display resolution so fast swipes stay ready.
+  studies.forEach((study, index) => {
+    const image = new Image();
+    image.fetchPriority = index === 0 ? 'high' : 'low';
+    setStudyImage(image, study, galleryImageSizes);
+  });
+
   const experiments = [
     { slug: 'ripple', name: 'Ripple field', category: '01 / Touch & repetition', description: 'A field of circles, pulled out of balance. Move your pointer or touch the surface to shift the center of the ripple.' },
     { slug: 'orbit', name: 'Orbital paths', category: '02 / Form & repetition', description: 'A single curve, repeated. Move across the canvas to change its perspective; use intensity to loosen or tighten the form.' },
@@ -164,7 +195,8 @@
   studies.forEach((study, index) => {
     const imageItem = document.createElement('button');
     imageItem.className = 'play-item';
-    imageItem.innerHTML = window.portfolioIcons.html(`<span class="play-visual"><img src="${study.image}" alt="${study.alt}" loading="lazy"></span><span class="play-caption"><span>${study.name}</span><span>Image study ↗</span></span>`);
+    imageItem.innerHTML = window.portfolioIcons.html(`<span class="play-visual"><img loading="lazy"></span><span class="play-caption"><span>${study.name}</span><span>Image study ↗</span></span>`);
+    setStudyImage(imageItem.querySelector('img'), study, '(max-width: 760px) calc(50vw - 27px), (max-width: 1100px) calc((74vw - 70px) / 3), calc((74vw - 90px) / 4)');
     imageItem.addEventListener('click', () => navigate(`#study/${study.slug}`));
     $('#playground-grid').append(imageItem);
     const experiment = experiments[index];
@@ -213,10 +245,8 @@
     const item = document.createElement('button');
     item.className = 'index-item';
     const img = document.createElement('img');
-    img.src = study.image;
-    img.alt = study.alt;
-    img.width = 1672;
-    img.height = 941;
+    img.loading = 'lazy';
+    setStudyImage(img, study, '(max-width: 760px) calc(50vw - 27px), calc(22vw - 16.5px)');
     item.append(img);
     const meta = document.createElement('div');
     meta.innerHTML = window.portfolioIcons.html(`<span>${number(index)} / ${total}</span><span aria-hidden="true">↗</span>`);
@@ -270,14 +300,21 @@
       const distance = Math.abs(delta);
       const direction = Math.sign(delta);
       const isActive = logical === center;
+      const visible = !mobile || distance <= 2.5;
+      record.logical = logical;
+      record.button.style.visibility = visible ? 'visible' : 'hidden';
+      record.button.classList.toggle('is-active', isActive);
+      record.button.tabIndex = isActive ? 0 : -1;
+      record.button.setAttribute('aria-hidden', String(!isActive));
+      // The collection is preloaded; only update the visible mobile slots.
+      if (!visible) return;
+      record.image.fetchPriority = isActive ? 'high' : 'low';
       if (record.index !== index) {
-        record.image.src = studies[index].image;
-        record.image.alt = studies[index].alt;
+        setStudyImage(record.image, studies[index], galleryImageSizes);
         record.button.setAttribute('aria-label', `View ${studies[index].name} study`);
         record.label.textContent = `Explore ${studies[index].name}`;
         record.index = index;
       }
-      record.logical = logical;
       const x = mobile
         ? centerX - width * .42 * Math.tanh(delta * 1.5)
         : centerX - direction * width * .135 * Math.pow(distance, .72);
@@ -290,10 +327,6 @@
       record.button.style.transform = `translate3d(${x}px,${y}px,${z}px) rotateX(${tiltX}deg) rotateY(${tiltY}deg) rotateZ(${tiltZ}deg) scale(${scale})`;
       record.button.style.zIndex = String(20 - Math.round(distance * 3));
       record.button.style.opacity = '1';
-      record.button.style.visibility = mobile && distance > 2.5 ? 'hidden' : 'visible';
-      record.button.classList.toggle('is-active', isActive);
-      record.button.tabIndex = isActive ? 0 : -1;
-      record.button.setAttribute('aria-hidden', String(!isActive));
     });
 
     labels.forEach((record, slot) => {
@@ -475,10 +508,12 @@
         const difference = mod(index - mod(current) + half) - half;
         goTo(current + difference, true);
         updateActive(index);
-        $('#study-image').src = study.image;
-        $('#study-image').alt = study.alt;
-        ['#study-detail-a', '#study-detail-b'].forEach((selector) => { $(selector).src = study.image; $(selector).alt = `Close detail of ${study.name}: ${study.alt}`; });
-        document.querySelectorAll('.mini-image').forEach((image) => { image.src = study.image; });
+        setStudyImage($('#study-image'), study, '(max-width: 760px) calc(100vw - 40px), 47vw');
+        ['#study-detail-a', '#study-detail-b'].forEach((selector) => {
+          setStudyImage($(selector), study, '(max-width: 760px) calc(100vw - 40px), 47vw');
+          $(selector).alt = `Close detail of ${study.name}: ${study.alt}`;
+        });
+        document.querySelectorAll('.mini-image').forEach((image) => { setStudyImage(image, study, '80px'); });
         $('#study-focus').textContent = study.category;
         $('#case-poster-name').textContent = study.name;
         $('#case-poster-phrase').textContent = study.intro;

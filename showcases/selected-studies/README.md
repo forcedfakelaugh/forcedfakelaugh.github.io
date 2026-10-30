@@ -4,6 +4,7 @@ An original portfolio study inspired by Huy Phan's editorial gallery at `/showca
 
 - A looping perspective gallery of twelve images: two original concepts, eight selected photographs, a painting from Mai Lê and the LÁ packaging concept from Elseform. Scroll, swipe, use the arrow keys, or select a project. Wheel snapping begins after 90 ms of inactivity; desktop uses 65 ms exponential easing.
 - Mobile keeps neighboring photos visible in a diagonal stream. Touch tracking uses 45 ms easing and release uses 135 ms easing, with a small velocity-based coast before settling. The counter and project text blur during movement and sharpen at rest. A compact menu opens the other pages and collection index.
+- All twelve gallery images preload at their display resolution for fast swiping. Responsive 480/960 px WebP variants match the viewport and pixel density; the first image has high priority. Index/playground thumbnails and study details use responsive sources, while the full-image viewer requests the original only when opened.
 - Twelve study presentations with image details, full-image viewing, and a section navigator; a collection index; About, Approach, and Contact pages.
 - A Playground with four Canvas 2D experiments: Ripple field, Orbital paths, Soft grid, and Light field. Each has pointer/touch interaction, intensity, pause, and reset controls.
 - Shared portfolio navigation and VI/EN preferences, including inside dialogs. Reduced-motion preferences disable the gallery's tilt animation and pause the experiments by default.
