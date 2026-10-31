@@ -21,6 +21,8 @@ npm run build
 
 ## Pages
 
+- `/showcases/coollab/` - Coollab, an unlisted Hanoi creative studio concept based on the supplied `01-editorial.png` design. Oversized Vietnamese typography, three original AI-generated photographs with responsive WebP sizes, project dialogs with keyboard navigation, a mobile menu and service disclosures. Shared VI/EN, local fonts and reduced motion. Contact leads to the portfolio owner. Sources and generation prompts in `showcases/coollab/CREDITS.md`.
+
 - `/showcases/relay/` - RELAY/09, an unlisted fictional signal station. Parallax's twelve images on a port of the React Bits Carousel with five switchable transitions, plus Faulty Terminal, Dot Grid, Glitch Text, Decrypted Text, Spotlight Card, Pixel Card, Magnet and Click Spark, each switchable from an on-page FX bus. Each frame retints the page. Shared VI/EN, reduced motion, no React at runtime. See `showcases/relay/CREDITS.md`.
 
 - `/showcases/afterimage/` - Afterimage, an unlisted interactive light exhibition using an attributed, locally adapted React Bits Prism shader. Three authored light states, spectral palettes, intensity and pause controls, an editorial study collection, and a downloadable 1200 × 1500 art print. Shared VI/EN, reduced motion, WebGL fallback, no runtime dependencies. See `showcases/afterimage/CREDITS.md`.
