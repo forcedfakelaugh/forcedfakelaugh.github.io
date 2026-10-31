@@ -1,4 +1,4 @@
-# lumierreart 2 — source and media notes
+# lumierreart 2 · source and media notes
 
 Independent website redesign concept for a client demonstration, reviewed 2026-10-27. This is not the live Lumiere Arts store. No purchase, payment, inventory reservation or message submission is implemented.
 
@@ -36,9 +36,9 @@ Google Fonts: Manrope and Be Vietnam Pro, with system fallbacks.
 
 The revised direction was informed by these live gallery websites, visited on 2026-10-27:
 
-- https://francisgallery.com/ — restrained navigation, generous space around artwork and direct exhibition captions.
-- https://mennour.com/ — exhibition images at different scales and a compact editorial hierarchy.
-- https://www.bisougallery.com/ — a single distinctive background colour, minimal navigation and a clear gallery identity.
+- https://francisgallery.com/ · restrained navigation, generous space around artwork and direct exhibition captions.
+- https://mennour.com/ · exhibition images at different scales and a compact editorial hierarchy.
+- https://www.bisougallery.com/ · a single distinctive background colour, minimal navigation and a clear gallery identity.
 
 These informed the art direction only. No images, logos or source code from these reference sites are included. This concept uses a burgundy masthead, pale grey paper, an irregular artwork wall, and a switchable gallery/index catalogue.
 

@@ -1,4 +1,4 @@
-# Mộc — concept and image notes
+# Mộc · concept and image notes
 
 Mộc is a fictional herbal spa in Đà Lạt, created as a frontend portfolio showcase. Its name, staff, treatments, availability and prices are invented. No real appointments are made, no payments are taken, and entered details are not sent or stored. The design does not claim health benefits or a traditional local bathhouse heritage.
 
@@ -24,8 +24,8 @@ Final generation prompt:
 
 The following Unsplash photographs are mood references, not photographs of Mộc or its staff. They remain subject to the [Unsplash license](https://unsplash.com/license).
 
-- `assets/two-guests.jpg`: https://images.unsplash.com/photo-1544161515-4ab6ce6db874 — oil massage reference.
-- `assets/oil.jpg`: https://images.unsplash.com/photo-1515377905703-c4788e51af15 — massage oil reference.
+- `assets/two-guests.jpg`: https://images.unsplash.com/photo-1544161515-4ab6ce6db874 · oil massage reference.
+- `assets/oil.jpg`: https://images.unsplash.com/photo-1515377905703-c4788e51af15 · massage oil reference.
 
 ## Retained, unused assets from the earlier concept
 

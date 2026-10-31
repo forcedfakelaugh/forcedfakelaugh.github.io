@@ -1,6 +1,6 @@
 /* Authored English / Vietnamese copy. {name} fields preserve dynamic values. */
 export default [
-  ["Halyard - Release notes people actually read", "Halyard — Bản tin cập nhật ai cũng muốn đọc"],
+  ["Halyard - Release notes people actually read", "Halyard - Bản tin cập nhật ai cũng muốn đọc"],
   ["A SaaS landing page concept by Lucas Nguyen for a fictional changelog product: features, monthly and yearly pricing, plan comparison and FAQ.", "Ý tưởng landing page SaaS của Lucas Nguyen cho sản phẩm nhật ký cập nhật giả định: tính năng, giá tháng và năm, so sánh gói và câu hỏi thường gặp."],
   ["Compare", "So sánh"],
   ["FAQ", "Hỏi đáp"],
@@ -10,7 +10,7 @@ export default [
   ["Ship it.", "Ra mắt rồi."],
   ["Say it", "Kể cho"],
   ["clearly.", "thật rõ."],
-  ["Halyard turns merged work into release notes your customers actually read - published to your app, inbox and status page from one draft.", "Halyard biến công việc đã hoàn thành thành bản tin khách hàng muốn đọc — đăng lên ứng dụng, email và trang trạng thái từ một bản nháp."],
+  ["Halyard turns merged work into release notes your customers actually read - published to your app, inbox and status page from one draft.", "Halyard biến công việc đã hoàn thành thành bản tin khách hàng muốn đọc, đăng lên ứng dụng, email và trang trạng thái từ một bản nháp."],
   ["See how it works", "Xem cách hoạt động"],
   ["Concept product · no sign-up, card or account exists", "Sản phẩm ý tưởng · Không đăng ký, thẻ hay tài khoản"],
   ["app.halyard.example / changelog", "app.halyard.example / nhật ký cập nhật"],
@@ -128,7 +128,7 @@ export default [
   ["Is Halyard a real product?", "Halyard có phải sản phẩm thật không?"],
   ["No. Halyard is a fictional SaaS product designed by Lucas Nguyen to demonstrate a marketing site: layout, pricing logic, comparison and accordion patterns. There is no app, trial or billing behind it.", "Không. Halyard là sản phẩm SaaS giả định của Lucas Nguyen để minh họa website tiếp thị: bố cục, cách tính giá, so sánh gói và hỏi đáp. Không có ứng dụng, dùng thử hay thanh toán thật."],
   ["How does the yearly discount work?", "Ưu đãi theo năm được tính thế nào?"],
-  ["Each plan’s yearly price is set below twelve monthly payments. The page computes the saving per plan - between {min}% and {max}% here - and shows the largest one on the toggle.", "Giá năm của mỗi gói thấp hơn tổng 12 tháng. Trang tính mức tiết kiệm cho từng gói — từ {min}% đến {max}% — và hiển thị mức cao nhất cạnh nút chọn."],
+  ["Each plan’s yearly price is set below twelve monthly payments. The page computes the saving per plan - between {min}% and {max}% here - and shows the largest one on the toggle.", "Giá năm của mỗi gói thấp hơn tổng 12 tháng. Trang tính mức tiết kiệm cho từng gói (từ {min}% đến {max}%) và hiển thị mức cao nhất cạnh nút chọn."],
   ["Can I switch plans later?", "Tôi có thể đổi gói sau không?"],
   ["In the imagined product, yes: upgrades apply immediately and downgrades at the end of the billing period, with unused time credited.", "Trong sản phẩm giả định, có: nâng gói có hiệu lực ngay, hạ gói vào cuối kỳ, thời gian chưa dùng được khấu trừ."],
   ["Does it publish anything automatically?", "Có tự động xuất bản không?"],

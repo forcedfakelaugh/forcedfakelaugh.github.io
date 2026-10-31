@@ -1,6 +1,6 @@
 /* Authored English / Vietnamese copy. {name} fields preserve dynamic values. */
 export default [
-  ["Orbit - A clearer view of your business", "Orbit — Nhìn rõ hơn việc kinh doanh"],
+  ["Orbit - A clearer view of your business", "Orbit - Nhìn rõ hơn việc kinh doanh"],
   ["An interactive analytics dashboard concept by Lucas Nguyen. Explore sample metrics, filter orders, and view transaction details.", "Ý tưởng bảng phân tích tương tác của Lucas Nguyen. Khám phá số liệu mẫu, lọc đơn hàng và xem chi tiết giao dịch."],
   ["Demo workspace", "Không gian mẫu"],
   ["Workspace", "Không gian làm việc"],

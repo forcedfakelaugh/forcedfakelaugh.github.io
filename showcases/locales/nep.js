@@ -1,7 +1,7 @@
 /* Authored English / Vietnamese copy. {name} fields preserve dynamic values. */
 export default [
-  ["Nếp Architects - an architecture archive concept by Lucas Nguyen. Explore spatial studies through reference images and schematic drawings.", "Nếp Architects — ý tưởng kho tư liệu kiến trúc của Lucas Nguyen. Khám phá không gian qua hình tham khảo và bản vẽ sơ đồ."],
-  ["Nếp Architects - Spatial practice", "Nếp Architects — Thực hành không gian"],
+  ["Nếp Architects - an architecture archive concept by Lucas Nguyen. Explore spatial studies through reference images and schematic drawings.", "Nếp Architects: ý tưởng kho tư liệu kiến trúc của Lucas Nguyen. Khám phá không gian qua hình tham khảo và bản vẽ sơ đồ."],
+  ["Nếp Architects - Spatial practice", "Nếp Architects - Thực hành không gian"],
   ["Skip to project", "Đến công trình"],
   ["Nếp Architects home", "Trang chủ Nếp Architects"],
   ["Architecture.", "Kiến trúc."],

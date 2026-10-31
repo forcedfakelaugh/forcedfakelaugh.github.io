@@ -1,6 +1,6 @@
 /* Authored English / Vietnamese copy. {name} fields preserve dynamic values. */
 export default [
-  ["Pip — A hand with your business", "Pip — Phụ bạn việc kinh doanh"],
+  ["Pip - A hand with your business", "Pip - Phụ bạn việc kinh doanh"],
   ["A small assistant for Cà phê Góc Nhỏ, Nhà Bên Vườn and Tiệm hoa Mây. Ask about finances, customers, bookings and your to-do list.", "Trợ lý nhỏ cho Cà phê Góc Nhỏ, Nhà Bên Vườn và Tiệm hoa Mây. Hỏi về thu chi, khách hàng, lịch đặt và những việc cần làm."],
   ["Skip to your question", "Đến ô nhập câu hỏi"],
   ["Pip home", "Trang chủ Pip"],
@@ -25,7 +25,7 @@ export default [
   ["Cà phê Góc Nhỏ · September · 52 reviews", "Cà phê Góc Nhỏ · Tháng 9 · 52 đánh giá"],
   ["16 of 52 reviews mention long waits, mostly between 7:30 and 9 am.", "16 trong 52 đánh giá nhắc đến việc chờ lâu, chủ yếu từ 7h30 đến 9h."],
   ["12 reviews praise the oat milk coffee.", "12 đánh giá khen cà phê sữa yến mạch."],
-  ["A regular wrote: “Great coffee — I just wish morning orders were a little quicker.”", "Một khách quen viết: “Cà phê ngon, giá mà buổi sáng gọi món nhanh hơn chút.”"],
+  ["A regular wrote: “Great coffee. I just wish morning orders were a little quicker.”", "Một khách quen viết: “Cà phê ngon, giá mà buổi sáng gọi món nhanh hơn chút.”"],
   ["Owner's notes", "Ghi chép của chủ quán"],
   ["Trying shorter morning waits", "Thử giảm thời gian chờ buổi sáng"],
   ["Cà phê Góc Nhỏ · 28 September", "Cà phê Góc Nhỏ · Ngày 28/9"],

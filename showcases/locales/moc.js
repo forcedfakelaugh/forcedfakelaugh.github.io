@@ -1,6 +1,6 @@
 /* Authored English / Vietnamese copy. {name} fields preserve dynamic values. */
 export default [
-  ["Mộc — Herbal Spa, Đà Lạt", "Mộc — Spa thảo mộc, Đà Lạt"],
+  ["Mộc - Herbal Spa, Đà Lạt", "Mộc - Spa thảo mộc, Đà Lạt"],
   ["A little time for yourself in Đà Lạt. Explore Mộc, a fictional herbal spa, and try its five-step appointment flow. No real booking is made.", "Một chút thời gian cho mình ở Đà Lạt. Khám phá spa thảo mộc Mộc giả định và trải nghiệm đặt lịch năm bước. Không tạo lịch hẹn thật."],
   ["Skip to booking", "Đến phần đặt lịch"],
   ["Herbal spa · Đà Lạt", "Spa thảo mộc · Đà Lạt"],
@@ -48,7 +48,7 @@ export default [
   ["Your afternoon at Mộc", "Buổi chiều của bạn ở Mộc"],
   ["Estimated total", "Tổng dự kiến"],
   ["Illustrative prices in đồng. This demo never takes payment or reserves a time.", "Giá minh họa bằng đồng. Bản mẫu không thu tiền hay giữ lịch."],
-  ["Mộc is a fictional herbal spa — a concept by Lucas Nguyen.", "Mộc là spa thảo mộc giả định — ý tưởng của Lucas Nguyen."],
+  ["Mộc is a fictional herbal spa concept by Lucas Nguyen.", "Mộc là ý tưởng spa thảo mộc giả định của Lucas Nguyen."],
   ["No appointments are made. Your details stay on this page.", "Không tạo lịch hẹn. Thông tin chỉ ở trên trang này."],
   ["Image credits & AI image notes", "Nguồn ảnh và ghi chú ảnh AI"],
   ["Lemongrass foot soak", "Ngâm chân sả gừng"],

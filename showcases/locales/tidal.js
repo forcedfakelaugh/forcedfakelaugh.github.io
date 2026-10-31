@@ -1,7 +1,7 @@
 /* Authored English / Vietnamese copy. {name} fields preserve dynamic values. */
 export default [
-  ["Tidal - an interactive ocean study. A creative development showcase by Lucas Nguyen, built on Noniv’s open-source ocean renderer.", "Tidal — nghiên cứu đại dương tương tác. Thử nghiệm sáng tạo của Lucas Nguyen trên bộ dựng biển mã nguồn mở của Noniv."],
-  ["TIDAL - A study in endless motion / Lucas Nguyen", "TIDAL — Nghiên cứu chuyển động bất tận / Lucas Nguyen"],
+  ["Tidal - an interactive ocean study. A creative development showcase by Lucas Nguyen, built on Noniv’s open-source ocean renderer.", "Tidal: nghiên cứu đại dương tương tác. Thử nghiệm sáng tạo của Lucas Nguyen trên bộ dựng biển mã nguồn mở của Noniv."],
+  ["TIDAL - A study in endless motion / Lucas Nguyen", "TIDAL - Nghiên cứu chuyển động bất tận / Lucas Nguyen"],
   ["Interactive ocean scene", "Khung cảnh đại dương tương tác"],
   ["Real-time ocean simulation", "Mô phỏng đại dương thời gian thực"],
   ["Tidal home", "Trang chủ Tidal"],

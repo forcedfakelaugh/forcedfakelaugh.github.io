@@ -1,4 +1,4 @@
-# Mai Lê — artwork and reference
+# Mai Lê · artwork and reference
 
 This is an original local portfolio concept for an imagined Hội An painter. Mai Lê, the paintings' titles, catalogue dates, sizes, studio and exhibition are fictional. The seven illustrations were generated for this concept with the built-in image generation tool, then converted to JPEG for local delivery. They are not photographs of physical oil paintings.
 

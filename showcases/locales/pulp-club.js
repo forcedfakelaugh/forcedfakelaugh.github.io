@@ -1,7 +1,7 @@
 /* Authored English / Vietnamese copy. {name} fields preserve dynamic values. */
 export default [
   ["Pulp Club is an original foodservice packaging website concept by Lucas Nguyen. Browse a small collection and build a simulated sample box.", "Pulp Club là ý tưởng website bao bì thực phẩm của Lucas Nguyen. Khám phá bộ sưu tập nhỏ và tạo hộp mẫu mô phỏng."],
-  ["Pulp Club - Good food deserves good form", "Pulp Club — Món ngon xứng với bao bì đẹp"],
+  ["Pulp Club - Good food deserves good form", "Pulp Club - Món ngon xứng với bao bì đẹp"],
   ["GOOD FORM FOR GOOD FOOD", "BAO BÌ ĐẸP CHO MÓN NGON"],
   ["AN ORIGINAL PACKAGING CONCEPT", "MỘT Ý TƯỞNG BAO BÌ NGUYÊN BẢN"],
   ["Pulp Club, back to top", "Pulp Club, về đầu trang"],

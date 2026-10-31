@@ -1,6 +1,6 @@
 /* Authored English / Vietnamese copy. {name} fields preserve dynamic values. */
 export default [
-  ["Rêu - Kitchen & coffee in Hội An", "Rêu — Bếp và cà phê Hội An"],
+  ["Rêu - Kitchen & coffee in Hội An", "Rêu - Bếp và cà phê Hội An"],
   ["A Vietnamese restaurant website concept by Lucas Nguyen. Filter a Hội An menu, check live opening hours, and build a sample order. Nothing is ever sent.", "Ý tưởng website nhà hàng Việt của Lucas Nguyen. Lọc thực đơn Hội An, xem giờ mở cửa và tạo đơn mẫu. Không gửi đơn đi."],
   ["Skip to menu", "Đến thực đơn"],
   ["Rêu home", "Trang chủ Rêu"],
