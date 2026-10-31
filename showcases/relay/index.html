@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#07090b">
+  <meta name="description" content="RELAY/09, a fictional signal station. Twelve image frames on a physics-driven carousel, with a live effects bus built from React Bits.">
+  <title>RELAY/09 — Signal archive</title>
+  <link rel="icon" href="./assets/mark.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../portfolio-nav.css">
+  <link rel="stylesheet" href="./effects.css">
+  <link rel="stylesheet" href="./style.css">
+  <script src="../portfolio-icons.js"></script>
+  <script src="../portfolio-language-init.js"></script>
+</head>
+<body>
+  <nav class="portfolio-nav" aria-label="Portfolio navigation"><a class="portfolio-return" href="../../#work">Portfolio</a><span class="portfolio-context" data-no-translate>RELAY/09 / SIGNAL ARCHIVE</span><button class="language-switch" type="button" aria-label="Switch to Vietnamese"><span data-language="vi" lang="vi">VI</span><span aria-hidden="true">/</span><span data-language="en" lang="en">EN</span></button></nav>
+  <a class="skip" href="#receiver">Skip to the receiver</a>
+
+  <main>
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="terminal" id="terminal" aria-hidden="true"></div>
+      <div class="hero-shade" aria-hidden="true"></div>
+      <p class="hero-tag"><span class="pulse" aria-hidden="true"></span><span>Fictional signal station</span></p>
+      <div class="hero-core">
+        <h1 id="hero-title" data-no-translate>RELAY/09</h1>
+        <p class="hero-line" id="hero-line"></p>
+      </div>
+      <div class="hero-foot">
+        <p>Click anywhere to tear the display. Move to disturb the field.</p>
+        <a class="action action-primary" href="#receiver" data-magnet><span>Open receiver</span><span aria-hidden="true">↓</span></a>
+      </div>
+    </section>
+
+    <div class="ticker" aria-hidden="true" data-no-translate><div class="ticker-track"><span>RX-01 MONSOON // RX-02 STRATA // RX-03 LACQUER // RX-04 RESONANCE // RX-05 CANOPY // RX-06 AFTER HOURS // RX-07 COLONNADE // RX-08 STILL WATER // RX-09 OCHRE // RX-10 THRESHOLD // RX-11 MAI LÊ // RX-12 LÁ // </span><span>RX-01 MONSOON // RX-02 STRATA // RX-03 LACQUER // RX-04 RESONANCE // RX-05 CANOPY // RX-06 AFTER HOURS // RX-07 COLONNADE // RX-08 STILL WATER // RX-09 OCHRE // RX-10 THRESHOLD // RX-11 MAI LÊ // RX-12 LÁ // </span></div></div>
+
+    <section class="receiver" id="receiver" aria-labelledby="receiver-title">
+      <div class="dotgrid" id="dotgrid" aria-hidden="true"></div>
+      <header class="section-head">
+        <p class="eyebrow">01 / Receiver</p>
+        <h2 id="receiver-title" data-glitch>Tune a frame</h2>
+        <p class="hint">Drag, swipe or use the arrow keys. Select the centre frame to inspect it.</p>
+      </header>
+
+      <div class="console">
+        <div class="deck">
+          <div class="carousel" id="carousel" role="region" aria-roledescription="carousel" aria-label="Frames" tabindex="0">
+            <div class="carousel-viewport"></div>
+          </div>
+          <p class="sr-only" id="carousel-status" aria-live="polite"></p>
+          <div class="transport">
+            <button type="button" class="square" id="prev" aria-label="Previous frame">←</button>
+            <div class="bars" id="bars"></div>
+            <button type="button" class="square" id="next" aria-label="Next frame">→</button>
+            <output class="counter" id="counter" data-no-translate>01 / 12</output>
+          </div>
+          <div class="modes-row">
+            <span class="field-label">Transition</span>
+            <div class="modes" id="modes" role="group" aria-label="Carousel transition"></div>
+          </div>
+        </div>
+
+        <aside class="dossier" data-spotlight aria-label="Selected frame">
+          <p class="dossier-code" id="d-code"></p>
+          <h3 id="d-name"></h3>
+          <p class="dossier-category" id="d-category"></p>
+          <p class="dossier-note" id="d-note"></p>
+          <dl class="readout">
+            <div><dt>Source</dt><dd id="d-size" data-no-translate></dd></div>
+            <div><dt>Ratio</dt><dd id="d-ratio" data-no-translate></dd></div>
+            <div><dt>Pixels</dt><dd id="d-pixels" data-no-translate></dd></div>
+          </dl>
+          <p class="dossier-credit" id="d-credit"></p>
+          <button type="button" class="action" id="inspect-open" data-magnet><span>Inspect frame</span><span aria-hidden="true">↗</span></button>
+        </aside>
+      </div>
+    </section>
+
+    <section class="archive-section" aria-labelledby="archive-title">
+      <header class="section-head">
+        <p class="eyebrow">02 / Archive</p>
+        <h2 id="archive-title" data-glitch>All channels</h2>
+        <p class="hint">Hover to charge a tile. Select one to send it to the receiver.</p>
+      </header>
+      <ul class="archive" id="archive"></ul>
+    </section>
+
+    <section class="bus-section" aria-labelledby="bus-title">
+      <header class="section-head">
+        <p class="eyebrow">03 / FX bus</p>
+        <h2 id="bus-title" data-glitch>Patch the signal</h2>
+        <p class="hint">Every effect on this page is a live module. Switch one off and see what it was doing.</p>
+      </header>
+      <ul class="bus">
+        <li data-spotlight><span class="bus-name" data-no-translate>Carousel</span><span class="bus-desc">Spring physics, momentum and five transitions.</span><span class="bus-state">Core</span></li>
+        <li data-spotlight><span class="bus-name" data-no-translate>Faulty Terminal</span><span class="bus-desc">The WebGL glyph field behind the title.</span><button type="button" class="switch" data-fx="terminal" aria-pressed="true" aria-label="Faulty Terminal"></button></li>
+        <li data-spotlight><span class="bus-name" data-no-translate>Dot Grid</span><span class="bus-desc">A spring lattice that reacts to the pointer and to clicks.</span><button type="button" class="switch" data-fx="dotgrid" aria-pressed="true" aria-label="Dot Grid"></button></li>
+        <li data-spotlight><span class="bus-name" data-no-translate>Glitch Text</span><span class="bus-desc">Slice tears on the title, RGB split on section headings.</span><button type="button" class="switch" data-fx="glitch" aria-pressed="true" aria-label="Glitch Text"></button></li>
+        <li data-spotlight><span class="bus-name" data-no-translate>Decrypted Text</span><span class="bus-desc">Frame details resolve each time you tune.</span><button type="button" class="switch" data-fx="decrypt" aria-pressed="true" aria-label="Decrypted Text"></button></li>
+        <li data-spotlight><span class="bus-name" data-no-translate>Spotlight Card</span><span class="bus-desc">A pointer-tracked light on these panels and the frame details.</span><button type="button" class="switch" data-fx="spotlight" aria-pressed="true" aria-label="Spotlight Card"></button></li>
+        <li data-spotlight><span class="bus-name" data-no-translate>Pixel Card</span><span class="bus-desc">Pixels charge outward from the pointer on archive tiles.</span><button type="button" class="switch" data-fx="pixel" aria-pressed="true" aria-label="Pixel Card"></button></li>
+        <li data-spotlight><span class="bus-name" data-no-translate>Magnet</span><span class="bus-desc">Main buttons lean toward the pointer as it approaches.</span><button type="button" class="switch" data-fx="magnet" aria-pressed="true" aria-label="Magnet"></button></li>
+        <li data-spotlight><span class="bus-name" data-no-translate>Click Spark</span><span class="bus-desc">A burst in the current frame's colour on every click.</span><button type="button" class="switch" data-fx="spark" aria-pressed="true" aria-label="Click Spark"></button></li>
+      </ul>
+    </section>
+  </main>
+
+  <footer class="foot">
+    <p class="foot-title" data-no-translate>END OF TRANSMISSION</p>
+    <a class="action action-primary" href="../../#work" data-magnet><span>See all work</span><span aria-hidden="true">→</span></a>
+    <p class="foot-note">RELAY/09 is a concept and the station is fictional. The twelve images are shared with Parallax. Effects are adapted from React Bits by David Haz.</p>
+  </footer>
+
+  <div class="hud" aria-hidden="true" data-no-translate>
+    <span>FPS <b id="hud-fps">--</b></span><span>VIEW <b id="hud-view">--</b></span><span>PTR <b id="hud-pointer">--</b></span><span>FX <b id="hud-fx">9/9</b></span><span>RX <b id="hud-frame">RX-01</b></span>
+  </div>
+
+  <dialog class="inspect" id="inspect" aria-labelledby="inspect-code">
+    <div class="inspect-bar"><p id="inspect-code" data-no-translate></p><button type="button" class="square" id="inspect-close" aria-label="Close">×</button></div>
+    <img id="inspect-image" alt="">
+    <p class="inspect-credit" id="inspect-credit"></p>
+  </dialog>
+
+  <noscript><p class="noscript">Enable JavaScript to open the receiver.</p></noscript>
+  <script type="module" src="./app.js"></script>
+</body>
+</html>
