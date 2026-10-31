@@ -23,6 +23,8 @@ npm run build
 
 - `/showcases/relay/` - RELAY/09, an unlisted fictional signal station. Parallax's twelve images on a port of the React Bits Carousel with five switchable transitions, plus Faulty Terminal, Dot Grid, Glitch Text, Decrypted Text, Spotlight Card, Pixel Card, Magnet and Click Spark, each switchable from an on-page FX bus. Each frame retints the page. Shared VI/EN, reduced motion, no React at runtime. See `showcases/relay/CREDITS.md`.
 
+- `/showcases/afterimage/` - Afterimage, an unlisted interactive light exhibition using an attributed, locally adapted React Bits Prism shader. Three authored light states, spectral palettes, intensity and pause controls, an editorial study collection, and a downloadable 1200 × 1500 art print. Shared VI/EN, reduced motion, WebGL fallback, no runtime dependencies. See `showcases/afterimage/CREDITS.md`.
+
 - `/showcases/fieldwork/` - Fieldwork, an interactive sculpture exhibit migrated from the standalone `huyml` project. Eleven procedural metal ribbons morph between Orbit, Helix and Bloom, with drag/keyboard rotation, finish and speed controls, reduced motion, and a still fallback. Shared VI/EN navigation. The original Framer component and design notes are retained; see `showcases/fieldwork/CREDITS.md` for dependencies and maintenance.
 
 - `/` - Main portfolio and selected work.
