@@ -60,7 +60,6 @@ img{display:block;max-width:100%;height:auto}
 .services{border-top:1px solid var(--line);padding-top:55px;padding-bottom:100px}
 .service-list{min-width:0;overflow-anchor:none}
 .service-list details{border-bottom:1px solid var(--line)}
-.service-list details:first-child{border-top:1px solid var(--line)}
 summary{list-style:none;display:flex;align-items:center;gap:28px;padding:23px 0;cursor:pointer}
 summary::-webkit-details-marker{display:none}
 .service-number{font-size:11px;color:var(--muted)}
