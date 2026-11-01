@@ -23,7 +23,7 @@ img{display:block;max-width:100%;height:auto}
 .menu-toggle{display:none}
 .hero{padding:52px var(--gutter) 42px}
 .eyebrow{font-size:18px;margin-bottom:19px;letter-spacing:-.035em}
-.hero h1{font-size:clamp(70px,12vw,205px);font-weight:800;letter-spacing:-.075em;line-height:1.05}
+.hero h1{font-size:clamp(56px,8.5vw,144px);font-weight:800;letter-spacing:-.075em;line-height:1.05}
 .hero h1>span{display:block;white-space:nowrap}
 .hero-bottom{margin-top:20px}
 .hero-bottom p{font-size:clamp(19px,2.25vw,34px);letter-spacing:-.055em;color:var(--muted)}
@@ -118,8 +118,8 @@ body:has(dialog[open]){overflow:hidden}
   .main-nav a{font-size:22px;letter-spacing:-.04em}
   .hero{padding:35px var(--gutter) 30px}
   .eyebrow{font-size:13px;margin-bottom:22px}
-  .hero h1{font-size:clamp(34px,12.1vw,72px);line-height:1.23;letter-spacing:-.072em}
-  html[lang=en] .hero h1{font-size:clamp(33px,11.8vw,70px)}
+  .hero h1{font-size:clamp(30px,10vw,56px);line-height:1.23;letter-spacing:-.072em}
+  html[lang=en] .hero h1{font-size:clamp(30px,10vw,56px)}
   .hero-bottom p{font-size:16px;letter-spacing:-.045em;max-width:290px;line-height:1.6}
   .work{padding:0 14px}
   .project-featured .project-image{aspect-ratio:1.13}
