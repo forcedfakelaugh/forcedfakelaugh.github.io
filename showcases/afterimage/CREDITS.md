@@ -1,6 +1,10 @@
-# AFTERIMAGE
+# DƯ ẢNH
 
-An original interactive light exhibition for Lucas Nguyen's portfolio. Layout, art direction, copy, three study presets, settings, print composition and static fallback are original to this showcase.
+A concept album campaign for Lucas Nguyen's portfolio. Dư Ảnh is a fictional band; the album, tracklist, formats and rollout are invented and nothing is on sale. Layout, art direction, copy, light presets, print composition and static fallback are original to this showcase.
+
+## Audio
+
+`audio.js` synthesizes three original previews live with Web Audio. It uses no samples or audio files, and playback starts only on a press. They are placeholders, not recordings of the listed songs.
 
 ## React Bits
 
@@ -16,6 +20,8 @@ The light renderer adapts **Prism** by David Haz / React Bits:
 The soft text entrances take inspiration from the React Bits Blur Text effect; their CSS/IntersectionObserver implementation is original. The page is an original application of React Bits, not a redistribution of its component library or tools.
 
 ## Images and prints
+
+The rollout and packaging visuals are original CSS mockups that reuse the renderer captures. They are illustrations, not photographs of real placements or products.
 
 Study thumbnails and the preview are local captures of the actual adapted renderer. `assets/still.svg` is an original vector fallback. The art-print action captures the visitor's current composition locally and adds the exhibition's original layout and typography; no data is uploaded. PNG output is 1200 × 1500.
 

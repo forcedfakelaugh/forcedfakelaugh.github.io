@@ -144,7 +144,7 @@ function makePalette(stops) {
 export function createLightEngine(canvas, { onUnavailable = () => {}, onReady = () => {} } = {}) {
   let alive = true, ready = false, notified = false, raf = 0;
   let paused = false, visible = true, last = 0, phase = 0, scene = 0, palette = 0;
-  let energy = 0.55, energyNow = energy, paletteDirty = true;
+  let energy = 0.55, energyNow = energy, paletteDirty = true, pulse = 0, angle = 0;
   const reduced = window.matchMedia('(prefers-reduced-motion: reduce)');
   const coarse = window.matchMedia('(pointer: coarse)');
   let reduceMotion = reduced.matches;
@@ -180,6 +180,16 @@ export function createLightEngine(canvas, { onUnavailable = () => {}, onReady = 
       if (!Number.isFinite(value)) return;
       energy = clamp(value, 0, 1);
       change();
+    },
+    setPulse(value) {
+      // A stopped frame stays exactly as seen, so a captured poster matches it.
+      if (Number.isFinite(value) && !paused && !reduceMotion) pulse = clamp(value, 0, 1);
+    },
+    setAngle(value) {
+      if (!Number.isFinite(value)) return;
+      angle = clamp(value, -1, 1);
+      if (paused || reduceMotion) draw();
+      else wake();
     },
     setPaused(value) {
       paused = Boolean(value);
@@ -281,21 +291,21 @@ export function createLightEngine(canvas, { onUnavailable = () => {}, onReady = 
       paletteDirty = false;
     }
     const movement = phase * pose.drift;
-    const yaw = pose.yaw + Math.sin(movement) * 0.6 + pointer.x * 0.2;
+    const yaw = pose.yaw + Math.sin(movement) * 0.6 + pointer.x * 0.2 + angle * 1.2;
     const pitch = pose.pitch + Math.sin(movement * 0.7) * 0.14 - pointer.y * 0.14;
     const roll = pose.roll + Math.sin(movement * 0.55) * 0.12;
     const aspect = canvas.width / Math.max(1, canvas.height);
     const fit = Math.min(1, aspect / 0.92);
     gl.uniform2f(uniforms.uResolution, canvas.width, canvas.height);
     gl.uniformMatrix3fv(uniforms.uRay, false, rotation(yaw, pitch, roll));
-    gl.uniform1f(uniforms.uGlow, pose.glow * (0.8 + energyNow * 1.4));
+    gl.uniform1f(uniforms.uGlow, pose.glow * (0.8 + energyNow * 1.4) * (1 + pulse * 1.6));
     gl.uniform2f(uniforms.uOffset, 0, 0);
     gl.uniform1f(uniforms.uColorFreq, pose.frequency);
     gl.uniform1f(uniforms.uCenterShift, pose.height * 0.25);
     gl.uniform1f(uniforms.uInvBaseHalf, 2 / pose.width);
     gl.uniform1f(uniforms.uInvHeight, 1 / pose.height);
     gl.uniform1f(uniforms.uMinAxis, Math.min(pose.width * 0.5, pose.height));
-    gl.uniform1f(uniforms.uPxScale, 1 / (canvas.height * 0.1 * pose.scale * fit));
+    gl.uniform1f(uniforms.uPxScale, 1 / (canvas.height * 0.1 * pose.scale * fit * (1 + pulse * 0.07)));
     gl.uniform1i(uniforms.uPalette, 0);
     gl.uniform1i(uniforms.uUsePalette, 1);
     gl.uniform1f(uniforms.uTime, phase);
@@ -315,7 +325,7 @@ export function createLightEngine(canvas, { onUnavailable = () => {}, onReady = 
     if (last && now - last < 24) { raf = requestAnimationFrame(frame); return; }
     const dt = last ? Math.min(0.06, (now - last) / 1000) : 1 / 40;
     last = now;
-    phase += dt * (0.4 + energyNow * 0.8);
+    phase += dt * (0.4 + energyNow * 0.8 + pulse * 0.5);
     const follow = 1 - Math.exp(-dt * 3.2);
     for (const key of Object.keys(pose)) pose[key] += (PRESETS[scene][key] - pose[key]) * follow;
     pointer.x += (pointer.tx - pointer.x) * follow;
@@ -361,6 +371,7 @@ export function createLightEngine(canvas, { onUnavailable = () => {}, onReady = 
   }
   function onReducedMotion(event) {
     reduceMotion = event.matches;
+    if (reduceMotion) pulse = 0;
     last = 0;
     if (reduceMotion) { cancelAnimationFrame(raf); raf = 0; syncTargets(); draw(); }
     else wake();

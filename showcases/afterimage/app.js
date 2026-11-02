@@ -1,4 +1,5 @@
 import { createLightEngine } from './light-engine.js';
+import { createAlbumAudio } from './audio.js';
 
 const $ = selector => document.querySelector(selector);
 const canvas = $('#light-canvas');
@@ -6,10 +7,36 @@ const artwork = $('#artwork');
 const fallback = $('.artwork-fallback');
 const reduce = matchMedia('(prefers-reduced-motion: reduce)');
 const scenes = [
-  { name: 'Refraction', description: 'A single beam. A thousand ways to see it.', image: 'refraction' },
-  { name: 'Dispersion', description: 'Every colour was already there. Let it unfold.', image: 'dispersion' },
-  { name: 'Afterglow', description: 'The light moves on. The feeling stays.', image: 'afterglow' },
+  { name: 'Refraction', description: 'Side A. Songs that change direction halfway through.', image: 'refraction', tracks: ['1. Bẻ cong', '2. Tia đầu', '3. Góc tới'] },
+  { name: 'Dispersion', description: 'Side B. One voice, split into every colour.', image: 'dispersion', tracks: ['4. Mọi sắc màu', '5. Cánh quạt', '6. Giữa những đường biên'] },
+  { name: 'Afterglow', description: 'Side C. What is still ringing after the record stops.', image: 'afterglow', tracks: ['7. Điều còn lại', '8. Than hồng', '9. Quay đi'] },
 ];
+const audio = createAlbumAudio();
+let pulseFrame = 0;
+
+function pulseLoop() {
+  pulseFrame = 0;
+  engine.setPulse(audio.level());
+  if (audio.playing) pulseFrame = requestAnimationFrame(pulseLoop);
+}
+function updateListen() {
+  const on = audio.playing;
+  document.querySelectorAll('[data-listen]').forEach(button => {
+    button.setAttribute('aria-pressed', String(on));
+    button.querySelector('[data-listen-label]').textContent = on ? 'Stop preview' : `Play side ${'ABC'[scene]}`;
+    button.querySelector('[data-listen-icon]').textContent = on ? '■' : '▶';
+  });
+  document.body.classList.toggle('is-listening', on);
+  // Reduced motion and pause only stop the light. The music stays under the visitor's control.
+  if (on && !pulseFrame) pulseFrame = requestAnimationFrame(pulseLoop);
+  if (!on) engine.setPulse(0);
+}
+async function toggleListen() {
+  if (audio.playing) audio.stop();
+  else if (!await audio.play(scene)) $('#listen-button').disabled = true;
+  updateListen();
+}
+document.querySelectorAll('[data-listen]').forEach(button => button.addEventListener('click', toggleListen));
 let scene = 0;
 let paused = reduce.matches;
 let posterUrl;
@@ -23,7 +50,7 @@ function unavailable() {
   $('#tune-button').disabled = true;
   $('#tune-panel').hidden = true;
   $('#tune-button').setAttribute('aria-expanded', 'false');
-  $('#live-label').textContent = 'A still light study';
+  $('#live-label').textContent = 'A still album cover';
 }
 
 const engine = createLightEngine(canvas, { onUnavailable: unavailable, onReady() {
@@ -31,7 +58,7 @@ const engine = createLightEngine(canvas, { onUnavailable: unavailable, onReady()
   $('#render-status').hidden = true;
   $('#pause-button').disabled = reduce.matches;
   $('#tune-button').disabled = false;
-  $('#live-label').textContent = reduce.matches ? 'Reduced motion' : paused ? 'A moment of stillness' : 'A living light study';
+  $('#live-label').textContent = reduce.matches ? 'Reduced motion' : paused ? 'A moment of stillness' : 'A living album cover';
 } });
 if (engine.ready) {
   artwork.classList.add('is-ready');
@@ -41,13 +68,14 @@ if (engine.ready) {
 
 function updatePause() {
   engine.setPaused(paused);
+  engine.setPulse(audio.level());
   document.body.classList.toggle('is-paused', paused);
   $('#pause-button').disabled = reduce.matches || !engine.ready;
   $('#pause-button').setAttribute('aria-pressed', String(paused));
   $('#pause-button').setAttribute('aria-label', paused ? 'Play motion' : 'Pause motion');
   $('#pause-label').textContent = reduce.matches ? 'Still' : paused ? 'Play' : 'Pause';
   $('#pause-icon').textContent = paused ? '▷' : 'Ⅱ';
-  if (engine.ready) $('#live-label').textContent = reduce.matches ? 'Reduced motion' : paused ? 'A moment of stillness' : 'A living light study';
+  if (engine.ready) $('#live-label').textContent = reduce.matches ? 'Reduced motion' : paused ? 'A moment of stillness' : 'A living album cover';
 }
 updatePause();
 $('#pause-button').addEventListener('click', () => {
@@ -62,7 +90,10 @@ reduce.addEventListener('change', event => {
 function selectScene(index) {
   scene = index;
   engine.setScene(index);
-  $('#scene-number').textContent = `0${index + 1}`;
+  audio.setSide(index);
+  updateListen();
+  $('#scene-range').textContent = ['01–03', '04–06', '07–09'][index];
+  $('#scene-number').textContent = 'ABC'[index];
   $('#scene-description').textContent = scenes[index].description;
   fallback.src = `./assets/${scenes[index].image}.webp`;
   document.querySelectorAll('[data-scene]').forEach(button => {
@@ -76,6 +107,7 @@ document.querySelectorAll('[data-open-scene]').forEach(button => button.addEvent
   selectScene(Number(button.dataset.openScene));
   $('#exhibit').scrollIntoView({ behavior: reduce.matches ? 'instant' : 'smooth' });
   document.querySelector(`[data-scene="${scene}"]`).focus({ preventScroll: true });
+  if (!audio.playing) toggleListen();
 }));
 
 function setTune(open, returnFocus = false) {
@@ -101,6 +133,7 @@ document.querySelectorAll('[data-palette]').forEach(button => button.addEventLis
     item.setAttribute('aria-pressed', String(active));
   });
 }));
+$('#angle').addEventListener('input', event => engine.setAngle(Number(event.target.value) / 100));
 $('#intensity').addEventListener('input', event => {
   const value = Number(event.target.value);
   $('#intensity-value').value = `${value}%`;
@@ -129,41 +162,60 @@ async function captureMoment() {
     const factor = Math.min(1100 / sourceWidth, 1000 / sourceHeight);
     const width = sourceWidth * factor;
     const height = sourceHeight * factor;
-    context.drawImage(source, (1200 - width) / 2, 260 + (1000 - height) / 2, width, height);
+    const left = (1200 - width) / 2, top = 260 + (1000 - height) / 2;
+    context.drawImage(source, left, top, width, height);
+    // Melt the canvas edges into the poster so the glow never ends in a hard line.
+    for (const [x0, y0, x1, y1, x, y, w, h] of [
+      [0, top, 0, top + 110, left, top, width, 110],
+      [0, top + height, 0, top + height - 110, left, top + height - 110, width, 110],
+      [left, 0, left + 110, 0, left, top, 110, height],
+      [left + width, 0, left + width - 110, 0, left + width - 110, top, 110, height],
+    ]) {
+      const fade = context.createLinearGradient(x0, y0, x1, y1);
+      fade.addColorStop(0, '#101110');
+      fade.addColorStop(1, '#10111000');
+      context.fillStyle = fade;
+      context.fillRect(x, y, w, h);
+    }
     context.strokeStyle = '#e9e7df45';
     context.lineWidth = 1;
     context.strokeRect(45, 45, 1110, 1410);
     context.fillStyle = '#d9f596';
     context.font = '18px monospace';
-    context.fillText('✳  ' + translate('STUDIES IN LIGHT'), 80, 100);
+    context.fillText('✳  ' + translate('THE DEBUT ALBUM'), 80, 100);
     context.textAlign = 'right';
-    context.fillText(`0${scene + 1} / ∞`, 1120, 100);
+    context.fillText(`${'ABC'[scene]} / 3`, 1120, 100);
     context.textAlign = 'left';
     context.fillStyle = '#eeede6';
-    context.font = '500 147px Arial';
-    context.fillText('AFTERIMAGE', 67, 255, 1070);
+    context.font = "500 147px 'Helvetica Neue', Arial";
+    if ('letterSpacing' in context) context.letterSpacing = '-6px';
+    context.fillText('DƯ ẢNH', 67, 255, 1070);
+    if ('letterSpacing' in context) context.letterSpacing = '0px';
     context.font = '500 65px Arial';
     context.fillText(translate(scenes[scene].name), 80, 1325);
     context.fillStyle = '#a1a49a';
     context.font = '20px Arial';
     context.fillText(translate('A moment, made yours.'), 80, 1370);
-    context.fillStyle = '#d9f596';
     context.textAlign = 'right';
+    context.fillStyle = '#eeede6';
+    context.font = '20px Arial';
+    scenes[scene].tracks.forEach((track, index) => context.fillText(track, 1120, 1262 + index * 30));
+    context.fillStyle = '#d9f596';
     context.font = '18px monospace';
-    context.fillText('LUCAS NGUYEN / 2026', 1120, 1370);
+    context.fillText(translate('LUCAS NGUYEN / CONCEPT'), 1120, 1370);
     const blob = await new Promise(resolve => poster.toBlob(resolve, 'image/png'));
     if (!blob) throw new Error('Could not create the art print.');
     if (posterUrl) URL.revokeObjectURL(posterUrl);
     posterUrl = URL.createObjectURL(blob);
     $('#print-image').src = posterUrl;
     $('#download-print').href = posterUrl;
-    $('#download-print').download = `afterimage-${scenes[scene].image}.png`;
+    $('#download-print').download = `du-anh-${scenes[scene].image}.png`;
     setTune(false);
     dialog.showModal();
     document.body.classList.add('has-dialog');
     engine.setPaused(true);
   } catch (error) {
-    $('#render-status').textContent = 'The print could not be created. Please try again.';
+    $('#render-status').textContent = 'The poster could not be created. Please try again.';
     $('#render-status').hidden = false;
     console.error(error);
   } finally {
@@ -180,6 +232,7 @@ dialog.addEventListener('click', event => { if (event.target === dialog) {
 dialog.addEventListener('close', () => {
   document.body.classList.remove('has-dialog');
   engine.setPaused(paused);
+  engine.setPulse(audio.level());
 });
 
 if ('IntersectionObserver' in window) {
@@ -194,7 +247,8 @@ if ('IntersectionObserver' in window) {
   document.querySelectorAll('.reveal').forEach(element => reveal.observe(element));
 }
 window.addEventListener('pagehide', event => {
-  if (event.persisted) return;
+  if (event.persisted) { audio.stop(); updateListen(); return; }
+  audio.destroy();
   engine.destroy();
   if (posterUrl) URL.revokeObjectURL(posterUrl);
 });
