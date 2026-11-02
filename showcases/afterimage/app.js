@@ -73,7 +73,6 @@ function updatePause() {
   $('#pause-button').setAttribute('aria-pressed', String(paused));
   $('#pause-button').setAttribute('aria-label', paused ? 'Play motion' : 'Pause motion');
   $('#pause-label').textContent = reduce.matches ? 'Still' : paused ? 'Play' : 'Pause';
-  $('#pause-icon').textContent = paused ? '▷' : 'Ⅱ';
   if (engine.ready) $('#live-label').textContent = reduce.matches ? 'Reduced motion' : paused ? 'A moment of stillness' : 'A living album cover';
 }
 updatePause();
