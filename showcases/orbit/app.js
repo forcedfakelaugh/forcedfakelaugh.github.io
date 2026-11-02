@@ -34,7 +34,7 @@ function changePeriod(key){
   document.querySelector('#average').innerHTML = `${data.average}<span>${data.averageCents}</span>`;
   document.querySelector('#conversion').innerHTML = `${data.conversion}<span>%</span>`;
   document.querySelector('#channel-total').textContent = data.orders;
-  document.querySelectorAll('.metric .change').forEach((el,index) => el.innerHTML = window.portfolioIcons.text(`↗ ${data.changes[index]}`));
+  document.querySelectorAll('.metric .change').forEach((el,index) => el.innerHTML = window.portfolioIcons.text(`→ ${data.changes[index]}`));
   document.querySelector('.chart-note strong').textContent = `${data.changes[0]} higher`;
   document.querySelector('.revenue-panel .panel-heading p').textContent = data.caption;
   document.querySelector('#chart-x').innerHTML = data.labels.map(label => `<span>${label}</span>`).join('');

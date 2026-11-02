@@ -195,7 +195,7 @@
   studies.forEach((study, index) => {
     const imageItem = document.createElement('button');
     imageItem.className = 'play-item';
-    imageItem.innerHTML = window.portfolioIcons.html(`<span class="play-visual"><img loading="lazy"></span><span class="play-caption"><span>${study.name}</span><span>Image study ↗</span></span>`);
+    imageItem.innerHTML = window.portfolioIcons.html(`<span class="play-visual"><img loading="lazy"></span><span class="play-caption"><span>${study.name}</span><span>Image study →</span></span>`);
     setStudyImage(imageItem.querySelector('img'), study, '(max-width: 760px) calc(50vw - 27px), (max-width: 1100px) calc((74vw - 70px) / 3), calc((74vw - 90px) / 4)');
     imageItem.addEventListener('click', () => navigate(`#study/${study.slug}`));
     $('#playground-grid').append(imageItem);
@@ -203,7 +203,7 @@
     if (!experiment) return;
     const labItem = document.createElement('button');
     labItem.className = 'play-item';
-    labItem.innerHTML = window.portfolioIcons.html(`<span class="play-visual"><canvas data-experiment="${experiment.slug}" aria-label="${experiment.name} preview"></canvas></span><span class="play-caption"><span>${experiment.name}</span><span>Play ↗</span></span>`);
+    labItem.innerHTML = window.portfolioIcons.html(`<span class="play-visual"><canvas data-experiment="${experiment.slug}" aria-label="${experiment.name} preview"></canvas></span><span class="play-caption"><span>${experiment.name}</span><span>Play →</span></span>`);
     labItem.addEventListener('click', () => navigate(`#experiment/${experiment.slug}`));
     $('#playground-grid').append(labItem);
   });
@@ -214,7 +214,7 @@
   const cards = Array.from({ length: 9 }, (_, slot) => {
     const button = document.createElement('button');
     button.className = 'media-card';
-    button.innerHTML = window.portfolioIcons.html('<img draggable="false" decoding="async" width="1672" height="941"><span class="card-label"><span></span><span aria-hidden="true">↗</span></span>');
+    button.innerHTML = window.portfolioIcons.html('<img draggable="false" decoding="async" width="1672" height="941"><span class="card-label"><span></span><span aria-hidden="true">→</span></span>');
     button.tabIndex = -1;
     const record = { button, image: button.querySelector('img'), label: button.querySelector('.card-label > span'), logical: null, index: null, slot };
     button.addEventListener('click', () => {
@@ -249,7 +249,7 @@
     setStudyImage(img, study, '(max-width: 760px) calc(50vw - 27px), calc(22vw - 16.5px)');
     item.append(img);
     const meta = document.createElement('div');
-    meta.innerHTML = window.portfolioIcons.html(`<span>${number(index)} / ${total}</span><span aria-hidden="true">↗</span>`);
+    meta.innerHTML = window.portfolioIcons.html(`<span>${number(index)} / ${total}</span><span aria-hidden="true">→</span>`);
     item.append(meta);
     const title = document.createElement('h3');
     title.textContent = study.name;

@@ -24,7 +24,6 @@ function updateListen() {
   document.querySelectorAll('[data-listen]').forEach(button => {
     button.setAttribute('aria-pressed', String(on));
     button.querySelector('[data-listen-label]').textContent = on ? 'Stop preview' : `Play side ${'ABC'[scene]}`;
-    button.querySelector('[data-listen-icon]').textContent = on ? '■' : '▶';
   });
   document.body.classList.toggle('is-listening', on);
   // Reduced motion and pause only stop the light. The music stays under the visitor's control.
@@ -182,7 +181,7 @@ async function captureMoment() {
     context.strokeRect(45, 45, 1110, 1410);
     context.fillStyle = '#d9f596';
     context.font = '18px monospace';
-    context.fillText('✳  ' + translate('THE DEBUT ALBUM'), 80, 100);
+    context.fillText(translate('THE DEBUT ALBUM'), 80, 100);
     context.textAlign = 'right';
     context.fillText(`${'ABC'[scene]} / 3`, 1120, 100);
     context.textAlign = 'left';
