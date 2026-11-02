@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="robots" content="noindex,nofollow">
+  <meta name="description" content="Một ý tưởng quà tặng cà phê Việt Nam dành cho Lacàph. Bản đề xuất thiết kế độc lập.">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Lacàph | Một phin, một khoảng thảnh thơi">
+  <meta property="og:description" content="Bản đề xuất độc lập của Lucas Nguyen. Khám phá chiếc phin, vị cà phê và một món quà từ Việt Nam.">
+  <meta property="og:url" content="https://cold-reach.lucasnguyen.pages.dev/hidden/lacaph/">
+  <meta property="og:image" content="https://cold-reach.lucasnguyen.pages.dev/hidden/lacaph/assets/share-preview.webp">
+  <meta name="twitter:card" content="summary_large_image">
+  <title>Lacàph | Một phin, một khoảng thảnh thơi</title>
+  <link rel="icon" href="assets/flower.webp" type="image/webp">
+  <link rel="stylesheet" href="style.css">
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <a class="skip" href="#main">Đến nội dung chính</a>
+  <div class="proposal-bar"><a href="/hidden/">Bản đề xuất độc lập</a><span>Ý tưởng website cho Lacàph</span></div>
+  <header class="site-header">
+    <a class="brand" href="#" aria-label="Lacàph, đầu trang"><img src="assets/logo.webp" width="214" height="57" alt="Lacàph, Coffees of Việt Nam"></a>
+    <nav aria-label="Điều hướng chính"><a href="#ritual">Pha một phin</a><a href="#gifts">Gửi một món quà</a><button class="nav-note" type="button" data-open-note>Viết lời nhắn <span aria-hidden="true">+</span></button></nav>
+  </header>
+  <main id="main">
+    <section class="brew-room" id="ritual" aria-labelledby="hero-title" data-step="0">
+      <div class="room-heading"><h1 id="hero-title">Một phin.<br>Một khoảng<br><span>thảnh thơi.</span></h1><p class="eyebrow">LACÀPH / THE PHIN RITUAL</p></div>
+      <div class="ritual-nav" role="tablist" aria-label="Khám phá cách thưởng thức cà phê phin" aria-orientation="vertical">
+        <button type="button" id="ritual-tab-0" role="tab" aria-selected="true" aria-controls="ritual-panel" data-step="0" class="is-active"><span>01</span><strong>Chiếc phin</strong></button>
+        <button type="button" id="ritual-tab-1" role="tab" aria-selected="false" aria-controls="ritual-panel" tabindex="-1" data-step="1"><span>02</span><strong>Vị cà phê</strong></button>
+        <button type="button" id="ritual-tab-2" role="tab" aria-selected="false" aria-controls="ritual-panel" tabindex="-1" data-step="2"><span>03</span><strong>Ngồi lại</strong></button>
+      </div>
+      <div class="ritual-visual" aria-hidden="true"><div class="orbit orbit-outer"></div><div class="orbit orbit-inner"></div><span class="orbit-label">COFFEES OF VIỆT NAM</span><span class="orbit-tick tick-one">+</span><span class="orbit-tick tick-two">+</span><img id="ritual-image" srcset="assets/phin-cutout-480.webp 375w" sizes="(max-width:800px) 300px, 490px" src="assets/phin-cutout-1000.webp" width="375" height="375" alt="Phin Microfilter Lacàph cùng hộp và túi vải" fetchpriority="high"></div>
+      <div class="ritual-panel" id="ritual-panel" role="tabpanel" aria-labelledby="ritual-tab-0" tabindex="0">
+        <h2 id="ritual-title">Quen dáng. Mịn từng giọt.</h2>
+        <p class="eyebrow" id="ritual-kicker">MICROFILTER PHIN BREWER</p>
+        <p id="ritual-description">Lacàph giữ lại dáng phin quen thuộc và thêm một lớp lọc kim loại mịn. Đặt phin lên ly, dành một chút thời gian cho cà phê.</p>
+        <div class="ritual-fact"><span id="fact-label">ĐIỂM KHÁC BIỆT</span><strong id="fact-value">Lớp lọc Microfilter</strong></div>
+        <a id="ritual-source" href="https://www.lacaph.com/all-products/gifting-bundles/microfilter-phin-brewer" target="_blank" rel="noopener noreferrer">Xem chiếc phin <span aria-hidden="true">→</span></a>
+      </div>
+      <p class="image-status" id="ritual-status" role="status"></p><div class="room-bottom"><span>CHẠM TỪNG BƯỚC ĐỂ KHÁM PHÁ</span><div><span id="step-progress">01 / 03</span><button id="next-step" type="button" aria-label="Bước tiếp theo">→</button></div></div>
+    </section>
+    <section class="gift-interlude" id="gifts" aria-labelledby="gift-interlude-title"><div class="interlude-image"><img id="gift-image" src="assets/set-1000.webp" srcset="assets/set-480.webp 480w, assets/set-1000.webp 1000w" sizes="(max-width:800px) 250px, 370px" width="1000" height="1000" alt="Bộ quà cà phê phin Việt Nam của Lacàph" loading="lazy"></div><div class="interlude-copy"><h2 id="gift-interlude-title">Gửi một chút<br>thân quen.</h2><p class="eyebrow">CHO MÌNH. HOẶC CHO NGƯỜI MÌNH QUÝ.</p><p>Một bộ pha phin, một chiếc phin riêng hay cuốn sách về cà phê Việt Nam. Chọn quà rồi viết vài lời cho người nhận.</p><label for="gift-select">Món quà của bạn</label><select id="gift-select"><option value="set">Bộ quà cà phê phin</option><option value="phin">Microfilter Phin Brewer</option><option value="book">Sách Đặc Đen Đắng</option></select><p class="image-status" id="gift-status" role="status"></p><div class="interlude-actions"><button class="button button-dark" type="button" data-open-note>Viết lời nhắn <span aria-hidden="true">+</span></button><a id="official-product" href="https://www.lacaph.com/all-products/gifting-bundles/lacaph-vietnamese-phin-coffee-set" target="_blank" rel="noopener noreferrer">Xem tại Lacàph →</a></div></div></section>
+    <section class="story-section" id="stories" aria-labelledby="stories-title">
+      <div class="story-photo"><img src="assets/book-1000.webp" srcset="assets/book-480.webp 480w, assets/book-1000.webp 1000w" sizes="(max-width:700px) 100vw, 48vw" width="1000" height="1000" alt="Đọc cuốn Đặc Đen Đắng bên một chiếc phin cà phê" loading="lazy"><span class="photo-caption">ĐẶC ĐEN ĐẮNG / THE VIETNAMESE COFFEE BOOK</span></div>
+      <div class="story-copy"><h2 id="stories-title">ĐỌC. PHA.<br><em>KỂ.</em></h2><p class="eyebrow">ĐẶC ĐEN ĐẮNG / THE VIETNAMESE COFFEE BOOK</p><p>Vì sao người Việt thích ngồi cà phê? Đằng sau những quán quen và cách pha quen là bao câu chuyện về người, về nghề.</p><p>Trong <i>Đặc Đen Đắng</i>, bạn có thể đọc về lịch sử cà phê Việt Nam, ghé những quán lâu đời và gặp những người làm cà phê.</p><a class="text-button" href="https://www.lacaph.com/all-products/gifting-bundles/dac-den-dang-the-vietnamese-coffee-book" target="_blank" rel="noopener noreferrer">Khám phá cuốn sách <span aria-hidden="true">→</span></a></div>
+    </section>
+    <section class="daily-section section-padding" aria-labelledby="daily-title">
+      <div class="daily-copy"><h2 id="daily-title">RỦ NHAU<br><em>ĐI PHA.</em></h2><p class="eyebrow">LACÀPH COFFEE EXPERIENCES</p><p>Rủ nhau học pha một món cà phê Việt Nam. Vừa làm, vừa nếm, vừa nghe chuyện ở Lacàph Coffee Experiences Space.</p><a class="button button-outline" href="https://www.lacaph.com/vietnamese-coffee-experiences" target="_blank" rel="noopener noreferrer">Xem các buổi trải nghiệm <span aria-hidden="true">→</span></a></div>
+      <figure class="daily-large"><img src="assets/workshop-1000.webp" srcset="assets/workshop-480.webp 480w, assets/workshop-1000.webp 600w" sizes="(max-width:700px) 90vw, 36vw" width="600" height="400" alt="Khách tự tay pha cà phê trong buổi trải nghiệm tại Lacàph" loading="lazy"><figcaption>MỘT BUỔI THỬ PHA, MỘT CÂU CHUYỆN MỚI.</figcaption></figure>
+      <figure class="daily-small"><img src="assets/coffee-1000.webp" srcset="assets/coffee-480.webp 480w, assets/coffee-1000.webp 1000w" sizes="(max-width:700px) 50vw, 22vw" width="1000" height="666" alt="Hộp cà phê Lacàph và dụng cụ pha trên bàn gỗ" loading="lazy"><figcaption>CHO NHỮNG NGÀY Ở NHÀ.</figcaption></figure>
+    </section>
+  </main>
+  <footer><div class="footer-top"><a href="https://www.lacaph.com/" target="_blank" rel="noopener noreferrer"><img src="assets/logo.webp" width="214" height="57" alt="Lacàph, Coffees of Việt Nam"></a><p>Cà phê Việt Nam.<br>Gửi một chút thân quen.</p><a href="#">Về đầu trang ↑</a></div><div class="footer-bottom"><p>Bản đề xuất thiết kế độc lập, không phải website chính thức của Lacàph. Hình ảnh thuộc thương hiệu.</p><a href="CREDITS.md">Nguồn hình ảnh</a><a href="/hidden/">Các bản đề xuất</a></div></footer>
+  <dialog id="note-dialog" aria-labelledby="note-title">
+    <div class="dialog-bar"><span>LỜI NHẮN CỦA BẠN</span><button id="close-note" class="dialog-close" type="button" aria-label="Đóng lời nhắn">×</button></div>
+    <div class="note-layout">
+      <div class="note-preview" id="note-preview" data-color="cream"><div class="postcard"><div class="postcard-top"><span>LACÀPH</span><img src="assets/flower.webp" width="87" height="86" alt=""></div><p class="postcard-to" id="preview-to">Gửi người mình quý,</p><p class="postcard-message" id="preview-message">Gửi bạn một chút cà phê Việt Nam. Hôm nào mình ngồi uống cùng nhau nhé!</p><div class="postcard-bottom"><span>COFFEES OF VIỆT NAM</span><span>WITH LOVE</span></div></div><p class="preview-caption">XEM TRƯỚC LỜI NHẮN</p></div>
+      <div class="note-fields"><h2 id="note-title">Bạn muốn nhắn gì?</h2><p class="eyebrow">MỘT MÓN QUÀ, MỘT LỜI NHẮN</p><p class="note-product" id="note-product">Lacàph Vietnamese Phin Coffee Set</p><label for="recipient">Gửi đến</label><input id="recipient" type="text" maxlength="40" autocomplete="off" placeholder="Tên người nhận"><label class="message-label" for="gift-message">Lời nhắn <span id="message-count">89 / 180</span></label><textarea id="gift-message" rows="4" maxlength="180">Gửi bạn một chút cà phê Việt Nam. Hôm nào mình ngồi uống cùng nhau nhé!</textarea><fieldset class="colors"><legend>Màu thiệp</legend><button type="button" data-color="cream" aria-label="Màu kem" aria-pressed="true"></button><button type="button" data-color="coral" aria-label="Màu cam san hô" aria-pressed="false"></button><button type="button" data-color="purple" aria-label="Màu tím" aria-pressed="false"></button></fieldset><button id="copy-note" class="button button-dark" type="button">Sao chép lời nhắn <span aria-hidden="true">+</span></button><p id="copy-status" role="status" class="copy-status"></p><textarea id="copy-fallback" class="copy-fallback" aria-label="Toàn bộ lời nhắn để sao chép" readonly hidden></textarea><p class="demo-note">Bạn đang xem thử ý tưởng thiệp. Lời nhắn chỉ ở trên thiết bị này, chưa gửi đến Lacàph hay người nhận.</p></div>
+    </div>
+  </dialog>
+</body>
+</html>

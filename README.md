@@ -21,6 +21,15 @@ npm run build
 
 ## Pages
 
+- `/hidden/wephobia/` - Independent WEPHOBIA collection-launch proposal using official lookbook and product photography, with an immersive magazine cover, paired editorial photographs and a three-column look selector.
+- `/hidden/alluvia/` - Independent Alluvia gifting-campaign proposal using official chocolate and giftbox photography, with a red/yellow packaging poster, a single-product gift shelf and a local gift preview.
+- `/hidden/hien-van/` - Independent Hiên Vân gallery proposal using official ceramics photography, with a dark artifact archive, gallery/list switching and an inquiry shortlist.
+- `/hidden/tuhu/` - Independent Tuhú collection-story proposal using official product imagery, with a cobalt/white interactive tabletop and mix-and-match bowl selection.
+- `/hidden/kho-coffee/` - Independent K’Ho Coffee proposal using official farm and coffee imagery, with a photographic farm journal and a guided roast selection.
+- `/hidden/lacaph/` - Independent Lacàph coffee-gifting proposal using official product imagery and a three-state phin installation with a local postcard composer.
+
+The six brand proposals above are unlisted, marked `noindex, nofollow`, and indexed only at `/hidden/`. They are speculative design proposals, not commissioned brand work. Images and trademarks belong to their respective owners; each route includes a `CREDITS.md` with provenance. Demo selections and request previews do not send orders or contact information.
+
 - `/showcases/coollab/` - Coollab, an unlisted Hanoi creative studio concept based on the supplied `01-editorial.png` design. Oversized Vietnamese typography, three original AI-generated photographs with responsive WebP sizes, project dialogs with keyboard navigation, a mobile menu and service disclosures. Shared VI/EN, local fonts and reduced motion. Contact leads to the portfolio owner. Sources and generation prompts in `showcases/coollab/CREDITS.md`.
 
 - `/showcases/relay/` - RELAY/09, an unlisted fictional signal station. Parallax's twelve images on a port of the React Bits Carousel with five switchable transitions, plus Faulty Terminal, Dot Grid, Glitch Text, Decrypted Text, Spotlight Card, Pixel Card, Magnet and Click Spark, each switchable from an on-page FX bus. Each frame retints the page. Shared VI/EN, reduced motion, no React at runtime. See `showcases/relay/CREDITS.md`.
@@ -48,7 +57,7 @@ npm run build
 - `/showcases/halyard/` - Halyard, a SaaS landing page for a fictional changelog product: feature sections, monthly/yearly pricing toggle with computed savings across three tiers, a plan comparison table, FAQ accordion and a CTA that states it is a concept.
 - `/showcases/moc/` - Mộc, a fictional herbal spa in Đà Lạt: lemongrass foot soaks, herbal compresses and oil massage, with a light botanical identity and a five-step appointment demo. Includes therapist compatibility, unavailable times, inline validation and a review; nothing is sent or booked. Original AI-created hero and illustrative Unsplash photos; provenance and prompt in `showcases/moc/CREDITS.md`. The former `/showcases/ember/` URL redirects here.
 
-The concept demos use fictional brands, business data, rates, and transactions. There are no real reservations, purchases, payments, or business integrations. Portfolio case studies do not claim client results or measured commercial outcomes.
+The portfolio includes fictional concepts and independent proposals for existing brands, identified on their respective pages. There are no real reservations, purchases, payments, or business integrations. Portfolio case studies do not claim client results or measured commercial outcomes.
 
 Solen Retreat lives in `showcases/serein/`. The duplicate standalone repository has been removed; this repository is the single source for all showcases.
 

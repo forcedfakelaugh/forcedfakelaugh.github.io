@@ -28,12 +28,13 @@ main{width:min(1080px,calc(100% - 32px));margin:0 auto;padding:56px 0 80px}
 .back{font-size:14px;color:var(--muted);text-decoration:none}.back:hover{color:var(--ink)}
 h1{font:500 clamp(34px,5vw,52px)/1.1 'Literata',Georgia,serif;margin:28px 0 10px}
 .lead{color:var(--muted);max-width:560px;margin:0 0 40px}
-.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:24px;list-style:none;margin:0;padding:0}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,300px),1fr));gap:24px;list-style:none;margin:0;padding:0}
+.section-title{font:500 clamp(25px,3vw,34px)/1.2 'Literata',Georgia,serif;margin:52px 0 10px}.section-note{color:var(--muted);font-size:14px;max-width:680px;margin:0 0 24px}.proposal-grid{margin-bottom:56px}.proposal-grid .card img{aspect-ratio:1440/1000;object-fit:contain}.proposal-grid .tag{color:var(--muted)}
 .card a{display:block;text-decoration:none;background:var(--card);border:1px solid var(--divider);border-radius:6px;overflow:hidden;transition:transform .2s}
 .card a:hover{transform:translateY(-3px)}
 .card img{display:block;width:100%;height:auto;aspect-ratio:16/10;object-fit:cover;background:var(--image-bg)}
 .face{display:grid;place-items:center;aspect-ratio:16/10;background:var(--image-bg);font:500 34px 'Literata',Georgia,serif;color:var(--muted)}
-.card div{padding:16px 18px 20px}.card h2{font:500 21px/1.3 'Literata',Georgia,serif;margin:0 0 6px}.card p{margin:0;font-size:14px;color:var(--muted)}
+.card div{padding:16px 18px 20px}.card h2,.card h3{font:500 21px/1.3 'Literata',Georgia,serif;margin:0 0 6px}.card p{margin:0;font-size:14px;color:var(--muted)}
 .tag{display:inline-block;margin-top:12px;font-size:12px;color:var(--sun)}
 @media(prefers-reduced-motion:reduce){.card a{transition:none}}
 </style>
@@ -43,6 +44,19 @@ h1{font:500 clamp(34px,5vw,52px)/1.1 'Literata',Georgia,serif;margin:28px 0 10px
   <a class="back" href="../">← Portfolio</a>
   <h1>Hidden showcases</h1>
   <p class="lead">Unlisted work: client proposals and drafts that are not shown on the portfolio homepage. Share links individually.</p>
+  <section lang="vi">
+  <h2 class="section-title">Đề xuất website và chiến dịch</h2>
+  <p class="section-note">Sáu hướng thiết kế riêng cho sáu thương hiệu. Các bản demo độc lập sử dụng hình ảnh từ kênh chính thức của thương hiệu, với nguồn ghi trong từng dự án.</p>
+  <ul class="grid proposal-grid" aria-label="Bản đề xuất cho thương hiệu">
+    <li class="card"><a href="wephobia/"><img src="wephobia/assets/share-preview.webp" alt="Lookbook thời trang WEPHOBIA" loading="lazy" width="1200" height="833"><div><h3>WEPHOBIA</h3><p>Lookbook phủ ảnh toàn màn hình, trang đôi và thanh chọn từng diện mạo.</p><span class="tag">Fashion editorial</span></div></a></li>
+    <li class="card"><a href="alluvia/"><img src="alluvia/assets/share-preview.webp" alt="Hộp quà sô cô la Alluvia" loading="lazy" width="1200" height="833"><div><h3>Alluvia Chocolate</h3><p>Đồ họa đỏ và vàng từ bao bì, kệ chọn hộp quà và lời nhắn xem trước.</p><span class="tag">Gifting campaign</span></div></a></li>
+    <li class="card"><a href="hien-van/"><img src="hien-van/assets/share-preview.webp" alt="Gốm thủ công Hiên Vân" loading="lazy" width="1200" height="833"><div><h3>Hiên Vân Ceramics</h3><p>Không gian trưng bày tối, hồ sơ từng món gốm và sổ lưu mẫu yêu thích.</p><span class="tag">Ceramics gallery</span></div></a></li>
+    <li class="card"><a href="tuhu/"><img src="tuhu/assets/share-preview.webp" alt="Bộ đồ gốm Tuhú trên bàn ăn" loading="lazy" width="1200" height="833"><div><h3>Tuhú Ceramics</h3><p>Tự phối sắc Hoài trên bàn ăn, chọn số chén và thay đổi cách sắp đặt.</p><span class="tag">Collection story</span></div></a></li>
+    <li class="card"><a href="kho-coffee/"><img src="kho-coffee/assets/share-preview.webp" alt="Cà phê K’Ho từ Langbiang" loading="lazy" width="1200" height="833"><div><h3>K’Ho Coffee</h3><p>Nhật ký ảnh từ Langbiang và phiếu chọn cà phê theo cách pha mỗi ngày.</p><span class="tag">Coffee discovery</span></div></a></li>
+    <li class="card"><a href="lacaph/"><img src="lacaph/assets/share-preview.webp" alt="Bộ phin và cà phê Lacàph" loading="lazy" width="1200" height="833"><div><h3>Lacàph</h3><p>Ba bước khám phá phin, vị cà phê và một tấm thiệp viết cho người nhận.</p><span class="tag">Coffee gifting</span></div></a></li>
+  </ul>
+  </section>
+  <h2 class="section-title">Other unlisted work</h2>
   <ul class="grid">
     <li class="card"><a href="../showcases/coollab/"><img src="../showcases/coollab/assets/preview.webp" alt="Coollab creative studio with oversized typography and tactile editorial photography" loading="lazy" width="1440" height="1000"><div><h2>Coollab</h2><p>An independent Hanoi studio concept. Three original generated project images, quiet editorial typography and an interactive project viewer.</p><span class="tag">creative studio</span></div></a></li>
     <li class="card"><a href="../showcases/relay/"><img src="../showcases/relay/assets/preview.webp" alt="RELAY concept campaign with a sprinter in black kit on a wet city street at night" loading="lazy" width="1440" height="900"><div><h2>RELAY</h2><p>Concept campaign for a fictional sportswear brand: a night-running drop with key visuals and an interactive launch page. Built with React Bits.</p><span class="tag">concept sports campaign</span></div></a></li>
