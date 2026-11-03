@@ -62,10 +62,10 @@ img { display: block; max-width: 100%; }
 @keyframes fade-out { to { opacity: 0; } }
 @keyframes fade-in { from { opacity: 0; } to { opacity: 1; } }
 
-/* header: centred logo, nav spread underneath */
-.header { padding: 28px 16px 0; display: flex; flex-direction: column; align-items: center; gap: 18px; }
-.header-top { display: grid; grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr); align-items: center; gap: 16px; width: min(1120px, 100%); }
-.header-top .logo { grid-column: 2; }
+/* header: logo, quiet anchor links and tools on one row */
+.header { padding: 28px 16px 0; display: flex; justify-content: center; }
+.header-top { display: grid; grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr); align-items: center; gap: 24px; width: min(1120px, 100%); }
+.header-top .logo { justify-self: start; }
 .header-tools { display: flex; align-items: center; justify-self: end; gap: 8px; }
 .language-switch { display: flex; align-items: center; justify-self: end; gap: 6px; min-height: 44px; padding: 0 6px; border: 0; background: transparent; font: 500 13px 'JetBrains Mono', ui-monospace, monospace; color: var(--muted); cursor: pointer; }
 .language-switch[hidden] { display: none; }
@@ -83,15 +83,15 @@ img { display: block; max-width: 100%; }
 /* Keep the square artwork inside the circle at every logo size. */
 .logo-mark img { width: 70%; height: 70%; }
 .logo:hover .logo-mark { transform: translateY(-2px); }
-.nav { display: flex; justify-content: space-around; width: min(760px, 100%); }
-.nav a { font: 500 19px var(--nav); color: var(--teal); padding-bottom: 6px; border-bottom: 2px solid transparent; transition: border-color .2s, color .2s; }
+.nav { display: flex; gap: 32px; }
+.nav a { font: 500 15px var(--nav); color: var(--teal); padding: 8px 0 6px; border-bottom: 2px solid transparent; transition: border-color .2s, color .2s; }
 .nav a:hover, .nav a.active { border-color: var(--sun); color: var(--ink); }
 
 main, .footer { width: min(1120px, 100% - 32px); margin: 0 auto; }
 
 /* intro */
 .intro { display: grid; grid-template-columns: 1.05fr .95fr; align-items: center; gap: 32px; padding: 64px 0 48px; min-height: min(76vh, 720px); }
-.intro-copy { position: relative; padding: 24px; isolation: isolate; }
+.intro-copy { position: relative; padding: 24px 0; isolation: isolate; }
 .circle { position: absolute; border-radius: 50%; background: var(--sun); z-index: -1; animation: drift 14s ease-in-out infinite alternate; }
 .c1 { width: 96px; height: 96px; top: -6px; left: 0; opacity: .35; }
 .c2 { width: 180px; height: 180px; top: 70px; left: 46%; opacity: .22; animation-delay: -5s; }
@@ -99,6 +99,8 @@ main, .footer { width: min(1120px, 100% - 32px); margin: 0 auto; }
 @keyframes drift { to { transform: translate(14px, -18px) scale(1.04); } }
 
 h1 { font: 500 clamp(40px, 6vw, 72px)/1.05 var(--nav); letter-spacing: -2.5px; margin-bottom: 24px; }
+html:lang(vi) h1 { line-height: 1.15; letter-spacing: -1.5px; }
+html:lang(vi) .tag { letter-spacing: .2px; line-height: 1.3; }
 .intro-greeting { display: block; }
 .intro-build, .intro-ending { white-space: nowrap; }
 /* Signal-tear treatment inspired by Codrops' CSSGlitchEffect. */
@@ -118,7 +120,7 @@ h1 { font: 500 clamp(40px, 6vw, 72px)/1.05 var(--nav); letter-spacing: -2.5px; m
 }
 .lede { font: 400 clamp(19px, 2vw, 23px)/1.55 var(--nav); max-width: 34ch; color: var(--ink); }
 .intro-actions { display: flex; align-items: center; flex-wrap: wrap; gap: 14px 24px; margin-top: 34px; }
-.button { display: inline-block; background: var(--ink); color: var(--paper); font: 600 15px var(--nav); letter-spacing: .6px; text-transform: uppercase; padding: 14px 26px; border-radius: var(--radius); box-shadow: var(--shadow); transition: background .2s, transform .2s; }
+.button { display: inline-block; background: var(--ink); color: var(--paper); font: 600 16px var(--nav); padding: 14px 26px; border-radius: var(--radius); box-shadow: var(--shadow); transition: background .2s, transform .2s; }
 .button:hover { background: var(--sun); color: var(--ink); transform: translateY(-2px); }
 .text-link { color: var(--teal); font: 500 17px var(--nav); }
 .text-link:hover { color: var(--ink); }
@@ -256,11 +258,11 @@ h2 { font: 500 clamp(30px, 4vw, 42px)/1.15 var(--nav); letter-spacing: -1.2px; }
   .header-top { display: flex; justify-content: space-between; gap: 12px; }
   .header-top .logo { font-size: 13px; gap: 9px; letter-spacing: 1.5px; }
   .header-top .logo-mark { width: 44px; height: 44px; }
-  .nav { position: fixed; z-index: 500; left: 0; right: 0; bottom: 0; width: 100%; background: var(--footer-bg); border-radius: 0; padding: 12px 8px calc(12px + env(safe-area-inset-bottom)); box-shadow: 0 -6px 20px rgba(58, 46, 47, .1); }
+  .nav { position: fixed; z-index: 500; justify-content: space-around; gap: 0; left: 0; right: 0; bottom: 0; width: 100%; background: var(--footer-bg); border-radius: 0; padding: 12px 8px calc(12px + env(safe-area-inset-bottom)); box-shadow: 0 -6px 20px rgba(58, 46, 47, .1); }
   .nav a { color: var(--footer-text); font-size: 16px; }
   .nav a.active { color: var(--footer-text); border-color: var(--sun); }
   .intro { grid-template-columns: 1fr; padding: 32px 0 16px; min-height: 0; }
-  .intro-copy { padding: 16px 4px; }
+  .intro-copy { padding: 16px 0; }
   .doodle { order: -1; }
   .doodle svg { max-width: 220px; margin: 0 auto; }
   .c3 { width: 240px; height: 240px; }

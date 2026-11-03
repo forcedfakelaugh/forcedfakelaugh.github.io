@@ -62,7 +62,7 @@ const vietnamese = {
   tagBooking: 'đặt lịch', tagDashboard: 'bảng tổng quan', tagAi: 'giao diện AI', tagArchitecture: 'kiến trúc', tagCreative: 'lập trình sáng tạo',
   conceptNote: 'Đây là các concept tương tác, không có đặt phòng, đơn hàng hay kết quả khách hàng thực tế.',
   aboutTitle: 'một chút về tớ',
-  aboutText: 'Tớ là Lucas, lập trình viên tại Việt Nam, hằng ngày làm việc với AI agent, quy trình LLM và các sản phẩm dùng AI. Tớ thích biến ý tưởng hay thành thứ được chăm chút, tải nhanh và dễ dùng - dù trên điện thoại ở quán cà phê hay laptop lúc nửa đêm.',
+  aboutText: 'Tớ là Lucas, lập trình viên tại Việt Nam, hằng ngày làm việc với AI agent, quy trình LLM và các sản phẩm dùng AI. Tớ thích biến ý tưởng hay thành thứ được chăm chút, tải nhanh và dễ dùng - dù trên laptop ở quán cà phê hay điện thoại lúc nửa đêm.',
   serviceAi: 'AI agent & trợ lý AI', serviceWorkflows: 'Quy trình LLM & tích hợp', serviceWeb: 'Website & trang giới thiệu', servicePrototypes: 'Bảng tổng quan & bản mẫu tương tác',
   helloTitle: 'cùng làm một thứ ra trò', helloText: 'Có dự án muốn trao đổi? Kể tớ nghe bạn đang muốn xây gì.', backTop: 'về đầu trang',
   contactReveal: 'Thông tin liên hệ', contactEmail: 'Email', contactPhone: 'Điện thoại',
