@@ -410,6 +410,32 @@
 (function () {
   var toggle = document.getElementById('menu-toggle');
   var menu = document.getElementById('site-menu');
+  // Ease the background clip to a stop instead of cutting at the last frame.
+  // Over BRAKE seconds of wall-clock time the rate falls as (1 - t)^2, which
+  // covers BRAKE / 3 seconds of footage, so braking starts that far from the end.
+  var video = document.querySelector('.hero__bg video');
+  if (video) {
+    var BRAKE = 2.4;
+    var braking = false;
+    var brake = function () {
+      var start = performance.now();
+      (function step(now) {
+        var t = Math.min((now - start) / (BRAKE * 1000), 1);
+        var rate = Math.pow(1 - t, 2);
+        if (t >= 1 || rate < 0.07 || video.ended) { video.pause(); return; }
+        video.playbackRate = rate;
+        requestAnimationFrame(step);
+      })(start);
+    };
+    video.addEventListener('timeupdate', function () {
+      if (braking || !video.duration) return;
+      if (video.currentTime >= video.duration - BRAKE / 3 - 0.45) {
+        braking = true;
+        brake();
+      }
+    });
+  }
+
   // The shared translator skips <textarea>, so localise its placeholder here.
   var input = document.getElementById('prompt-input');
   var placeholder = input ? input.getAttribute('placeholder') : '';
