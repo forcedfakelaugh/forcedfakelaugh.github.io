@@ -21,7 +21,7 @@ npm run build
 
 ## Pages
 
-- `/showcases/junglemind/` - JungleMind, an unlisted hero for a fictional AI company: a full-bleed glasshouse jungle video with no overlay, a frosted prompt card, staggered entrance motion and a masked full-screen mobile menu. Shared portfolio nav with VI/EN copy in `showcases/locales/junglemind.js`.
+- `/showcases/junglemind/` - JungleMind, a homepage-featured hero for a fictional AI company: a full-bleed glasshouse jungle video with no overlay, a frosted prompt card, staggered entrance motion and a masked full-screen mobile menu. Shared portfolio nav with VI/EN copy in `showcases/locales/junglemind.js`.
 - `/hidden/son/` - SON, an unlisted contemporary Vietnamese lacquerware (*sơn mài*) atelier concept in Hanoi: an interactive water-sanding workbench revealing five lacquer strata, an asymmetric archive of four generated studio photographs (`480w`/`960w`/`1440w` WebP) with exhibition/index switching, a warm *giấy dó* curing-room ledger and a custom sample plaque composer with 1200 × 1500 PNG spec sheet export. VI/EN, local fonts and reduced motion. Provenance in `hidden/son/CREDITS.md`.
 - `/hidden/wephobia/` - Independent WEPHOBIA collection-launch proposal using official lookbook and product photography, with an immersive magazine cover, paired editorial photographs and a three-column look selector.
 - `/hidden/alluvia/` - Independent Alluvia gifting-campaign proposal using official chocolate and giftbox photography, with a red/yellow packaging poster, a single-product gift shelf and a local gift preview.
@@ -30,9 +30,9 @@ npm run build
 - `/hidden/kho-coffee/` - Independent K’Ho Coffee proposal using official farm and coffee imagery, with a photographic farm journal and a guided roast selection.
 - `/hidden/lacaph/` - Independent Lacàph coffee-gifting proposal using official product imagery and a three-state phin installation with a local postcard composer.
 
-The six brand proposals above are unlisted, marked `noindex, nofollow`, and indexed only at `/hidden/`. They are speculative design proposals, not commissioned brand work. Images and trademarks belong to their respective owners; each route includes a `CREDITS.md` with provenance. Demo selections and request previews do not send orders or contact information.
+WEPHOBIA is featured on the homepage, retaining its original `/hidden/wephobia/` URL for existing links. The other five brand proposals above are unlisted, marked `noindex, nofollow`, and indexed only at `/hidden/`. All six are speculative design proposals, not commissioned brand work. Images and trademarks belong to their respective owners; each route includes a `CREDITS.md` with provenance. Demo selections and request previews do not send orders or contact information.
 
-- `/showcases/coollab/` - Coollab, an unlisted Hanoi creative studio concept based on the supplied `01-editorial.png` design. Oversized Vietnamese typography, three original AI-generated photographs with responsive WebP sizes, project dialogs with keyboard navigation, a mobile menu and service disclosures. Shared VI/EN, local fonts and reduced motion. Contact leads to the portfolio owner. Sources and generation prompts in `showcases/coollab/CREDITS.md`.
+- `/showcases/coollab/` - Coollab, a homepage-featured Hanoi creative studio concept based on the supplied `01-editorial.png` design. Oversized Vietnamese typography, three original AI-generated photographs with responsive WebP sizes, project dialogs with keyboard navigation, a mobile menu and service disclosures. Shared VI/EN, local fonts and reduced motion. Contact leads to the portfolio owner. Sources and generation prompts in `showcases/coollab/CREDITS.md`.
 
 - `/showcases/relay/` - RELAY/09, an unlisted fictional signal station. Parallax's twelve images on a port of the React Bits Carousel with five switchable transitions, plus Faulty Terminal, Dot Grid, Glitch Text, Decrypted Text, Spotlight Card, Pixel Card, Magnet and Click Spark, each switchable from an on-page FX bus. Each frame retints the page. Shared VI/EN, reduced motion, no React at runtime. See `showcases/relay/CREDITS.md`.
 

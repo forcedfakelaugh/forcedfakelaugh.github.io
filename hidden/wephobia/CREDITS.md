@@ -44,7 +44,7 @@ Downloaded from the public official website on 1 November 2026. Source JPEGs wer
 - Buildless HTML, CSS and JavaScript. No external runtime, fonts, analytics, forms or checkout.
 - Native modal dialog supports Escape, a sticky close bar, outside click, focus return and keyboard navigation. Look-selector buttons additionally support Left/Right, Home and End.
 - Responsive images include a separate portrait composition for the mobile hero. Reduced-motion preference disables smooth scrolling and transitions.
-- The page is marked `noindex,nofollow`. The `/hidden/` listing is unlisted, not an access-control mechanism.
+- The proposal is featured on the portfolio homepage. Its original `/hidden/wephobia/` URL is retained for existing links.
 - Look images preload as the visitor approaches the lookbook. Switching waits for image decoding, keeps the current look on failure, supports retry, and ignores stale requests. Reduced motion also disables the image transition.
 - The refined mobile masthead leaves the portrait unobstructed; a horizontal selector gives the active look the full content width.
 - Look switching and the product dialog are functional. Purchase links intentionally leave this proposal for the official website.
