@@ -21,7 +21,7 @@ npm run build
 
 ## Pages
 
-- `/hidden/junglemind/` - JungleMind, an unlisted hero for a fictional AI company: a full-bleed glasshouse jungle video with no overlay, a frosted prompt card, staggered entrance motion and a masked full-screen mobile menu. Single standalone HTML file.
+- `/showcases/junglemind/` - JungleMind, an unlisted hero for a fictional AI company: a full-bleed glasshouse jungle video with no overlay, a frosted prompt card, staggered entrance motion and a masked full-screen mobile menu. Shared portfolio nav with VI/EN copy in `showcases/locales/junglemind.js`.
 - `/hidden/son/` - SON, an unlisted contemporary Vietnamese lacquerware (*sơn mài*) atelier concept in Hanoi: an interactive water-sanding workbench revealing five lacquer strata, an asymmetric archive of four generated studio photographs (`480w`/`960w`/`1440w` WebP) with exhibition/index switching, a warm *giấy dó* curing-room ledger and a custom sample plaque composer with 1200 × 1500 PNG spec sheet export. VI/EN, local fonts and reduced motion. Provenance in `hidden/son/CREDITS.md`.
 - `/hidden/wephobia/` - Independent WEPHOBIA collection-launch proposal using official lookbook and product photography, with an immersive magazine cover, paired editorial photographs and a three-column look selector.
 - `/hidden/alluvia/` - Independent Alluvia gifting-campaign proposal using official chocolate and giftbox photography, with a red/yellow packaging poster, a single-product gift shelf and a local gift preview.

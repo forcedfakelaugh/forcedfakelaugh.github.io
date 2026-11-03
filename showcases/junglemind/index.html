@@ -4,10 +4,15 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>JungleMind — The thinking engine shaped for what counts.</title>
-<meta name="robots" content="noindex">
+<meta name="robots" content="noindex, nofollow">
+<meta name="description" content="JungleMind is a concept hero for a fictional AI company: a sunlit glasshouse jungle video, a frosted prompt card and a masked mobile menu.">
+<link rel="icon" href="./assets/mark.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../portfolio-nav.css">
+<script src="../portfolio-icons.js"></script>
+<script src="../portfolio-language-init.js"></script>
 <style>
   :root {
     --ink: #111111;
@@ -20,6 +25,7 @@
   *, *::before, *::after { box-sizing: border-box; }
 
   html, body { margin: 0; padding: 0; background: #eef2ee; overflow-x: hidden; }
+  body { padding-top: 42px; } /* room for the shared portfolio nav */
 
   body {
     font-family: "Poppins", -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
@@ -37,8 +43,8 @@
   /* Hero shell */
   .hero {
     position: relative;
-    height: 100vh;
-    height: 100svh;
+    height: calc(100vh - 42px);
+    height: calc(100svh - 42px);
     min-height: 620px;
     width: 100%;
     overflow: hidden;
@@ -129,7 +135,7 @@
   .btn-dark:hover { background: #000; transform: translateY(-1px); }
 
   /* Centre stack */
-  .stage {
+  .hero-stage {
     flex: 1 1 auto; min-height: 0;
     display: flex; flex-direction: column;
     align-items: center; justify-content: center;
@@ -170,8 +176,8 @@
 
   @media (min-width: 900px) {
     .brk { display: inline; }
-    .stage .headline { max-width: none; }
-    .stage .sub { max-width: none; }
+    .hero-stage .headline { max-width: none; }
+    .hero-stage .sub { max-width: none; }
   }
 
   /* Prompt card */
@@ -249,7 +255,7 @@
     .nav__toggle { display: inline-flex; }
 
     .nav__nav {
-      position: fixed; inset: 0; z-index: 60;
+      position: fixed; inset: 42px 0 0; z-index: 60;
       display: flex; flex-direction: column;
       align-items: center; justify-content: center;
       gap: 30px; padding: 92px 28px 46px;
@@ -301,7 +307,7 @@
       display: inline-flex; width: 100%; max-width: 340px;
       padding: 15px 22px; font-size: 15px; border-radius: 11px;
     }
-    .stage { padding: 16px 18px 22px; gap: 16px; }
+    .hero-stage { padding: 16px 18px 22px; gap: 16px; }
     .headline { font-size: clamp(28px, 7.6vw, 36px); line-height: 1.1; max-width: 13ch; letter-spacing: -0.03em; }
     .sub { font-size: 14px; line-height: 1.6; max-width: 30ch; color: #272b28; font-weight: 500; }
     .badge { font-size: 12px; padding: 6px 13px 6px 6px; gap: 10px; }
@@ -315,8 +321,8 @@
 
   /* Landscape phones */
   @media (max-height: 560px) and (orientation: landscape) {
-    .hero { height: auto; min-height: 100svh; }
-    .stage { padding-block: 34px; }
+    .hero { height: auto; min-height: calc(100svh - 42px); }
+    .hero-stage { padding-block: 34px; }
     .prompt__input { min-height: 48px; }
   }
 
@@ -332,6 +338,7 @@
 </style>
 </head>
 <body>
+<nav class="portfolio-nav" aria-label="Portfolio navigation"><a class="portfolio-return" href="../../#work">Portfolio</a><span class="portfolio-context" data-no-translate>JUNGLEMIND / FICTIONAL AI PRODUCT</span><button class="language-switch" type="button" aria-label="Switch to Vietnamese"><span data-language="vi" lang="vi">VI</span><span aria-hidden="true">/</span><span data-language="en" lang="en">EN</span></button></nav>
 <section class="hero">
   <div class="hero__bg">
     <video autoplay muted loop playsinline preload="auto"
@@ -369,7 +376,7 @@
       </button>
     </header>
 
-    <main class="stage">
+    <main class="hero-stage">
       <div class="badge rise" style="--i:8">
         <span class="badge__tag">Now</span><span>JungleMind 3.0 is here</span>
       </div>
@@ -403,6 +410,14 @@
 (function () {
   var toggle = document.getElementById('menu-toggle');
   var menu = document.getElementById('site-menu');
+  // The shared translator skips <textarea>, so localise its placeholder here.
+  var input = document.getElementById('prompt-input');
+  var placeholder = input ? input.getAttribute('placeholder') : '';
+  window.addEventListener('showcase-language', function () {
+    var api = window.showcaseLanguage;
+    if (input && api) input.setAttribute('placeholder', api.translate(placeholder));
+  });
+
   if (!toggle || !menu) return;
 
   function isOpen() {
