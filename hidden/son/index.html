@@ -1,0 +1,577 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex,nofollow">
+  <meta name="theme-color" content="#120f0d">
+  <meta name="description" content="SON — Xưởng sơn mài và vật dụng đương đại tại Hà Nội. Khám phá năm tầng sơn ta qua bàn mài nước tương tác, tư liệu hiện vật và bảng phối mẫu vật liệu.">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="SON | Xưởng sơn mài & vật dụng đương đại">
+  <meta property="og:description" content="Mười hai lớp sơn. Ánh sáng nằm ở dưới cùng. Một concept thiết kế tương tác của Lucas Nguyen.">
+  <meta property="og:url" content="https://cold-reach.lucasnguyen.pages.dev/hidden/son/">
+  <meta property="og:image" content="https://cold-reach.lucasnguyen.pages.dev/hidden/son/assets/share-preview.webp">
+  <meta name="twitter:card" content="summary_large_image">
+  <title>SON · Xưởng sơn mài & vật dụng đương đại</title>
+  <link rel="icon" href="assets/mark.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="assets/fonts.css">
+  <link rel="stylesheet" href="style.css">
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#main" data-i18n="skip">Đến nội dung chính</a>
+
+  <div class="proposal-bar" role="region" aria-label="Thông tin bản thiết kế">
+    <a class="proposal-back" href="/hidden/" data-i18n="backLink">← Các bản đề xuất</a>
+    <span class="proposal-context" data-i18n="proposalContext">SON / XƯỞNG SƠN MÀI ĐƯƠNG ĐẠI · CONCEPT ĐỘC LẬP</span>
+    <div class="proposal-actions">
+      <button type="button" class="lang-switch" id="lang-switch" aria-label="Switch language to English">
+        <span data-lang-pill="vi" class="is-active">VI</span>
+        <span aria-hidden="true">/</span>
+        <span data-lang-pill="en">EN</span>
+      </button>
+    </div>
+  </div>
+
+  <header class="site-header" id="top">
+    <a class="wordmark" href="#top" aria-label="SON, đầu trang">
+      <span class="wordmark-main" data-no-translate>SON</span>
+      <span class="wordmark-sub" data-i18n="wordmarkSub">SƠN TA &amp; KHÔNG GIAN · HÀ NỘI</span>
+    </a>
+    <nav class="site-nav" aria-label="Điều hướng chính">
+      <a href="#ban-mai" data-i18n="navStrata">01 / Bàn mài nước</a>
+      <a href="#hien-vat" data-i18n="navWorks">02 / Hiện vật</a>
+      <a href="#ghi-chep" data-i18n="navNotes">03 / Buồng ủ</a>
+      <a href="#bang-mau" data-i18n="navPlaque">04 / Bảng mẫu</a>
+    </nav>
+    <button class="shortlist-trigger" id="open-shortlist" type="button" aria-haspopup="dialog">
+      <span data-i18n="shortlistBtn">Sổ mẫu đã lưu</span>
+      <span class="shortlist-count" id="shortlist-count" aria-live="polite">0</span>
+    </button>
+  </header>
+
+  <main id="main">
+    <!-- SECTION 01: HERO & INTERACTIVE WATER-SANDING STUDIO -->
+    <section class="hero-studio" id="ban-mai" aria-labelledby="hero-title" data-active-stratum="2">
+      <div class="hero-masthead">
+        <div class="masthead-meta">
+          <p class="eyebrow"><span class="pulse-dot" aria-hidden="true"></span><span data-i18n="heroEyebrow">NGHIÊN CỨU VẬT LIỆU · HẠ THÁI &amp; HÀ NỘI</span></p>
+          <p class="masthead-coords" data-no-translate>21°01'42"N · 105°51'15"E · RH 85%</p>
+        </div>
+        <h1 id="hero-title">
+          <span data-i18n="heroTitleLine1">Mười hai lớp sơn.</span>
+          <em data-i18n="heroTitleLine2">Ánh sáng nằm ở dưới cùng.</em>
+        </h1>
+        <p class="hero-lead" data-i18n="heroLead">
+          Sơn mài Việt Nam không vẽ lên bề mặt. Người thợ chôn vàng quỳ, vỏ trứng và chu sa dưới nhiều tầng sơn then, rồi dùng đá suối cùng nước mưa mài ngược xuống để gọi ánh sáng thức dậy.
+        </p>
+      </div>
+
+      <div class="sanding-workbench">
+        <!-- Left column: 5 Strata Tablist -->
+        <div class="strata-rail">
+          <div class="rail-header">
+            <span class="mono-label" data-i18n="strataRailLabel">CẤU TRÚC 05 TẦNG SƠN</span>
+            <span class="mono-muted" id="strata-step-counter">03 / 05</span>
+          </div>
+          <div class="strata-tabs" role="tablist" aria-label="Năm tầng cấu trúc sơn mài" aria-orientation="vertical">
+            <button type="button" role="tab" id="stratum-tab-0" aria-selected="false" aria-controls="stratum-panel" tabindex="-1" data-stratum="0" class="stratum-tab">
+              <span class="stratum-num">01</span>
+              <span class="stratum-info">
+                <strong data-i18n="stratum0Title">Vóc gỗ &amp; Đất phù sa</strong>
+                <small data-i18n="stratum0Sub">Lớp cốt bó vải màn · 0–18 ngày</small>
+              </span>
+              <i class="stratum-swatch" style="--swatch:#594433" aria-hidden="true"></i>
+            </button>
+            <button type="button" role="tab" id="stratum-tab-1" aria-selected="false" aria-controls="stratum-panel" tabindex="-1" data-stratum="1" class="stratum-tab">
+              <span class="stratum-num">02</span>
+              <span class="stratum-info">
+                <strong data-i18n="stratum1Title">Sơn then đen thẳm</strong>
+                <small data-i18n="stratum1Sub">Nhựa sơn Phú Thọ &amp; tùng hương · 24 ngày</small>
+              </span>
+              <i class="stratum-swatch" style="--swatch:#161311" aria-hidden="true"></i>
+            </button>
+            <button type="button" role="tab" id="stratum-tab-2" aria-selected="true" aria-controls="stratum-panel" tabindex="0" data-stratum="2" class="stratum-tab is-active">
+              <span class="stratum-num">03</span>
+              <span class="stratum-info">
+                <strong data-i18n="stratum2Title">Vỏ trứng &amp; Vàng quỳ</strong>
+                <small data-i18n="stratum2Sub">Khảm thủ công từng mảnh · 42 ngày</small>
+              </span>
+              <i class="stratum-swatch" style="--swatch:#dfd3be" aria-hidden="true"></i>
+            </button>
+            <button type="button" role="tab" id="stratum-tab-3" aria-selected="false" aria-controls="stratum-panel" tabindex="-1" data-stratum="3" class="stratum-tab">
+              <span class="stratum-num">04</span>
+              <span class="stratum-info">
+                <strong data-i18n="stratum3Title">Sơn son chu sa</strong>
+                <small data-i18n="stratum3Sub">Phủ kín các tầng khảm · 68 ngày</small>
+              </span>
+              <i class="stratum-swatch" style="--swatch:#b83224" aria-hidden="true"></i>
+            </button>
+            <button type="button" role="tab" id="stratum-tab-4" aria-selected="false" aria-controls="stratum-panel" tabindex="-1" data-stratum="4" class="stratum-tab">
+              <span class="stratum-num">05</span>
+              <span class="stratum-info">
+                <strong data-i18n="stratum4Title">Mài nước &amp; Bóng tay</strong>
+                <small data-i18n="stratum4Sub">Cánh gián trong suốt · 90 ngày</small>
+              </span>
+              <i class="stratum-swatch" style="--swatch:#c99a49" aria-hidden="true"></i>
+            </button>
+          </div>
+        </div>
+
+        <!-- Center column: Interactive Water-Sanding Canvas -->
+        <div class="canvas-stage-wrap">
+          <div class="canvas-toolbar">
+            <span class="canvas-instruction" id="canvas-instruction" data-i18n="canvasHint">Chạm và xoa trên bề mặt để mài nước qua các tầng sơn</span>
+            <div class="canvas-actions">
+              <button type="button" class="micro-button" id="auto-polish-btn" data-i18n="autoPolishBtn">Mài mẫu tự động</button>
+              <button type="button" class="micro-button" id="reset-coat-btn" data-i18n="resetCoatBtn">Phủ lại lớp sơn</button>
+            </div>
+          </div>
+
+          <div class="lacquer-viewport" id="lacquer-viewport">
+            <img class="lacquer-fallback" src="assets/still-plaque.svg" width="900" height="620" alt="Bề mặt sơn mài với vỏ trứng rạn, bụi vàng quỳ và sắc đỏ chu sa">
+            <canvas id="lacquer-canvas" width="900" height="620" aria-label="Bàn mài sơn mài tương tác. Kéo chuột hoặc chạm để mài lộ lớp vỏ trứng và vàng quỳ bên dưới."></canvas>
+            <div class="viewport-hud" aria-hidden="true">
+              <span class="hud-corner hud-tl">TẤM MẪU · 320 × 220 MM</span>
+              <span class="hud-corner hud-tr" id="hud-depth">ĐỘ SÂU MÀI · 48 µm</span>
+              <span class="hud-corner hud-bl" id="hud-exposed">LỘ SÁNG · VỎ TRỨNG &amp; VÀNG QUỲ</span>
+              <span class="hud-corner hud-br" id="hud-polish-pct">ĐỘ MÀI · 38%</span>
+            </div>
+          </div>
+
+          <div class="canvas-Bottombar">
+            <div class="depth-meter" aria-hidden="true">
+              <span class="depth-label" data-i18n="depthLabel">MẶT CẮT ĐỘ SÂU</span>
+              <div class="depth-bars" id="depth-bars">
+                <i style="--layer-color:#b83224" title="Sơn son"></i>
+                <i style="--layer-color:#c99a49" title="Cánh gián"></i>
+                <i style="--layer-color:#f2ece1" class="is-active" title="Vỏ trứng & Vàng quỳ"></i>
+                <i style="--layer-color:#161311" title="Sơn then"></i>
+                <i style="--layer-color:#594433" title="Vóc gỗ"></i>
+              </div>
+            </div>
+            <div class="light-control">
+              <label for="light-angle" data-i18n="lightAngleLabel">Góc rọi sáng</label>
+              <input id="light-angle" type="range" min="-60" max="60" value="18">
+            </div>
+          </div>
+          <p class="sr-only" id="stratum-live-status" role="status" aria-live="polite"></p>
+        </div>
+
+        <!-- Right column: Active Stratum Technical Dossier -->
+        <aside class="stratum-dossier" id="stratum-panel" role="tabpanel" aria-labelledby="stratum-tab-2" tabindex="0">
+          <div class="dossier-top">
+            <span class="mono-label" id="dossier-code">TẦNG 03 / KHẢM CHÌM</span>
+            <span class="dossier-badge" id="dossier-badge">42 NGÀY Ủ</span>
+          </div>
+          <h2 id="dossier-title">Vỏ trứng &amp; Vàng quỳ</h2>
+          <p class="dossier-description" id="dossier-description">
+            Vỏ trứng vịt nướng sơ được đặt ngửa hay úp tùy độ sáng trầm, gõ nhẹ bằng đầu búa nhỏ để tạo mạng vết rạn tự nhiên. Bụi vàng quỳ Kiêu Kỵ mỏng hơn làn khói được rắc lên nền sơn còn ướt.
+          </p>
+          <dl class="dossier-specs">
+            <div>
+              <dt data-i18n="specMaterialLabel">Nguyên liệu</dt>
+              <dd id="dossier-material">Vỏ trứng vịt Cỏ &amp; vàng 24K đập tay</dd>
+            </div>
+            <div>
+              <dt data-i18n="specHumidityLabel">Điều kiện buồng ủ</dt>
+              <dd id="dossier-humidity">Độ ẩm 85% · Nhiệt độ 28°C</dd>
+            </div>
+            <div>
+              <dt data-i18n="specToolLabel">Dụng cụ chế tác</dt>
+              <dd id="dossier-tool">Dao xương trâu, búa gõ rạn, đá mài bùn</dd>
+            </div>
+          </dl>
+          <a class="dossier-jump" href="#hien-vat">
+            <span data-i18n="seeObjectsCta">Xem 04 hiện vật hoàn thiện</span>
+            <span aria-hidden="true">↓</span>
+          </a>
+        </aside>
+      </div>
+    </section>
+
+    <!-- SECTION 02: ASYMMETRIC MUSEUM ARCHIVE -->
+    <section class="archive-section" id="hien-vat" aria-labelledby="archive-title">
+      <div class="section-header">
+        <div>
+          <p class="eyebrow" data-i18n="archiveEyebrow">01 / TƯ LIỆU HIỆN VẬT · BỘ SƯU TẬP 2026</p>
+          <h2 id="archive-title" data-i18n="archiveTitle">Những hình khối giữ bóng tối.</h2>
+        </div>
+        <p class="section-intro" data-i18n="archiveIntro">
+          Bốn thiết kế đầu tiên từ xưởng SON. Tối giản về hình học để nhường toàn bộ chiều sâu cho bề mặt sơn mài tự nhiên. Mở từng hồ sơ để xem cấu trúc lớp sơn và lưu vào sổ mẫu.
+        </p>
+      </div>
+
+      <div class="archive-toolbar">
+        <div class="filter-group" role="group" aria-label="Lọc theo nhóm hiện vật">
+          <button type="button" class="filter-btn is-active" data-filter="all" aria-pressed="true">
+            <span data-i18n="filterAll">Tất cả</span> <sup>04</sup>
+          </button>
+          <button type="button" class="filter-btn" data-filter="furniture" aria-pressed="false" data-i18n="filterFurniture">Nội thất</button>
+          <button type="button" class="filter-btn" data-filter="object" aria-pressed="false" data-i18n="filterObject">Vật dụng</button>
+          <button type="button" class="filter-btn" data-filter="architecture" aria-pressed="false" data-i18n="filterArch">Bình phong</button>
+        </div>
+
+        <div class="view-switch" role="group" aria-label="Chế độ hiển thị">
+          <button type="button" class="view-btn is-active" data-view="gallery" aria-pressed="true" data-i18n="viewGallery">Trưng bày</button>
+          <span aria-hidden="true">/</span>
+          <button type="button" class="view-btn" data-view="list" aria-pressed="false" data-i18n="viewList">Mục lục</button>
+        </div>
+      </div>
+
+      <p class="sr-only" id="archive-status" aria-live="polite"></p>
+
+      <div class="artifact-grid" id="artifact-grid">
+        <!-- S.01: Monolithic Table -->
+        <article class="artifact-card" data-id="table" data-category="furniture">
+          <button type="button" class="artifact-trigger" data-open-artifact="table" aria-haspopup="dialog">
+            <span class="artifact-meta-top">
+              <span class="catalog-code" data-no-translate>S.01 / SƠN THEN &amp; VỎ TRỨNG</span>
+              <span class="curing-tag" data-i18n="tableCure">14 lớp · 95 ngày</span>
+            </span>
+            <span class="artifact-media">
+              <img src="assets/table-960.webp" srcset="assets/table-480.webp 480w, assets/table-960.webp 960w, assets/table-1440.webp 1440w" sizes="(max-width: 760px) 92vw, 56vw" width="1440" height="960" alt="Bàn trà nguyên khối bằng sơn then đen bóng với dải khảm vỏ trứng rạn ở cạnh vát" fetchpriority="high">
+              <span class="artifact-hover-pill" data-i18n="inspectArtifact">Hồ sơ hiện vật +</span>
+            </span>
+            <span class="artifact-caption">
+              <span class="artifact-title-row">
+                <strong data-i18n="tableTitle">Bàn Trà Tĩnh Mặc</strong>
+                <span class="artifact-dims" data-no-translate>140 × 85 × 28 cm</span>
+              </span>
+              <span class="artifact-summary" data-i18n="tableSummary">Khối gỗ tần bì bọc vải màn, mười bốn lớp sơn then mài phẳng như mặt nước đêm, điểm dải vỏ trứng rạn nơi mép vát.</span>
+            </span>
+            <span class="list-arrow" aria-hidden="true">+</span>
+          </button>
+        </article>
+
+        <!-- S.02: Vermilion Vessel -->
+        <article class="artifact-card" data-id="vessel" data-category="object">
+          <button type="button" class="artifact-trigger" data-open-artifact="vessel" aria-haspopup="dialog">
+            <span class="artifact-meta-top">
+              <span class="catalog-code" data-no-translate>S.02 / SƠN SON CHU SA</span>
+              <span class="curing-tag" data-i18n="vesselCure">12 lớp · 80 ngày</span>
+            </span>
+            <span class="artifact-media">
+              <img src="assets/vessel-960.webp" srcset="assets/vessel-480.webp 480w, assets/vessel-960.webp 960w, assets/vessel-1440.webp 1440w" sizes="(max-width: 760px) 84vw, 34vw" width="1152" height="1440" alt="Bình gốm vóc sơn mài màu đỏ chu sa mài lộ lớp sơn nâu trầm và bụi vàng ở vai bình" loading="lazy">
+              <span class="artifact-hover-pill" data-i18n="inspectArtifact">Hồ sơ hiện vật +</span>
+            </span>
+            <span class="artifact-caption">
+              <span class="artifact-title-row">
+                <strong data-i18n="vesselTitle">Bình Âm Chu Sa</strong>
+                <span class="artifact-dims" data-no-translate>Ø 26 × 38 cm</span>
+              </span>
+              <span class="artifact-summary" data-i18n="vesselSummary">Sắc đỏ chu sa mài lộ lớp sơn cánh gián và bụi vàng quỳ nơi vai bình, tạo cảm giác ngọn lửa âm ỉ dưới lớp nước sâu.</span>
+            </span>
+            <span class="list-arrow" aria-hidden="true">+</span>
+          </button>
+        </article>
+
+        <!-- S.03: Folding Screen -->
+        <article class="artifact-card" data-id="screen" data-category="architecture">
+          <button type="button" class="artifact-trigger" data-open-artifact="screen" aria-haspopup="dialog">
+            <span class="artifact-meta-top">
+              <span class="catalog-code" data-no-translate>S.03 / CÁNH GIÁN &amp; BẠC QUỲ</span>
+              <span class="curing-tag" data-i18n="screenCure">16 lớp · 110 ngày</span>
+            </span>
+            <span class="artifact-media">
+              <img src="assets/screen-960.webp" srcset="assets/screen-480.webp 480w, assets/screen-960.webp 960w, assets/screen-1440.webp 1440w" sizes="(max-width: 760px) 92vw, 48vw" width="1440" height="960" alt="Bình phong ba tấm phủ sơn cánh gián chuyển dần sang sương mù vỏ trứng và bạc quỳ ở chân bình phong" loading="lazy">
+              <span class="artifact-hover-pill" data-i18n="inspectArtifact">Hồ sơ hiện vật +</span>
+            </span>
+            <span class="artifact-caption">
+              <span class="artifact-title-row">
+                <strong data-i18n="screenTitle">Bình Phong Sương Sớm</strong>
+                <span class="artifact-dims" data-no-translate>165 × 172 × 3.2 cm</span>
+              </span>
+              <span class="artifact-summary" data-i18n="screenSummary">Ba tấm bình phong nối bằng bản lề đồng thau ẩn. Mật độ vỏ trứng và bạc quỳ dày dần về phía chân như sương sớm mặt hồ.</span>
+            </span>
+            <span class="list-arrow" aria-hidden="true">+</span>
+          </button>
+        </article>
+
+        <!-- S.04: Mother of Pearl Tray -->
+        <article class="artifact-card" data-id="tray" data-category="object">
+          <button type="button" class="artifact-trigger" data-open-artifact="tray" aria-haspopup="dialog">
+            <span class="artifact-meta-top">
+              <span class="catalog-code" data-no-translate>S.04 / KHẢM ỐC CHUYÊN MỸ</span>
+              <span class="curing-tag" data-i18n="trayCure">11 lớp · 74 ngày</span>
+            </span>
+            <span class="artifact-media">
+              <img src="assets/tray-960.webp" srcset="assets/tray-480.webp 480w, assets/tray-960.webp 960w, assets/tray-1440.webp 1440w" sizes="(max-width: 760px) 84vw, 36vw" width="1200" height="1200" alt="Khay trà sơn đen mài đá mờ với những đường chỉ khảm trai ánh xanh tím" loading="lazy">
+              <span class="artifact-hover-pill" data-i18n="inspectArtifact">Hồ sơ hiện vật +</span>
+            </span>
+            <span class="artifact-caption">
+              <span class="artifact-title-row">
+                <strong data-i18n="trayTitle">Khay Trà Khảm Ốc</strong>
+                <span class="artifact-dims" data-no-translate>48 × 30 × 4.5 cm</span>
+              </span>
+              <span class="artifact-summary" data-i18n="traySummary">Bề mặt sơn then mài đá suối giữ độ mờ nhung, nổi bật những đường chỉ vỏ trai ánh xanh lục cắt mảnh chưa tới một phần mười milimét.</span>
+            </span>
+            <span class="list-arrow" aria-hidden="true">+</span>
+          </button>
+        </article>
+      </div>
+    </section>
+
+    <!-- SECTION 03: WARM GIẤY DÓ PAPER INTERLUDE (THE HUMID CURING ROOM) -->
+    <section class="curing-notebook" id="ghi-chep" aria-labelledby="notebook-title">
+      <div class="notebook-inner">
+        <div class="notebook-header">
+          <span class="notebook-kicker" data-i18n="notebookKicker">02 / GHI CHÉP XƯỞNG · NGHỊCH LÝ CỦA SƠN TA</span>
+          <h2 id="notebook-title" data-i18n="notebookTitle">Sơn chỉ khô khi ở trong bóng tối và hơi nước.</h2>
+          <p class="notebook-lead" data-i18n="notebookLead">
+            Khác với sơn công nghiệp bay hơi ngoài nắng, nhựa cây sơn vùng đồi Phú Thọ cần độ ẩm trên 80% và bóng tối tĩnh lặng của buồng ủ để kết mạng phân tử thành lớp men vĩnh cửu.
+          </p>
+        </div>
+
+        <ol class="process-ledger" aria-label="Quy trình 90 ngày làm sơn mài">
+          <li>
+            <span class="ledger-days" data-i18n="phase1Days">NGÀY 01–18</span>
+            <h3 data-i18n="phase1Title">Hom vóc &amp; Bó vải</h3>
+            <p data-i18n="phase1Desc">Cốt gỗ được bọc vải màn trộn đất phù sa sông Hồng đã nung và nhựa sơn sống, tạo lớp vỏ chịu nhiệt và chống nứt qua hàng chục năm.</p>
+          </li>
+          <li>
+            <span class="ledger-days" data-i18n="phase2Days">NGÀY 19–52</span>
+            <h3 data-i18n="phase2Title">Chôn sắc &amp; Ủ ẩm</h3>
+            <p data-i18n="phase2Desc">Vỏ trứng, vàng quỳ, bạc lá và ốc xà cừ được gắn thủ công rồi phủ kín dưới nhiều lượt sơn then và sơn son. Mỗi lớp nghỉ ba ngày trong buồng ủ treo vải ướt.</p>
+          </li>
+          <li>
+            <span class="ledger-days" data-i18n="phase3Days">NGÀY 53–90</span>
+            <h3 data-i18n="phase3Title">Mài nước &amp; Đánh bóng</h3>
+            <p data-i18n="phase3Desc">Người thợ dùng đá mài nhám cùng nước sạch xoa đều cho tới khi các tầng khảm dần hiện ra, cuối cùng xoa phấn đá và đánh bóng bằng chính lòng bàn tay.</p>
+          </li>
+        </ol>
+
+        <div class="notebook-footer">
+          <div class="provenance-note">
+            <strong data-i18n="provTitle">Nguồn nguyên liệu bản địa</strong>
+            <p data-i18n="provCopy">Nhựa sơn ta Tam Nông (Phú Thọ) · Vàng quỳ Kiêu Kỵ (Gia Lâm) · Ốc xà cừ Chuyên Mỹ · Xưởng chế tác tại Hạ Thái, Thường Tín, Hà Nội.</p>
+          </div>
+          <a class="notebook-cta" href="#bang-mau">
+            <span data-i18n="notebookCta">Thử phối tấm mẫu của riêng bạn</span>
+            <span aria-hidden="true">↓</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 04: INTERACTIVE BESPOKE FINISH & PLAQUE COMPOSER -->
+    <section class="composer-section" id="bang-mau" aria-labelledby="composer-title">
+      <div class="section-header">
+        <div>
+          <p class="eyebrow" data-i18n="composerEyebrow">03 / BẢNG MẪU VẬT LIỆU · DÀNH CHO KIẾN TRÚC SƯ &amp; NGƯỜI SƯU TẦM</p>
+          <h2 id="composer-title" data-i18n="composerTitle">Phối một tấm mẫu sơn ta.</h2>
+        </div>
+        <p class="section-intro" data-i18n="composerIntro">
+          Trước khi thực hiện một mặt bàn hay vách bình phong, xưởng luôn làm trước một tấm mẫu 18 × 12 cm. Chọn sắc nền, kỹ thuật khảm và độ sâu vết mài để xem trước và lưu thông số kỹ thuật.
+        </p>
+      </div>
+
+      <div class="composer-workspace">
+        <!-- Left: Live Plaque Canvas & Spec Readout -->
+        <div class="plaque-stage">
+          <div class="plaque-frame">
+            <canvas id="plaque-canvas" width="760" height="520" aria-label="Bản xem trước tấm mẫu sơn mài theo cấu hình đã chọn"></canvas>
+            <div class="plaque-brass-tag">
+              <span id="plaque-serial" data-no-translate>SON · SPEC #S26-THEN-EGG</span>
+              <span id="plaque-dimensions" data-no-translate>180 × 120 × 14 MM</span>
+            </div>
+          </div>
+          <div class="plaque-metrics" aria-live="polite">
+            <div>
+              <span data-i18n="metricLayersLabel">TỔNG SỐ LỚP SƠN</span>
+              <strong id="metric-layers">14 lớp</strong>
+            </div>
+            <div>
+              <span data-i18n="metricCureLabel">THỜI GIAN Ủ &amp; MÀI</span>
+              <strong id="metric-days">92 ngày</strong>
+            </div>
+            <div>
+              <span data-i18n="metricSheenLabel">ĐỘ PHẢN XẠ ÁNH SÁNG</span>
+              <strong id="metric-sheen">Bóng sâu (88 GU)</strong>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right: Configuration Controls -->
+        <div class="composer-controls">
+          <fieldset class="control-group">
+            <legend><span class="step-idx">01</span> <span data-i18n="stepBaseLabel">Sắc nền chủ đạo (Base Coat)</span></legend>
+            <div class="option-grid" role="radiogroup" aria-label="Sắc nền sơn mài">
+              <button type="button" class="swatch-option is-selected" data-base="then" aria-pressed="true">
+                <i style="--c:#161311"></i>
+                <strong data-i18n="baseThen">Sơn Then</strong>
+                <small data-i18n="baseThenSub">Đen thẳm truyền thống</small>
+              </button>
+              <button type="button" class="swatch-option" data-base="son" aria-pressed="false">
+                <i style="--c:#a82b1e"></i>
+                <strong data-i18n="baseSon">Sơn Son</strong>
+                <small data-i18n="baseSonSub">Đỏ chu sa trầm</small>
+              </button>
+              <button type="button" class="swatch-option" data-base="canh-gian" aria-pressed="false">
+                <i style="--c:#6e3619"></i>
+                <strong data-i18n="baseAmber">Cánh Gián</strong>
+                <small data-i18n="baseAmberSub">Nâu hổ phách trong</small>
+              </button>
+              <button type="button" class="swatch-option" data-base="reu" aria-pressed="false">
+                <i style="--c:#243328"></i>
+                <strong data-i18n="baseMoss">Men Rêu</strong>
+                <small data-i18n="baseMossSub">Lục trầm cổ độ</small>
+              </button>
+            </div>
+          </fieldset>
+
+          <fieldset class="control-group">
+            <legend><span class="step-idx">02</span> <span data-i18n="stepInlayLabel">Lớp khảm chìm (Buried Inlay)</span></legend>
+            <div class="option-grid" role="radiogroup" aria-label="Kỹ thuật khảm chìm">
+              <button type="button" class="inlay-option is-selected" data-inlay="eggshell" aria-pressed="true">
+                <strong data-i18n="inlayEgg">Vỏ trứng rạn</strong>
+                <small data-i18n="inlayEggSub">Mảng sáng ngà tự nhiên</small>
+              </button>
+              <button type="button" class="inlay-option" data-inlay="gold" aria-pressed="true">
+                <strong data-i18n="inlayGold">Vàng quỳ 24K</strong>
+                <small data-i18n="inlayGoldSub">Bụi vàng chìm dưới sơn</small>
+              </button>
+              <button type="button" class="inlay-option" data-inlay="pearl" aria-pressed="false">
+                <strong data-i18n="inlayPearl">Khảm trai xanh</strong>
+                <small data-i18n="inlayPearlSub">Chỉ ốc xà cừ ánh ngũ sắc</small>
+              </button>
+              <button type="button" class="inlay-option" data-inlay="pure" aria-pressed="false">
+                <strong data-i18n="inlayPure">Sơn trơn mộc</strong>
+                <small data-i18n="inlayPureSub">Chỉ giữ chiều sâu nhựa sơn</small>
+              </button>
+            </div>
+          </fieldset>
+
+          <fieldset class="control-group">
+            <legend><span class="step-idx">03</span> <span data-i18n="stepFinishLabel">Độ hoàn thiện bề mặt (Surface Honing)</span></legend>
+            <div class="finish-toggle-row">
+              <button type="button" class="finish-option is-selected" data-finish="mirror" aria-pressed="true">
+                <strong data-i18n="finishMirror">Đánh bóng lòng bàn tay</strong>
+                <small data-i18n="finishMirrorSub">Mặt gương sâu, phản chiếu ánh sáng phòng</small>
+              </button>
+              <button type="button" class="finish-option" data-finish="matte" aria-pressed="false">
+                <strong data-i18n="finishMatte">Mài đá suối mờ</strong>
+                <small data-i18n="finishMatteSub">Mờ nhung tĩnh lặng, không chói sáng</small>
+              </button>
+            </div>
+          </fieldset>
+
+          <div class="control-group slider-group">
+            <div class="slider-header">
+              <label for="reveal-slider"><span class="step-idx">04</span> <span data-i18n="stepRevealLabel">Độ sâu vết mài lộ vân</span></label>
+              <output id="reveal-output" for="reveal-slider">55%</output>
+            </div>
+            <input id="reveal-slider" type="range" min="15" max="90" value="55">
+          </div>
+
+          <div class="composer-cta-row">
+            <button type="button" class="primary-btn" id="save-plaque-btn">
+              <span data-i18n="savePlaqueBtn">Lưu tấm mẫu vào sổ</span>
+              <span aria-hidden="true">+</span>
+            </button>
+            <button type="button" class="secondary-btn" id="export-plaque-btn">
+              <span data-i18n="exportPlaqueBtn">Tải phiếu mẫu PNG</span>
+              <span aria-hidden="true">↓</span>
+            </button>
+          </div>
+          <p class="composer-feedback" id="composer-feedback" role="status" aria-live="polite"></p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-top">
+      <div>
+        <a class="footer-wordmark" href="#top" data-no-translate>SON</a>
+        <p class="footer-tagline" data-i18n="footerTagline">Xưởng sơn mài &amp; vật dụng đương đại · Hà Nội, Việt Nam.</p>
+      </div>
+      <div class="footer-links">
+        <a href="#ban-mai" data-i18n="navStrata">01 / Bàn mài nước</a>
+        <a href="#hien-vat" data-i18n="navWorks">02 / Hiện vật</a>
+        <a href="#bang-mau" data-i18n="navPlaque">04 / Bảng mẫu</a>
+        <a href="CREDITS.md" data-i18n="creditsLink">Nguồn tư liệu &amp; thiết kế</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p data-i18n="footerDisclaimer">
+        SON là một dự án concept độc lập do Lucas Nguyen thiết kế và lập trình nhằm trình diễn nghệ thuật chỉ đạo hình ảnh và tương tác web. Mọi thông số và sổ mẫu chỉ lưu trên trình duyệt của bạn.
+      </p>
+      <a href="/hidden/" data-i18n="backToHidden">Tất cả bản đề xuất tại /hidden/ →</a>
+    </div>
+  </footer>
+
+  <!-- DIALOG 01: ARTIFACT DOSSIER -->
+  <dialog class="studio-dialog artifact-dialog" id="artifact-dialog" aria-labelledby="dialog-artifact-title">
+    <div class="dialog-topbar">
+      <span id="dialog-artifact-code" data-no-translate>S.01 / HỒ SƠ HIỆN VẬT</span>
+      <button type="button" class="dialog-close" id="close-artifact-dialog" aria-label="Đóng hồ sơ">
+        <span data-i18n="closeBtn">Đóng</span> <span aria-hidden="true">×</span>
+      </button>
+    </div>
+    <div class="dialog-artifact-grid">
+      <div class="dialog-artifact-media">
+        <img id="dialog-artifact-img" src="assets/table-960.webp" width="960" height="640" alt="">
+      </div>
+      <div class="dialog-artifact-body">
+        <p class="eyebrow" id="dialog-artifact-category">NỘI THẤT SƠN MÀI</p>
+        <h2 id="dialog-artifact-title">Bàn Trà Tĩnh Mặc</h2>
+        <p class="dialog-artifact-desc" id="dialog-artifact-desc"></p>
+        <dl class="dialog-spec-list">
+          <div>
+            <dt data-i18n="dialogDimLabel">Kích thước</dt>
+            <dd id="dialog-artifact-dims" data-no-translate></dd>
+          </div>
+          <div>
+            <dt data-i18n="dialogCoreLabel">Cốt vóc</dt>
+            <dd id="dialog-artifact-core"></dd>
+          </div>
+          <div>
+            <dt data-i18n="dialogStrataLabel">Các tầng sơn</dt>
+            <dd id="dialog-artifact-strata"></dd>
+          </div>
+          <div>
+            <dt data-i18n="dialogTimeLabel">Thời gian hoàn thiện</dt>
+            <dd id="dialog-artifact-time"></dd>
+          </div>
+        </dl>
+        <button type="button" class="primary-btn full-width" id="dialog-save-artifact" aria-pressed="false">
+          <span id="dialog-save-label">Lưu hiện vật vào sổ mẫu</span>
+          <span aria-hidden="true">+</span>
+        </button>
+        <p class="dialog-status" id="dialog-artifact-status" role="status" aria-live="polite"></p>
+      </div>
+    </div>
+  </dialog>
+
+  <!-- DIALOG 02: SHORTLIST & COMMISSION PREVIEW -->
+  <dialog class="studio-dialog shortlist-dialog" id="shortlist-dialog" aria-labelledby="shortlist-dialog-title">
+    <div class="dialog-topbar">
+      <span data-i18n="shortlistTopbar">SỔ MẪU &amp; YÊU CẦU TƯ VẤN</span>
+      <button type="button" class="dialog-close" id="close-shortlist-dialog" aria-label="Đóng sổ mẫu">
+        <span data-i18n="closeBtn">Đóng</span> <span aria-hidden="true">×</span>
+      </button>
+    </div>
+    <div class="shortlist-body">
+      <h2 id="shortlist-dialog-title" data-i18n="shortlistTitle">Sổ mẫu của bạn.</h2>
+      <p class="shortlist-sub" data-i18n="shortlistSub">Những hiện vật và tấm mẫu sơn ta bạn đã lưu trong phiên xem này.</p>
+      <div id="shortlist-items" class="shortlist-items"></div>
+      <div id="shortlist-inquiry-wrap" class="shortlist-inquiry" hidden>
+        <label for="shortlist-note" data-i18n="inquiryNoteLabel">Bản nháp yêu cầu gửi xưởng (tự động tổng hợp)</label>
+        <textarea id="shortlist-note" rows="5"></textarea>
+        <div class="shortlist-actions">
+          <button type="button" class="primary-btn" id="copy-shortlist-btn">
+            <span data-i18n="copyNoteBtn">Sao chép nội dung</span>
+            <span aria-hidden="true">+</span>
+          </button>
+          <button type="button" class="text-btn" id="clear-shortlist-btn" data-i18n="clearShortlistBtn">Xóa tất cả</button>
+        </div>
+        <p class="copy-feedback" id="copy-shortlist-status" role="status" aria-live="polite"></p>
+      </div>
+      <p class="demo-disclaimer" data-i18n="shortlistDisclaimer">
+        Đây là bản mô phỏng tương tác. Không có thông tin hay đơn đặt hàng nào được gửi đi khỏi trình duyệt của bạn.
+      </p>
+    </div>
+  </dialog>
+</body>
+</html>

@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 620">
+  <defs>
+    <radialGradient id="amberGlow" cx="46%" cy="48%" r="54%">
+      <stop offset="0%" stop-color="#b83224" stop-opacity="0.72"/>
+      <stop offset="45%" stop-color="#5c2216" stop-opacity="0.88"/>
+      <stop offset="100%" stop-color="#120f0d" stop-opacity="1"/>
+    </radialGradient>
+    <linearGradient id="sheen" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#f2ece1" stop-opacity="0.14"/>
+      <stop offset="45%" stop-color="#c99a49" stop-opacity="0.06"/>
+      <stop offset="100%" stop-color="#120f0d" stop-opacity="0.4"/>
+    </linearGradient>
+  </defs>
+  <rect width="900" height="620" fill="#120f0d"/>
+  <rect x="28" y="28" width="844" height="564" fill="url(#amberGlow)" stroke="#3d302a" stroke-width="1"/>
+  <ellipse cx="430" cy="305" rx="250" ry="155" fill="none" stroke="#c99a49" stroke-opacity="0.4" stroke-width="1.5"/>
+  <ellipse cx="445" cy="310" rx="170" ry="98" fill="#1a1412" fill-opacity="0.65" stroke="#f2ece1" stroke-opacity="0.35" stroke-width="1"/>
+  <g fill="#f2ece1" fill-opacity="0.82">
+    <polygon points="380,280 394,275 398,289 383,292"/>
+    <polygon points="403,276 418,273 421,286 405,288"/>
+    <polygon points="424,282 436,279 439,291 426,294"/>
+    <polygon points="392,296 408,293 411,306 395,309"/>
+    <polygon points="415,294 431,291 434,305 418,307"/>
+    <polygon points="442,286 455,283 458,296 445,299"/>
+  </g>
+  <g fill="#c99a49" fill-opacity="0.75">
+    <circle cx="348" cy="318" r="2.5"/>
+    <circle cx="362" cy="304" r="1.8"/>
+    <circle cx="472" cy="296" r="2.2"/>
+    <circle cx="488" cy="312" r="3"/>
+    <circle cx="465" cy="326" r="1.6"/>
+    <circle cx="375" cy="330" r="2"/>
+  </g>
+  <rect x="28" y="28" width="844" height="564" fill="url(#sheen)"/>
+</svg>
