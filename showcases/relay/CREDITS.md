@@ -16,7 +16,7 @@ The scan sweep is original CSS.
 
 ## Images
 
-**Run It Forward** uses six original AI-generated key visuals in `assets/campaign/` (full-size, 480px and 960px WebP). RELAY is a fictional brand and the athletes are fictional. Generation brief and cleanup prompts are in [IMAGE-PROMPTS.md](IMAGE-PROMPTS.md). `assets/preview.webp` is a browser capture of the page.
+**Run It Forward** uses six original AI-generated 3:2 key visuals in `assets/campaign/` (`1536 × 1024`, `960 × 640` and `480 × 320` WebP), shot to a raw 35mm flash night-running brief set on wet streets and bridges in Vietnam. RELAY is a fictional brand and the athletes are fictional. Generation brief is in [IMAGE-PROMPTS.md](IMAGE-PROMPTS.md). `assets/preview.webp` is a browser capture of the page.
 
 JetBrains Mono loads from Google Fonts for display type and controls; body copy uses the system sans.
 

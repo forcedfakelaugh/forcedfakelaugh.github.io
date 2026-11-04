@@ -10,18 +10,18 @@ import { createDecrypted } from './text-and-spark.js';
 const ACCENT = '#ff9f2e';
 const base = './assets/campaign/';
 const frames = [
-  { slug: 'start', wearing: 'Curfew Singlet, Wetline 09', name: 'Go anyway.', w: 1536, h: 1024, alt: 'A sprinter in black kit with amber details bursts from a crouch on a wet city street at night.', note: 'The day took everything. Take the road back.' },
-  { slug: 'stride', wearing: 'Last Light Short, Wetline 09', name: 'Keep your own time.', w: 1024, h: 1536, alt: 'A woman in a black crop top and shorts runs under sodium streetlights, the skyline blurred behind her.', note: 'No crowd. No finish line. Just the next streetlight.' },
-  { slug: 'relay', wearing: 'Sodium Shell', name: 'Pass it on.', w: 1536, h: 1024, alt: 'One runner passes an amber baton to another across a blurred, rain-wet street.', note: 'Someone got you out the door. Get someone else out.' },
-  { slug: 'kit', wearing: 'Sodium Shell', name: 'Let it rain.', w: 1536, h: 1024, alt: 'Close view of rain beading on a black ripstop running jacket with amber piping at the collar and sleeve.', note: 'The shell sheds the weather. The amber line keeps you seen.' },
-  { slug: 'shoe', wearing: 'Wetline 09', name: 'Own the wet streets.', w: 1536, h: 1024, alt: 'A black and amber running shoe strikes a wet road, with water spray frozen by flash.', note: 'Grip for roads that never quite dry.' },
-  { slug: 'crew', wearing: 'The Night Collection', name: 'Never alone.', w: 1536, h: 1024, alt: 'Three runners in matching black and amber kit cross a concrete overpass at dusk, the skyline behind them.', note: "Somewhere in this city, someone's already running." }
+  { slug: 'start', wearing: 'Curfew Singlet, Wetline 09', name: 'First kilometer.', w: 1536, h: 1024, alt: 'A Vietnamese runner in a matte-black singlet with an amber shoulder seam launches across a rain-slicked street at night.', note: 'The first ten minutes are always heavy. Your legs still carry the desk, the traffic, the noise. Keep moving until your breathing takes over.' },
+  { slug: 'stride', wearing: 'Last Light Short, Wetline 09', name: 'Sodium cadence.', w: 1536, h: 1024, alt: 'A woman in black running kit with amber piping runs mid-stride across a wet concrete bridge under streaking sodium streetlights.', note: 'Forget the watch on your wrist. Count lampposts across the bridge, settle into the humidity, and hold the line to the far ramp.' },
+  { slug: 'relay', wearing: 'Sodium Shell', name: 'No solo miles.', w: 1536, h: 1024, alt: 'Close-up of one runner\u2019s rain-wet hand passing a matte signal-amber baton to another runner in motion at night.', note: 'A text at 8:30 is the only reason you laced up tonight. Tomorrow night, you\u2019ll be the one waiting at the corner.' },
+  { slug: 'kit', wearing: 'Sodium Shell', name: 'Warm rain.', w: 1536, h: 1024, alt: 'Macro detail of rain beading on a black micro-grid ripstop running jacket with a signal-amber seam along the collar and shoulder.', note: 'A late downpour clears the sidewalks in five minutes. Grid ripstop keeps the wind off your chest; one amber seam catches every headlight.' },
+  { slug: 'shoe', wearing: 'Wetline 09', name: 'Painted asphalt.', w: 1536, h: 1024, alt: 'Low-angle flash shot of an unbranded black and signal-amber running shoe splashing through a puddle on dark wet asphalt.', note: 'Crosswalk paint, steel bridge joints, puddles hiding in the dark. Soft-compound lugs bite where worn road shoes slip.' },
+  { slug: 'crew', wearing: 'The Night Collection', name: 'Bridge pack.', w: 1536, h: 1024, alt: 'Three Vietnamese runners in black kit with signal-amber seams running together across a wet city overpass at night.', note: 'Three people holding 4:45 pace over the overpass don\u2019t need to talk. You just match footsteps and let the city fall behind.' }
 ];
 const products = [
-  { name: 'Sodium Shell', type: 'Jacket', price: '$148', frame: 3, position: '60% 40%' },
-  { name: 'Curfew Singlet', type: 'Top', price: '$58', frame: 0, position: '60% 30%' },
-  { name: 'Last Light Short', type: 'Short', price: '$64', frame: 1, position: '50% 50%' },
-  { name: 'Wetline 09', type: 'Shoe', price: '$165', frame: 4, position: '40% 60%' }
+  { name: 'Sodium Shell', type: 'Ripstop Shell', price: '$148', frame: 3, position: '55% 50%' },
+  { name: 'Curfew Singlet', type: 'Mesh Singlet', price: '$58', frame: 0, position: '58% 35%' },
+  { name: 'Last Light Short', type: 'Split Short', price: '$64', frame: 1, position: '48% 55%' },
+  { name: 'Wetline 09', type: 'Road Shoe', price: '$165', frame: 4, position: '52% 55%' }
 ];
 const srcset = frame => `${base}${frame.slug}-480.webp 480w, ${base}${frame.slug}-960.webp 960w`;
 const t = text => window.showcaseLanguage?.translate(text) ?? text;
@@ -191,7 +191,7 @@ $('#book').href = `mailto:${atob('bHVjYXNuZ3V5ZW4uc2hAZ21haWwuY29t')}?subject=${
 
 /* ---------------- Language-dependent rendering ---------------- */
 function applyLanguage(animate = false) {
-  heroLine.set(t('Run it forward.'), animate);
+  heroLine.set(t('The late shift runs on foot.'), animate);
   carousel.setLabels(i => t(frames[i].name));
   renderCaption(carousel.index, animate);
   window.showcaseLanguage?.refresh();
@@ -199,4 +199,4 @@ function applyLanguage(animate = false) {
 window.addEventListener('showcase-language', () => applyLanguage(false));
 
 applyLanguage(false);
-heroLine.set(t('Run it forward.'), true);
+heroLine.set(t('The late shift runs on foot.'), true);
