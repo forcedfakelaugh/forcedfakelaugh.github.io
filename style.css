@@ -197,6 +197,7 @@ h2 { font: 500 clamp(30px, 4vw, 42px)/1.15 var(--nav); letter-spacing: -1.2px; }
 .about-card { background: var(--card); border-radius: var(--radius); box-shadow: var(--shadow); padding: clamp(28px, 5vw, 56px); display: grid; grid-template-columns: 1fr 1fr; gap: 20px 56px; }
 .about-card h2 { grid-column: 1 / -1; }
 .about-card p { font-size: 18px; }
+.about-card .about-past { margin-top: 16px; font-size: 15px; color: var(--muted); }
 .services { list-style: none; padding: 0; }
 .services li { display: flex; gap: 16px; align-items: baseline; padding: 12px 0; border-bottom: 1px solid var(--divider); font-weight: 500; }
 .services li:last-child { border-bottom: 0; }
